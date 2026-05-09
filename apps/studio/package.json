@@ -1,0 +1,27 @@
+{
+  "name": "studio",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Bosfoot Sanity Studio — content admin",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@sanity/vision": "^5.24.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sanity": "^5.24.0",
+    "styled-components": "^6.1.13"
+  },
+  "devDependencies": {
+    "@sanity/eslint-config-studio": "^5.0.0",
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "typescript": "^5.7.0"
+  }
+}

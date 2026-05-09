@@ -1,0 +1,138 @@
+{
+  "brands": [
+    {
+      "slug": "xero-shoes",
+      "name": "Xero Shoes",
+      "countryOfOrigin": "US",
+      "yearFounded": 2009,
+      "websiteUrl": "https://xeroshoes.eu",
+      "featured": true,
+      "order": 1,
+      "description": {
+        "mk": "Американски бренд за босоноги патики основан во 2009 година во Колорадо. Xero Shoes прават патики и сандали со широк простор за прстите, нула надолен пад и тенки флексибилни ѓонови.",
+        "sq": "Markë amerikane e këpucëve barefoot, e themeluar në vitin 2009 në Kolorado. Xero Shoes prodhon këpucë dhe sandale me hapësirë të gjerë për gishtërinjtë, zero drop dhe shollë të hollë fleksibël.",
+        "en": "American barefoot shoe brand founded in 2009 in Colorado. Xero Shoes makes shoes and sandals with wide toe boxes, zero drop, and thin flexible soles."
+      },
+      "sizeChart": {
+        "measurementType": "footLengthMM",
+        "rows": [
+          { "sizeEU": 36, "lengthMM": 225 },
+          { "sizeEU": 37, "lengthMM": 230 },
+          { "sizeEU": 38, "lengthMM": 235 },
+          { "sizeEU": 39, "lengthMM": 245 },
+          { "sizeEU": 40, "lengthMM": 250 },
+          { "sizeEU": 41, "lengthMM": 260 },
+          { "sizeEU": 42, "lengthMM": 270 },
+          { "sizeEU": 43, "lengthMM": 280 },
+          { "sizeEU": 44, "lengthMM": 290 },
+          { "sizeEU": 45, "lengthMM": 300 },
+          { "sizeEU": 46, "lengthMM": 310 }
+        ],
+        "notes": {
+          "mk": "Должините се за стапалото. Xero препорачува околу 12-15мм слободен простор пред најдолгиот прст. Ако сте помеѓу две големини, изберете ја поголемата.",
+          "sq": "Gjatësitë janë për këmbën. Xero rekomandon rreth 12-15mm hapësirë para gishtit më të gjatë. Nëse jeni midis dy madhësive, zgjidhni më të madhen.",
+          "en": "Lengths refer to your foot. Xero recommends about 12-15mm of space in front of your longest toe. If you're between two sizes, pick the larger one."
+        }
+      }
+    }
+  ],
+
+  "categories": [
+    {
+      "slug": "running",
+      "order": 1,
+      "name": {
+        "mk": "Трчање",
+        "sq": "Vrapim",
+        "en": "Running"
+      }
+    },
+    {
+      "slug": "training",
+      "order": 2,
+      "name": {
+        "mk": "Тренинг",
+        "sq": "Trajnim",
+        "en": "Training"
+      }
+    },
+    {
+      "slug": "casual",
+      "order": 3,
+      "name": {
+        "mk": "Секојдневни",
+        "sq": "Të përditshme",
+        "en": "Casual"
+      }
+    }
+  ],
+
+  "products": [
+    {
+      "sku": "XR-HFS2",
+      "brandSlug": "xero-shoes",
+      "categorySlugs": ["running", "training"],
+      "name": {
+        "mk": "Xero Shoes HFS II",
+        "sq": "Xero Shoes HFS II",
+        "en": "Xero Shoes HFS II"
+      },
+      "shortDescription": {
+        "mk": "Лесна патика за трчање со широк простор за прстите, тенок флексибилен ѓон и одличен grip.",
+        "sq": "Këpucë e lehtë vrapimi me hapësirë të gjerë për gishtërinjtë, shollë të hollë fleksibël dhe grip të shkëlqyer.",
+        "en": "Lightweight running shoe with a wide toe box, thin flexible sole, and excellent grip."
+      },
+      "price": 7900,
+      "brandProductUrl": "https://xeroshoes.eu/products/hfs-ii-mens",
+      "highlights": [
+        { "mk": "Веганско", "sq": "Vegan", "en": "Vegan" },
+        { "mk": "Дишливо плетиво", "sq": "Pëlhurë e ajrosur", "en": "Breathable knit upper" },
+        { "mk": "5,000-милна гаранција на ѓонот", "sq": "Garanci 5,000 milje për shollën", "en": "5,000-mile sole warranty" }
+      ],
+      "specs": {
+        "soleThicknessMM": 8,
+        "weightGrams": 215,
+        "waterproof": false,
+        "insulation": false,
+        "insoleRemovable": true,
+        "closure": "laces",
+        "vegan": true,
+        "madeIn": "VN"
+      },
+      "activities": ["running", "training"],
+      "featured": true,
+      "newArrival": true,
+      "status": "active",
+      "variants": [
+        {
+          "sizeEU": 40,
+          "color": { "mk": "Црна", "sq": "E zezë", "en": "Black" },
+          "colorHex": "#1a1a1a",
+          "stock": 3,
+          "sku": "XR-HFS2-BLK-40"
+        },
+        {
+          "sizeEU": 41,
+          "color": { "mk": "Црна", "sq": "E zezë", "en": "Black" },
+          "colorHex": "#1a1a1a",
+          "stock": 5,
+          "sku": "XR-HFS2-BLK-41"
+        },
+        {
+          "sizeEU": 42,
+          "color": { "mk": "Црна", "sq": "E zezë", "en": "Black" },
+          "colorHex": "#1a1a1a",
+          "stock": 4,
+          "sku": "XR-HFS2-BLK-42"
+        },
+        {
+          "sizeEU": 43,
+          "color": { "mk": "Црна", "sq": "E zezë", "en": "Black" },
+          "colorHex": "#1a1a1a",
+          "stock": 2,
+          "sku": "XR-HFS2-BLK-43"
+        }
+      ]
+    }
+  ]
+}
