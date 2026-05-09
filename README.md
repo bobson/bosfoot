@@ -25,20 +25,9 @@ bosfoot/
 
 ## Prerequisites
 
-- **Node.js 20** specifically (not 22+ — Sanity CLI has issues with newer Node versions)
-- pnpm 9+ (`pnpm --version`) — install with `npm install -g pnpm`
+- Node.js 20.19+ or 22+ (`node --version`)
+- pnpm 10+ (`pnpm --version`) — install with `npm install -g pnpm`
 - A free Sanity account (sign up at sanity.io)
-
-### Installing Node 20 with nvm (recommended on Linux/macOS)
-
-```bash
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
-# restart your terminal, then:
-nvm install 20
-nvm use 20
-```
-
-The `.nvmrc` file in this repo pins the version, so `nvm use` (with no argument) will pick the right one when you `cd` into the project.
 
 ## First-time setup
 
