@@ -1,0 +1,55 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import ProductsListing from '@/components/react/ProductsListing.tsx'
+import { type Locale, LOCALES, t } from '@/lib/i18n'
+import { getSiteSettings, getAllProducts } from '@/lib/queries'
+import { urlFor } from '@/lib/sanity'
+import type { ProductCard } from '@/lib/queries'
+
+export async function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }))
+}
+
+const { lang } = Astro.params
+const locale = lang as Locale
+
+const [siteSettings, products] = await Promise.all([
+  getSiteSettings(),
+  getAllProducts(),
+])
+
+/**
+ * Pre-compute image URLs server-side and attach to each product.
+ * We can't pass `urlFor()` (a function) to a React island because props
+ * must be JSON-serializable. So we resolve the image URLs here and ship
+ * plain strings to the client.
+ */
+export type ProductForListing = ProductCard & { mainImageUrl?: string }
+
+const productsForClient: ProductForListing[] = products.map((p) => ({
+  ...p,
+  mainImageUrl: p.mainImage
+    ? urlFor(p.mainImage).width(600).height(600).quality(80).format('webp').url()
+    : undefined,
+}))
+
+const pageTitle = t('listing.title', locale)
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  siteSettings={siteSettings}
+>
+  <div class="container-page py-12 md:py-16">
+    <h1 class="text-3xl md:text-4xl font-semibold tracking-tight mb-8">
+      {pageTitle}
+    </h1>
+
+    <ProductsListing
+      products={productsForClient}
+      locale={locale}
+      client:load
+    />
+  </div>
+</BaseLayout>

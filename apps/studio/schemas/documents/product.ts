@@ -200,6 +200,25 @@ export const product = defineType({
       group: 'main',
     }),
 
+    // ── Gender / target wearer ──────────────────────────────
+    defineField({
+      name: 'gender',
+      title: 'Gender / target wearer',
+      type: 'string',
+      options: {
+        list: [
+          { title: "Men's", value: 'mens' },
+          { title: "Women's", value: 'womens' },
+          { title: 'Unisex', value: 'unisex' },
+          { title: 'Kids', value: 'kids' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'unisex',
+      group: 'main',
+      validation: (Rule) => Rule.required(),
+    }),
+
     // ── Status ──────────────────────────────────────────────
     defineField({
       name: 'status',

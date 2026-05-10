@@ -1,0 +1,146 @@
+---
+import { type Locale, t, pickLocale, localePath } from '@/lib/i18n'
+import { urlFor } from '@/lib/sanity'
+import type { SiteSettings } from '@/lib/queries'
+
+interface Props {
+  locale: Locale
+  siteSettings: SiteSettings | null
+}
+
+const { locale, siteSettings } = Astro.props
+const home = siteSettings?.homepage
+
+// Title/subtitle: prefer Sanity values; otherwise show a localized default
+const title = pickLocale(home?.heroTitle, locale) ?? defaultTitle(locale)
+const subtitle = pickLocale(home?.heroSubtitle, locale) ?? defaultSubtitle(locale)
+
+function defaultTitle(loc: Locale): string {
+  return loc === 'mk' ? 'Слободни чекори' : loc === 'sq' ? 'Hapa të lirë' : 'Free your step'
+}
+function defaultSubtitle(loc: Locale): string {
+  return loc === 'mk'
+    ? 'Поврзи се со природата под твоите стапала.'
+    : loc === 'sq'
+    ? 'Lidhu me natyrën nën këmbët e tua.'
+    : 'Reconnect with the ground beneath you.'
+}
+
+/**
+ * Hero images.
+ * For now we use the single Sanity heroImage (if set) and fall back to placeholders.
+ * When you upload 2-3 hero images to Sanity, we'll evolve this to a real array.
+ *
+ * The auto-rotation is CSS-only: each image is a layer with delayed @keyframes
+ * opacity. No JS, no libraries, no layout shift — just pure CSS swapping every 5s.
+ */
+const heroImageUrl = home?.heroImage
+  ? urlFor(home.heroImage).width(1920).quality(80).format('webp').url()
+  : null
+
+// In v1 we'll use up to 3 images. If only 1 exists, no rotation; just static.
+const slides = heroImageUrl
+  ? [heroImageUrl]
+  : [
+      // Placeholder gradients — replaced by real images via Sanity
+      'placeholder-1',
+      'placeholder-2',
+      'placeholder-3',
+    ]
+
+const isStatic = slides.length === 1
+---
+
+<section class="relative w-full overflow-hidden bg-[var(--color-bg-secondary)]" aria-label="Hero">
+  <!-- Image layers — stacked absolutely, each fades in for its window then out -->
+  <div class="absolute inset-0">
+    {slides.map((slide, i) => (
+      <div
+        class={`hero-slide ${isStatic ? 'static' : ''}`}
+        style={`--i: ${i}; --total: ${slides.length};`}
+      >
+        {slide.startsWith('placeholder')
+          ? <div class={`w-full h-full hero-placeholder hero-placeholder-${i}`} aria-hidden="true"></div>
+          : <img
+              src={slide}
+              alt=""
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchpriority={i === 0 ? 'high' : 'auto'}
+              class="w-full h-full object-cover"
+              aria-hidden="true"
+            />
+        }
+      </div>
+    ))}
+    <!-- Subtle gradient overlay for text contrast over photos -->
+    <div class="absolute inset-0 bg-gradient-to-r from-white/85 via-white/40 to-transparent pointer-events-none"></div>
+  </div>
+
+  <!-- Hero content -->
+  <div class="container-page relative z-10 py-24 md:py-32 lg:py-40">
+    <div class="max-w-2xl">
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-4 leading-tight">
+        {title}
+      </h1>
+      <p class="text-base md:text-lg text-[var(--color-ink-muted)] mb-8 max-w-md leading-relaxed">
+        {subtitle}
+      </p>
+      <div class="flex gap-3">
+        <a href={localePath(locale, 'products')} class="btn btn-primary">
+          {t('cta.shopNow', locale)}
+        </a>
+        <a href={localePath(locale, 'sizeGuide')} class="btn btn-secondary">
+          {t('nav.sizeGuide', locale)}
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Each hero slide is positioned absolutely. The slideshow rotates by giving
+     each slide an opacity animation that's offset by its index.
+
+     For 3 slides at 15s total cycle:
+       Slide 0:  visible 0-5s,  fading 5-7s
+       Slide 1:  visible 5-10s, fading 10-12s
+       Slide 2:  visible 10-15s, fading 15-17s
+  */
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: hero-rotate calc(5s * var(--total)) infinite;
+    animation-delay: calc(5s * var(--i));
+  }
+
+  .hero-slide.static {
+    opacity: 1;
+    animation: none;
+  }
+
+  @keyframes hero-rotate {
+    0%, 5% { opacity: 0; }
+    7%, 33% { opacity: 1; }
+    40%, 100% { opacity: 0; }
+  }
+
+  /* Placeholders — simple solid-tone variations until real images arrive */
+  .hero-placeholder {
+    background: linear-gradient(135deg, #f2f0eb, #fafaf8);
+  }
+  .hero-placeholder-0 { background: #f2f0eb; }
+  .hero-placeholder-1 { background: #ece8df; }
+  .hero-placeholder-2 { background: #e8e2d4; }
+
+  /* Respect users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide {
+      animation: none;
+      opacity: 1;
+    }
+    .hero-slide:not(:first-child) {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,124 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import Hero from '@/components/astro/Hero.astro'
+import ProductCard from '@/components/astro/ProductCard.astro'
+import { type Locale, LOCALES, t, localePath, pickLocale } from '@/lib/i18n'
+import {
+  getSiteSettings,
+  getFeaturedProducts,
+  getNewArrivals,
+  getFeaturedBrands,
+} from '@/lib/queries'
+import { urlFor } from '@/lib/sanity'
+
+/* Generate one static homepage per locale at build time. */
+export async function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }))
+}
+
+const { lang } = Astro.params
+const locale = lang as Locale
+
+// Parallel data fetch — three independent queries
+const [siteSettings, featured, newArrivals, brands] = await Promise.all([
+  getSiteSettings(),
+  getFeaturedProducts(),
+  getNewArrivals(),
+  getFeaturedBrands(),
+])
+
+console.log({ featuredCount: featured.length, brandsCount: brands.length, newArrivalsCount: newArrivals.length })
+
+const siteName = siteSettings?.siteName ?? 'Bosfoot'
+const tagline = pickLocale(siteSettings?.tagline, locale) ?? ''
+const pageTitle = siteName
+const pageDescription = tagline
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  description={pageDescription}
+  siteSettings={siteSettings}
+>
+
+  <Hero locale={locale} siteSettings={siteSettings} />
+
+  <!-- Featured products -->
+  {featured.length > 0 && (
+    <section class="container-page py-16 md:py-24">
+      <div class="flex items-end justify-between mb-8">
+        <h2 class="text-2xl md:text-3xl font-semibold tracking-tight">
+          {t('section.featured', locale)}
+        </h2>
+        <a
+          href={localePath(locale, 'products')}
+          class="text-sm text-[var(--color-ink-muted)] hover:text-[var(--color-accent)] transition-colors"
+        >
+          {t('cta.viewAll', locale)} →
+        </a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-12">
+        {featured.map((product) => (
+          <ProductCard product={product} locale={locale} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Brand strip -->
+  {brands.length > 0 && (
+    <section class="bg-[var(--color-bg-secondary)] py-16 md:py-24 border-y border-[var(--color-border-subtle)]">
+      <div class="container-page">
+        <h2 class="text-xl md:text-2xl font-semibold tracking-tight mb-8 text-center">
+          {t('section.brands', locale)}
+        </h2>
+        <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-8">
+          {brands.map((brand) => (
+            <a
+              href={`${localePath(locale, 'brands')}/${brand.slug.current}`}
+              class="group flex flex-col items-center gap-2 hover:opacity-80 transition-opacity"
+            >
+              {brand.logo ? (
+                <img
+                  src={urlFor(brand.logo).height(60).format('webp').url()}
+                  alt={brand.name}
+                  height="40"
+                  class="h-10 object-contain"
+                  loading="lazy"
+                />
+              ) : (
+                <span class="text-base font-medium text-[var(--color-ink)] group-hover:text-[var(--color-accent)] transition-colors">
+                  {brand.name}
+                </span>
+              )}
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- New arrivals -->
+  {newArrivals.length > 0 && (
+    <section class="container-page py-16 md:py-24">
+      <div class="flex items-end justify-between mb-8">
+        <h2 class="text-2xl md:text-3xl font-semibold tracking-tight">
+          {t('section.newArrivals', locale)}
+        </h2>
+        <a
+          href={localePath(locale, 'products')}
+          class="text-sm text-[var(--color-ink-muted)] hover:text-[var(--color-accent)] transition-colors"
+        >
+          {t('cta.viewAll', locale)} →
+        </a>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-12">
+        {newArrivals.map((product) => (
+          <ProductCard product={product} locale={locale} />
+        ))}
+      </div>
+    </section>
+  )}
+
+</BaseLayout>

@@ -85,6 +85,8 @@ export type CatalogProduct = {
   activities?: Array<
     'running' | 'hiking' | 'casual' | 'training' | 'water' | 'winter' | 'office' | 'kids'
   >
+  /** Target wearer — used for gender-based browsing and filtering */
+  gender?: 'mens' | 'womens' | 'unisex' | 'kids'
   status?: 'draft' | 'active' | 'outOfStock' | 'archived'
   featured?: boolean
   newArrival?: boolean

@@ -25,7 +25,7 @@ bosfoot/
 
 ## Prerequisites
 
-- Node.js 20.19+ or 22+ (`node --version`)
+- Node.js 22+ (`node --version`)
 - pnpm 10+ (`pnpm --version`) — install with `npm install -g pnpm`
 - A free Sanity account (sign up at sanity.io)
 

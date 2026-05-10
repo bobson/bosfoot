@@ -1,0 +1,175 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import ProductCard from '@/components/astro/ProductCard.astro'
+import { type Locale, LOCALES, t, pickLocale } from '@/lib/i18n'
+import {
+  getSiteSettings,
+  getBrand,
+  getProductsByBrand,
+  getAllBrandSlugs,
+} from '@/lib/queries'
+import { urlFor } from '@/lib/sanity'
+
+/**
+ * Generate one page per (locale × brand) combination at build time.
+ * E.g. /mk/brendovi/xero-shoes, /sq/markat/xero-shoes, /en/brands/xero-shoes
+ */
+export async function getStaticPaths() {
+  const slugs = await getAllBrandSlugs()
+  return LOCALES.flatMap((lang) =>
+    slugs.map((slug) => ({
+      params: { lang, slug },
+    })),
+  )
+}
+
+const { lang, slug } = Astro.params
+const locale = lang as Locale
+
+const [siteSettings, brand, products] = await Promise.all([
+  getSiteSettings(),
+  getBrand(slug!),
+  getProductsByBrand(slug!),
+])
+
+if (!brand) {
+  return Astro.redirect(`/${locale}/`)
+}
+
+const description = pickLocale(brand.description, locale)
+const measurementLabel = brand.sizeChart?.measurementType === 'insoleLengthMM'
+  ? t('brand.sizeChart.measureInsole', locale)
+  : t('brand.sizeChart.measureFoot', locale)
+const sizeChartNotes = pickLocale(brand.sizeChart?.notes, locale)
+---
+
+<BaseLayout
+  locale={locale}
+  title={brand.name}
+  description={description}
+  siteSettings={siteSettings}
+>
+
+  <!-- Brand header -->
+  <section class="container-page pt-12 md:pt-16 pb-8 md:pb-12">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
+
+      <!-- Logo / image column -->
+      <div class="md:col-span-4">
+        {brand.logo ? (
+          <img
+            src={urlFor(brand.logo).width(400).format('webp').url()}
+            alt={brand.name}
+            class="max-h-32 w-auto"
+          />
+        ) : (
+          <div class="text-2xl font-semibold tracking-tight">{brand.name}</div>
+        )}
+      </div>
+
+      <!-- Info column -->
+      <div class="md:col-span-8">
+        <h1 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">{brand.name}</h1>
+        {description && (
+          <p class="text-base text-[var(--color-ink-muted)] mb-6 leading-relaxed max-w-prose">
+            {description}
+          </p>
+        )}
+
+        <div class="flex flex-wrap gap-x-8 gap-y-3 text-sm">
+          {brand.countryOfOrigin && (
+            <div>
+              <div class="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider mb-0.5">
+                {t('brand.from', locale)}
+              </div>
+              <div>{brand.countryOfOrigin}</div>
+            </div>
+          )}
+          {brand.yearFounded && (
+            <div>
+              <div class="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider mb-0.5">
+                {t('brand.foundedIn', locale)}
+              </div>
+              <div>{brand.yearFounded}</div>
+            </div>
+          )}
+          {brand.websiteUrl && (
+            <div>
+              <div class="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider mb-0.5">
+                {t('brand.officialSite', locale)}
+              </div>
+              <a
+                href={brand.websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] underline"
+              >
+                {new URL(brand.websiteUrl).hostname.replace('www.', '')} ↗
+              </a>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Size chart -->
+  {brand.sizeChart && brand.sizeChart.rows && brand.sizeChart.rows.length > 0 && (
+    <section class="bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-subtle)]">
+      <div class="container-page py-12">
+        <h2 class="text-xl md:text-2xl font-semibold tracking-tight mb-2">
+          {t('brand.sizeChart', locale)}
+        </h2>
+        {sizeChartNotes && (
+          <p class="text-sm text-[var(--color-ink-muted)] mb-6 max-w-prose leading-relaxed">
+            {sizeChartNotes}
+          </p>
+        )}
+        <div class="overflow-x-auto -mx-5 md:-mx-8">
+          <table class="min-w-full text-sm border-collapse">
+            <thead>
+              <tr class="text-left">
+                <th class="px-3 md:px-6 py-3 font-medium uppercase tracking-wider text-xs text-[var(--color-ink-muted)] border-b border-[var(--color-border-default)]">
+                  EU
+                </th>
+                <th class="px-3 md:px-6 py-3 font-medium uppercase tracking-wider text-xs text-[var(--color-ink-muted)] border-b border-[var(--color-border-default)]">
+                  {measurementLabel} (mm)
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {brand.sizeChart.rows
+                .slice()
+                .sort((a, b) => a.sizeEU - b.sizeEU)
+                .map((row) => (
+                  <tr class="hover:bg-white transition-colors">
+                    <td class="px-3 md:px-6 py-2 border-b border-[var(--color-border-subtle)] font-medium">
+                      {row.sizeEU}
+                    </td>
+                    <td class="px-3 md:px-6 py-2 border-b border-[var(--color-border-subtle)] text-[var(--color-ink-muted)]">
+                      {row.lengthMM}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Products from this brand -->
+  {products.length > 0 && (
+    <section class="container-page py-16 md:py-24">
+      <h2 class="text-xl md:text-2xl font-semibold tracking-tight mb-8">
+        {t('listing.title', locale)} — {brand.name}
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-12">
+        {products.map((product) => (
+          <ProductCard product={product} locale={locale} />
+        ))}
+      </div>
+    </section>
+  )}
+
+</BaseLayout>

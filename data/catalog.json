@@ -86,8 +86,16 @@
       "brandProductUrl": "https://xeroshoes.eu/products/hfs-ii-mens",
       "highlights": [
         { "mk": "Веганско", "sq": "Vegan", "en": "Vegan" },
-        { "mk": "Дишливо плетиво", "sq": "Pëlhurë e ajrosur", "en": "Breathable knit upper" },
-        { "mk": "5,000-милна гаранција на ѓонот", "sq": "Garanci 5,000 milje për shollën", "en": "5,000-mile sole warranty" }
+        {
+          "mk": "Дишливо плетиво",
+          "sq": "Pëlhurë e ajrosur",
+          "en": "Breathable knit upper"
+        },
+        {
+          "mk": "5,000-милна гаранција на ѓонот",
+          "sq": "Garanci 5,000 milje për shollën",
+          "en": "5,000-mile sole warranty"
+        }
       ],
       "specs": {
         "soleThicknessMM": 8,
@@ -100,6 +108,7 @@
         "madeIn": "VN"
       },
       "activities": ["running", "training"],
+      "gender": "mens",
       "featured": true,
       "newArrival": true,
       "status": "active",

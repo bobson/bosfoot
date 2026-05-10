@@ -1,0 +1,85 @@
+---
+import '@/styles/global.css'
+import Header from '@/components/astro/Header.astro'
+import Footer from '@/components/astro/Footer.astro'
+import { type Locale, t, pickLocale } from '@/lib/i18n'
+import type { SiteSettings } from '@/lib/queries'
+
+interface Props {
+  locale: Locale
+  title: string
+  description?: string
+  siteSettings: SiteSettings | null
+  ogImage?: string
+}
+
+const { locale, title, description, siteSettings, ogImage } = Astro.props
+
+const langAttr = locale === 'mk' ? 'mk' : locale === 'sq' ? 'sq' : 'en'
+const fullTitle = title === siteSettings?.siteName ? title : `${title} — ${siteSettings?.siteName ?? 'Bosfoot'}`
+const fallbackDescription = pickLocale(siteSettings?.tagline, locale)
+const metaDescription = description ?? fallbackDescription ?? ''
+---
+
+<!doctype html>
+<html lang={langAttr}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    {metaDescription && <meta name="description" content={metaDescription} />}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={fullTitle} />
+    {metaDescription && <meta property="og:description" content={metaDescription} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.toString()} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+
+    <!-- Inter font from Google Fonts. Subsetted to Latin + Cyrillic since
+         we use both. The unicode-range fallback ensures Albanian's accented
+         characters fall back to Latin Extended. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap&subset=latin,latin-ext,cyrillic"
+    />
+
+    <!-- Favicon — we'll add a real one later -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    {siteSettings?.announcement?.enabled && siteSettings.announcement.text && (
+      <div
+        class="bg-ink text-bg-primary text-center text-sm py-2 px-4"
+        role="region"
+        aria-label="Announcement"
+      >
+        {siteSettings.announcement.link ? (
+          <a href={siteSettings.announcement.link}>
+            {pickLocale(siteSettings.announcement.text, locale)}
+          </a>
+        ) : (
+          <span>{pickLocale(siteSettings.announcement.text, locale)}</span>
+        )}
+      </div>
+    )}
+
+    <Header locale={locale} siteSettings={siteSettings} />
+
+    <main>
+      <slot />
+    </main>
+
+    <Footer locale={locale} siteSettings={siteSettings} />
+  </body>
+</html>
+
+<style is:global>
+  /* Quick utility additions Tailwind doesn't cover by default in v4 */
+  .bg-ink { background: var(--color-ink); }
+  .text-bg-primary { color: var(--color-bg-primary); }
+</style>
