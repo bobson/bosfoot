@@ -68,6 +68,7 @@ function buildBrandDoc(b: CatalogBrand): SanityDoc {
     countryOfOrigin: b.countryOfOrigin,
     yearFounded: b.yearFounded,
     websiteUrl: b.websiteUrl,
+    sizingGuideUrl: b.sizingGuideUrl,
     description: b.description ? { _type: 'localeText', ...b.description } : undefined,
     sizeChart: b.sizeChart
       ? {

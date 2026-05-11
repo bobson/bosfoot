@@ -10,9 +10,14 @@ interface Props {
 const { specs, locale } = Astro.props;
 
 /**
- * Spec table.
- * Only renders rows for fields that have values — no "—" placeholders for missing data.
- * Pairs nicely with the buy panel: spec table goes below the gallery + buy panel.
+ * Spec table — only the decision-influencing specs.
+ *
+ * Deeper detail (sock construction, TPU plates, marketing copy) belongs on
+ * the brand's own product page, which we link to from the buy panel.
+ * Listing every micro-feature here just creates noise that scales badly
+ * across multiple brands.
+ *
+ * Only renders rows for fields that have values.
  */
 
 type Row = { label: string; value: string };

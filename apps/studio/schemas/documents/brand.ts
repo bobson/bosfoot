@@ -55,6 +55,14 @@ export const brand = defineType({
       type: 'url',
     }),
     defineField({
+      name: 'sizingGuideUrl',
+      title: "Brand's official size guide URL",
+      type: 'url',
+      description:
+        'Direct link to the brand\'s own size guide page (e.g. xeroshoes.eu/pages/sizing). ' +
+        'Shown in our size chart modal as "Read full guide on brand site".',
+    }),
+    defineField({
       name: 'yearFounded',
       title: 'Year founded',
       type: 'number',

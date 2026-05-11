@@ -197,6 +197,7 @@ export type BrandDetail = {
   countryOfOrigin?: string
   yearFounded?: number
   websiteUrl?: string
+  sizingGuideUrl?: string
   description?: { mk?: string; sq?: string; en?: string }
   sizeChart?: {
     measurementType: 'footLengthMM' | 'insoleLengthMM'
@@ -214,6 +215,7 @@ const BRAND_DETAIL_QUERY = `
     countryOfOrigin,
     yearFounded,
     websiteUrl,
+    sizingGuideUrl,
     description,
     sizeChart
   }
@@ -322,6 +324,7 @@ export type ProductDetail = {
     countryOfOrigin?: string
     yearFounded?: number
     websiteUrl?: string
+    sizingGuideUrl?: string
     logo?: SanityImage
     description?: { mk?: string; sq?: string; en?: string }
     sizeChart?: SizeChart
@@ -358,6 +361,7 @@ const PRODUCT_DETAIL_QUERY = `
       countryOfOrigin,
       yearFounded,
       websiteUrl,
+      sizingGuideUrl,
       logo,
       description,
       sizeChart

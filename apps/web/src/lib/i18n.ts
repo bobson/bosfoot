@@ -397,16 +397,6 @@ export const ui: UIStrings = {
   },
 
   // Size chart modal
-  'sizeChart.enterFootLength': {
-    mk: 'Внеси ја должината на стапалото',
-    sq: 'Shkruani gjatësinë e këmbës',
-    en: 'Enter your foot length',
-  },
-  'sizeChart.recommended': {
-    mk: 'Препорачана големина:',
-    sq: 'Madhësia e rekomanduar:',
-    en: 'Recommended size:',
-  },
   'sizeChart.howToMeasure': {
     mk: 'Како да измериш',
     sq: 'Si të masësh',
@@ -416,6 +406,31 @@ export const ui: UIStrings = {
     mk: 'Стави го стапалото на лист хартија, нацртај го контурата и измери ја најдолгата точка (од петицата до најдолгиот прст).',
     sq: 'Vendos këmbën në një fletë letër, vizato konturin dhe mat pikën më të gjatë (nga thembra te gishti më i gjatë).',
     en: 'Place your foot on a sheet of paper, trace the outline, and measure the longest point (heel to longest toe).',
+  },
+  'sizeChart.needHelp': {
+    mk: 'Не си сигурен за големината?',
+    sq: 'Nuk je i sigurt për madhësinë?',
+    en: 'Not sure which size?',
+  },
+  'sizeChart.helpDescription': {
+    mk: 'Големината зависи од моделот, типот на чорапи и личната преференца. Контактирај нѐ и ќе ти помогнеме да ја избереш вистинската големина.',
+    sq: 'Madhësia varet nga modeli, lloji i çorapeve dhe preferenca personale. Na kontakto dhe do të të ndihmojmë të zgjedhësh madhësinë e duhur.',
+    en: 'Sizing varies by model, sock type, and personal preference. Contact us and we\'ll help you pick the right size.',
+  },
+  'sizeChart.contactUs': {
+    mk: 'Контактирај нѐ',
+    sq: 'Na kontakto',
+    en: 'Contact us',
+  },
+  'sizeChart.officialGuide': {
+    mk: 'Официјален водич',
+    sq: 'Udhëzues zyrtar',
+    en: 'Official guide',
+  },
+  'sizeChart.helpEmail': {
+    mk: 'contact@bosfoot.com',
+    sq: 'contact@bosfoot.com',
+    en: 'contact@bosfoot.com',
   },
 
   // Product detail page
@@ -468,6 +483,26 @@ export const ui: UIStrings = {
     mk: 'Тежина',
     sq: 'Pesha',
     en: 'Weight',
+  },
+  'detail.specs.withInsole': {
+    mk: 'со влошка',
+    sq: 'me sole',
+    en: 'with insole',
+  },
+  'detail.specs.mens': {
+    mk: 'машки',
+    sq: 'burra',
+    en: "men's",
+  },
+  'detail.specs.womens': {
+    mk: 'женски',
+    sq: 'gra',
+    en: "women's",
+  },
+  'detail.specs.reflective': {
+    mk: 'Рефлектирачки елементи',
+    sq: 'Elemente reflektues',
+    en: 'Reflective elements',
   },
   'detail.specs.closure': {
     mk: 'Закопчување',

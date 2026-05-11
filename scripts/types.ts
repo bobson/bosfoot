@@ -29,6 +29,7 @@ export type CatalogBrand = {
   countryOfOrigin?: string
   yearFounded?: number
   websiteUrl?: string
+  sizingGuideUrl?: string
   description?: LocaleText
   sizeChart?: SizeChart
   featured?: boolean
