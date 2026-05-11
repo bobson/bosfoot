@@ -395,6 +395,165 @@ export const ui: UIStrings = {
     sq: 'Gjatësia e shollës',
     en: 'Insole length',
   },
+
+  // Size chart modal
+  'sizeChart.enterFootLength': {
+    mk: 'Внеси ја должината на стапалото',
+    sq: 'Shkruani gjatësinë e këmbës',
+    en: 'Enter your foot length',
+  },
+  'sizeChart.recommended': {
+    mk: 'Препорачана големина:',
+    sq: 'Madhësia e rekomanduar:',
+    en: 'Recommended size:',
+  },
+  'sizeChart.howToMeasure': {
+    mk: 'Како да измериш',
+    sq: 'Si të masësh',
+    en: 'How to measure',
+  },
+  'sizeChart.measureInstructions': {
+    mk: 'Стави го стапалото на лист хартија, нацртај го контурата и измери ја најдолгата точка (од петицата до најдолгиот прст).',
+    sq: 'Vendos këmbën në një fletë letër, vizato konturin dhe mat pikën më të gjatë (nga thembra te gishti më i gjatë).',
+    en: 'Place your foot on a sheet of paper, trace the outline, and measure the longest point (heel to longest toe).',
+  },
+
+  // Product detail page
+  'detail.size': {
+    mk: 'Големина',
+    sq: 'Madhësia',
+    en: 'Size',
+  },
+  'detail.color': {
+    mk: 'Боја',
+    sq: 'Ngjyra',
+    en: 'Color',
+  },
+  'detail.selectSize': {
+    mk: 'Избери големина',
+    sq: 'Zgjidh madhësinë',
+    en: 'Select a size',
+  },
+  'detail.sizeGuide': {
+    mk: 'Водич за големини',
+    sq: 'Udhëzues përmasash',
+    en: 'Size guide',
+  },
+  'detail.lowStock': {
+    mk: 'Останати само',
+    sq: 'Mbeten vetëm',
+    en: 'Only',
+  },
+  'detail.lowStockSuffix': {
+    mk: 'парчиња',
+    sq: 'palë',
+    en: 'left',
+  },
+  'detail.moreFromBrand': {
+    mk: 'Повеќе на официјалната страница',
+    sq: 'Më shumë në faqen zyrtare',
+    en: 'More info on official site',
+  },
+  'detail.specs': {
+    mk: 'Спецификации',
+    sq: 'Specifikimet',
+    en: 'Specifications',
+  },
+  'detail.specs.soleThickness': {
+    mk: 'Дебелина на ѓонот',
+    sq: 'Trashësia e shollës',
+    en: 'Sole thickness',
+  },
+  'detail.specs.weight': {
+    mk: 'Тежина',
+    sq: 'Pesha',
+    en: 'Weight',
+  },
+  'detail.specs.closure': {
+    mk: 'Закопчување',
+    sq: 'Mbyllja',
+    en: 'Closure',
+  },
+  'detail.specs.upperMaterial': {
+    mk: 'Горен материјал',
+    sq: 'Materiali i sipërm',
+    en: 'Upper material',
+  },
+  'detail.specs.soleMaterial': {
+    mk: 'Материјал на ѓонот',
+    sq: 'Materiali i shollës',
+    en: 'Sole material',
+  },
+  'detail.specs.lining': {
+    mk: 'Подлога',
+    sq: 'Astarit',
+    en: 'Lining',
+  },
+  'detail.specs.vegan': {
+    mk: 'Веганско',
+    sq: 'Vegan',
+    en: 'Vegan',
+  },
+  'detail.specs.waterproof': {
+    mk: 'Водоотпорно',
+    sq: 'I papërshkueshëm nga uji',
+    en: 'Waterproof',
+  },
+  'detail.specs.insulation': {
+    mk: 'Изолирано',
+    sq: 'I izoluar',
+    en: 'Insulated',
+  },
+  'detail.specs.insoleRemovable': {
+    mk: 'Влошка',
+    sq: 'Soletë',
+    en: 'Insole',
+  },
+  'detail.specs.removable': {
+    mk: 'извадлива',
+    sq: 'e lëvizshme',
+    en: 'removable',
+  },
+  'detail.specs.madeIn': {
+    mk: 'Произведено во',
+    sq: 'Prodhuar në',
+    en: 'Made in',
+  },
+  'detail.closure.laces': {
+    mk: 'Врвки',
+    sq: 'Lidhëse',
+    en: 'Laces',
+  },
+  'detail.closure.velcro': {
+    mk: 'Лепенка',
+    sq: 'Velcro',
+    en: 'Velcro',
+  },
+  'detail.closure.slipOn': {
+    mk: 'Без врвки',
+    sq: 'Pa lidhëse',
+    en: 'Slip-on',
+  },
+  'detail.closure.elastic': {
+    mk: 'Еластика',
+    sq: 'Elastike',
+    en: 'Elastic',
+  },
+  'detail.closure.buckle': {
+    mk: 'Тока',
+    sq: 'Tokë',
+    en: 'Buckle',
+  },
+  'detail.yes': {
+    mk: 'Да',
+    sq: 'Po',
+    en: 'Yes',
+  },
+  'detail.no': {
+    mk: 'Не',
+    sq: 'Jo',
+    en: 'No',
+  },
 }
 
 /** Look up a UI string for a locale. Falls back to mk if missing. */

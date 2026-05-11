@@ -253,6 +253,136 @@ export async function getAllBrandSlugs(): Promise<string[]> {
   return sanity.fetch(ALL_BRAND_SLUGS_QUERY)
 }
 
+/* ─────────────────────────────────────────────────────────────────────
+   PRODUCT DETAIL — for /[lang]/products/[slug]/ pages
+   ───────────────────────────────────────────────────────────────────── */
+
+export type PortableTextBlock = {
+  _type: string
+  _key?: string
+  children?: Array<{ _type: string; text: string; marks?: string[] }>
+  style?: string
+  markDefs?: Array<{ _type: string; _key: string; href?: string }>
+  asset?: { _ref: string }
+}
+
+export type Variant = {
+  _key: string
+  sizeEU: number
+  color?: { mk?: string; sq?: string; en?: string }
+  colorHex?: string
+  stock: number
+  sku: string
+}
+
+export type SizeChart = {
+  measurementType: 'footLengthMM' | 'insoleLengthMM'
+  rows: Array<{ sizeEU: number; lengthMM: number }>
+  notes?: { mk?: string; sq?: string; en?: string }
+}
+
+export type ProductDetail = {
+  _id: string
+  sku: string
+  name: { mk?: string; sq?: string; en?: string }
+  slug: { mk?: { current: string }; sq?: { current: string }; en?: { current: string } }
+  price: number
+  compareAtPrice?: number
+  brandProductUrl?: string
+  shortDescription?: { mk?: string; sq?: string; en?: string }
+  description_mk?: PortableTextBlock[]
+  description_sq?: PortableTextBlock[]
+  description_en?: PortableTextBlock[]
+  highlights?: Array<{ _key?: string; mk?: string; sq?: string; en?: string }>
+  mainImage?: SanityImage
+  gallery?: SanityImage[]
+  variants: Variant[]
+  specs?: {
+    soleThicknessMM?: number
+    weightGrams?: number
+    waterproof?: boolean
+    insulation?: boolean
+    insoleRemovable?: boolean
+    closure?: string
+    upperMaterial?: { mk?: string; sq?: string; en?: string }
+    soleMaterial?: { mk?: string; sq?: string; en?: string }
+    lining?: { mk?: string; sq?: string; en?: string }
+    vegan?: boolean
+    madeIn?: string
+    sizingNotes?: { mk?: string; sq?: string; en?: string }
+  }
+  sizeChartOverride?: SizeChart
+  gender?: 'mens' | 'womens' | 'unisex' | 'kids'
+  activities?: string[]
+  status: 'draft' | 'active' | 'outOfStock' | 'archived'
+  brand: {
+    _id: string
+    name: string
+    slug: { current: string }
+    countryOfOrigin?: string
+    yearFounded?: number
+    websiteUrl?: string
+    logo?: SanityImage
+    description?: { mk?: string; sq?: string; en?: string }
+    sizeChart?: SizeChart
+  }
+}
+
+const PRODUCT_DETAIL_QUERY = `
+  *[_type == "product" && status == "active" &&
+    (slug.mk.current == $slug || slug.en.current == $slug || slug.sq.current == $slug)][0]{
+    _id,
+    sku,
+    name,
+    slug,
+    price,
+    compareAtPrice,
+    brandProductUrl,
+    shortDescription,
+    description_mk,
+    description_sq,
+    description_en,
+    highlights,
+    mainImage,
+    gallery,
+    "variants": variants[]{_key, sizeEU, color, colorHex, stock, sku},
+    specs,
+    sizeChartOverride,
+    gender,
+    activities,
+    status,
+    "brand": brand->{
+      _id,
+      name,
+      slug,
+      countryOfOrigin,
+      yearFounded,
+      websiteUrl,
+      logo,
+      description,
+      sizeChart
+    }
+  }
+`
+
+const ALL_PRODUCT_SLUGS_QUERY = `
+  *[_type == "product" && status == "active"]{
+    "mk": slug.mk.current,
+    "sq": slug.sq.current,
+    "en": slug.en.current
+  }
+`
+
+export async function getProductBySlug(slug: string): Promise<ProductDetail | null> {
+  return sanity.fetch(PRODUCT_DETAIL_QUERY, { slug })
+}
+
+export async function getAllProductSlugs(): Promise<
+  Array<{ mk?: string; sq?: string; en?: string }>
+> {
+  return sanity.fetch(ALL_PRODUCT_SLUGS_QUERY)
+}
+
 /** Helper to compute total stock across a product's variants */
 export function totalStock(product: Pick<ProductCard, 'variants'>): number {
   return product.variants.reduce((sum, v) => sum + (v.stock ?? 0), 0)

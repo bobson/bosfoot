@@ -1,0 +1,102 @@
+---
+import { type Locale, t, pickLocale } from "@/lib/i18n";
+import type { ProductDetail } from "@/lib/queries";
+
+interface Props {
+  specs: NonNullable<ProductDetail["specs"]>;
+  locale: Locale;
+}
+
+const { specs, locale } = Astro.props;
+
+/**
+ * Spec table.
+ * Only renders rows for fields that have values — no "—" placeholders for missing data.
+ * Pairs nicely with the buy panel: spec table goes below the gallery + buy panel.
+ */
+
+type Row = { label: string; value: string };
+const rows: Row[] = [];
+
+if (typeof specs.soleThicknessMM === "number") {
+  rows.push({
+    label: t("detail.specs.soleThickness", locale),
+    value: `${specs.soleThicknessMM} mm`,
+  });
+}
+if (typeof specs.weightGrams === "number") {
+  rows.push({
+    label: t("detail.specs.weight", locale),
+    value: `${specs.weightGrams} g`,
+  });
+}
+if (specs.closure) {
+  rows.push({
+    label: t("detail.specs.closure", locale),
+    value: t(`detail.closure.${specs.closure}`, locale),
+  });
+}
+const upperMat = pickLocale(specs.upperMaterial, locale);
+if (upperMat) {
+  rows.push({
+    label: t("detail.specs.upperMaterial", locale),
+    value: upperMat,
+  });
+}
+const soleMat = pickLocale(specs.soleMaterial, locale);
+if (soleMat) {
+  rows.push({ label: t("detail.specs.soleMaterial", locale), value: soleMat });
+}
+const lining = pickLocale(specs.lining, locale);
+if (lining) {
+  rows.push({ label: t("detail.specs.lining", locale), value: lining });
+}
+if (typeof specs.vegan === "boolean") {
+  rows.push({
+    label: t("detail.specs.vegan", locale),
+    value: specs.vegan ? t("detail.yes", locale) : t("detail.no", locale),
+  });
+}
+if (typeof specs.waterproof === "boolean") {
+  rows.push({
+    label: t("detail.specs.waterproof", locale),
+    value: specs.waterproof ? t("detail.yes", locale) : t("detail.no", locale),
+  });
+}
+if (typeof specs.insulation === "boolean" && specs.insulation) {
+  rows.push({
+    label: t("detail.specs.insulation", locale),
+    value: t("detail.yes", locale),
+  });
+}
+if (typeof specs.insoleRemovable === "boolean" && specs.insoleRemovable) {
+  rows.push({
+    label: t("detail.specs.insoleRemovable", locale),
+    value: t("detail.specs.removable", locale),
+  });
+}
+if (specs.madeIn) {
+  rows.push({
+    label: t("detail.specs.madeIn", locale),
+    value: specs.madeIn,
+  });
+}
+---
+
+{
+  rows.length > 0 && (
+    <section>
+      <h2 class="text-lg font-semibold tracking-tight mb-6">
+        {t("detail.specs", locale)}
+      </h2>
+      <dl class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-12">
+        {rows.map((row) => (
+          <div class="flex justify-between border-b border-[var(--color-border-subtle)] pb-2">
+            <dt class="text-sm text-[var(--color-ink-muted)]">{row.label}</dt>
+            <dd class="text-sm font-medium">{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  )
+}

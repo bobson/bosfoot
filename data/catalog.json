@@ -6,6 +6,7 @@
       "countryOfOrigin": "US",
       "yearFounded": 2009,
       "websiteUrl": "https://xeroshoes.eu",
+      "sizingGuideUrl": "https://xeroshoes.eu/pages/size-charts",
       "featured": true,
       "order": 1,
       "description": {
@@ -73,9 +74,9 @@
       "brandSlug": "xero-shoes",
       "categorySlugs": ["running", "training"],
       "name": {
-        "mk": "Xero Shoes HFS II",
-        "sq": "Xero Shoes HFS II",
-        "en": "Xero Shoes HFS II"
+        "mk": "HFS 2",
+        "sq": "HFS 2",
+        "en": "HFS 2"
       },
       "shortDescription": {
         "mk": "Лесна патика за трчање со широк простор за прстите, тенок флексибилен ѓон и одличен grip.",
@@ -83,7 +84,7 @@
         "en": "Lightweight running shoe with a wide toe box, thin flexible sole, and excellent grip."
       },
       "price": 7900,
-      "brandProductUrl": "https://xeroshoes.eu/products/hfs-ii-mens",
+      "brandProductUrl": "https://xeroshoes.eu/products/hfs-2-men",
       "highlights": [
         { "mk": "Веганско", "sq": "Vegan", "en": "Vegan" },
         {
@@ -98,7 +99,7 @@
         }
       ],
       "specs": {
-        "soleThicknessMM": 8,
+        "soleThicknessMM": 5.5,
         "weightGrams": 215,
         "waterproof": false,
         "insulation": false,

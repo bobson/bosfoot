@@ -1,0 +1,93 @@
+---
+import type { PortableTextBlock } from "@/lib/queries";
+import { urlFor } from "@/lib/sanity";
+
+interface Props {
+  blocks: PortableTextBlock[] | undefined;
+}
+
+const { blocks } = Astro.props;
+
+/**
+ * Lightweight Portable Text renderer.
+ * Handles: paragraphs, h2/h3, lists, bold/italic marks, images.
+ * Skips anything unknown rather than crashing.
+ *
+ * Why not @portabletext/react? It's React-only, adds 30KB+ for what amounts
+ * to ~50 lines of Astro template logic. Astro can render this with no JS.
+ */
+
+function isImageBlock(block: PortableTextBlock): boolean {
+  return block._type === "image" && !!block.asset?._ref;
+}
+---
+
+{
+  blocks && blocks.length > 0 && (
+    <div class="prose-bosfoot">
+      {blocks.map((block) => {
+        if (isImageBlock(block)) {
+          const url = urlFor({ asset: block.asset! })
+            .width(900)
+            .format("webp")
+            .url();
+          return (
+            <img src={url} alt="" loading="lazy" class="rounded-md my-6" />
+          );
+        }
+
+        const style = block.style ?? "normal";
+        const children = block.children ?? [];
+
+        const renderText = () =>
+          children.map((child) => {
+            const marks = child.marks ?? [];
+            let content: any = child.text;
+            if (marks.includes("strong")) content = <strong>{content}</strong>;
+            if (marks.includes("em")) content = <em>{content}</em>;
+            // Link marks reference markDefs by key
+            for (const m of marks) {
+              const def = block.markDefs?.find((d) => d._key === m);
+              if (def?._type === "link" && def.href) {
+                content = (
+                  <a
+                    href={def.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-[var(--color-accent)] underline hover:text-[var(--color-accent-hover)]"
+                  >
+                    {content}
+                  </a>
+                );
+              }
+            }
+            return content;
+          });
+
+        if (style === "h2")
+          return (
+            <h2 class="text-xl font-semibold mt-8 mb-3">{renderText()}</h2>
+          );
+        if (style === "h3")
+          return <h3 class="text-lg font-medium mt-6 mb-2">{renderText()}</h3>;
+        if (style === "blockquote")
+          return (
+            <blockquote class="border-l-2 border-[var(--color-accent)] pl-4 italic text-[var(--color-ink-muted)] my-4">
+              {renderText()}
+            </blockquote>
+          );
+        return <p class="leading-relaxed mb-4">{renderText()}</p>;
+      })}
+    </div>
+  )
+}
+
+<style>
+  .prose-bosfoot {
+    max-width: 65ch;
+    color: var(--color-ink);
+  }
+  .prose-bosfoot p {
+    font-size: 0.95rem;
+  }
+</style>

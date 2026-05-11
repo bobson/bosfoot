@@ -1,0 +1,159 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import SpecTable from "@/components/astro/SpecTable.astro";
+import PortableText from "@/components/astro/PortableText.astro";
+import ImageGallery from "@/components/react/ImageGallery.tsx";
+import BuyPanel from "@/components/react/BuyPanel.tsx";
+import { type Locale, LOCALES, t, pickLocale } from "@/lib/i18n";
+import {
+  getSiteSettings,
+  getProductBySlug,
+  getAllProductSlugs,
+} from "@/lib/queries";
+import { urlFor } from "@/lib/sanity";
+
+/**
+ * Generate one page per (locale × product slug) at build time.
+ * A product can have a different slug per language; we generate them all.
+ */
+export async function getStaticPaths() {
+  const slugSets = await getAllProductSlugs();
+  const paths: Array<{ params: { lang: Locale; slug: string } }> = [];
+  for (const set of slugSets) {
+    for (const lang of LOCALES) {
+      const slug = (set as Record<string, string | undefined>)[lang];
+      if (slug) paths.push({ params: { lang, slug } });
+    }
+  }
+  return paths;
+}
+
+const { lang, slug } = Astro.params;
+const locale = lang as Locale;
+
+const [siteSettings, product] = await Promise.all([
+  getSiteSettings(),
+  getProductBySlug(slug!),
+]);
+
+if (!product) {
+  return Astro.redirect(`/${locale}/products`);
+}
+
+const name = pickLocale(product.name, locale) ?? "Product";
+
+// Description for this locale (Portable Text)
+const descriptionBlocks =
+  locale === "mk"
+    ? product.description_mk
+    : locale === "sq"
+      ? product.description_sq
+      : product.description_en;
+
+// Build the gallery image array — main image first, then additional gallery images
+type GalleryImg = { url: string; thumbUrl: string; alt?: string };
+const galleryImages: GalleryImg[] = [];
+if (product.mainImage) {
+  galleryImages.push({
+    url: urlFor(product.mainImage).width(1200).quality(85).format("webp").url(),
+    thumbUrl: urlFor(product.mainImage)
+      .width(160)
+      .quality(70)
+      .format("webp")
+      .url(),
+    alt: name,
+  });
+}
+for (const img of product.gallery ?? []) {
+  galleryImages.push({
+    url: urlFor(img).width(1200).quality(85).format("webp").url(),
+    thumbUrl: urlFor(img).width(160).quality(70).format("webp").url(),
+    alt: name,
+  });
+}
+
+const ogImage = product.mainImage
+  ? urlFor(product.mainImage).width(1200).height(630).format("jpg").url()
+  : undefined;
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${product.brand.name} ${name}`}
+  description={pickLocale(product.shortDescription, locale)}
+  siteSettings={siteSettings}
+  ogImage={ogImage}
+>
+  <div class="container-page py-8 md:py-12">
+    <!-- Breadcrumb -->
+    <nav
+      class="text-xs text-[var(--color-ink-muted)] mb-6 flex items-center gap-2"
+      aria-label="Breadcrumb"
+    >
+      <a
+        href={`/${locale}/`}
+        class="hover:text-[var(--color-ink)] transition-colors"
+      >
+        Home
+      </a>
+      <span>›</span>
+      <a
+        href={`/${locale}/products`}
+        class="hover:text-[var(--color-ink)] transition-colors"
+      >
+        {t("nav.products", locale)}
+      </a>
+      <span>›</span>
+      <a
+        href={`/${locale}/brands/${product.brand.slug.current}`}
+        class="hover:text-[var(--color-ink)] transition-colors"
+      >
+        {product.brand.name}
+      </a>
+      <span>›</span>
+      <span class="text-[var(--color-ink)]">{name}</span>
+    </nav>
+
+    <!-- Main grid: gallery + sticky buy panel -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16">
+      <!-- Gallery -->
+      <div class="lg:col-span-7">
+        <ImageGallery images={galleryImages} productName={name} client:load />
+      </div>
+
+      <!-- Buy panel (sticky on desktop) -->
+      <div class="lg:col-span-5">
+        <div class="lg:sticky lg:top-24">
+          <BuyPanel product={product} locale={locale} client:load />
+        </div>
+      </div>
+    </div>
+
+    <!-- Description + Specs side by side on wide screens -->
+    <div
+      class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16 pt-8 border-t border-[var(--color-border-subtle)]"
+    >
+      {
+        descriptionBlocks && descriptionBlocks.length > 0 && (
+          <div class="lg:col-span-7">
+            <PortableText blocks={descriptionBlocks} />
+          </div>
+        )
+      }
+
+      {
+        product.specs && (
+          <div
+            class={
+              descriptionBlocks && descriptionBlocks.length > 0
+                ? "lg:col-span-5"
+                : "lg:col-span-12"
+            }
+          >
+            <SpecTable specs={product.specs} locale={locale} />
+          </div>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>
