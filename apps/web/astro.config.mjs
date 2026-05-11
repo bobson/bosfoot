@@ -21,7 +21,7 @@ import tailwindcss from "@tailwindcss/vite";
  */
 export default defineConfig({
   site: "https://bosfoot.com",
-  output: "hybrid",
+  output: "server",
   adapter: vercel(),
 
   integrations: [
