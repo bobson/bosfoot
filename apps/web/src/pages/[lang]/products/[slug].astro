@@ -72,6 +72,16 @@ for (const img of product.gallery ?? []) {
   });
 }
 
+// Smaller image URL for the cart drawer thumbnail
+const cartThumbnailUrl = product.mainImage
+  ? urlFor(product.mainImage)
+      .width(160)
+      .height(160)
+      .quality(75)
+      .format("webp")
+      .url()
+  : undefined;
+
 const ogImage = product.mainImage
   ? urlFor(product.mainImage).width(1200).height(630).format("jpg").url()
   : undefined;
@@ -124,7 +134,12 @@ const ogImage = product.mainImage
       <!-- Buy panel (sticky on desktop) -->
       <div class="lg:col-span-5">
         <div class="lg:sticky lg:top-24">
-          <BuyPanel product={product} locale={locale} client:load />
+          <BuyPanel
+            product={product}
+            locale={locale}
+            mainImageUrl={cartThumbnailUrl}
+            client:load
+          />
         </div>
       </div>
     </div>

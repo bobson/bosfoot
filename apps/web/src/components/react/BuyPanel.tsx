@@ -1,11 +1,14 @@
 import { useState, useMemo } from "react";
 import { type Locale, t, pickLocale, formatPrice } from "@/lib/i18n";
 import type { ProductDetail, SizeChart } from "@/lib/queries";
+import { addToCart, openCart } from "@/lib/cart";
 import SizeChartModal from "./SizeChartModal";
 
 interface Props {
   product: ProductDetail;
   locale: Locale;
+  /** Pre-resolved image URL — Astro frontmatter must compute this and pass it in */
+  mainImageUrl?: string;
 }
 
 /**
@@ -22,7 +25,7 @@ interface Props {
  *   - Only in-stock sizes are clickable
  *   - Add-to-cart is disabled until size is chosen
  */
-export default function BuyPanel({ product, locale }: Props) {
+export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
   // Effective size chart: product override > brand chart > undefined
   const sizeChart: SizeChart | undefined =
     product.sizeChartOverride ?? product.brand.sizeChart;
@@ -78,27 +81,34 @@ export default function BuyPanel({ product, locale }: Props) {
   const onAddToCart = () => {
     if (!selectedVariant) return;
     setAdding(true);
-    // For now just simulate — the cart drawer comes in the next session
-    // Will dispatch a custom event that the cart store can listen to
-    window.dispatchEvent(
-      new CustomEvent("cart:add", {
-        detail: {
-          productId: product._id,
-          productSku: product.sku,
-          variantSku: selectedVariant.sku,
-          variantKey: selectedVariant._key,
-          sizeEU: selectedVariant.sizeEU,
-          color: pickLocale(selectedVariant.color, locale) ?? "",
-          colorHex: selectedVariant.colorHex,
-          name: pickLocale(product.name, locale) ?? "",
-          brand: product.brand.name,
-          price: product.price,
-          image: undefined, // wire up later
-          quantity: 1,
-        },
-      }),
-    );
-    setTimeout(() => setAdding(false), 400);
+
+    const productSlug =
+      product.slug[locale]?.current ??
+      product.slug.mk?.current ??
+      product.slug.en?.current ??
+      product.sku.toLowerCase();
+
+    addToCart({
+      productId: product._id,
+      productSku: product.sku,
+      variantSku: selectedVariant.sku,
+      variantKey: selectedVariant._key,
+      sizeEU: selectedVariant.sizeEU,
+      color: pickLocale(selectedVariant.color, locale) ?? "",
+      colorHex: selectedVariant.colorHex,
+      name: pickLocale(product.name, locale) ?? "",
+      brand: product.brand.name,
+      brandSlug: product.brand.slug.current,
+      slug: productSlug,
+      price: product.price,
+      image: mainImageUrl,
+    });
+
+    // Brief confirmation flash, then open the drawer
+    setTimeout(() => {
+      setAdding(false);
+      openCart();
+    }, 250);
   };
 
   const onSale =

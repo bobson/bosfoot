@@ -292,7 +292,57 @@ export const ui: UIStrings = {
     en: 'Kids',
   },
 
-  // Filters / listing
+  // Cart drawer
+  'cart.title': {
+    mk: 'Кошничка',
+    sq: 'Shporta',
+    en: 'Cart',
+  },
+  'cart.empty': {
+    mk: 'Кошничката е празна.',
+    sq: 'Shporta është bosh.',
+    en: 'Your cart is empty.',
+  },
+  'cart.emptyCta': {
+    mk: 'Разгледај производи',
+    sq: 'Shfleto produktet',
+    en: 'Browse products',
+  },
+  'cart.size': {
+    mk: 'Големина',
+    sq: 'Madhësia',
+    en: 'Size',
+  },
+  'cart.subtotal': {
+    mk: 'Меѓузбир',
+    sq: 'Nën-totali',
+    en: 'Subtotal',
+  },
+  'cart.shippingNote': {
+    mk: 'Поштарината се пресметува при достава.',
+    sq: 'Transporti llogaritet në arkë.',
+    en: 'Shipping calculated at checkout.',
+  },
+  'cart.checkout': {
+    mk: 'Кон достава',
+    sq: 'Te arka',
+    en: 'Checkout',
+  },
+  'cart.continueShopping': {
+    mk: 'Продолжи со разгледување',
+    sq: 'Vazhdo blerjet',
+    en: 'Continue shopping',
+  },
+  'cart.remove': {
+    mk: 'Отстрани',
+    sq: 'Hiq',
+    en: 'Remove',
+  },
+  'cart.quantity': {
+    mk: 'Количина',
+    sq: 'Sasia',
+    en: 'Quantity',
+  },
   'filter.title': {
     mk: 'Филтри',
     sq: 'Filtra',
@@ -483,26 +533,6 @@ export const ui: UIStrings = {
     mk: 'Тежина',
     sq: 'Pesha',
     en: 'Weight',
-  },
-  'detail.specs.withInsole': {
-    mk: 'со влошка',
-    sq: 'me sole',
-    en: 'with insole',
-  },
-  'detail.specs.mens': {
-    mk: 'машки',
-    sq: 'burra',
-    en: "men's",
-  },
-  'detail.specs.womens': {
-    mk: 'женски',
-    sq: 'gra',
-    en: "women's",
-  },
-  'detail.specs.reflective': {
-    mk: 'Рефлектирачки елементи',
-    sq: 'Elemente reflektues',
-    en: 'Reflective elements',
   },
   'detail.specs.withInsole': {
     mk: 'со влошка',
