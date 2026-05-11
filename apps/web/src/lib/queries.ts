@@ -301,8 +301,12 @@ export type ProductDetail = {
   variants: Variant[]
   specs?: {
     soleThicknessMM?: number
+    soleThicknessWithInsoleMM?: number
     weightGrams?: number
+    weightGramsMens?: number
+    weightGramsWomens?: number
     waterproof?: boolean
+    reflective?: boolean
     insulation?: boolean
     insoleRemovable?: boolean
     closure?: string
@@ -312,6 +316,7 @@ export type ProductDetail = {
     vegan?: boolean
     madeIn?: string
     sizingNotes?: { mk?: string; sq?: string; en?: string }
+    additionalFeatures?: Array<{ _key?: string; mk?: string; sq?: string; en?: string }>
   }
   sizeChartOverride?: SizeChart
   gender?: 'mens' | 'womens' | 'unisex' | 'kids'

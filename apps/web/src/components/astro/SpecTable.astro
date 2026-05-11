@@ -9,32 +9,54 @@ interface Props {
 
 const { specs, locale } = Astro.props;
 
-/**
- * Spec table — only the decision-influencing specs.
- *
- * Deeper detail (sock construction, TPU plates, marketing copy) belongs on
- * the brand's own product page, which we link to from the buy panel.
- * Listing every micro-feature here just creates noise that scales badly
- * across multiple brands.
- *
- * Only renders rows for fields that have values.
- */
-
 type Row = { label: string; value: string };
 const rows: Row[] = [];
 
-if (typeof specs.soleThicknessMM === "number") {
+/* ── Sole thickness ──
+   If both values present, show as "5.5 mm (8.5 mm with insole)"
+   Otherwise just the one we have. */
+if (
+  typeof specs.soleThicknessMM === "number" &&
+  typeof specs.soleThicknessWithInsoleMM === "number"
+) {
+  rows.push({
+    label: t("detail.specs.soleThickness", locale),
+    value: `${specs.soleThicknessMM} mm (${specs.soleThicknessWithInsoleMM} mm ${t("detail.specs.withInsole", locale)})`,
+  });
+} else if (typeof specs.soleThicknessMM === "number") {
   rows.push({
     label: t("detail.specs.soleThickness", locale),
     value: `${specs.soleThicknessMM} mm`,
   });
 }
-if (typeof specs.weightGrams === "number") {
+
+/* ── Weight ──
+   If gendered values present, show both. Otherwise the single value. */
+if (
+  typeof specs.weightGramsMens === "number" &&
+  typeof specs.weightGramsWomens === "number"
+) {
+  rows.push({
+    label: t("detail.specs.weight", locale),
+    value: `${t("detail.specs.mens", locale)} ${specs.weightGramsMens} g · ${t("detail.specs.womens", locale)} ${specs.weightGramsWomens} g`,
+  });
+} else if (typeof specs.weightGramsMens === "number") {
+  rows.push({
+    label: t("detail.specs.weight", locale),
+    value: `${specs.weightGramsMens} g`,
+  });
+} else if (typeof specs.weightGramsWomens === "number") {
+  rows.push({
+    label: t("detail.specs.weight", locale),
+    value: `${specs.weightGramsWomens} g`,
+  });
+} else if (typeof specs.weightGrams === "number") {
   rows.push({
     label: t("detail.specs.weight", locale),
     value: `${specs.weightGrams} g`,
   });
 }
+
 if (specs.closure) {
   rows.push({
     label: t("detail.specs.closure", locale),
@@ -68,6 +90,12 @@ if (typeof specs.waterproof === "boolean") {
     value: specs.waterproof ? t("detail.yes", locale) : t("detail.no", locale),
   });
 }
+if (typeof specs.reflective === "boolean" && specs.reflective) {
+  rows.push({
+    label: t("detail.specs.reflective", locale),
+    value: t("detail.yes", locale),
+  });
+}
 if (typeof specs.insulation === "boolean" && specs.insulation) {
   rows.push({
     label: t("detail.specs.insulation", locale),
@@ -86,22 +114,42 @@ if (specs.madeIn) {
     value: specs.madeIn,
   });
 }
+
+const features = (specs.additionalFeatures ?? [])
+  .map((f) => pickLocale(f, locale))
+  .filter((s): s is string => Boolean(s));
 ---
 
 {
-  rows.length > 0 && (
+  (rows.length > 0 || features.length > 0) && (
     <section>
       <h2 class="text-lg font-semibold tracking-tight mb-6">
         {t("detail.specs", locale)}
       </h2>
-      <dl class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-12">
-        {rows.map((row) => (
-          <div class="flex justify-between border-b border-[var(--color-border-subtle)] pb-2">
-            <dt class="text-sm text-[var(--color-ink-muted)]">{row.label}</dt>
-            <dd class="text-sm font-medium">{row.value}</dd>
-          </div>
-        ))}
-      </dl>
+
+      {rows.length > 0 && (
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-12 mb-6">
+          {rows.map((row) => (
+            <div class="flex justify-between border-b border-[var(--color-border-subtle)] pb-2">
+              <dt class="text-sm text-[var(--color-ink-muted)]">{row.label}</dt>
+              <dd class="text-sm font-medium">{row.value}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+
+      {features.length > 0 && (
+        <ul class="space-y-1.5">
+          {features.map((f) => (
+            <li class="text-sm flex items-start gap-2">
+              <span class="text-[var(--color-accent)] flex-shrink-0 mt-0.5">
+                —
+              </span>
+              <span>{f}</span>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   )
 }

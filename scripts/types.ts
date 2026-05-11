@@ -55,8 +55,12 @@ export type CatalogVariant = {
 
 export type ProductSpecs = {
   soleThicknessMM?: number
+  soleThicknessWithInsoleMM?: number
   weightGrams?: number
+  weightGramsMens?: number
+  weightGramsWomens?: number
   waterproof?: boolean
+  reflective?: boolean
   insulation?: boolean
   insoleRemovable?: boolean
   closure?: 'laces' | 'velcro' | 'slipOn' | 'elastic' | 'buckle'
@@ -67,6 +71,7 @@ export type ProductSpecs = {
   /** ISO 3166-1 alpha-2, e.g. "PT", "VN" */
   madeIn?: string
   sizingNotes?: LocaleText
+  additionalFeatures?: LocaleString[]
 }
 
 export type CatalogProduct = {

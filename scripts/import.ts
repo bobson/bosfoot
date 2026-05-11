@@ -159,6 +159,13 @@ function buildProductDoc(p: CatalogProduct): SanityDoc {
         sizingNotes: p.specs.sizingNotes
           ? { _type: 'localeText', ...p.specs.sizingNotes }
           : undefined,
+        additionalFeatures: p.specs.additionalFeatures
+          ? p.specs.additionalFeatures.map((f, i) => ({
+            _type: 'localeString',
+            _key: `feat-${i}`,
+            ...f,
+          }))
+          : undefined,
       }
       : undefined,
     activities: p.activities ?? [],

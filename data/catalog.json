@@ -74,9 +74,9 @@
       "brandSlug": "xero-shoes",
       "categorySlugs": ["running", "training"],
       "name": {
-        "mk": "HFS II",
-        "sq": "HFS II",
-        "en": "HFS II"
+        "mk": "HFS 2",
+        "sq": "HFS 2",
+        "en": "HFS 2"
       },
       "shortDescription": {
         "mk": "Лесна патика за трчање со широк простор за прстите, тенок флексибилен ѓон и одличен grip.",
@@ -100,13 +100,28 @@
       ],
       "specs": {
         "soleThicknessMM": 5.5,
-        "weightGrams": 215,
+        "soleThicknessWithInsoleMM": 8.5,
+        "weightGramsMens": 215,
+        "weightGramsWomens": 168,
         "waterproof": false,
+        "reflective": true,
         "insulation": false,
         "insoleRemovable": true,
         "closure": "laces",
         "vegan": true,
-        "madeIn": "VN"
+        "madeIn": "VN",
+        "additionalFeatures": [
+          {
+            "mk": "TPU плоча за заштита од прободи",
+            "sq": "Pllakë TPU për mbrojtje nga shpimi",
+            "en": "TPU plate for puncture resistance"
+          },
+          {
+            "mk": "Конструкција тип чорапа",
+            "sq": "Konstruksion tip çorape",
+            "en": "Sock-style construction"
+          }
+        ]
       },
       "activities": ["running", "training"],
       "gender": "mens",

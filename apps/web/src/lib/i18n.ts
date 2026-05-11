@@ -504,6 +504,26 @@ export const ui: UIStrings = {
     sq: 'Elemente reflektues',
     en: 'Reflective elements',
   },
+  'detail.specs.withInsole': {
+    mk: 'со влошка',
+    sq: 'me sole',
+    en: 'with insole',
+  },
+  'detail.specs.mens': {
+    mk: 'машки',
+    sq: 'burra',
+    en: "men's",
+  },
+  'detail.specs.womens': {
+    mk: 'женски',
+    sq: 'gra',
+    en: "women's",
+  },
+  'detail.specs.reflective': {
+    mk: 'Рефлектирачки елементи',
+    sq: 'Elemente reflektues',
+    en: 'Reflective elements',
+  },
   'detail.specs.closure': {
     mk: 'Закопчување',
     sq: 'Mbyllja',

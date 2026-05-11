@@ -52,13 +52,21 @@ export const variant = defineType({
     }),
   ],
   preview: {
-    select: { size: 'sizeEU', color: 'color.mk', stock: 'stock', hex: 'colorHex' },
-    prepare: ({ size, color, stock, hex }) => ({
-      title: `EU ${size} — ${color ?? '—'}`,
-      subtitle: `${stock ?? 0} in stock`,
-      media: hex
-        ? () => ({ type: 'span', props: { style: { background: hex, width: 30, height: 30, display: 'block', borderRadius: 4 } } })
-        : undefined,
-    }),
+    select: {
+      size: 'sizeEU',
+      colorMk: 'color.mk',
+      colorEn: 'color.en',
+      colorHex: 'colorHex',
+      stock: 'stock',
+    },
+    prepare: ({ size, colorMk, colorEn, colorHex, stock }) => {
+      // Fall back through mk → en → hex code → "—" so the preview never crashes
+      // regardless of which fields are filled in
+      const color = colorMk || colorEn || colorHex || '—'
+      return {
+        title: `EU ${size ?? '?'} — ${color}`,
+        subtitle: `${stock ?? 0} in stock`,
+      }
+    },
   },
 })
