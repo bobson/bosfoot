@@ -1,28 +1,35 @@
 // @ts-check
-import { defineConfig } from 'astro/config'
-import react from '@astrojs/react'
-import sitemap from '@astrojs/sitemap'
-import tailwindcss from '@tailwindcss/vite'
+import { defineConfig } from "astro/config";
+import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
+import vercel from "@astrojs/vercel";
+import tailwindcss from "@tailwindcss/vite";
 
 /**
  * Bosfoot frontend configuration.
  *
- * Three locales: Macedonian (Cyrillic), Albanian, English.
- * Macedonian is the default — bosfoot.com/ redirects to /mk/.
+ * Rendering model:
+ *   - `output: 'static'` would pre-render everything at build time (fastest, cheapest)
+ *   - `output: 'server'` would render every page on every request (most flexible)
+ *   - `output: 'hybrid'` lets us mix: pre-render pages by default, opt specific
+ *     routes into server-side rendering via `export const prerender = false`
  *
- * We handle locale via the [lang] dynamic route (src/pages/[lang]/...),
- * NOT Astro's built-in i18n config — because we need translated URL slugs
- * (proizvodi vs produktet vs products) which Astro's i18n doesn't support.
+ * We use hybrid because most pages (homepage, listing, brand, product detail)
+ * are content-driven and re-build only when catalog changes. But the checkout
+ * API and order-confirmed page need server-side execution to write to Sanity
+ * and read fresh order data per-request.
  */
 export default defineConfig({
-  site: 'https://bosfoot.com',
+  site: "https://bosfoot.com",
+  output: "hybrid",
+  adapter: vercel(),
 
   integrations: [
     react(),
     sitemap({
       i18n: {
-        defaultLocale: 'mk',
-        locales: { mk: 'mk', sq: 'sq', en: 'en' },
+        defaultLocale: "mk",
+        locales: { mk: "mk", sq: "sq", en: "en" },
       },
     }),
   ],
@@ -32,10 +39,10 @@ export default defineConfig({
   },
 
   build: {
-    inlineStylesheets: 'auto',
+    inlineStylesheets: "auto",
   },
 
   image: {
-    remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io' }],
+    remotePatterns: [{ protocol: "https", hostname: "cdn.sanity.io" }],
   },
-})
+});

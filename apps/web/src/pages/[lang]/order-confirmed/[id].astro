@@ -1,0 +1,192 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { type Locale, LOCALES, t, formatPrice } from "@/lib/i18n";
+import { getSiteSettings } from "@/lib/queries";
+import { sanityWrite } from "@/lib/sanity-server";
+
+export const prerender = false;
+
+const { lang, id } = Astro.params as { lang: string; id: string };
+const locale = (LOCALES.includes(lang as Locale) ? lang : "mk") as Locale;
+
+const siteSettings = await getSiteSettings();
+
+// Fetch order — use write client since it has read access too
+const order = await sanityWrite.fetch(
+  `*[_id == $id][0]{
+    _id,
+    orderNumber,
+    status,
+    paymentMethod,
+    customer,
+    shippingAddress,
+    items[]{
+      _key,
+      productSnapshot,
+      variantSku,
+      sizeEU,
+      color,
+      unitPrice,
+      quantity,
+      lineTotal
+    },
+    totals,
+    createdAt
+  }`,
+  { id },
+);
+
+// If order not found, redirect to homepage
+if (!order) {
+  return Astro.redirect(`/${locale}/`);
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={t("order.confirmed", locale)}
+  siteSettings={siteSettings}
+>
+  <div class="container-page py-16 md:py-24 max-w-2xl">
+    <!-- Confirmation header -->
+    <div class="text-center mb-12">
+      <div
+        class="w-16 h-16 rounded-full bg-[var(--color-success)]/10 flex items-center justify-center mx-auto mb-6"
+      >
+        <svg
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="text-[var(--color-success)]"
+          aria-hidden="true"
+        >
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h1 class="text-3xl font-semibold tracking-tight mb-3">
+        {t("order.confirmed", locale)}
+      </h1>
+      <p class="text-[var(--color-ink-muted)]">{t("order.thanks", locale)}</p>
+    </div>
+
+    <!-- Order number + payment instructions -->
+    <div class="bg-[var(--color-bg-secondary)] rounded-lg p-6 mb-8">
+      <div class="flex items-center justify-between mb-4">
+        <span class="text-sm text-[var(--color-ink-muted)]">
+          {t("order.number", locale)}
+        </span>
+        <span class="font-semibold tracking-wide">{order.orderNumber}</span>
+      </div>
+
+      <p class="text-sm text-[var(--color-ink-muted)] leading-relaxed">
+        {
+          order.paymentMethod === "cod"
+            ? t("order.cod", locale)
+            : t("order.bankTransfer", locale)
+        }
+      </p>
+    </div>
+
+    <!-- Customer + shipping -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+      <div>
+        <h2
+          class="text-sm font-medium uppercase tracking-wider text-[var(--color-ink-muted)] mb-2"
+        >
+          {t("checkout.contact", locale)}
+        </h2>
+        <p class="text-sm">
+          {order.customer.firstName}
+          {order.customer.lastName}
+        </p>
+        <p class="text-sm text-[var(--color-ink-muted)]">
+          {order.customer.email}
+        </p>
+        <p class="text-sm text-[var(--color-ink-muted)]">
+          {order.customer.phone}
+        </p>
+      </div>
+      <div>
+        <h2
+          class="text-sm font-medium uppercase tracking-wider text-[var(--color-ink-muted)] mb-2"
+        >
+          {t("checkout.shipping", locale)}
+        </h2>
+        <p class="text-sm">{order.shippingAddress.address}</p>
+        <p class="text-sm text-[var(--color-ink-muted)]">
+          {order.shippingAddress.postalCode}
+          {order.shippingAddress.city}
+        </p>
+        <p class="text-sm text-[var(--color-ink-muted)]">
+          {order.shippingAddress.country}
+        </p>
+      </div>
+    </div>
+
+    <!-- Line items -->
+    <div
+      class="border border-[var(--color-border-subtle)] rounded-lg overflow-hidden mb-8"
+    >
+      <ul class="divide-y divide-[var(--color-border-subtle)]">
+        {
+          order.items.map((item: any) => (
+            <li class="flex items-center justify-between px-5 py-3 text-sm">
+              <div>
+                <span class="font-medium">{item.productSnapshot.name}</span>
+                <span class="text-[var(--color-ink-muted)] ml-2">
+                  EU {item.sizeEU} · {item.color}
+                </span>
+                {item.quantity > 1 && (
+                  <span class="text-[var(--color-ink-muted)]">
+                    {" "}
+                    × {item.quantity}
+                  </span>
+                )}
+              </div>
+              <span class="font-medium">
+                {formatPrice(item.lineTotal, locale)}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <div
+        class="px-5 py-3 bg-[var(--color-bg-secondary)] border-t border-[var(--color-border-subtle)]"
+      >
+        <div class="flex justify-between text-sm mb-1">
+          <span class="text-[var(--color-ink-muted)]"
+            >{t("cart.subtotal", locale)}</span
+          >
+          <span>{formatPrice(order.totals.subtotal, locale)}</span>
+        </div>
+        <div class="flex justify-between text-sm mb-2">
+          <span class="text-[var(--color-ink-muted)]"
+            >{t("checkout.shippingLabel", locale)}</span
+          >
+          <span>
+            {
+              order.totals.shipping === 0
+                ? t("checkout.freeShipping", locale)
+                : formatPrice(order.totals.shipping, locale)
+            }
+          </span>
+        </div>
+        <div class="flex justify-between font-semibold">
+          <span>{t("checkout.total", locale)}</span>
+          <span>{formatPrice(order.totals.total, locale)}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <a href={`/${locale}/`} class="btn btn-primary">
+        {t("order.continueShopping", locale)}
+      </a>
+    </div>
+  </div>
+</BaseLayout>

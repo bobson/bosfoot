@@ -292,6 +292,78 @@ export const ui: UIStrings = {
     en: 'Kids',
   },
 
+  // Checkout
+  'checkout.contact': { mk: 'Контакт', sq: 'Kontakt', en: 'Contact' },
+  'checkout.email': { mk: 'Е-пошта', sq: 'Email', en: 'Email' },
+  'checkout.phone': { mk: 'Телефон', sq: 'Telefon', en: 'Phone' },
+  'checkout.shipping': { mk: 'Адреса за испорака', sq: 'Adresa e dërgimit', en: 'Shipping address' },
+  'checkout.firstName': { mk: 'Ime', sq: 'Emri', en: 'First name' },
+  'checkout.lastName': { mk: 'Презиме', sq: 'Mbiemri', en: 'Last name' },
+  'checkout.address': { mk: 'Адреса', sq: 'Adresa', en: 'Address' },
+  'checkout.city': { mk: 'Град', sq: 'Qyteti', en: 'City' },
+  'checkout.postalCode': { mk: 'Поштенски код', sq: 'Kodi postar', en: 'Postal code' },
+  'checkout.country': { mk: 'Држава', sq: 'Shteti', en: 'Country' },
+  'checkout.notes': { mk: 'Напомена (опционално)', sq: 'Shënim (opsional)', en: 'Notes (optional)' },
+  'checkout.notesPlaceholder': {
+    mk: 'Посебни барања, инструкции за испорака...',
+    sq: 'Kërkesa speciale, udhëzime dërgimi...',
+    en: 'Special requests, delivery instructions...',
+  },
+  'checkout.payment': { mk: 'Начин на плаќање', sq: 'Mënyra e pagesës', en: 'Payment method' },
+  'checkout.summary': { mk: 'Преглед на нарачката', sq: 'Përmbledhja e porosisë', en: 'Order summary' },
+  'checkout.shippingLabel': { mk: 'Достава', sq: 'Transporti', en: 'Shipping' },
+  'checkout.freeShipping': { mk: 'Бесплатно', sq: 'Falas', en: 'Free' },
+  'checkout.total': { mk: 'Вкупно', sq: 'Totali', en: 'Total' },
+  'checkout.placeOrder': { mk: 'Нарачај', sq: 'Porosit', en: 'Place order' },
+  'checkout.placing': { mk: 'Се нарачува...', sq: 'Duke porositur...', en: 'Placing order...' },
+  'checkout.terms': {
+    mk: 'Со нарачувањето се согласувате со нашите услови на продажба.',
+    sq: 'Duke porositur, pranoni kushtet tona të shitjes.',
+    en: 'By ordering you agree to our terms of sale.',
+  },
+
+  // Payment methods
+  'payment.cod': { mk: 'Плаќање при испорака', sq: 'Paguaj me dorëzim', en: 'Cash on delivery' },
+  'payment.codDescription': {
+    mk: 'Платете во готово кога ќе ја примите пратката.',
+    sq: 'Paguani me para kesh kur të merrni paketën.',
+    en: 'Pay in cash when your package arrives.',
+  },
+  'payment.bankTransfer': { mk: 'Банкарски трансфер', sq: 'Transfer bankar', en: 'Bank transfer' },
+  'payment.bankTransferDescription': {
+    mk: 'Ќе добиете банкарски детали по нарачката. Испораката почнува по потврдата на уплатата.',
+    sq: 'Do të merrni detajet bankare pas porosisë. Dërgimi fillon pas konfirmimit të pagesës.',
+    en: 'You\'ll receive bank details after ordering. Shipping starts after payment confirmation.',
+  },
+
+  // Countries
+  'country.MK': { mk: 'Северна Македонија', sq: 'Maqedonia e Veriut', en: 'North Macedonia' },
+  'country.AL': { mk: 'Албанија', sq: 'Shqipëria', en: 'Albania' },
+  'country.XK': { mk: 'Косово', sq: 'Kosova', en: 'Kosovo' },
+  'country.RS': { mk: 'Србија', sq: 'Serbia', en: 'Serbia' },
+  'country.BG': { mk: 'Бугарија', sq: 'Bullgaria', en: 'Bulgaria' },
+  'country.GR': { mk: 'Грција', sq: 'Greqia', en: 'Greece' },
+
+  // Order confirmation
+  'order.confirmed': { mk: 'Нарачката е потврдена!', sq: 'Porosia u konfirmua!', en: 'Order confirmed!' },
+  'order.number': { mk: 'Број на нарачка', sq: 'Numri i porosisë', en: 'Order number' },
+  'order.thanks': {
+    mk: 'Ви благодариме за нарачката. Ќе ве контактираме наскоро.',
+    sq: 'Faleminderit për porosinë. Do t\'ju kontaktojmë së shpejti.',
+    en: 'Thank you for your order. We\'ll be in touch shortly.',
+  },
+  'order.cod': {
+    mk: 'Плаќате при испорака. Очекувајте пакетот во рок од 2-5 работни дена.',
+    sq: 'Paguani me dorëzim. Prisni paketën brenda 2-5 ditëve pune.',
+    en: 'You\'ll pay on delivery. Expect your package within 2-5 business days.',
+  },
+  'order.bankTransfer': {
+    mk: 'Ви испративме е-пошта со банкарски детали. Испораката почнува по уплатата.',
+    sq: 'Ju dërguam email me detajet bankare. Dërgimi fillon pas pagesës.',
+    en: 'We sent you an email with bank details. Shipping starts after payment.',
+  },
+  'order.continueShopping': { mk: 'Продолжи со купување', sq: 'Vazhdo blerjet', en: 'Continue shopping' },
+
   // Cart drawer
   'cart.title': {
     mk: 'Кошничка',
