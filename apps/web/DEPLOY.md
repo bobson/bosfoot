@@ -25,12 +25,28 @@ and fail on the same errors.
 
 Preview the production build locally:
 
+Note: The `@astrojs/vercel` adapter disables the built-in `astro preview` command. If you run `pnpm --filter web preview` and see an error like "The @astrojs/vercel adapter does not support the preview command", use one of the alternatives below.
+
+- Quick dev check (fast, not identical to production):
+
 ```bash
-pnpm --filter web preview
+pnpm --filter web dev
 ```
 
-Open the URL it prints. Walk through homepage → product detail → cart → checkout
-to confirm everything still works as a production build.
+- Serve the static build locally (recommended for most checks):
+
+```bash
+pnpm --filter web build
+# Serve the built client folder (open the localized path like /mk/ or /en/)
+# Use -s for SPA fallback, and specify a port if you like:
+npx serve -s apps/web/dist/client -l 3000
+```
+
+(Or add `serve` as a dev dependency: `pnpm --filter web add -D serve` and then run `npx serve -s apps/web/dist/client -l 3000`.)
+
+- If you need `astro preview` specifically (server preview), use a different adapter such as `@astrojs/node` that supports `astro preview`, or push to Vercel and use a preview deployment (branches get their own preview URLs).
+
+Walk through homepage → product detail → cart → checkout to confirm everything still works as a production build.
 
 ## Phase 2: Push to GitHub
 
