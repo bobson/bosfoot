@@ -392,6 +392,102 @@ export async function getAllProductSlugs(): Promise<
   return sanity.fetch(ALL_PRODUCT_SLUGS_QUERY)
 }
 
+/* ─────────────────────────────────────────────────────────────────────
+   ARTICLES — for the homepage teaser and (future) blog index
+   ───────────────────────────────────────────────────────────────────── */
+
+export type ArticleCard = {
+  _id: string
+  title: { mk?: string; sq?: string; en?: string }
+  slug: { mk?: { current: string }; sq?: { current: string }; en?: { current: string } }
+  coverImage?: SanityImage
+  lead?: { mk?: string; sq?: string; en?: string }
+  publishedAt?: string
+  author?: string
+  featured?: boolean
+}
+
+const FEATURED_ARTICLES_QUERY = `
+  *[_type == "article" && featured == true]
+    | order(publishedAt desc)[0...3]{
+    _id,
+    title,
+    slug,
+    coverImage,
+    lead,
+    publishedAt,
+    author,
+    featured
+  }
+`
+
+const ALL_ARTICLES_QUERY = `
+  *[_type == "article" && defined(publishedAt)]
+    | order(publishedAt desc){
+    _id,
+    title,
+    slug,
+    coverImage,
+    lead,
+    publishedAt,
+    author,
+    featured
+  }
+`
+
+const ARTICLE_DETAIL_QUERY = `
+  *[_type == "article" &&
+    (slug.mk.current == $slug || slug.en.current == $slug || slug.sq.current == $slug)][0]{
+    _id,
+    title,
+    slug,
+    coverImage,
+    lead,
+    publishedAt,
+    author,
+    body_mk,
+    body_sq,
+    body_en,
+    seo
+  }
+`
+
+const ALL_ARTICLE_SLUGS_QUERY = `
+  *[_type == "article" && defined(publishedAt)]{
+    "mk": slug.mk.current,
+    "sq": slug.sq.current,
+    "en": slug.en.current
+  }
+`
+
+export type ArticleDetail = ArticleCard & {
+  body_mk?: PortableTextBlock[]
+  body_sq?: PortableTextBlock[]
+  body_en?: PortableTextBlock[]
+  seo?: {
+    metaTitle?: { mk?: string; sq?: string; en?: string }
+    metaDescription?: { mk?: string; sq?: string; en?: string }
+  }
+}
+
+export async function getFeaturedArticles(): Promise<ArticleCard[]> {
+  return sanity.fetch(FEATURED_ARTICLES_QUERY)
+}
+
+export async function getAllArticles(): Promise<ArticleCard[]> {
+  return sanity.fetch(ALL_ARTICLES_QUERY)
+}
+
+export async function getArticleBySlug(slug: string): Promise<ArticleDetail | null> {
+  return sanity.fetch(ARTICLE_DETAIL_QUERY, { slug })
+}
+
+export async function getAllArticleSlugs(): Promise<
+  Array<{ mk?: string; sq?: string; en?: string }>
+> {
+  return sanity.fetch(ALL_ARTICLE_SLUGS_QUERY)
+}
+
 /** Helper to compute total stock across a product's variants */
 export function totalStock(product: Pick<ProductCard, 'variants'>): number {
   return product.variants.reduce((sum, v) => sum + (v.stock ?? 0), 0)

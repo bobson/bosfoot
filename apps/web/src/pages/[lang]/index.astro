@@ -1,124 +1,222 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import Hero from '@/components/astro/Hero.astro'
-import ProductCard from '@/components/astro/ProductCard.astro'
-import { type Locale, LOCALES, t, localePath, pickLocale } from '@/lib/i18n'
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/astro/Hero.astro";
+import WhyBarefoot from "@/components/astro/WhyBarefoot.astro";
+import WhyUs from "@/components/astro/WhyUs.astro";
+import Articles from "@/components/astro/Articles.astro";
+import ProductCard from "@/components/astro/ProductCard.astro";
+import { type Locale, LOCALES, t, localePath, pickLocale } from "@/lib/i18n";
 import {
   getSiteSettings,
   getFeaturedProducts,
-  getNewArrivals,
   getFeaturedBrands,
-} from '@/lib/queries'
-import { urlFor } from '@/lib/sanity'
+  getFeaturedArticles,
+} from "@/lib/queries";
+import { urlFor } from "@/lib/sanity";
 
-/* Generate one static homepage per locale at build time. */
+export const prerender = true;
+
 export async function getStaticPaths() {
-  return LOCALES.map((lang) => ({ params: { lang } }))
+  return LOCALES.map((lang) => ({ params: { lang } }));
 }
 
-const { lang } = Astro.params
-const locale = lang as Locale
+const { lang } = Astro.params;
+const locale = lang as Locale;
 
-// Parallel data fetch — three independent queries
-const [siteSettings, featured, newArrivals, brands] = await Promise.all([
+// Parallel data fetch — five independent queries
+const [siteSettings, featured, brands, articles] = await Promise.all([
   getSiteSettings(),
   getFeaturedProducts(),
-  getNewArrivals(),
   getFeaturedBrands(),
-])
+  getFeaturedArticles(),
+]);
 
-console.log({ featuredCount: featured.length, brandsCount: brands.length, newArrivalsCount: newArrivals.length })
-
-const siteName = siteSettings?.siteName ?? 'Bosfoot'
-const tagline = pickLocale(siteSettings?.tagline, locale) ?? ''
-const pageTitle = siteName
-const pageDescription = tagline
+const siteName = siteSettings?.siteName ?? "Bosfoot";
+const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
 ---
 
 <BaseLayout
   locale={locale}
-  title={pageTitle}
-  description={pageDescription}
+  title={siteName}
+  description={tagline}
   siteSettings={siteSettings}
 >
-
+  <!-- Hero with tagline and rotating quote card -->
   <Hero locale={locale} siteSettings={siteSettings} />
 
+  <!-- Why barefoot — 3 principles -->
+  <WhyBarefoot locale={locale} />
+
   <!-- Featured products -->
-  {featured.length > 0 && (
-    <section class="container-page py-16 md:py-24">
-      <div class="flex items-end justify-between mb-8">
-        <h2 class="text-2xl md:text-3xl font-semibold tracking-tight">
-          {t('section.featured', locale)}
-        </h2>
-        <a
-          href={localePath(locale, 'products')}
-          class="text-sm text-[var(--color-ink-muted)] hover:text-[var(--color-accent)] transition-colors"
-        >
-          {t('cta.viewAll', locale)} →
-        </a>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-12">
-        {featured.map((product) => (
-          <ProductCard product={product} locale={locale} />
-        ))}
-      </div>
-    </section>
-  )}
+  {
+    featured.length > 0 && (
+      <section class="featured-products">
+        <div class="container-page">
+          <div class="section-header">
+            <h2 class="section-title">{t("home.featured.title", locale)}</h2>
+            <a href={localePath(locale, "products")} class="section-link">
+              {t("cta.viewAll", locale)} →
+            </a>
+          </div>
+          <div class="product-grid">
+            {featured.slice(0, 4).map((product) => (
+              <ProductCard product={product} locale={locale} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <!-- Brand strip -->
-  {brands.length > 0 && (
-    <section class="bg-[var(--color-bg-secondary)] py-16 md:py-24 border-y border-[var(--color-border-subtle)]">
-      <div class="container-page">
-        <h2 class="text-xl md:text-2xl font-semibold tracking-tight mb-8 text-center">
-          {t('section.brands', locale)}
-        </h2>
-        <div class="flex flex-wrap justify-center items-center gap-x-12 gap-y-8">
-          {brands.map((brand) => (
-            <a
-              href={`${localePath(locale, 'brands')}/${brand.slug.current}`}
-              class="group flex flex-col items-center gap-2 hover:opacity-80 transition-opacity"
-            >
-              {brand.logo ? (
-                <img
-                  src={urlFor(brand.logo).height(60).format('webp').url()}
-                  alt={brand.name}
-                  height="40"
-                  class="h-10 object-contain"
-                  loading="lazy"
-                />
-              ) : (
-                <span class="text-base font-medium text-[var(--color-ink)] group-hover:text-[var(--color-accent)] transition-colors">
-                  {brand.name}
-                </span>
-              )}
-            </a>
-          ))}
+  {
+    brands.length > 0 && (
+      <section class="brand-strip">
+        <div class="container-page">
+          <h2 class="section-title-center">{t("section.brands", locale)}</h2>
+          <div class="brand-row">
+            {brands.map((brand) => (
+              <a
+                href={`${localePath(locale, "brands")}/${brand.slug.current}`}
+                class="brand-item"
+              >
+                {brand.logo ? (
+                  <img
+                    src={urlFor(brand.logo).height(60).format("webp").url()}
+                    alt={brand.name}
+                    height="44"
+                    class="brand-logo"
+                    loading="lazy"
+                  />
+                ) : (
+                  <span class="brand-name">{brand.name}</span>
+                )}
+              </a>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
-  )}
+      </section>
+    )
+  }
 
-  <!-- New arrivals -->
-  {newArrivals.length > 0 && (
-    <section class="container-page py-16 md:py-24">
-      <div class="flex items-end justify-between mb-8">
-        <h2 class="text-2xl md:text-3xl font-semibold tracking-tight">
-          {t('section.newArrivals', locale)}
-        </h2>
-        <a
-          href={localePath(locale, 'products')}
-          class="text-sm text-[var(--color-ink-muted)] hover:text-[var(--color-accent)] transition-colors"
-        >
-          {t('cta.viewAll', locale)} →
-        </a>
-      </div>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-12">
-        {newArrivals.map((product) => (
-          <ProductCard product={product} locale={locale} />
-        ))}
-      </div>
-    </section>
-  )}
+  <!-- Why Bosfoot -->
+  <WhyUs locale={locale} />
 
+  <!-- Articles teaser -->
+  <Articles locale={locale} articles={articles} />
 </BaseLayout>
+
+<style>
+  /* ── Featured products ─────────────────────────────────── */
+  .featured-products {
+    padding: 5rem 0;
+    background: var(--color-bg-primary);
+  }
+  @media (min-width: 768px) {
+    .featured-products {
+      padding: 6rem 0;
+    }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 0;
+  }
+  @media (min-width: 768px) {
+    .section-title {
+      font-size: 2.25rem;
+    }
+  }
+
+  .section-title-center {
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+    text-align: center;
+    margin: 0 0 2.5rem;
+  }
+
+  .section-link {
+    font-size: 0.875rem;
+    color: var(--color-ink-muted);
+    white-space: nowrap;
+    transition: color 120ms ease;
+  }
+  .section-link:hover {
+    color: var(--color-accent);
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem 1rem;
+  }
+  @media (min-width: 700px) {
+    .product-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem 1.5rem;
+    }
+  }
+  @media (min-width: 1000px) {
+    .product-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ── Brand strip ───────────────────────────────────────── */
+  .brand-strip {
+    padding: 4rem 0;
+    background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .brand-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem 3.5rem;
+  }
+
+  .brand-item {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-ink);
+    opacity: 0.75;
+    transition: opacity 150ms ease;
+  }
+  .brand-item:hover {
+    opacity: 1;
+  }
+
+  .brand-logo {
+    height: 44px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%);
+    transition: filter 200ms ease;
+  }
+  .brand-item:hover .brand-logo {
+    filter: grayscale(0%);
+  }
+
+  .brand-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+  }
+</style>

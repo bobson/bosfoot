@@ -1,0 +1,144 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { type Locale, LOCALES, t, pickLocale } from "@/lib/i18n";
+import { getSiteSettings, getAllArticles } from "@/lib/queries";
+import { urlFor } from "@/lib/sanity";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+
+const [siteSettings, articles] = await Promise.all([
+  getSiteSettings(),
+  getAllArticles(),
+]);
+
+function articleHref(article: (typeof articles)[number]): string {
+  const slug =
+    article.slug[locale]?.current ??
+    article.slug.mk?.current ??
+    article.slug.en?.current ??
+    article._id;
+  return `/${locale}/articles/${slug}`;
+}
+
+function formatDate(iso: string | undefined): string {
+  if (!iso) return "";
+  const date = new Date(iso);
+  const monthNames: Record<Locale, string[]> = {
+    mk: [
+      "јан",
+      "фев",
+      "мар",
+      "апр",
+      "мај",
+      "јун",
+      "јул",
+      "авг",
+      "сеп",
+      "окт",
+      "ное",
+      "дек",
+    ],
+    sq: [
+      "jan",
+      "shk",
+      "mar",
+      "pri",
+      "maj",
+      "qer",
+      "kor",
+      "gus",
+      "sht",
+      "tet",
+      "nën",
+      "dhj",
+    ],
+    en: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+  };
+  return `${date.getDate()} ${monthNames[locale][date.getMonth()]} ${date.getFullYear()}`;
+}
+
+const pageTitle = t("home.articles.title", locale);
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  description={t("home.articles.lead", locale)}
+  siteSettings={siteSettings}
+>
+  <div class="container-page py-12 md:py-16">
+    <header class="mb-12">
+      <h1 class="text-3xl md:text-4xl font-semibold tracking-tight mb-3">
+        {pageTitle}
+      </h1>
+      <p class="text-[var(--color-ink-muted)] max-w-prose">
+        {t("home.articles.lead", locale)}
+      </p>
+    </header>
+
+    {
+      articles.length === 0 ? (
+        <div class="py-16 text-center text-[var(--color-ink-muted)]">
+          <p>—</p>
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+          {articles.map((article) => (
+            <a href={articleHref(article)} class="group block">
+              {article.coverImage && (
+                <div class="aspect-[16/10] overflow-hidden rounded-md bg-[var(--color-bg-secondary)] mb-4">
+                  <img
+                    src={urlFor(article.coverImage)
+                      .width(800)
+                      .height(500)
+                      .quality(80)
+                      .format("webp")
+                      .url()}
+                    alt=""
+                    loading="lazy"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+              )}
+              <div class="px-1">
+                {article.publishedAt && (
+                  <time class="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider">
+                    {formatDate(article.publishedAt)}
+                  </time>
+                )}
+                <h2 class="text-lg font-semibold leading-snug mt-1 mb-2 group-hover:text-[var(--color-accent)] transition-colors">
+                  {pickLocale(article.title, locale)}
+                </h2>
+                {pickLocale(article.lead, locale) && (
+                  <p class="text-sm text-[var(--color-ink-muted)] leading-relaxed line-clamp-2">
+                    {pickLocale(article.lead, locale)}
+                  </p>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</BaseLayout>

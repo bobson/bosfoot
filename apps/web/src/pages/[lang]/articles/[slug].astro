@@ -1,0 +1,196 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import PortableText from "@/components/astro/PortableText.astro";
+import { type Locale, LOCALES, t, pickLocale } from "@/lib/i18n";
+import {
+  getSiteSettings,
+  getArticleBySlug,
+  getAllArticleSlugs,
+} from "@/lib/queries";
+import { urlFor } from "@/lib/sanity";
+
+export const prerender = true;
+
+/**
+ * Generate one page per (locale × article slug) at build time.
+ */
+export async function getStaticPaths() {
+  const slugSets = await getAllArticleSlugs();
+  const paths: Array<{ params: { lang: Locale; slug: string } }> = [];
+  for (const set of slugSets) {
+    for (const lang of LOCALES) {
+      const slug = (set as Record<string, string | undefined>)[lang];
+      if (slug) paths.push({ params: { lang, slug } });
+    }
+  }
+  return paths;
+}
+
+const { lang, slug } = Astro.params;
+const locale = lang as Locale;
+
+const [siteSettings, article] = await Promise.all([
+  getSiteSettings(),
+  getArticleBySlug(slug!),
+]);
+
+if (!article) {
+  return Astro.redirect(`/${locale}/articles`);
+}
+
+const title = pickLocale(article.title, locale) ?? "Article";
+const lead = pickLocale(article.lead, locale);
+const metaDescription =
+  pickLocale(article.seo?.metaDescription, locale) ?? lead;
+
+// Pick the correct body for current locale
+const bodyBlocks =
+  locale === "mk"
+    ? article.body_mk
+    : locale === "sq"
+      ? article.body_sq
+      : article.body_en;
+
+const coverUrl = article.coverImage
+  ? urlFor(article.coverImage).width(1600).quality(85).format("webp").url()
+  : undefined;
+
+const ogImage = article.coverImage
+  ? urlFor(article.coverImage).width(1200).height(630).format("jpg").url()
+  : undefined;
+
+function formatDate(iso: string | undefined): string {
+  if (!iso) return "";
+  const date = new Date(iso);
+  const monthNames: Record<Locale, string[]> = {
+    mk: [
+      "јан",
+      "фев",
+      "мар",
+      "апр",
+      "мај",
+      "јун",
+      "јул",
+      "авг",
+      "сеп",
+      "окт",
+      "ное",
+      "дек",
+    ],
+    sq: [
+      "jan",
+      "shk",
+      "mar",
+      "pri",
+      "maj",
+      "qer",
+      "kor",
+      "gus",
+      "sht",
+      "tet",
+      "nën",
+      "dhj",
+    ],
+    en: [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ],
+  };
+  return `${date.getDate()} ${monthNames[locale][date.getMonth()]} ${date.getFullYear()}`;
+}
+---
+
+<BaseLayout
+  locale={locale}
+  title={title}
+  description={metaDescription}
+  siteSettings={siteSettings}
+  ogImage={ogImage}
+>
+  <article class="article-page">
+    <!-- Breadcrumb -->
+    <nav
+      class="container-page text-xs text-[var(--color-ink-muted)] pt-6 mb-8 flex items-center gap-2"
+      aria-label="Breadcrumb"
+    >
+      <a
+        href={`/${locale}/`}
+        class="hover:text-[var(--color-ink)] transition-colors"
+      >
+        Home
+      </a>
+      <span>›</span>
+      <a
+        href={`/${locale}/articles`}
+        class="hover:text-[var(--color-ink)] transition-colors"
+      >
+        {t("home.articles.title", locale)}
+      </a>
+      <span>›</span>
+      <span class="text-[var(--color-ink)] truncate">{title}</span>
+    </nav>
+
+    <!-- Header -->
+    <header class="container-page max-w-3xl mb-10">
+      {
+        article.publishedAt && (
+          <time class="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider">
+            {formatDate(article.publishedAt)}
+            {article.author && ` · ${article.author}`}
+          </time>
+        )
+      }
+      <h1
+        class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight mt-3 mb-5"
+      >
+        {title}
+      </h1>
+      {
+        lead && (
+          <p class="text-lg text-[var(--color-ink-muted)] leading-relaxed">
+            {lead}
+          </p>
+        )
+      }
+    </header>
+
+    <!-- Cover image -->
+    {
+      coverUrl && (
+        <div class="container-page mb-12 max-w-5xl">
+          <img
+            src={coverUrl}
+            alt={title}
+            class="w-full h-auto rounded-lg"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+      )
+    }
+
+    <!-- Body -->
+    <div class="container-page max-w-2xl pb-16 md:pb-24">
+      <PortableText blocks={bodyBlocks} />
+
+      <div class="mt-16 pt-8 border-t border-[var(--color-border-subtle)]">
+        <a
+          href={`/${locale}/articles`}
+          class="text-sm text-[var(--color-ink-muted)] hover:text-[var(--color-accent)] transition-colors"
+        >
+          ← {t("home.articles.viewAll", locale)}
+        </a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

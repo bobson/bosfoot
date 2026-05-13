@@ -1,0 +1,106 @@
+---
+import { type Locale, t } from "@/lib/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<section class="why-us">
+  <div class="container-page">
+    <h2 class="why-us-title">{t("home.whyUs.title", locale)}</h2>
+
+    <div class="why-us-grid">
+      <article class="why-us-item">
+        <div class="why-us-number">01</div>
+        <h3 class="why-us-item-title">{t("home.whyUs.1.title", locale)}</h3>
+        <p class="why-us-item-body">{t("home.whyUs.1.body", locale)}</p>
+      </article>
+
+      <article class="why-us-item">
+        <div class="why-us-number">02</div>
+        <h3 class="why-us-item-title">{t("home.whyUs.2.title", locale)}</h3>
+        <p class="why-us-item-body">{t("home.whyUs.2.body", locale)}</p>
+      </article>
+
+      <article class="why-us-item">
+        <div class="why-us-number">03</div>
+        <h3 class="why-us-item-title">{t("home.whyUs.3.title", locale)}</h3>
+        <p class="why-us-item-body">{t("home.whyUs.3.body", locale)}</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-us {
+    padding: 5rem 0;
+    background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  @media (min-width: 768px) {
+    .why-us {
+      padding: 6rem 0;
+    }
+  }
+
+  .why-us-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 0 0 3rem;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .why-us-title {
+      font-size: 2.25rem;
+      margin-bottom: 4rem;
+    }
+  }
+
+  .why-us-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 700px) {
+    .why-us-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  .why-us-item {
+    text-align: left;
+  }
+
+  .why-us-number {
+    font-size: 2rem;
+    font-weight: 300;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .why-us-item-title {
+    font-size: 1.0625rem;
+    font-weight: 600;
+    margin: 0 0 0.625rem;
+    letter-spacing: -0.005em;
+  }
+
+  .why-us-item-body {
+    color: var(--color-ink-muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+</style>

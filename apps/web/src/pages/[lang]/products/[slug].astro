@@ -12,6 +12,8 @@ import {
 } from "@/lib/queries";
 import { urlFor } from "@/lib/sanity";
 
+export const prerender = true;
+
 /**
  * Generate one page per (locale × product slug) at build time.
  * A product can have a different slug per language; we generate them all.

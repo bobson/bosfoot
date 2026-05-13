@@ -1,0 +1,182 @@
+---
+import { type Locale, t } from "@/lib/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<section class="why-barefoot">
+  <div class="container-page">
+    <div class="why-header">
+      <h2 class="why-title">{t("home.whyBarefoot.title", locale)}</h2>
+      <p class="why-lead">{t("home.whyBarefoot.lead", locale)}</p>
+    </div>
+
+    <div class="why-grid">
+      <article class="why-card">
+        <div class="why-icon">
+          <!-- Toe-splay icon: five lines fanning out -->
+          <svg
+            width="36"
+            height="36"
+            viewBox="0 0 36 36"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            aria-hidden="true"
+          >
+            <line x1="6" y1="30" x2="3" y2="6"></line>
+            <line x1="12" y1="30" x2="10" y2="4"></line>
+            <line x1="18" y1="30" x2="18" y2="3"></line>
+            <line x1="24" y1="30" x2="26" y2="4"></line>
+            <line x1="30" y1="30" x2="33" y2="6"></line>
+          </svg>
+        </div>
+        <h3 class="why-card-title">{t("home.whyBarefoot.1.title", locale)}</h3>
+        <p class="why-card-body">{t("home.whyBarefoot.1.body", locale)}</p>
+      </article>
+
+      <article class="why-card">
+        <div class="why-icon">
+          <!-- Zero drop icon: flat horizontal line with arrows -->
+          <svg
+            width="36"
+            height="36"
+            viewBox="0 0 36 36"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <line x1="3" y1="22" x2="33" y2="22"></line>
+            <polyline points="9,16 4,22 9,28"></polyline>
+            <polyline points="27,16 32,22 27,28"></polyline>
+            <line x1="14" y1="10" x2="22" y2="10" stroke-dasharray="2 2"></line>
+          </svg>
+        </div>
+        <h3 class="why-card-title">{t("home.whyBarefoot.2.title", locale)}</h3>
+        <p class="why-card-body">{t("home.whyBarefoot.2.body", locale)}</p>
+      </article>
+
+      <article class="why-card">
+        <div class="why-icon">
+          <!-- Flexible sole icon: curved wave -->
+          <svg
+            width="36"
+            height="36"
+            viewBox="0 0 36 36"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M3 22 Q 10 14, 18 22 T 33 22"></path>
+            <line
+              x1="3"
+              y1="28"
+              x2="33"
+              y2="28"
+              stroke-dasharray="2 2"
+              opacity="0.5"></line>
+          </svg>
+        </div>
+        <h3 class="why-card-title">{t("home.whyBarefoot.3.title", locale)}</h3>
+        <p class="why-card-body">{t("home.whyBarefoot.3.body", locale)}</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .why-barefoot {
+    padding: 5rem 0;
+    background: var(--color-bg-primary);
+  }
+
+  @media (min-width: 768px) {
+    .why-barefoot {
+      padding: 7rem 0;
+    }
+  }
+
+  .why-header {
+    text-align: center;
+    max-width: 38rem;
+    margin: 0 auto 3.5rem;
+  }
+
+  .why-title {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 0 0 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .why-title {
+      font-size: 2.75rem;
+    }
+  }
+
+  .why-lead {
+    color: var(--color-ink-muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 64rem;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 700px) {
+    .why-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  .why-card {
+    text-align: center;
+  }
+
+  .why-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--color-bg-secondary);
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .why-card-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem;
+    letter-spacing: -0.005em;
+  }
+
+  .why-card-body {
+    color: var(--color-ink-muted);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 20rem;
+    margin-inline: auto;
+  }
+</style>

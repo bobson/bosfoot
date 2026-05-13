@@ -6,6 +6,8 @@ import { getSiteSettings, getAllProducts } from '@/lib/queries'
 import { urlFor } from '@/lib/sanity'
 import type { ProductCard } from '@/lib/queries'
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   return LOCALES.map((lang) => ({ params: { lang } }))
 }

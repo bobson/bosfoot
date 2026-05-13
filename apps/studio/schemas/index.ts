@@ -13,6 +13,7 @@ import { category } from './documents/category'
 import { order } from './documents/order'
 import { shippingZone } from './documents/shippingZone'
 import { siteSettings } from './documents/siteSettings'
+import { article } from './documents/article'
 
 export const schemaTypes = [
   // Objects (reusable)
@@ -30,4 +31,5 @@ export const schemaTypes = [
   order,
   shippingZone,
   siteSettings,
+  article,
 ]

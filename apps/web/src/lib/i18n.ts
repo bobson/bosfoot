@@ -49,6 +49,7 @@ export const ROUTES: Record<string, Record<Locale, string>> = {
   about: { mk: 'about', sq: 'about', en: 'about' },
   sizeGuide: { mk: 'size-guide', sq: 'size-guide', en: 'size-guide' },
   contact: { mk: 'contact', sq: 'contact', en: 'contact' },
+  articles: { mk: 'articles', sq: 'articles', en: 'articles' },
 }
 
 /** Build a localized path: localePath('en', 'products', 'xero-hfs2') → '/en/products/xero-hfs2' */
@@ -216,6 +217,178 @@ export const ui: UIStrings = {
     mk: '© 2026 Bosfoot. Сите права задржани.',
     sq: '© 2026 Bosfoot. Të gjitha të drejtat e rezervuara.',
     en: '© 2026 Bosfoot. All rights reserved.',
+  },
+
+  // Homepage — hero
+  'home.hero.line1': {
+    mk: 'Слободата почнува',
+    sq: 'Liria fillon',
+    en: 'Freedom starts',
+  },
+  'home.hero.line2': {
+    mk: 'од твоите стапала',
+    sq: 'tek këmbët e tua',
+    en: 'at your feet',
+  },
+  'home.hero.lead': {
+    mk: 'Премиум боси патики за оние кои сакаат природен чекор. Курирани од европските мајстори на занаетот.',
+    sq: 'Këpucë barefoot premium për ata që duan një hap natyral. Të zgjedhura nga mjeshtrit evropianë.',
+    en: 'Premium barefoot shoes for people who want a natural step. Curated from European masters of the craft.',
+  },
+  'home.hero.shopMen': {
+    mk: 'Машки',
+    sq: 'Burra',
+    en: "Men's",
+  },
+  'home.hero.shopWomen': {
+    mk: 'Женски',
+    sq: 'Gra',
+    en: "Women's",
+  },
+  'home.hero.shopKids': {
+    mk: 'Детски',
+    sq: 'Fëmijë',
+    en: 'Kids',
+  },
+
+  // Hero rotating quotes
+  'home.quote.1.text': {
+    mk: 'Стапалото е чудо од инженерство — 26 коски, 33 зглобови, над 100 мускули. Дозволи му да работи.',
+    sq: 'Këmba është një mrekulli inxhinierike — 26 kocka, 33 nyje, mbi 100 muskuj. Lëre të punojë.',
+    en: 'The foot is an engineering marvel — 26 bones, 33 joints, over 100 muscles. Let it work.',
+  },
+  'home.quote.1.attr': {
+    mk: 'Анатомски факт',
+    sq: 'Fakt anatomik',
+    en: 'Anatomical fact',
+  },
+  'home.quote.2.text': {
+    mk: 'Прстите треба да се распостелат, не да се згрчуваат. Стапалата треба да чувствуваат, не да се изолираат.',
+    sq: 'Gishtërinjtë duhet të hapen, jo të mblidhen. Këmbët duhet të ndjejnë, jo të izolohen.',
+    en: 'Toes should splay, not squeeze. Feet should feel, not be isolated.',
+  },
+  'home.quote.2.attr': {
+    mk: 'Filozofija barefoot',
+    sq: 'Filozofia barefoot',
+    en: 'Barefoot philosophy',
+  },
+  'home.quote.3.text': {
+    mk: 'Се родивме без обувки. Барефоот е најблиску до тоа како природата нѐ замислила.',
+    sq: 'Lindëm pa këpucë. Barefoot është më e afërta me atë që natyra na ka projektuar.',
+    en: 'We were born without shoes. Barefoot is the closest you can get to how nature designed us.',
+  },
+  'home.quote.3.attr': {
+    mk: 'Bosfoot',
+    sq: 'Bosfoot',
+    en: 'Bosfoot',
+  },
+
+  // Homepage — Why barefoot section
+  'home.whyBarefoot.title': {
+    mk: 'Зошто боси патики',
+    sq: 'Pse këpucë barefoot',
+    en: 'Why barefoot',
+  },
+  'home.whyBarefoot.lead': {
+    mk: 'Три принципи кои го прават барефоот различен од сѐ друго.',
+    sq: 'Tre parime që e bëjnë barefoot të ndryshëm nga gjithçka tjetër.',
+    en: 'Three principles that make barefoot different from everything else.',
+  },
+  'home.whyBarefoot.1.title': {
+    mk: 'Широк простор за прстите',
+    sq: 'Hapësirë e gjerë për gishtërinjtë',
+    en: 'Wide toe box',
+  },
+  'home.whyBarefoot.1.body': {
+    mk: 'Прстите се распостеливаат природно, баланасот се подобрува, деформитетите се намалуваат.',
+    sq: 'Gishtërinjtë hapen natyrshëm, ekuilibri përmirësohet, deformitetet zvogëlohen.',
+    en: 'Toes splay naturally, balance improves, deformities decrease.',
+  },
+  'home.whyBarefoot.2.title': {
+    mk: 'Нула разлика во висина',
+    sq: 'Zero diferencë në lartësi',
+    en: 'Zero drop',
+  },
+  'home.whyBarefoot.2.body': {
+    mk: 'Петицата и прстите се на исто ниво. Држење на тело како кога одиш бос.',
+    sq: 'Thembra dhe gishtërinjtë janë në të njëjtin nivel. Qëndrimi i trupit si kur ec zbathur.',
+    en: 'Heel and toes at the same level. Posture as if you were walking barefoot.',
+  },
+  'home.whyBarefoot.3.title': {
+    mk: 'Тенок флексибилен ѓон',
+    sq: 'Shollë e hollë fleksibël',
+    en: 'Thin, flexible sole',
+  },
+  'home.whyBarefoot.3.body': {
+    mk: 'Чувствуваш што е под тебе. Мускулите се будат. Стапалото станува посилно секој ден.',
+    sq: 'Ndjen atë që ke nën këmbë. Muskujt zgjohen. Këmba bëhet më e fortë çdo ditë.',
+    en: 'You feel what is under you. Muscles wake up. Feet get stronger every day.',
+  },
+
+  // Homepage — Why Bosfoot section
+  'home.whyUs.title': {
+    mk: 'Зошто Bosfoot',
+    sq: 'Pse Bosfoot',
+    en: 'Why Bosfoot',
+  },
+  'home.whyUs.1.title': {
+    mk: 'Курирана селекција',
+    sq: 'Përzgjedhje e kuruar',
+    en: 'Curated selection',
+  },
+  'home.whyUs.1.body': {
+    mk: 'Само премиум европски брендови. Никаков филер, никакво масовно производство.',
+    sq: 'Vetëm marka premium evropiane. Asnjë mbushje, asnjë prodhim masiv.',
+    en: 'Only premium European brands. No filler, no mass-market.',
+  },
+  'home.whyUs.2.title': {
+    mk: 'Лична совет за големина',
+    sq: 'Këshillë personale për madhësinë',
+    en: 'Personal sizing advice',
+  },
+  'home.whyUs.2.body': {
+    mk: 'Си имаме секоја пара во раце. Прашај нѐ за вистинската големина — одговараме лично.',
+    sq: 'I kemi të gjitha palët në duart tona. Na pyet për madhësinë e duhur — përgjigjemi personalisht.',
+    en: 'We have every pair in our hands. Ask us for the right size — we answer personally.',
+  },
+  'home.whyUs.3.title': {
+    mk: 'Регионална испорака',
+    sq: 'Dërgim rajonal',
+    en: 'Regional shipping',
+  },
+  'home.whyUs.3.body': {
+    mk: 'Брза испорака низ Балканот. Враќање без покривање, без прашања.',
+    sq: 'Dërgim i shpejtë në Ballkan. Kthimi pa kushte, pa pyetje.',
+    en: 'Fast shipping across the Balkans. Returns no-questions-asked.',
+  },
+
+  // Homepage — Articles section
+  'home.articles.title': {
+    mk: 'Од нашиот блог',
+    sq: 'Nga blogu ynë',
+    en: 'From our blog',
+  },
+  'home.articles.lead': {
+    mk: 'Сѐ што треба да знаеш за барефоот стилот на живот.',
+    sq: 'Gjithçka që duhet të dish për stilin e jetës barefoot.',
+    en: 'Everything you need to know about the barefoot lifestyle.',
+  },
+  'home.articles.viewAll': {
+    mk: 'Сите статии',
+    sq: 'Të gjitha artikujt',
+    en: 'All articles',
+  },
+  'home.articles.readMore': {
+    mk: 'Прочитај повеќе',
+    sq: 'Lexo më shumë',
+    en: 'Read more',
+  },
+
+  // Homepage — section connecting featured products to hero
+  'home.featured.title': {
+    mk: 'Селектирани за тебе',
+    sq: 'Të zgjedhura për ty',
+    en: 'Selected for you',
   },
 
   // Filter / activity translations

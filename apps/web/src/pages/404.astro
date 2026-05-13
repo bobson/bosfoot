@@ -1,0 +1,59 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { type Locale, t, localePath, getLocaleFromPath } from "@/lib/i18n";
+import { getSiteSettings } from "@/lib/queries";
+
+// 404 has no params — guess locale from referer if available, otherwise mk
+const referer = Astro.request.headers.get("referer");
+let locale: Locale = "mk";
+if (referer) {
+  try {
+    const refererUrl = new URL(referer);
+    locale = getLocaleFromPath(refererUrl.pathname);
+  } catch {}
+}
+
+const siteSettings = await getSiteSettings();
+---
+
+<BaseLayout locale={locale} title="404" siteSettings={siteSettings}>
+  <div class="container-page py-24 md:py-32 text-center max-w-xl">
+    <p
+      class="text-7xl md:text-8xl font-semibold text-[var(--color-accent)] mb-4"
+    >
+      404
+    </p>
+    <h1 class="text-2xl font-semibold tracking-tight mb-3">
+      {
+        locale === "mk"
+          ? "Страницата не е најдена"
+          : locale === "sq"
+            ? "Faqja nuk u gjet"
+            : "Page not found"
+      }
+    </h1>
+    <p class="text-[var(--color-ink-muted)] mb-8">
+      {
+        locale === "mk"
+          ? "Можеби линкот е стар или адресата не постои."
+          : locale === "sq"
+            ? "Mund të jetë një link i vjetër ose adresa nuk ekziston."
+            : "The link might be old or the address doesn't exist."
+      }
+    </p>
+    <div class="flex gap-3 justify-center flex-wrap">
+      <a href={`/${locale}/`} class="btn btn-primary">
+        {
+          locale === "mk"
+            ? "Почетна"
+            : locale === "sq"
+              ? "Faqja kryesore"
+              : "Home"
+        }
+      </a>
+      <a href={localePath(locale, "products")} class="btn btn-secondary">
+        {t("nav.products", locale)}
+      </a>
+    </div>
+  </div>
+</BaseLayout>

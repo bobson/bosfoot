@@ -1,145 +1,314 @@
 ---
-import { type Locale, t, pickLocale, localePath } from '@/lib/i18n'
-import { urlFor } from '@/lib/sanity'
-import type { SiteSettings } from '@/lib/queries'
+import { type Locale, t, localePath } from "@/lib/i18n";
+import type { SiteSettings } from "@/lib/queries";
 
 interface Props {
-  locale: Locale
-  siteSettings: SiteSettings | null
+  locale: Locale;
+  siteSettings: SiteSettings | null;
 }
 
-const { locale, siteSettings } = Astro.props
-const home = siteSettings?.homepage
-
-// Title/subtitle: prefer Sanity values; otherwise show a localized default
-const title = pickLocale(home?.heroTitle, locale) ?? defaultTitle(locale)
-const subtitle = pickLocale(home?.heroSubtitle, locale) ?? defaultSubtitle(locale)
-
-function defaultTitle(loc: Locale): string {
-  return loc === 'mk' ? 'Слободни чекори' : loc === 'sq' ? 'Hapa të lirë' : 'Free your step'
-}
-function defaultSubtitle(loc: Locale): string {
-  return loc === 'mk'
-    ? 'Поврзи се со природата под твоите стапала.'
-    : loc === 'sq'
-    ? 'Lidhu me natyrën nën këmbët e tua.'
-    : 'Reconnect with the ground beneath you.'
-}
+const { locale } = Astro.props;
+const productsPath = localePath(locale, "products");
 
 /**
- * Hero images.
- * For now we use the single Sanity heroImage (if set) and fall back to placeholders.
- * When you upload 2-3 hero images to Sanity, we'll evolve this to a real array.
+ * Hero — pure CSS, no images, no JS.
  *
- * The auto-rotation is CSS-only: each image is a layer with delayed @keyframes
- * opacity. No JS, no libraries, no layout shift — just pure CSS swapping every 5s.
+ * Layout: split column on desktop. Left: tagline + lead + 3 CTAs.
+ * Right: rotating quote card on a subtle accent background.
+ *
+ * The card rotates between 3 quotes using CSS keyframes on three stacked
+ * absolute-positioned children. Total cycle: 18 seconds (6s per slide).
+ *
+ * Why no image: shoe photography is hard to license and slow to load.
+ * Solid tones + good typography give a premium feel and the page loads
+ * in well under a second. We can add a single high-quality product photo
+ * later as a subtle background watermark if we want.
  */
-const heroImageUrl = home?.heroImage
-  ? urlFor(home.heroImage).width(1920).quality(80).format('webp').url()
-  : null
-
-// In v1 we'll use up to 3 images. If only 1 exists, no rotation; just static.
-const slides = heroImageUrl
-  ? [heroImageUrl]
-  : [
-      // Placeholder gradients — replaced by real images via Sanity
-      'placeholder-1',
-      'placeholder-2',
-      'placeholder-3',
-    ]
-
-const isStatic = slides.length === 1
 ---
 
-<section class="relative w-full overflow-hidden bg-[var(--color-bg-secondary)]" aria-label="Hero">
-  <!-- Image layers — stacked absolutely, each fades in for its window then out -->
-  <div class="absolute inset-0">
-    {slides.map((slide, i) => (
-      <div
-        class={`hero-slide ${isStatic ? 'static' : ''}`}
-        style={`--i: ${i}; --total: ${slides.length};`}
-      >
-        {slide.startsWith('placeholder')
-          ? <div class={`w-full h-full hero-placeholder hero-placeholder-${i}`} aria-hidden="true"></div>
-          : <img
-              src={slide}
-              alt=""
-              loading={i === 0 ? 'eager' : 'lazy'}
-              fetchpriority={i === 0 ? 'high' : 'auto'}
-              class="w-full h-full object-cover"
-              aria-hidden="true"
-            />
-        }
-      </div>
-    ))}
-    <!-- Subtle gradient overlay for text contrast over photos -->
-    <div class="absolute inset-0 bg-gradient-to-r from-white/85 via-white/40 to-transparent pointer-events-none"></div>
-  </div>
-
-  <!-- Hero content -->
-  <div class="container-page relative z-10 py-24 md:py-32 lg:py-40">
-    <div class="max-w-2xl">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-4 leading-tight">
-        {title}
+<section class="hero">
+  <div class="container-page hero-inner">
+    <!-- Left: tagline + CTAs -->
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="hero-title-line-1">{t("home.hero.line1", locale)}</span>
+        <span class="hero-title-line-2">{t("home.hero.line2", locale)}</span>
       </h1>
-      <p class="text-base md:text-lg text-[var(--color-ink-muted)] mb-8 max-w-md leading-relaxed">
-        {subtitle}
-      </p>
-      <div class="flex gap-3">
-        <a href={localePath(locale, 'products')} class="btn btn-primary">
-          {t('cta.shopNow', locale)}
+
+      <p class="hero-lead">{t("home.hero.lead", locale)}</p>
+
+      <div class="hero-ctas">
+        <a
+          href={`${productsPath}?gender=mens`}
+          class="hero-cta hero-cta-primary"
+        >
+          {t("home.hero.shopMen", locale)}
         </a>
-        <a href={localePath(locale, 'sizeGuide')} class="btn btn-secondary">
-          {t('nav.sizeGuide', locale)}
+        <a
+          href={`${productsPath}?gender=womens`}
+          class="hero-cta hero-cta-primary"
+        >
+          {t("home.hero.shopWomen", locale)}
         </a>
+        <a
+          href={`${productsPath}?gender=kids`}
+          class="hero-cta hero-cta-secondary"
+        >
+          {t("home.hero.shopKids", locale)}
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: rotating quote card -->
+    <div class="hero-quote-card" aria-hidden="true">
+      <div class="quote-slide quote-slide-1">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">{t("home.quote.1.text", locale)}</p>
+        <p class="quote-attr">— {t("home.quote.1.attr", locale)}</p>
+      </div>
+      <div class="quote-slide quote-slide-2">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">{t("home.quote.2.text", locale)}</p>
+        <p class="quote-attr">— {t("home.quote.2.attr", locale)}</p>
+      </div>
+      <div class="quote-slide quote-slide-3">
+        <div class="quote-mark">"</div>
+        <p class="quote-text">{t("home.quote.3.text", locale)}</p>
+        <p class="quote-attr">— {t("home.quote.3.attr", locale)}</p>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* Each hero slide is positioned absolutely. The slideshow rotates by giving
-     each slide an opacity animation that's offset by its index.
+  .hero {
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding: 4rem 0 5rem;
+    position: relative;
+    overflow: hidden;
+  }
 
-     For 3 slides at 15s total cycle:
-       Slide 0:  visible 0-5s,  fading 5-7s
-       Slide 1:  visible 5-10s, fading 10-12s
-       Slide 2:  visible 10-15s, fading 15-17s
-  */
-  .hero-slide {
+  /* Subtle decorative line for visual interest, no actual image needed */
+  .hero::before {
+    content: "";
     position: absolute;
-    inset: 0;
+    top: 50%;
+    left: -10%;
+    width: 120%;
+    height: 1px;
+    background: var(--color-border-subtle);
+    transform: rotate(-3deg);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  @media (min-width: 768px) {
+    .hero {
+      padding: 6rem 0 7rem;
+    }
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+  }
+
+  @media (min-width: 900px) {
+    .hero-inner {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  /* ── Left content ──────────────────────────────────────── */
+  .hero-content {
+    max-width: 36rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    margin: 0 0 1.5rem;
+    color: var(--color-ink);
+  }
+
+  @media (min-width: 768px) {
+    .hero-title {
+      font-size: 4rem;
+    }
+  }
+
+  @media (min-width: 1100px) {
+    .hero-title {
+      font-size: 5rem;
+    }
+  }
+
+  .hero-title-line-1 {
+    display: block;
+  }
+  .hero-title-line-2 {
+    display: block;
+    color: var(--color-accent);
+    font-style: italic;
+    font-weight: 500;
+  }
+
+  .hero-lead {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--color-ink-muted);
+    margin: 0 0 2.5rem;
+    max-width: 28rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    transition: all 150ms ease;
+  }
+
+  .hero-cta-primary {
+    background: var(--color-ink);
+    color: var(--color-bg-primary);
+  }
+  .hero-cta-primary:hover {
+    background: #000;
+    transform: translateY(-1px);
+  }
+
+  .hero-cta-secondary {
+    background: transparent;
+    color: var(--color-ink);
+    border: 1px solid var(--color-ink);
+  }
+  .hero-cta-secondary:hover {
+    background: var(--color-ink);
+    color: var(--color-bg-primary);
+  }
+
+  /* ── Right quote card ──────────────────────────────────── */
+  .hero-quote-card {
+    position: relative;
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem 2rem;
+    min-height: 280px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .hero-quote-card {
+      padding: 3rem 2.5rem;
+      min-height: 320px;
+    }
+  }
+
+  .quote-slide {
+    position: absolute;
+    inset: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
     opacity: 0;
-    animation: hero-rotate calc(5s * var(--total)) infinite;
-    animation-delay: calc(5s * var(--i));
+    animation: quote-rotate 18s infinite;
   }
 
-  .hero-slide.static {
-    opacity: 1;
-    animation: none;
+  @media (min-width: 768px) {
+    .quote-slide {
+      inset: 3rem 2.5rem;
+    }
   }
 
-  @keyframes hero-rotate {
-    0%, 5% { opacity: 0; }
-    7%, 33% { opacity: 1; }
-    40%, 100% { opacity: 0; }
+  /* Each slide takes its 6-second slot in the 18s cycle.
+     Stagger by 6s using animation-delay.
+     Within the cycle: 0-5% appear, 5-28% visible, 28-33% fade out, then hidden. */
+  .quote-slide-1 {
+    animation-delay: 0s;
+  }
+  .quote-slide-2 {
+    animation-delay: -12s;
+  }
+  .quote-slide-3 {
+    animation-delay: -6s;
   }
 
-  /* Placeholders — simple solid-tone variations until real images arrive */
-  .hero-placeholder {
-    background: linear-gradient(135deg, #f2f0eb, #fafaf8);
+  @keyframes quote-rotate {
+    0%,
+    2% {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    5%,
+    28% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    33%,
+    100% {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
   }
-  .hero-placeholder-0 { background: #f2f0eb; }
-  .hero-placeholder-1 { background: #ece8df; }
-  .hero-placeholder-2 { background: #e8e2d4; }
 
-  /* Respect users who prefer reduced motion */
+  .quote-mark {
+    font-family: Georgia, serif;
+    font-size: 4rem;
+    line-height: 1;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+  }
+
+  .quote-text {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    color: var(--color-ink);
+    font-style: italic;
+    margin: 0;
+    flex: 1;
+  }
+
+  @media (min-width: 768px) {
+    .quote-text {
+      font-size: 1.15rem;
+    }
+  }
+
+  .quote-attr {
+    margin: 1.25rem 0 0;
+    font-size: 0.8125rem;
+    color: var(--color-ink-muted);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Respect prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
-    .hero-slide {
+    .quote-slide {
       animation: none;
       opacity: 1;
     }
-    .hero-slide:not(:first-child) {
+    .quote-slide:not(:first-child) {
       display: none;
     }
   }
