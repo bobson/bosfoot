@@ -23,14 +23,16 @@ const siteName = siteSettings?.siteName ?? "Bosfoot";
 <header
   class="border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] sticky top-0 z-30"
 >
-  <div class="container-page flex items-center justify-between h-16">
+  <div
+    class="container-page flex items-center justify-between py-3"
+  >
     <!-- Logo / wordmark -->
     <a
       href={`/${locale}/`}
       class="flex items-center gap-2"
       aria-label={siteName}
     >
-      <img src="/images/logo.svg" alt={siteName} class="h-18 w-auto" />
+      <img src="/images/logo.svg" alt={siteName} class="h-10 w-40 md:w-auto" />
     </a>
 
     <!-- Primary nav -->
