@@ -40,6 +40,10 @@ export default defineConfig({
             S.documentTypeListItem('category').title('Categories'),
             S.divider(),
 
+            // ── Editorial ────────────────────────────────────
+            S.documentTypeListItem('article').title('Articles'),
+            S.divider(),
+
             // ── Operations ───────────────────────────────────
             S.documentTypeListItem('order').title('Orders'),
             S.documentTypeListItem('shippingZone').title('Shipping zones'),

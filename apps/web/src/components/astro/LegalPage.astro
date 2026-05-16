@@ -1,0 +1,148 @@
+---
+import { type Locale, t } from "@/lib/i18n";
+
+interface Section {
+  title: string;
+  body: string;
+}
+
+interface Props {
+  locale: Locale;
+  title: string;
+  lead: string;
+  /** Sections rendered as a vertical list with title + body */
+  sections: Section[];
+  /** Contact email shown at the bottom; falls back to contact@bosfoot.com */
+  contactEmail?: string;
+  /** Optional "last updated" date (display string) */
+  lastUpdated?: string;
+}
+
+const {
+  locale,
+  title,
+  lead,
+  sections,
+  contactEmail = "contact@bosfoot.com",
+  lastUpdated,
+} = Astro.props;
+---
+
+<section class="legal-page container-page py-12 md:py-16">
+  <header class="legal-header">
+    <h1 class="legal-title">{title}</h1>
+    <p class="legal-lead">{lead}</p>
+    {
+      lastUpdated && (
+        <p class="legal-meta">
+          {t("legal.lastUpdated", locale)}: {lastUpdated}
+        </p>
+      )
+    }
+  </header>
+
+  <div class="legal-body">
+    {
+      sections.map((section) => (
+        <section class="legal-section">
+          <h2 class="legal-section-title">{section.title}</h2>
+          <p class="legal-section-body">{section.body}</p>
+        </section>
+      ))
+    }
+
+    <aside class="legal-placeholder">
+      {t("legal.placeholder", locale)}
+    </aside>
+
+    <p class="legal-contact">
+      {t("legal.contactCta", locale)}{" "}
+      <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .legal-page {
+    max-width: 44rem;
+  }
+
+  .legal-header {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  .legal-title {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin: 0 0 1rem;
+  }
+  @media (min-width: 768px) {
+    .legal-title {
+      font-size: 2.75rem;
+    }
+  }
+  .legal-lead {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: var(--color-ink-muted);
+    margin: 0;
+  }
+  .legal-meta {
+    font-size: 0.8125rem;
+    color: var(--color-ink-subtle);
+    margin: 1.25rem 0 0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .legal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .legal-section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.625rem;
+  }
+  @media (min-width: 768px) {
+    .legal-section-title {
+      font-size: 1.4rem;
+    }
+  }
+  .legal-section-body {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-ink-muted);
+  }
+
+  .legal-placeholder {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--color-bg-secondary);
+    border-left: 3px solid var(--color-border-default);
+    color: var(--color-ink-subtle);
+    font-size: 0.875rem;
+    font-style: italic;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+
+  .legal-contact {
+    margin: 2rem 0 0;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border-subtle);
+    font-size: 0.9375rem;
+    color: var(--color-ink-muted);
+  }
+  .legal-contact a {
+    color: var(--color-accent);
+    transition: color 150ms ease;
+  }
+  .legal-contact a:hover {
+    color: var(--color-accent-hover);
+  }
+</style>

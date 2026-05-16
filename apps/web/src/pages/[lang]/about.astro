@@ -1,0 +1,314 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { type Locale, LOCALES, t, localePath } from "@/lib/i18n";
+import { getSiteSettings } from "@/lib/queries";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+
+const siteSettings = await getSiteSettings();
+const contactEmail = siteSettings?.contact?.email ?? "contact@bosfoot.com";
+const contactPhone = siteSettings?.contact?.phone;
+const contactCity = siteSettings?.contact?.city;
+
+const pageTitle = t("about.title", locale);
+const pageLead = t("about.lead", locale);
+
+const values = [
+  {
+    title: t("about.values.1.title", locale),
+    body: t("about.values.1.body", locale),
+  },
+  {
+    title: t("about.values.2.title", locale),
+    body: t("about.values.2.body", locale),
+  },
+  {
+    title: t("about.values.3.title", locale),
+    body: t("about.values.3.body", locale),
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  description={pageLead}
+  siteSettings={siteSettings}
+>
+  <!-- Hero -->
+  <section class="about-hero">
+    <div class="container-page">
+      <h1 class="about-hero-title">{pageTitle}</h1>
+      <p class="about-hero-lead">{pageLead}</p>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="about-section about-section-narrow">
+    <div class="container-page">
+      <h2 class="about-section-title">{t("about.story.title", locale)}</h2>
+      <p class="about-section-body">{t("about.story.body", locale)}</p>
+      <p class="about-placeholder">{t("about.placeholder", locale)}</p>
+    </div>
+  </section>
+
+  <!-- Mission -->
+  <section class="about-section about-section-accent">
+    <div class="container-page about-section-narrow">
+      <h2 class="about-section-title">{t("about.mission.title", locale)}</h2>
+      <p class="about-section-body">{t("about.mission.body", locale)}</p>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="about-section">
+    <div class="container-page">
+      <h2 class="about-section-title about-section-title-center">
+        {t("about.values.title", locale)}
+      </h2>
+      <div class="values-grid">
+        {
+          values.map((value, i) => (
+            <div class="value-card">
+              <div class="value-number">{(i + 1).toString().padStart(2, "0")}</div>
+              <h3 class="value-title">{value.title}</h3>
+              <p class="value-body">{value.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="about-section about-contact">
+    <div class="container-page about-section-narrow">
+      <h2 class="about-section-title">{t("about.contact.title", locale)}</h2>
+      <p class="about-section-body">{t("about.contact.body", locale)}</p>
+
+      <ul class="contact-list">
+        <li>
+          <span class="contact-label">{t("checkout.email", locale)}</span>
+          <a href={`mailto:${contactEmail}`} class="contact-value">
+            {contactEmail}
+          </a>
+        </li>
+        {
+          contactPhone && (
+            <li>
+              <span class="contact-label">{t("checkout.phone", locale)}</span>
+              <a href={`tel:${contactPhone}`} class="contact-value">
+                {contactPhone}
+              </a>
+            </li>
+          )
+        }
+        {
+          contactCity && (
+            <li>
+              <span class="contact-label">{t("checkout.city", locale)}</span>
+              <span class="contact-value">{contactCity}</span>
+            </li>
+          )
+        }
+      </ul>
+
+      <a href={localePath(locale, "products")} class="about-cta">
+        {t("cart.emptyCta", locale)} →
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ── Hero ────────────────────────────────────────────────── */
+  .about-hero {
+    background: var(--color-bg-secondary);
+    padding: 4rem 0 5rem;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  @media (min-width: 768px) {
+    .about-hero {
+      padding: 6rem 0 7rem;
+    }
+  }
+  .about-hero-title {
+    font-size: 2.5rem;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 600;
+    margin: 0 0 1.5rem;
+    max-width: 36rem;
+  }
+  @media (min-width: 768px) {
+    .about-hero-title {
+      font-size: 4rem;
+    }
+  }
+  .about-hero-lead {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-ink-muted);
+    margin: 0;
+    max-width: 36rem;
+  }
+  @media (min-width: 768px) {
+    .about-hero-lead {
+      font-size: 1.25rem;
+    }
+  }
+
+  /* ── Sections ────────────────────────────────────────────── */
+  .about-section {
+    padding: 4rem 0;
+  }
+  @media (min-width: 768px) {
+    .about-section {
+      padding: 6rem 0;
+    }
+  }
+  .about-section-narrow {
+    max-width: 44rem;
+    margin: 0 auto;
+  }
+  .about-section-accent {
+    background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  .about-section-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 0 0 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .about-section-title {
+      font-size: 2.25rem;
+    }
+  }
+  .about-section-title-center {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .about-section-body {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--color-ink-muted);
+    margin: 0 0 1.5rem;
+  }
+  .about-placeholder {
+    margin: 2rem 0 0;
+    padding: 1rem 1.25rem;
+    background: var(--color-bg-secondary);
+    border-left: 3px solid var(--color-border-default);
+    color: var(--color-ink-subtle);
+    font-size: 0.875rem;
+    font-style: italic;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+
+  /* ── Values grid ─────────────────────────────────────────── */
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media (min-width: 700px) {
+    .values-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+  }
+  .value-card {
+    text-align: left;
+  }
+  .value-number {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .value-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.625rem;
+  }
+  .value-body {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--color-ink-muted);
+    margin: 0;
+  }
+
+  /* ── Contact ─────────────────────────────────────────────── */
+  .about-contact {
+    background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  .contact-list li {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  @media (min-width: 600px) {
+    .contact-list li {
+      flex-direction: row;
+      align-items: baseline;
+      gap: 1.5rem;
+    }
+  }
+  .contact-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-ink-muted);
+    min-width: 80px;
+  }
+  .contact-value {
+    font-size: 1rem;
+    color: var(--color-ink);
+  }
+  a.contact-value {
+    color: var(--color-accent);
+    transition: color 150ms ease;
+  }
+  a.contact-value:hover {
+    color: var(--color-accent-hover);
+  }
+  .about-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.875rem 1.5rem;
+    background: var(--color-ink);
+    color: var(--color-bg-primary);
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: transform 150ms ease, background 150ms ease;
+  }
+  .about-cta:hover {
+    background: #000;
+    transform: translateY(-1px);
+  }
+</style>

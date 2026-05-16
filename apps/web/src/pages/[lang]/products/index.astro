@@ -43,6 +43,42 @@ const pageTitle = t('listing.title', locale)
   title={pageTitle}
   siteSettings={siteSettings}
 >
+  {/*
+    Hide the grid until React hydrates and applies URL filters.
+    Without this guard, a visit to /products?gender=mens briefly renders
+    the prerendered HTML (all products) before React reads location.search
+    and filters down. The inline script runs at parse time — well before
+    the grid paints — and React clears the attribute in useLayoutEffect.
+  */}
+  <script is:inline>
+    (function () {
+      try {
+        var p = new URLSearchParams(location.search);
+        if (
+          p.has("gender") ||
+          p.has("brand") ||
+          p.has("size") ||
+          p.has("activity") ||
+          p.has("stock") ||
+          p.has("sort")
+        ) {
+          document.documentElement.dataset.bfFilterPending = "true";
+          // Safety net: if React fails to hydrate within 2s the grid
+          // shouldn't stay invisible forever. Worst case is the original
+          // flicker, never permanent white space.
+          setTimeout(function () {
+            delete document.documentElement.dataset.bfFilterPending;
+          }, 2000);
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <style is:inline>
+    html[data-bf-filter-pending="true"] [data-products-grid] {
+      visibility: hidden;
+    }
+  </style>
+
   <div class="container-page py-12 md:py-16">
     <h1 class="text-3xl md:text-4xl font-semibold tracking-tight mb-8">
       {pageTitle}

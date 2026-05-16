@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import ProductCard from '@/components/astro/ProductCard.astro'
-import { type Locale, LOCALES, t, pickLocale } from '@/lib/i18n'
+import { type Locale, LOCALES, t, pickLocale, localePath } from '@/lib/i18n'
 import {
   getSiteSettings,
   getBrand,
@@ -9,6 +9,7 @@ import {
   getAllBrandSlugs,
 } from '@/lib/queries'
 import { urlFor } from '@/lib/sanity'
+import { breadcrumbLD } from '@/lib/structured-data'
 
 export const prerender = true;
 
@@ -43,6 +44,14 @@ const measurementLabel = brand.sizeChart?.measurementType === 'insoleLengthMM'
   ? t('brand.sizeChart.measureInsole', locale)
   : t('brand.sizeChart.measureFoot', locale)
 const sizeChartNotes = pickLocale(brand.sizeChart?.notes, locale)
+
+const breadcrumbSchema = breadcrumbLD({
+  siteUrl: Astro.site ?? 'https://bosfoot.com',
+  items: [
+    { name: t('nav.brands', locale), url: localePath(locale, 'brands') },
+    { name: brand.name, url: Astro.url.pathname },
+  ],
+})
 ---
 
 <BaseLayout
@@ -50,6 +59,7 @@ const sizeChartNotes = pickLocale(brand.sizeChart?.notes, locale)
   title={brand.name}
   description={description}
   siteSettings={siteSettings}
+  structuredData={[breadcrumbSchema]}
 >
 
   <!-- Brand header -->

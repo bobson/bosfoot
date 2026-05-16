@@ -22,8 +22,17 @@
   --color-accent-hover: #9c4d24;
   --color-accent-soft: #f5e8df;
 
+  /* Natural sage palette — used to break up cream sections on the homepage.
+     Inspired by earthy barefoot brands; pairs with the terracotta accent. */
+  --color-sage-bg: #eef0e6;
+  --color-sage-bg-soft: #f5f7ee;
+  --color-sage-ink: #4a5c3f;
+  --color-sage-ink-soft: #7a8a6a;
+
   --color-success: #2f7a3a;
   --color-danger: #b53d3d;
+
+  --bp-md: 768px;
 
   /* ── Typography ─────────────────────────────────────────────── */
   --font-sans:
@@ -150,4 +159,143 @@
     background: var(--color-ink);
     color: var(--color-bg-primary);
   }
+}
+
+/* ── Filter panel on /products ─────────────────────────────────
+   Mobile: bottom sheet over a backdrop, slide up from below.
+   Desktop: inline rounded card directly under the toolbar.
+   Both share a single React tree; only the styling shifts. */
+
+.bf-filter-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 40;
+  animation: bf-filter-fade-in 180ms ease;
+}
+@media (min-width: 768px) {
+  .bf-filter-backdrop {
+    display: none;
+  }
+}
+
+.bf-filter-panel {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 41;
+  background: var(--color-bg-primary);
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+  box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.18);
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  animation: bf-filter-slide-up 260ms ease;
+}
+@media (min-width: 768px) {
+  .bf-filter-panel {
+    position: static;
+    max-height: none;
+    border-radius: var(--radius-lg);
+    box-shadow: none;
+    background: var(--color-bg-secondary);
+    margin-bottom: 2rem;
+    animation: none;
+  }
+}
+
+.bf-filter-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+.bf-filter-sheet-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+.bf-filter-sheet-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin: -8px -8px -8px 0;
+  background: transparent;
+  border: 0;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .bf-filter-sheet-header {
+    display: none;
+  }
+}
+
+.bf-filter-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+}
+@media (min-width: 768px) {
+  .bf-filter-content {
+    overflow-y: visible;
+    padding: 1.5rem;
+  }
+}
+
+.bf-filter-sheet-cta {
+  padding: 0.875rem 1.25rem calc(0.875rem + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-primary);
+  display: flex;
+  gap: 0.75rem;
+}
+.bf-filter-sheet-cta-primary {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1.25rem;
+  background: var(--color-ink);
+  color: var(--color-bg-primary);
+  border: 0;
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+.bf-filter-sheet-cta-primary:hover {
+  background: #000;
+}
+.bf-filter-sheet-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.875rem 1rem;
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+@media (min-width: 768px) {
+  .bf-filter-sheet-cta {
+    display: none;
+  }
+}
+
+@keyframes bf-filter-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes bf-filter-slide-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
 }

@@ -9,10 +9,9 @@ import { type Locale, LOCALES, t, localePath, pickLocale } from "@/lib/i18n";
 import {
   getSiteSettings,
   getFeaturedProducts,
-  getFeaturedBrands,
   getFeaturedArticles,
 } from "@/lib/queries";
-import { urlFor } from "@/lib/sanity";
+import { SHOWCASE_BRANDS } from "@/lib/brands-showcase";
 
 export const prerender = true;
 
@@ -23,11 +22,9 @@ export async function getStaticPaths() {
 const { lang } = Astro.params;
 const locale = lang as Locale;
 
-// Parallel data fetch — five independent queries
-const [siteSettings, featured, brands, articles] = await Promise.all([
+const [siteSettings, featured, articles] = await Promise.all([
   getSiteSettings(),
   getFeaturedProducts(),
-  getFeaturedBrands(),
   getFeaturedArticles(),
 ]);
 
@@ -44,10 +41,7 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
   <!-- Hero with tagline and rotating quote card -->
   <Hero locale={locale} siteSettings={siteSettings} />
 
-  <!-- Why barefoot — 3 principles -->
-  <WhyBarefoot locale={locale} />
-
-  <!-- Featured products -->
+  <!-- Featured products — moved up so visitors see merchandise first -->
   {
     featured.length > 0 && (
       <section class="featured-products">
@@ -68,36 +62,37 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
     )
   }
 
-  <!-- Brand strip -->
-  {
-    brands.length > 0 && (
-      <section class="brand-strip">
-        <div class="container-page">
-          <h2 class="section-title-center">{t("section.brands", locale)}</h2>
-          <div class="brand-row">
-            {brands.map((brand) => (
-              <a
-                href={`${localePath(locale, "brands")}/${brand.slug.current}`}
-                class="brand-item"
-              >
-                {brand.logo ? (
-                  <img
-                    src={urlFor(brand.logo).height(60).format("webp").url()}
-                    alt={brand.name}
-                    height="44"
-                    class="brand-logo"
-                    loading="lazy"
-                  />
-                ) : (
-                  <span class="brand-name">{brand.name}</span>
-                )}
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
+  <!-- Why barefoot — 3 principles (sage section breaks up the cream rhythm) -->
+  <WhyBarefoot locale={locale} />
+
+  <!-- Brand strip — five featured brands as wordmarks/logos -->
+  <section class="brand-strip">
+    <div class="container-page">
+      <h2 class="section-title-center">{t("section.brands", locale)}</h2>
+      <div class="brand-row">
+        {
+          SHOWCASE_BRANDS.map((brand) => (
+            <a
+              href={localePath(locale, "brands")}
+              class="brand-item"
+              aria-label={brand.name}
+            >
+              {brand.logoSrc ? (
+                <img
+                  src={brand.logoSrc}
+                  alt={brand.name}
+                  class="brand-logo"
+                  loading="lazy"
+                />
+              ) : (
+                <span class="brand-wordmark">{brand.name}</span>
+              )}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
 
   <!-- Why Bosfoot -->
   <WhyUs locale={locale} />
@@ -179,7 +174,7 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
   /* ── Brand strip ───────────────────────────────────────── */
   .brand-strip {
     padding: 4rem 0;
-    background: var(--color-bg-secondary);
+    background: var(--color-bg-primary);
     border-top: 1px solid var(--color-border-subtle);
     border-bottom: 1px solid var(--color-border-subtle);
   }
@@ -189,18 +184,24 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 2rem 3.5rem;
+    gap: 1.75rem 3rem;
+  }
+  @media (min-width: 768px) {
+    .brand-row {
+      gap: 2rem 4rem;
+    }
   }
 
   .brand-item {
     display: inline-flex;
     align-items: center;
     color: var(--color-ink);
-    opacity: 0.75;
-    transition: opacity 150ms ease;
+    opacity: 0.7;
+    transition: opacity 150ms ease, transform 150ms ease;
   }
   .brand-item:hover {
     opacity: 1;
+    transform: translateY(-1px);
   }
 
   .brand-logo {
@@ -214,9 +215,18 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
     filter: grayscale(0%);
   }
 
-  .brand-name {
-    font-size: 1.125rem;
+  /* Wordmark fallback — used until real SVG logos are dropped into
+     /public/images/brands/. Styled to look like a clean lettermark. */
+  .brand-wordmark {
+    font-size: 1.0625rem;
     font-weight: 600;
     letter-spacing: -0.005em;
+    color: var(--color-ink);
+    white-space: nowrap;
+  }
+  @media (min-width: 768px) {
+    .brand-wordmark {
+      font-size: 1.25rem;
+    }
   }
 </style>

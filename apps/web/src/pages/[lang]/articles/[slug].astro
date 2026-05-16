@@ -1,13 +1,14 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import PortableText from "@/components/astro/PortableText.astro";
-import { type Locale, LOCALES, t, pickLocale } from "@/lib/i18n";
+import { type Locale, LOCALES, t, pickLocale, localePath } from "@/lib/i18n";
 import {
   getSiteSettings,
   getArticleBySlug,
   getAllArticleSlugs,
 } from "@/lib/queries";
 import { urlFor } from "@/lib/sanity";
+import { articleLD, breadcrumbLD } from "@/lib/structured-data";
 
 export const prerender = true;
 
@@ -108,6 +109,22 @@ function formatDate(iso: string | undefined): string {
   };
   return `${date.getDate()} ${monthNames[locale][date.getMonth()]} ${date.getFullYear()}`;
 }
+
+const siteUrl = Astro.site ?? "https://bosfoot.com";
+const articleSchema = articleLD({
+  siteUrl,
+  article,
+  locale,
+  pageUrl: Astro.url.pathname,
+  imageUrl: ogImage,
+});
+const breadcrumbSchema = breadcrumbLD({
+  siteUrl,
+  items: [
+    { name: t("home.articles.title", locale), url: localePath(locale, "articles") },
+    { name: title, url: Astro.url.pathname },
+  ],
+});
 ---
 
 <BaseLayout
@@ -116,6 +133,7 @@ function formatDate(iso: string | undefined): string {
   description={metaDescription}
   siteSettings={siteSettings}
   ogImage={ogImage}
+  structuredData={[articleSchema, breadcrumbSchema]}
 >
   <article class="article-page">
     <!-- Breadcrumb -->

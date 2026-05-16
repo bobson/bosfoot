@@ -5,6 +5,7 @@ import Footer from "@/components/astro/Footer.astro";
 import CartDrawer from "@/components/react/CartDrawer.tsx";
 import { type Locale, t, pickLocale } from "@/lib/i18n";
 import type { SiteSettings } from "@/lib/queries";
+import { organizationLD, websiteLD } from "@/lib/structured-data";
 
 interface Props {
   locale: Locale;
@@ -12,9 +13,18 @@ interface Props {
   description?: string;
   siteSettings: SiteSettings | null;
   ogImage?: string;
+  /** Additional JSON-LD schemas to inject (Product, Article, Breadcrumb). */
+  structuredData?: Record<string, unknown>[];
 }
 
-const { locale, title, description, siteSettings, ogImage } = Astro.props;
+const {
+  locale,
+  title,
+  description,
+  siteSettings,
+  ogImage,
+  structuredData = [],
+} = Astro.props;
 
 const langAttr = locale === "mk" ? "mk" : locale === "sq" ? "sq" : "en";
 const fullTitle =
@@ -23,6 +33,14 @@ const fullTitle =
     : `${title} — ${siteSettings?.siteName ?? "Bosfoot"}`;
 const fallbackDescription = pickLocale(siteSettings?.tagline, locale);
 const metaDescription = description ?? fallbackDescription ?? "";
+
+// Always include Organization + WebSite; pages can pass extra schemas via prop.
+const siteUrl = Astro.site ?? "https://bosfoot.com";
+const allSchemas = [
+  organizationLD({ siteUrl, siteSettings }),
+  websiteLD({ siteUrl, siteSettings, locale }),
+  ...structuredData,
+];
 ---
 
 <!doctype html>
@@ -58,6 +76,17 @@ const metaDescription = description ?? fallbackDescription ?? "";
 
     <!-- Favicon — we'll add a real one later -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- JSON-LD structured data: Organization + WebSite are always present;
+         pages may add Product/Article/BreadcrumbList via the `structuredData` prop. -->
+    {
+      allSchemas.map((schema) => (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(schema)}
+        />
+      ))
+    }
   </head>
   <body>
     {

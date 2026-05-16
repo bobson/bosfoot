@@ -161,6 +161,25 @@ const FEATURED_BRANDS_QUERY = `
   }
 `
 
+/** All brands for /brands index page — includes description, with product count */
+const ALL_BRANDS_QUERY = `
+  *[_type == "brand"] | order(order asc, name asc){
+    _id,
+    name,
+    slug,
+    logo,
+    countryOfOrigin,
+    yearFounded,
+    description,
+    "productCount": count(*[_type == "product" && status == "active" && references(^._id)])
+  }
+`
+
+export type BrandListItem = BrandCard & {
+  description?: { mk?: string; sq?: string; en?: string }
+  productCount: number
+}
+
 /* ─────────────────────────────────────────────────────────────────────
    FETCH HELPERS
    ───────────────────────────────────────────────────────────────────── */
@@ -179,6 +198,10 @@ export async function getNewArrivals(): Promise<ProductCard[]> {
 
 export async function getFeaturedBrands(): Promise<BrandCard[]> {
   return sanity.fetch(FEATURED_BRANDS_QUERY)
+}
+
+export async function getAllBrands(): Promise<BrandListItem[]> {
+  return sanity.fetch(ALL_BRANDS_QUERY)
 }
 
 export async function getAllProducts(): Promise<ProductCard[]> {

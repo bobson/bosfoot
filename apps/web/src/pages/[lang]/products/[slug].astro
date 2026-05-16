@@ -4,13 +4,14 @@ import SpecTable from "@/components/astro/SpecTable.astro";
 import PortableText from "@/components/astro/PortableText.astro";
 import ImageGallery from "@/components/react/ImageGallery.tsx";
 import BuyPanel from "@/components/react/BuyPanel.tsx";
-import { type Locale, LOCALES, t, pickLocale } from "@/lib/i18n";
+import { type Locale, LOCALES, t, pickLocale, localePath } from "@/lib/i18n";
 import {
   getSiteSettings,
   getProductBySlug,
   getAllProductSlugs,
 } from "@/lib/queries";
 import { urlFor } from "@/lib/sanity";
+import { productLD, breadcrumbLD } from "@/lib/structured-data";
 
 export const prerender = true;
 
@@ -87,6 +88,28 @@ const cartThumbnailUrl = product.mainImage
 const ogImage = product.mainImage
   ? urlFor(product.mainImage).width(1200).height(630).format("jpg").url()
   : undefined;
+
+// JSON-LD: Product + breadcrumb chain (Home → Products → Brand → This product).
+const siteUrl = Astro.site ?? "https://bosfoot.com";
+const pageUrl = Astro.url.pathname;
+const productSchema = productLD({
+  siteUrl,
+  product,
+  locale,
+  pageUrl,
+  imageUrl: ogImage,
+});
+const breadcrumbSchema = breadcrumbLD({
+  siteUrl,
+  items: [
+    { name: t("nav.products", locale), url: localePath(locale, "products") },
+    {
+      name: product.brand.name,
+      url: `${localePath(locale, "brands")}/${product.brand.slug.current}`,
+    },
+    { name: name, url: pageUrl },
+  ],
+});
 ---
 
 <BaseLayout
@@ -95,6 +118,7 @@ const ogImage = product.mainImage
   description={pickLocale(product.shortDescription, locale)}
   siteSettings={siteSettings}
   ogImage={ogImage}
+  structuredData={[productSchema, breadcrumbSchema]}
 >
   <div class="container-page py-8 md:py-12">
     <!-- Breadcrumb -->

@@ -1,0 +1,40 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import LegalPage from "@/components/astro/LegalPage.astro";
+import { type Locale, LOCALES, t } from "@/lib/i18n";
+import { getSiteSettings } from "@/lib/queries";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+
+const siteSettings = await getSiteSettings();
+const contactEmail = siteSettings?.contact?.email;
+
+const title = t("returns.title", locale);
+const lead = t("returns.lead", locale);
+const sections = [1, 2, 3].map((i) => ({
+  title: t(`returns.${i}.title`, locale),
+  body: t(`returns.${i}.body`, locale),
+}));
+---
+
+<BaseLayout
+  locale={locale}
+  title={title}
+  description={lead}
+  siteSettings={siteSettings}
+>
+  <LegalPage
+    locale={locale}
+    title={title}
+    lead={lead}
+    sections={sections}
+    contactEmail={contactEmail}
+  />
+</BaseLayout>

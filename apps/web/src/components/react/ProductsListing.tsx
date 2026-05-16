@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from "react";
+import { useState, useMemo, useEffect, useLayoutEffect, useCallback } from "react";
 import { type Locale, t } from "@/lib/i18n";
 import {
   type FilterState,
@@ -35,6 +35,26 @@ export default function ProductsListing({ products, locale }: Props) {
   });
 
   const [panelOpen, setPanelOpen] = useState(false);
+
+  // The page's inline script sets data-bf-filter-pending on <html> when the
+  // URL has filter params, so the prerendered all-products grid stays hidden
+  // until React applies the correct filter. Clear it the moment we mount.
+  useLayoutEffect(() => {
+    delete document.documentElement.dataset.bfFilterPending;
+  }, []);
+
+  // Lock body scroll while the filter sheet is open on mobile. On desktop the
+  // panel renders inline so no lock is needed — but applying it unconditionally
+  // is harmless because the inline panel doesn't need scrolling either.
+  useEffect(() => {
+    if (!panelOpen) return;
+    const previous = document.documentElement.style.overflow;
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    if (isMobile) document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.documentElement.style.overflow = previous;
+    };
+  }, [panelOpen]);
 
   // Sync state to URL whenever filters change
   useEffect(() => {
@@ -166,10 +186,49 @@ export default function ProductsListing({ products, locale }: Props) {
         </div>
       </div>
 
-      {/* Filter panel — collapsible */}
+      {/* Filter panel — inline on desktop, bottom sheet on mobile */}
       {panelOpen && (
-        <div className="mb-8 p-6 bg-[var(--color-bg-secondary)] rounded-lg">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+        <>
+          <div
+            className="bf-filter-backdrop"
+            onClick={() => setPanelOpen(false)}
+            aria-hidden
+          />
+          <div
+            className="bf-filter-panel"
+            role="dialog"
+            aria-modal="true"
+            aria-label={t("filter.title", locale)}
+          >
+            {/* Mobile-only header */}
+            <div className="bf-filter-sheet-header">
+              <h2 className="bf-filter-sheet-title">
+                {t("filter.title", locale)}
+              </h2>
+              <button
+                type="button"
+                onClick={() => setPanelOpen(false)}
+                aria-label="Close"
+                className="bf-filter-sheet-close"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  aria-hidden
+                >
+                  <line x1="6" y1="6" x2="18" y2="18" />
+                  <line x1="18" y1="6" x2="6" y2="18" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="bf-filter-content">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
             {/* Gender filter */}
             <div>
               <h3 className="text-sm font-medium mb-3 uppercase tracking-wider text-[var(--color-ink-muted)]">
@@ -323,11 +382,36 @@ export default function ProductsListing({ products, locale }: Props) {
             </div>
           </div>
         </div>
+
+            {/* Mobile-only sticky CTA */}
+            <div className="bf-filter-sheet-cta">
+              {activeFilterCount > 0 && (
+                <button
+                  type="button"
+                  onClick={clearAll}
+                  className="bf-filter-sheet-cta-secondary"
+                >
+                  {t("filter.clear", locale)}
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => setPanelOpen(false)}
+                className="bf-filter-sheet-cta-primary"
+              >
+                {t("filter.showResults", locale)} {filtered.length}
+              </button>
+            </div>
+          </div>
+        </>
       )}
 
       {/* Product grid */}
       {filtered.length === 0 ? (
-        <div className="py-24 text-center text-[var(--color-ink-muted)]">
+        <div
+          data-products-grid
+          className="py-24 text-center text-[var(--color-ink-muted)]"
+        >
           <p>{t("listing.empty", locale)}</p>
           {activeFilterCount > 0 && (
             <button
@@ -339,7 +423,10 @@ export default function ProductsListing({ products, locale }: Props) {
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-12">
+        <div
+          data-products-grid
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-12"
+        >
           {filtered.map((p) => (
             <ProductCardReact key={p.sku} product={p} locale={locale} />
           ))}

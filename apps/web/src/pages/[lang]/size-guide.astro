@@ -1,0 +1,249 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { type Locale, LOCALES, t, localePath } from "@/lib/i18n";
+import { getSiteSettings } from "@/lib/queries";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+
+const siteSettings = await getSiteSettings();
+const contactEmail = siteSettings?.contact?.email ?? "contact@bosfoot.com";
+
+const pageTitle = t("sizeGuide.title", locale);
+const pageLead = t("sizeGuide.lead", locale);
+
+const steps = [
+  {
+    title: t("sizeGuide.step1.title", locale),
+    body: t("sizeGuide.step1.body", locale),
+  },
+  {
+    title: t("sizeGuide.step2.title", locale),
+    body: t("sizeGuide.step2.body", locale),
+  },
+  {
+    title: t("sizeGuide.step3.title", locale),
+    body: t("sizeGuide.step3.body", locale),
+  },
+  {
+    title: t("sizeGuide.step4.title", locale),
+    body: t("sizeGuide.step4.body", locale),
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={pageTitle}
+  description={pageLead}
+  siteSettings={siteSettings}
+>
+  <section class="container-page py-12 md:py-16">
+    <header class="max-w-2xl mb-12 md:mb-16">
+      <h1 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
+        {pageTitle}
+      </h1>
+      <p class="text-base md:text-lg text-[var(--color-ink-muted)] leading-relaxed">
+        {pageLead}
+      </p>
+    </header>
+
+    <div class="guide-layout">
+      <!-- Steps -->
+      <ol class="guide-steps">
+        {
+          steps.map((step) => (
+            <li class="guide-step">
+              <h2 class="guide-step-title">{step.title}</h2>
+              <p class="guide-step-body">{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <!-- Tip + visual sidebar -->
+      <aside class="guide-aside">
+        <div class="guide-illustration" aria-hidden="true">
+          <svg viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Stylised foot outline -->
+            <path
+              d="M100 20 C 130 20, 150 50, 150 90 L 150 200 C 150 240, 130 260, 100 260 C 70 260, 50 240, 50 200 L 50 90 C 50 50, 70 20, 100 20 Z"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-dasharray="3 4"
+              opacity="0.5"
+            />
+            <!-- Toes -->
+            <circle cx="78" cy="40" r="9" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
+            <circle cx="96" cy="32" r="11" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
+            <circle cx="116" cy="36" r="9" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
+            <circle cx="132" cy="44" r="7" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
+            <circle cx="144" cy="56" r="5" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
+            <!-- Length arrow -->
+            <line x1="170" y1="32" x2="170" y2="258" stroke="currentColor" stroke-width="1.2" />
+            <polyline points="166,38 170,32 174,38" stroke="currentColor" stroke-width="1.2" fill="none" />
+            <polyline points="166,252 170,258 174,252" stroke="currentColor" stroke-width="1.2" fill="none" />
+            <!-- Width arrow -->
+            <line x1="42" y1="100" x2="158" y2="100" stroke="currentColor" stroke-width="1.2" opacity="0.7" />
+            <polyline points="48,96 42,100 48,104" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.7" />
+            <polyline points="152,96 158,100 152,104" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.7" />
+          </svg>
+        </div>
+
+        <div class="guide-tip">
+          <h3 class="guide-tip-title">{t("sizeGuide.tip.title", locale)}</h3>
+          <p class="guide-tip-body">{t("sizeGuide.tip.body", locale)}</p>
+        </div>
+      </aside>
+    </div>
+
+    <!-- Per-brand charts callout -->
+    <div class="guide-section">
+      <h2 class="guide-section-title">{t("sizeGuide.brands.title", locale)}</h2>
+      <p class="guide-section-body">{t("sizeGuide.brands.lead", locale)}</p>
+      <a href={localePath(locale, "brands")} class="guide-section-cta">
+        {t("nav.brands", locale)} →
+      </a>
+    </div>
+
+    <!-- Help callout -->
+    <div class="guide-help">
+      <h2 class="guide-help-title">{t("sizeGuide.help.title", locale)}</h2>
+      <p class="guide-help-body">{t("sizeGuide.help.body", locale)}</p>
+      <a href={`mailto:${contactEmail}`} class="guide-help-cta">
+        {contactEmail} →
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .guide-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-bottom: 4rem;
+  }
+  @media (min-width: 900px) {
+    .guide-layout {
+      grid-template-columns: 1.4fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  /* Steps */
+  .guide-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .guide-step {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  .guide-step:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  .guide-step-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin: 0 0 0.75rem;
+  }
+  @media (min-width: 768px) {
+    .guide-step-title {
+      font-size: 1.4rem;
+    }
+  }
+  .guide-step-body {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-ink-muted);
+  }
+
+  /* Aside */
+  .guide-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .guide-illustration {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    color: var(--color-ink-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .guide-illustration svg {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+  }
+  .guide-tip {
+    background: var(--color-bg-primary);
+    border-left: 3px solid var(--color-accent);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  }
+  .guide-tip-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin: 0 0 0.5rem;
+  }
+  .guide-tip-body {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0;
+    color: var(--color-ink);
+  }
+
+  /* Brand charts + Help sections */
+  .guide-section,
+  .guide-help {
+    border-top: 1px solid var(--color-border-subtle);
+    padding: 3rem 0;
+    max-width: 42rem;
+  }
+  .guide-section-title,
+  .guide-help-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.75rem;
+  }
+  .guide-section-body,
+  .guide-help-body {
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-ink-muted);
+    margin: 0 0 1rem;
+  }
+  .guide-section-cta,
+  .guide-help-cta {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-accent);
+    transition: color 150ms ease;
+  }
+  .guide-section-cta:hover,
+  .guide-help-cta:hover {
+    color: var(--color-accent-hover);
+  }
+</style>

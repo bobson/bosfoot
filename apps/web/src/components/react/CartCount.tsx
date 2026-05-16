@@ -34,12 +34,12 @@ export default function CartCount({ locale }: Props) {
     <a
       href={localePath(locale, "cart")}
       onClick={handleClick}
-      className="relative text-sm flex items-center gap-1.5 hover:text-[var(--color-accent)] transition-colors"
+      className="relative inline-flex items-center justify-center w-10 h-10 -mr-1 text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors"
       aria-label={t("cart.title", locale)}
     >
       <svg
-        width="20"
-        height="20"
+        width="24"
+        height="24"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -54,7 +54,7 @@ export default function CartCount({ locale }: Props) {
       </svg>
       {count > 0 && (
         <span
-          className="absolute -top-1.5 -right-2 min-w-[18px] h-[18px] px-1 inline-flex items-center justify-center text-[10px] font-medium bg-[var(--color-ink)] text-white rounded-full"
+          className="absolute top-1 right-0.5 min-w-[18px] h-[18px] px-1 inline-flex items-center justify-center text-[10px] font-medium bg-[var(--color-ink)] text-white rounded-full"
           aria-label={`${count} items`}
         >
           {count}
