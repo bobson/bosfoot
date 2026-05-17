@@ -374,7 +374,7 @@ export default function ProductsListing({ products, locale }: Props) {
                 <button
                   type="button"
                   onClick={clearAll}
-                  className="text-xs text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] underline self-start mt-2"
+                  className="text-xs text-[var(--color-brand)] hover:text-[var(--color-brand-hover)] underline self-start mt-2"
                 >
                   {t("filter.clear", locale)}
                 </button>
@@ -416,7 +416,7 @@ export default function ProductsListing({ products, locale }: Props) {
           {activeFilterCount > 0 && (
             <button
               onClick={clearAll}
-              className="mt-4 text-sm text-[var(--color-accent)] underline"
+              className="mt-4 text-sm text-[var(--color-brand)] underline"
             >
               {t("filter.clear", locale)}
             </button>

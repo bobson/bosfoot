@@ -1,0 +1,97 @@
+---
+/**
+ * Astro port of shadcn/ui's <Button>. Zero JS, zero hydration — pure markup
+ * with the same class composition as the React version, so behavior stays
+ * consistent if/when a button needs to become a React island later.
+ *
+ * Variants follow shadcn conventions:
+ *   - default     : bg-primary (ink) → on hover stays primary, slight darken
+ *   - brand       : bg-brand (terracotta) — for emphasized actions tied to brand
+ *   - secondary   : bg-secondary (cream)
+ *   - outline     : border + transparent bg, inverts on hover
+ *   - ghost       : transparent, hover bg-muted
+ *   - link        : underlined text, no chrome
+ *
+ * Sizes: sm (h-8), default (h-10), lg (h-12). Sized in line-height-friendly
+ * px values rather than h-* utilities so heights remain consistent with the
+ * existing site's button rhythm.
+ *
+ * Render as <a> by passing `href`. Otherwise renders as <button>.
+ */
+
+type Variant = "default" | "brand" | "secondary" | "outline" | "ghost" | "link";
+type Size = "sm" | "default" | "lg";
+
+interface Props {
+  variant?: Variant;
+  size?: Size;
+  href?: string;
+  type?: "button" | "submit" | "reset";
+  class?: string;
+  disabled?: boolean;
+  ariaLabel?: string;
+}
+
+const {
+  variant = "default",
+  size = "default",
+  href,
+  type = "button",
+  class: className = "",
+  disabled = false,
+  ariaLabel,
+} = Astro.props;
+
+const base =
+  "inline-flex items-center justify-center gap-2 rounded-md font-medium tracking-wide whitespace-nowrap transition-all duration-150 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4";
+
+const variants: Record<Variant, string> = {
+  default:
+    "bg-primary text-primary-foreground hover:bg-foreground hover:-translate-y-px",
+  brand:
+    "bg-brand text-white hover:bg-[color:var(--color-brand-hover)] hover:-translate-y-px",
+  secondary:
+    "bg-secondary text-secondary-foreground border border-border hover:bg-muted",
+  outline:
+    "border border-foreground text-foreground hover:bg-foreground hover:text-background",
+  ghost: "text-foreground hover:bg-muted hover:text-foreground",
+  link: "text-brand underline-offset-4 hover:underline",
+};
+
+const sizes: Record<Size, string> = {
+  sm: "h-9 px-4 text-sm",
+  default: "h-11 px-6 text-sm",
+  lg: "h-12 px-7 text-[0.9375rem]",
+};
+
+const classes = [base, variants[variant], sizes[size], className]
+  .filter(Boolean)
+  .join(" ");
+---
+
+{
+  href ? (
+    <a
+      href={href}
+      class={classes}
+      aria-label={ariaLabel}
+      data-slot="button"
+      data-variant={variant}
+      data-size={size}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button
+      type={type}
+      class={classes}
+      disabled={disabled}
+      aria-label={ariaLabel}
+      data-slot="button"
+      data-variant={variant}
+      data-size={size}
+    >
+      <slot />
+    </button>
+  )
+}

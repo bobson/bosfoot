@@ -122,7 +122,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
           <div className="text-sm uppercase tracking-wider text-[var(--color-ink-muted)] mb-1">
             <a
               href={`/${locale}/brands/${product.brand.slug.current}`}
-              className="hover:text-[var(--color-accent)] transition-colors"
+              className="hover:text-[var(--color-brand)] transition-colors"
             >
               {product.brand.name}
             </a>
@@ -156,7 +156,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
           <ul className="space-y-1.5">
             {product.highlights.map((h, i) => (
               <li key={h._key ?? i} className="text-sm flex items-start gap-2">
-                <span className="text-[var(--color-accent)] flex-shrink-0 mt-0.5">
+                <span className="text-[var(--color-brand)] flex-shrink-0 mt-0.5">
                   —
                 </span>
                 <span>{pickLocale(h, locale)}</span>
@@ -210,7 +210,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
                 <button
                   type="button"
                   onClick={() => setSizeChartOpen(true)}
-                  className="text-xs text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] underline"
+                  className="text-xs text-[var(--color-brand)] hover:text-[var(--color-brand-hover)] underline"
                 >
                   {t("detail.sizeGuide", locale)} ↗
                 </button>
@@ -242,7 +242,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
             {selectedVariant &&
               selectedVariant.stock > 0 &&
               selectedVariant.stock <= 3 && (
-                <p className="mt-2 text-xs text-[var(--color-accent)]">
+                <p className="mt-2 text-xs text-[var(--color-brand)]">
                   {t("detail.lowStock", locale)} {selectedVariant.stock}{" "}
                   {t("detail.lowStockSuffix", locale)}
                 </p>
@@ -276,7 +276,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
             href={product.brandProductUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-center text-sm text-[var(--color-ink-muted)] hover:text-[var(--color-accent)] transition-colors py-2"
+            className="block text-center text-sm text-[var(--color-ink-muted)] hover:text-[var(--color-brand)] transition-colors py-2"
           >
             {t("detail.moreFromBrand", locale)} ↗
           </a>

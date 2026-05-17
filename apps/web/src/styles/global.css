@@ -4,6 +4,12 @@
 
 @import 'tailwindcss';
 
+@import "tw-animate-css";
+
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
 @theme {
   /* ── Colors ────────────────────────────────────────────────── */
   --color-bg-primary: #ffffff;
@@ -18,9 +24,9 @@
   --color-border-default: #e5e5e0;
   --color-border-strong: #cdcdc6;
 
-  --color-accent: #b85c2c;
-  --color-accent-hover: #9c4d24;
-  --color-accent-soft: #f5e8df;
+  --color-brand: #b85c2c;
+  --color-brand-hover: #9c4d24;
+  --color-brand-soft: #f5e8df;
 
   /* Natural sage palette — used to break up cream sections on the homepage.
      Inspired by earthy barefoot brands; pairs with the terracotta accent. */
@@ -73,11 +79,13 @@
     background: var(--color-bg-primary);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    @apply font-sans;
   }
 
   body {
     margin: 0;
     min-height: 100dvh;
+    @apply bg-background text-foreground;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -103,15 +111,18 @@
 
   /* Focus ring — accessible without being ugly */
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-brand);
     outline-offset: 2px;
     border-radius: 2px;
   }
 
   /* Selection color matches accent */
   ::selection {
-    background: var(--color-accent-soft);
+    background: var(--color-brand-soft);
     color: var(--color-ink);
+  }
+  * {
+    @apply border-border outline-ring/50;
   }
 }
 
@@ -298,4 +309,61 @@
 @keyframes bf-filter-slide-up {
   from { transform: translateY(100%); }
   to   { transform: translateY(0); }
+}
+
+/* ── shadcn token bridge ─────────────────────────────────────
+   Maps shadcn's semantic CSS variable names (--background, --card, --primary,
+   --muted, --accent, --ring, etc.) to the project's brand tokens defined in
+   the @theme block above. Result: shadcn components written with their
+   standard class names (`bg-card`, `text-foreground`, `border`,
+   `text-muted-foreground`) automatically pick up the Bosfoot palette — no
+   per-component overrides needed.
+
+   Note: brand terracotta lives on a SEPARATE token (`--color-brand`) so it
+   doesn't collide with shadcn's `--accent`, which conventionally means a
+   subtle hover surface (used by Select, DropdownMenu, NavigationMenu, etc.).
+   Use `bg-brand`/`text-brand` for brand color; `bg-accent` stays warm cream.
+
+   Bosfoot is light-only — no .dark block. */
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+:root {
+  --background: var(--color-bg-primary);       /* #ffffff */
+  --foreground: var(--color-ink);              /* #1a1a1a */
+  --card: var(--color-bg-primary);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-bg-primary);
+  --popover-foreground: var(--color-ink);
+  --primary: var(--color-ink);                 /* default buttons = ink bg */
+  --primary-foreground: var(--color-bg-primary);
+  --secondary: var(--color-bg-secondary);      /* cream #fafaf8 */
+  --secondary-foreground: var(--color-ink);
+  --muted: var(--color-bg-secondary);
+  --muted-foreground: var(--color-ink-muted);
+  --accent: var(--color-bg-tertiary);          /* #f2f0eb — subtle hover surface */
+  --accent-foreground: var(--color-ink);
+  --destructive: var(--color-danger);
+  --border: var(--color-border-default);
+  --input: var(--color-border-default);
+  --ring: var(--color-brand);                  /* terracotta focus ring */
 }

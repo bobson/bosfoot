@@ -22,50 +22,10 @@ function articleHref(article: ArticleCard): string {
 function formatDate(iso: string | undefined): string {
   if (!iso) return "";
   const date = new Date(iso);
-  // Manual locale-deterministic formatting (avoid hydration risk)
   const monthNames: Record<Locale, string[]> = {
-    mk: [
-      "јан",
-      "фев",
-      "мар",
-      "апр",
-      "мај",
-      "јун",
-      "јул",
-      "авг",
-      "сеп",
-      "окт",
-      "ное",
-      "дек",
-    ],
-    sq: [
-      "jan",
-      "shk",
-      "mar",
-      "pri",
-      "maj",
-      "qer",
-      "kor",
-      "gus",
-      "sht",
-      "tet",
-      "nën",
-      "dhj",
-    ],
-    en: [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ],
+    mk: ["јан", "фев", "мар", "апр", "мај", "јун", "јул", "авг", "сеп", "окт", "ное", "дек"],
+    sq: ["jan", "shk", "mar", "pri", "maj", "qer", "kor", "gus", "sht", "tet", "nën", "dhj"],
+    en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
   };
   return `${date.getDate()} ${monthNames[locale][date.getMonth()]} ${date.getFullYear()}`;
 }
@@ -73,23 +33,33 @@ function formatDate(iso: string | undefined): string {
 
 {
   articles.length > 0 && (
-    <section class="articles">
+    <section class="py-20 md:py-28 bg-background">
       <div class="container-page">
-        <div class="articles-header">
+        <div class="flex items-end justify-between gap-8 flex-wrap mb-12">
           <div>
-            <h2 class="articles-title">{t("home.articles.title", locale)}</h2>
-            <p class="articles-lead">{t("home.articles.lead", locale)}</p>
+            <h2 class="text-[1.75rem] md:text-[2.25rem] font-semibold tracking-tight mb-2 text-foreground">
+              {t("home.articles.title", locale)}
+            </h2>
+            <p class="text-[0.9375rem] text-muted-foreground m-0 max-w-md">
+              {t("home.articles.lead", locale)}
+            </p>
           </div>
-          <a href={`/${locale}/articles`} class="articles-view-all">
+          <a
+            href={`/${locale}/articles`}
+            class="text-sm text-muted-foreground whitespace-nowrap transition-colors hover:text-brand"
+          >
             {t("home.articles.viewAll", locale)} →
           </a>
         </div>
 
-        <div class="articles-grid">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           {articles.map((article) => (
-            <a href={articleHref(article)} class="article-card">
+            <a
+              href={articleHref(article)}
+              class="group block transition-transform duration-200 hover:-translate-y-0.5"
+            >
               {article.coverImage && (
-                <div class="article-image-wrap">
+                <div class="aspect-[16/10] overflow-hidden rounded-md bg-secondary mb-5">
                   <img
                     src={urlFor(article.coverImage)
                       .width(800)
@@ -99,25 +69,25 @@ function formatDate(iso: string | undefined): string {
                       .url()}
                     alt=""
                     loading="lazy"
-                    class="article-image"
+                    class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
               )}
-              <div class="article-body">
+              <div class="px-1">
                 {article.publishedAt && (
-                  <time class="article-date">
+                  <time class="text-xs text-muted-foreground uppercase tracking-widest">
                     {formatDate(article.publishedAt)}
                   </time>
                 )}
-                <h3 class="article-card-title">
+                <h3 class="text-lg font-semibold tracking-tight mt-2 mb-2.5 leading-snug text-foreground transition-colors group-hover:text-brand">
                   {pickLocale(article.title, locale)}
                 </h3>
                 {pickLocale(article.lead, locale) && (
-                  <p class="article-card-lead">
+                  <p class="text-[0.9375rem] leading-[1.55] text-muted-foreground mb-4 line-clamp-2">
                     {pickLocale(article.lead, locale)}
                   </p>
                 )}
-                <span class="article-read-more">
+                <span class="text-sm font-medium text-brand">
                   {t("home.articles.readMore", locale)} →
                 </span>
               </div>
@@ -128,132 +98,3 @@ function formatDate(iso: string | undefined): string {
     </section>
   )
 }
-
-<style>
-  .articles {
-    padding: 5rem 0 6rem;
-    background: var(--color-bg-primary);
-  }
-
-  @media (min-width: 768px) {
-    .articles {
-      padding: 7rem 0 8rem;
-    }
-  }
-
-  .articles-header {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 2rem;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-  }
-
-  .articles-title {
-    font-size: 1.75rem;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-    margin: 0 0 0.5rem;
-  }
-
-  @media (min-width: 768px) {
-    .articles-title {
-      font-size: 2.25rem;
-    }
-  }
-
-  .articles-lead {
-    color: var(--color-ink-muted);
-    font-size: 0.9375rem;
-    margin: 0;
-    max-width: 28rem;
-  }
-
-  .articles-view-all {
-    color: var(--color-ink-muted);
-    font-size: 0.875rem;
-    white-space: nowrap;
-    transition: color 120ms ease;
-  }
-  .articles-view-all:hover {
-    color: var(--color-accent);
-  }
-
-  .articles-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
-  }
-
-  @media (min-width: 700px) {
-    .articles-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .article-card {
-    display: block;
-    transition: transform 200ms ease;
-  }
-  .article-card:hover {
-    transform: translateY(-3px);
-  }
-
-  .article-image-wrap {
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
-    border-radius: var(--radius-md);
-    background: var(--color-bg-secondary);
-    margin-bottom: 1.25rem;
-  }
-  .article-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 500ms ease;
-  }
-  .article-card:hover .article-image {
-    transform: scale(1.04);
-  }
-
-  .article-body {
-    padding: 0 0.25rem;
-  }
-
-  .article-date {
-    font-size: 0.75rem;
-    color: var(--color-ink-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .article-card-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    margin: 0.5rem 0 0.625rem;
-    line-height: 1.3;
-    transition: color 120ms ease;
-  }
-  .article-card:hover .article-card-title {
-    color: var(--color-accent);
-  }
-
-  .article-card-lead {
-    color: var(--color-ink-muted);
-    font-size: 0.9375rem;
-    line-height: 1.55;
-    margin: 0 0 1rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .article-read-more {
-    font-size: 0.875rem;
-    color: var(--color-accent);
-    font-weight: 500;
-  }
-</style>

@@ -42,7 +42,7 @@ export default function ProductCardReact({ product, locale }: Props) {
   return (
     <a
       href={href}
-      className="group block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] rounded-md"
+      className="group block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand)] rounded-md"
     >
       <article className="space-y-3">
         {/* Image */}
@@ -71,7 +71,7 @@ export default function ProductCardReact({ product, locale }: Props) {
               </span>
             )}
             {onSale && (
-              <span className="px-2 py-0.5 bg-[var(--color-accent)] text-white text-[10px] uppercase tracking-wider rounded-sm">
+              <span className="px-2 py-0.5 bg-[var(--color-brand)] text-white text-[10px] uppercase tracking-wider rounded-sm">
                 {t("product.sale", locale)}
               </span>
             )}
@@ -129,7 +129,7 @@ export default function ProductCardReact({ product, locale }: Props) {
           <div className="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider">
             {product.brand?.name}
           </div>
-          <h3 className="text-base font-medium leading-snug group-hover:text-[var(--color-accent)] transition-colors">
+          <h3 className="text-base font-medium leading-snug group-hover:text-[var(--color-brand)] transition-colors">
             {name}
           </h3>
         </div>

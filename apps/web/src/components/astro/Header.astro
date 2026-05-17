@@ -10,6 +10,7 @@ import {
 import type { SiteSettings } from "@/lib/queries";
 import CartCount from "@/components/react/CartCount.tsx";
 import SearchOverlay from "@/components/react/SearchOverlay.tsx";
+import MobileNav from "@/components/react/MobileNav.tsx";
 
 interface Props {
   locale: Locale;
@@ -27,48 +28,34 @@ const navLinks = [
   { route: "about", label: t("nav.about", locale) },
 ] as const;
 
+const mobileNavLinks = navLinks.map((l) => ({
+  href: localePath(locale, l.route),
+  label: l.label,
+}));
+
 const localeLinks = LOCALES.map((lang) => ({
   lang,
   href: switchLocale(currentPath, lang),
   label: LOCALE_SHORT_LABELS[lang],
+  isActive: lang === locale,
 }));
 ---
 
 <header
-  class="border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-primary)] sticky top-0 z-30"
+  class="sticky top-0 z-30 bg-background border-b border-border"
 >
   <div class="container-page flex items-center justify-between py-3 gap-3">
-    <!-- LEFT: burger (mobile) + logo -->
+    <!-- LEFT: burger (mobile, inside MobileNav island) + logo -->
     <div class="flex items-center gap-2 md:gap-3">
-      <button
-        type="button"
-        class="bf-burger md:hidden inline-flex items-center justify-center w-10 h-10 -ml-2 text-[var(--color-ink)]"
-        aria-label="Menu"
-        aria-controls="mobile-nav"
-        aria-expanded="false"
-        data-bf-mobile-nav-toggle
-      >
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
-          aria-hidden="true"
-        >
-          <line x1="4" y1="7" x2="20" y2="7" />
-          <line x1="4" y1="12" x2="20" y2="12" />
-          <line x1="4" y1="17" x2="20" y2="17" />
-        </svg>
-      </button>
+      <MobileNav
+        client:load
+        navLinks={mobileNavLinks}
+        localeLinks={localeLinks}
+        logoSrc="/images/logo.svg"
+        siteName={siteName}
+      />
 
-      <a
-        href={`/${locale}/`}
-        class="flex items-center"
-        aria-label={siteName}
-      >
+      <a href={`/${locale}/`} class="flex items-center" aria-label={siteName}>
         <img src="/images/logo.svg" alt={siteName} class="h-9 md:h-10 w-auto" />
       </a>
     </div>
@@ -79,7 +66,7 @@ const localeLinks = LOCALES.map((lang) => ({
         navLinks.map((link) => (
           <a
             href={localePath(locale, link.route)}
-            class="text-sm hover:text-[var(--color-accent)] transition-colors"
+            class="text-sm text-foreground transition-colors hover:text-brand"
           >
             {link.label}
           </a>
@@ -89,10 +76,10 @@ const localeLinks = LOCALES.map((lang) => ({
 
     <!-- RIGHT: search + language switcher + cart -->
     <div class="flex items-center gap-1 md:gap-3">
-      <!-- Search button — opens overlay -->
+      <!-- Search button — opens overlay via global event -->
       <button
         type="button"
-        class="inline-flex items-center justify-center w-10 h-10 text-[var(--color-ink)] hover:text-[var(--color-accent)] transition-colors"
+        class="inline-flex items-center justify-center w-10 h-10 text-foreground transition-colors hover:text-brand outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
         aria-label="Search"
         onclick="window.dispatchEvent(new CustomEvent('search:open'))"
       >
@@ -107,23 +94,21 @@ const localeLinks = LOCALES.map((lang) => ({
           stroke-linejoin="round"
           aria-hidden="true"
         >
-          <circle cx="11" cy="11" r="7" />
-          <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          <circle cx="11" cy="11" r="7"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
       </button>
 
-      <!-- Mobile: native select (no chevron) -->
+      <!-- Mobile: native select (no chevron) — native UX, no JS -->
       <select
-        class="bf-lang-select md:hidden"
+        class="md:hidden appearance-none bg-transparent border border-border rounded-sm text-foreground text-xs font-medium px-2.5 py-1.5 leading-none text-center cursor-pointer focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-1"
+        style="text-align-last: center;"
         aria-label="Language"
         onchange="if(this.value){window.location.href=this.value;}"
       >
         {
           localeLinks.map((opt) => (
-            <option
-              value={opt.href}
-              selected={opt.lang === locale}
-            >
+            <option value={opt.href} selected={opt.isActive}>
               {opt.label}
             </option>
           ))
@@ -138,16 +123,17 @@ const localeLinks = LOCALES.map((lang) => ({
         {
           localeLinks.map((opt, i) => (
             <>
-              {i > 0 && <span class="text-[var(--color-ink-subtle)]">·</span>}
+              {i > 0 && <span class="text-ink-subtle">·</span>}
               <a
                 href={opt.href}
-                class={`px-1 ${
-                  opt.lang === locale
-                    ? "font-medium text-[var(--color-ink)]"
-                    : "text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]"
-                }`}
+                class:list={[
+                  "px-1 transition-colors",
+                  opt.isActive
+                    ? "font-medium text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
+                ]}
                 hreflang={opt.lang}
-                aria-current={opt.lang === locale ? "true" : undefined}
+                aria-current={opt.isActive ? "true" : undefined}
               >
                 {opt.label}
               </a>
@@ -163,257 +149,3 @@ const localeLinks = LOCALES.map((lang) => ({
 
 <!-- Search overlay — mounted globally, hidden until search:open event fires -->
 <SearchOverlay locale={locale} client:idle />
-
-<!-- Mobile nav drawer + overlay -->
-<div
-  class="bf-mobile-nav md:hidden"
-  id="mobile-nav"
-  data-bf-mobile-nav
-  aria-hidden="true"
->
-  <div class="bf-mobile-nav-overlay" data-bf-mobile-nav-close></div>
-  <aside
-    class="bf-mobile-nav-panel"
-    role="dialog"
-    aria-modal="true"
-    aria-label="Menu"
-  >
-    <div class="bf-mobile-nav-header">
-      <img
-        src="/images/logo.svg"
-        alt={siteName}
-        class="bf-mobile-nav-logo"
-      />
-      <button
-        type="button"
-        class="bf-mobile-nav-close-btn"
-        aria-label="Close menu"
-        data-bf-mobile-nav-close
-      >
-        <svg
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.6"
-          stroke-linecap="round"
-          aria-hidden="true"
-        >
-          <line x1="6" y1="6" x2="18" y2="18" />
-          <line x1="18" y1="6" x2="6" y2="18" />
-        </svg>
-      </button>
-    </div>
-
-    <nav class="bf-mobile-nav-links" aria-label="Mobile primary">
-      {
-        navLinks.map((link) => (
-          <a
-            href={localePath(locale, link.route)}
-            class="bf-mobile-nav-link"
-            data-bf-mobile-nav-close
-          >
-            {link.label}
-          </a>
-        ))
-      }
-    </nav>
-
-    <!-- Inline lang switcher directly below nav links — same look as desktop -->
-    <div class="bf-mobile-nav-lang" aria-label="Language">
-      {
-        localeLinks.map((opt, i) => (
-          <>
-            {i > 0 && (
-              <span class="text-[var(--color-ink-subtle)]">·</span>
-            )}
-            <a
-              href={opt.href}
-              class:list={[
-                "bf-mobile-nav-lang-link",
-                opt.lang === locale && "is-active",
-              ]}
-              hreflang={opt.lang}
-              aria-current={opt.lang === locale ? "true" : undefined}
-            >
-              {opt.label}
-            </a>
-          </>
-        ))
-      }
-    </div>
-  </aside>
-</div>
-
-<script is:inline>
-  (function () {
-    var root = document.querySelector("[data-bf-mobile-nav]");
-    var toggles = document.querySelectorAll("[data-bf-mobile-nav-toggle]");
-    var closers = document.querySelectorAll("[data-bf-mobile-nav-close]");
-    if (!root) return;
-
-    function open() {
-      root.dataset.open = "true";
-      root.setAttribute("aria-hidden", "false");
-      document.documentElement.style.overflow = "hidden";
-      toggles.forEach(function (t) {
-        t.setAttribute("aria-expanded", "true");
-      });
-    }
-    function close() {
-      delete root.dataset.open;
-      root.setAttribute("aria-hidden", "true");
-      document.documentElement.style.overflow = "";
-      toggles.forEach(function (t) {
-        t.setAttribute("aria-expanded", "false");
-      });
-    }
-
-    toggles.forEach(function (t) {
-      t.addEventListener("click", function () {
-        if (root.dataset.open === "true") close();
-        else open();
-      });
-    });
-    closers.forEach(function (c) {
-      c.addEventListener("click", close);
-    });
-    document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape" && root.dataset.open === "true") close();
-    });
-  })();
-</script>
-
-<style>
-  /* ── Mobile lang dropdown ──────────────────────────────────
-     Native <select> with appearance stripped — no chevron, no
-     OS-styled border. Padding is symmetric on both sides since
-     there's nothing to make room for on the right anymore. */
-  .bf-lang-select {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: transparent;
-    background-image: none;
-    border: 1px solid var(--color-border-default);
-    border-radius: var(--radius-sm);
-    color: var(--color-ink);
-    font-size: 0.75rem;
-    font-weight: 500;
-    padding: 0.375rem 0.625rem;
-    cursor: pointer;
-    line-height: 1;
-    text-align: center;
-    text-align-last: center;
-  }
-  .bf-lang-select::-ms-expand {
-    display: none;
-  }
-  .bf-lang-select:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 1px;
-  }
-
-  /* ── Mobile nav drawer ─────────────────────────────────── */
-  .bf-mobile-nav {
-    position: fixed;
-    inset: 0;
-    z-index: 50;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 200ms ease;
-  }
-  .bf-mobile-nav[data-open="true"] {
-    pointer-events: auto;
-    opacity: 1;
-  }
-
-  .bf-mobile-nav-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.4);
-  }
-
-  .bf-mobile-nav-panel {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    width: min(82%, 320px);
-    background: var(--color-bg-primary);
-    box-shadow: 4px 0 32px rgba(0, 0, 0, 0.12);
-    display: flex;
-    flex-direction: column;
-    transform: translateX(-100%);
-    transition: transform 240ms ease;
-  }
-  .bf-mobile-nav[data-open="true"] .bf-mobile-nav-panel {
-    transform: translateX(0);
-  }
-
-  .bf-mobile-nav-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid var(--color-border-subtle);
-  }
-  .bf-mobile-nav-logo {
-    height: 36px;
-    width: auto;
-    display: block;
-  }
-  .bf-mobile-nav-close-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    margin: -8px -8px -8px 0;
-    color: var(--color-ink);
-    background: transparent;
-    border: 0;
-    cursor: pointer;
-  }
-
-  .bf-mobile-nav-links {
-    display: flex;
-    flex-direction: column;
-    padding: 0.5rem 0;
-  }
-  .bf-mobile-nav-link {
-    display: block;
-    padding: 0.875rem 1.25rem;
-    font-size: 1rem;
-    color: var(--color-ink);
-    border-bottom: 1px solid var(--color-border-subtle);
-    transition: background 120ms ease;
-  }
-  .bf-mobile-nav-link:hover,
-  .bf-mobile-nav-link:focus-visible {
-    background: var(--color-bg-secondary);
-    color: var(--color-accent);
-  }
-
-  /* Inline lang switcher under the nav links — matches desktop look */
-  .bf-mobile-nav-lang {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 1rem 1.25rem;
-    font-size: 0.75rem;
-  }
-  .bf-mobile-nav-lang-link {
-    padding: 0.125rem 0.375rem;
-    color: var(--color-ink-muted);
-    transition: color 120ms ease;
-  }
-  .bf-mobile-nav-lang-link:hover {
-    color: var(--color-ink);
-  }
-  .bf-mobile-nav-lang-link.is-active {
-    color: var(--color-ink);
-    font-weight: 600;
-  }
-</style>

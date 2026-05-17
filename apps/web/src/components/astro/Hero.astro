@@ -1,4 +1,6 @@
 ---
+import Card from "@/components/astro/Card.astro";
+import Button from "@/components/astro/Button.astro";
 import { type Locale, t, localePath } from "@/lib/i18n";
 import type { SiteSettings } from "@/lib/queries";
 
@@ -14,302 +16,112 @@ const productsPath = localePath(locale, "products");
  * Hero — pure CSS, no images, no JS.
  *
  * Layout: split column on desktop. Left: tagline + lead + 3 CTAs.
- * Right: rotating quote card on a subtle accent background.
+ * Right: rotating quote card (shadcn Card) over a subtle muted backdrop.
  *
  * The card rotates between 3 quotes using CSS keyframes on three stacked
- * absolute-positioned children. Total cycle: 18 seconds (6s per slide).
- *
- * Why no image: shoe photography is hard to license and slow to load.
- * Solid tones + good typography give a premium feel and the page loads
- * in well under a second. We can add a single high-quality product photo
- * later as a subtle background watermark if we want.
+ * absolute-positioned children. Total cycle: 18s (6s per slide). Respects
+ * prefers-reduced-motion.
  */
 ---
 
-<section class="hero">
-  <div class="container-page hero-inner">
+<section
+  class="relative overflow-hidden bg-secondary border-b border-border py-16 md:py-24"
+>
+  <!-- Subtle decorative line for visual interest, no image needed -->
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute top-1/2 -left-[10%] w-[120%] h-px bg-border opacity-50"
+    style="transform: rotate(-3deg)"
+  >
+  </div>
+
+  <div
+    class="container-page relative grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] items-center gap-12 lg:gap-16"
+  >
     <!-- Left: tagline + CTAs -->
-    <div class="hero-content">
-      <h1 class="hero-title">
-        <span class="hero-title-line-1">{t("home.hero.line1", locale)}</span>
-        <span class="hero-title-line-2">{t("home.hero.line2", locale)}</span>
+    <div class="max-w-2xl">
+      <h1
+        class="font-semibold leading-[1.05] tracking-tight text-foreground text-[2.5rem] md:text-6xl xl:text-[5rem] mb-6"
+      >
+        <span class="block">{t("home.hero.line1", locale)}</span>
+        <span class="block text-brand italic font-medium">
+          {t("home.hero.line2", locale)}
+        </span>
       </h1>
 
-      <p class="hero-lead">{t("home.hero.lead", locale)}</p>
+      <p
+        class="text-[1.05rem] leading-relaxed text-muted-foreground mb-10 max-w-md"
+      >
+        {t("home.hero.lead", locale)}
+      </p>
 
-      <div class="hero-ctas">
-        <a
-          href={`${productsPath}?gender=mens`}
-          class="hero-cta hero-cta-primary"
-        >
+      <div class="flex flex-wrap gap-3">
+        <Button href={`${productsPath}?gender=mens`} size="lg">
           {t("home.hero.shopMen", locale)}
-        </a>
-        <a
-          href={`${productsPath}?gender=womens`}
-          class="hero-cta hero-cta-primary"
-        >
+        </Button>
+        <Button href={`${productsPath}?gender=womens`} size="lg">
           {t("home.hero.shopWomen", locale)}
-        </a>
-        <a
-          href={`${productsPath}?gender=kids`}
-          class="hero-cta hero-cta-secondary"
-        >
+        </Button>
+        <Button href={`${productsPath}?gender=kids`} variant="outline" size="lg">
           {t("home.hero.shopKids", locale)}
-        </a>
+        </Button>
       </div>
     </div>
 
     <!-- Right: rotating quote card -->
-    <div class="hero-quote-card" aria-hidden="true">
-      <div class="quote-slide quote-slide-1">
-        <div class="quote-mark">"</div>
-        <p class="quote-text">{t("home.quote.1.text", locale)}</p>
-        <p class="quote-attr">— {t("home.quote.1.attr", locale)}</p>
+    <Card class="relative min-h-[280px] md:min-h-[320px] p-10 md:p-12 shadow-sm">
+      <div class="hero-quote-slide hero-quote-slide-1 absolute inset-10 md:inset-12 flex flex-col">
+        <div class="font-serif text-7xl leading-none text-brand font-bold mb-2">"</div>
+        <p class="text-[1.05rem] md:text-[1.15rem] leading-[1.55] italic text-foreground m-0 flex-1">
+          {t("home.quote.1.text", locale)}
+        </p>
+        <p class="mt-5 text-[0.8125rem] text-muted-foreground font-medium uppercase tracking-widest">
+          — {t("home.quote.1.attr", locale)}
+        </p>
       </div>
-      <div class="quote-slide quote-slide-2">
-        <div class="quote-mark">"</div>
-        <p class="quote-text">{t("home.quote.2.text", locale)}</p>
-        <p class="quote-attr">— {t("home.quote.2.attr", locale)}</p>
+
+      <div class="hero-quote-slide hero-quote-slide-2 absolute inset-10 md:inset-12 flex flex-col">
+        <div class="font-serif text-7xl leading-none text-brand font-bold mb-2">"</div>
+        <p class="text-[1.05rem] md:text-[1.15rem] leading-[1.55] italic text-foreground m-0 flex-1">
+          {t("home.quote.2.text", locale)}
+        </p>
+        <p class="mt-5 text-[0.8125rem] text-muted-foreground font-medium uppercase tracking-widest">
+          — {t("home.quote.2.attr", locale)}
+        </p>
       </div>
-      <div class="quote-slide quote-slide-3">
-        <div class="quote-mark">"</div>
-        <p class="quote-text">{t("home.quote.3.text", locale)}</p>
-        <p class="quote-attr">— {t("home.quote.3.attr", locale)}</p>
+
+      <div class="hero-quote-slide hero-quote-slide-3 absolute inset-10 md:inset-12 flex flex-col">
+        <div class="font-serif text-7xl leading-none text-brand font-bold mb-2">"</div>
+        <p class="text-[1.05rem] md:text-[1.15rem] leading-[1.55] italic text-foreground m-0 flex-1">
+          {t("home.quote.3.text", locale)}
+        </p>
+        <p class="mt-5 text-[0.8125rem] text-muted-foreground font-medium uppercase tracking-widest">
+          — {t("home.quote.3.attr", locale)}
+        </p>
       </div>
-    </div>
+    </Card>
   </div>
 </section>
 
 <style>
-  .hero {
-    background: var(--color-bg-secondary);
-    border-bottom: 1px solid var(--color-border-subtle);
-    padding: 4rem 0 5rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  /* Subtle decorative line for visual interest, no actual image needed */
-  .hero::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: -10%;
-    width: 120%;
-    height: 1px;
-    background: var(--color-border-subtle);
-    transform: rotate(-3deg);
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
-  @media (min-width: 768px) {
-    .hero {
-      padding: 6rem 0 7rem;
-    }
-  }
-
-  .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-    align-items: center;
-    position: relative;
-  }
-
-  @media (min-width: 900px) {
-    .hero-inner {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 4rem;
-    }
-  }
-
-  /* ── Left content ──────────────────────────────────────── */
-  .hero-content {
-    max-width: 36rem;
-  }
-
-  .hero-title {
-    font-size: 2.5rem;
-    line-height: 1.05;
-    letter-spacing: -0.025em;
-    font-weight: 600;
-    margin: 0 0 1.5rem;
-    color: var(--color-ink);
-  }
-
-  @media (min-width: 768px) {
-    .hero-title {
-      font-size: 4rem;
-    }
-  }
-
-  @media (min-width: 1100px) {
-    .hero-title {
-      font-size: 5rem;
-    }
-  }
-
-  .hero-title-line-1 {
-    display: block;
-  }
-  .hero-title-line-2 {
-    display: block;
-    color: var(--color-accent);
-    font-style: italic;
-    font-weight: 500;
-  }
-
-  .hero-lead {
-    font-size: 1.05rem;
-    line-height: 1.6;
-    color: var(--color-ink-muted);
-    margin: 0 0 2.5rem;
-    max-width: 28rem;
-  }
-
-  .hero-ctas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem;
-  }
-
-  .hero-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.875rem 1.5rem;
-    border-radius: var(--radius-md);
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    transition: all 150ms ease;
-  }
-
-  .hero-cta-primary {
-    background: var(--color-ink);
-    color: var(--color-bg-primary);
-  }
-  .hero-cta-primary:hover {
-    background: #000;
-    transform: translateY(-1px);
-  }
-
-  .hero-cta-secondary {
-    background: transparent;
-    color: var(--color-ink);
-    border: 1px solid var(--color-ink);
-  }
-  .hero-cta-secondary:hover {
-    background: var(--color-ink);
-    color: var(--color-bg-primary);
-  }
-
-  /* ── Right quote card ──────────────────────────────────── */
-  .hero-quote-card {
-    position: relative;
-    background: var(--color-bg-primary);
-    border-radius: var(--radius-lg);
-    padding: 2.5rem 2rem;
-    min-height: 280px;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
-    overflow: hidden;
-  }
-
-  @media (min-width: 768px) {
-    .hero-quote-card {
-      padding: 3rem 2.5rem;
-      min-height: 320px;
-    }
-  }
-
-  .quote-slide {
-    position: absolute;
-    inset: 2.5rem 2rem;
-    display: flex;
-    flex-direction: column;
+  /* 18s rotation keyframe — CSS-only, no JS. Kept in <style> because
+     scoped `animation-delay` on three siblings is awkward in pure Tailwind. */
+  .hero-quote-slide {
     opacity: 0;
-    animation: quote-rotate 18s infinite;
+    animation: hero-quote-rotate 18s infinite;
+  }
+  .hero-quote-slide-1 { animation-delay: 0s; }
+  .hero-quote-slide-2 { animation-delay: -12s; }
+  .hero-quote-slide-3 { animation-delay: -6s; }
+
+  @keyframes hero-quote-rotate {
+    0%, 2% { opacity: 0; transform: translateY(8px); }
+    5%, 28% { opacity: 1; transform: translateY(0); }
+    33%, 100% { opacity: 0; transform: translateY(-8px); }
   }
 
-  @media (min-width: 768px) {
-    .quote-slide {
-      inset: 3rem 2.5rem;
-    }
-  }
-
-  /* Each slide takes its 6-second slot in the 18s cycle.
-     Stagger by 6s using animation-delay.
-     Within the cycle: 0-5% appear, 5-28% visible, 28-33% fade out, then hidden. */
-  .quote-slide-1 {
-    animation-delay: 0s;
-  }
-  .quote-slide-2 {
-    animation-delay: -12s;
-  }
-  .quote-slide-3 {
-    animation-delay: -6s;
-  }
-
-  @keyframes quote-rotate {
-    0%,
-    2% {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    5%,
-    28% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    33%,
-    100% {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-  }
-
-  .quote-mark {
-    font-family: Georgia, serif;
-    font-size: 4rem;
-    line-height: 1;
-    color: var(--color-accent);
-    margin-bottom: 0.5rem;
-    font-weight: 700;
-  }
-
-  .quote-text {
-    font-size: 1.05rem;
-    line-height: 1.55;
-    color: var(--color-ink);
-    font-style: italic;
-    margin: 0;
-    flex: 1;
-  }
-
-  @media (min-width: 768px) {
-    .quote-text {
-      font-size: 1.15rem;
-    }
-  }
-
-  .quote-attr {
-    margin: 1.25rem 0 0;
-    font-size: 0.8125rem;
-    color: var(--color-ink-muted);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  /* Respect prefers-reduced-motion */
   @media (prefers-reduced-motion: reduce) {
-    .quote-slide {
-      animation: none;
-      opacity: 1;
-    }
-    .quote-slide:not(:first-child) {
-      display: none;
-    }
+    .hero-quote-slide { animation: none; opacity: 1; }
+    .hero-quote-slide:not(:first-child) { display: none; }
   }
 </style>

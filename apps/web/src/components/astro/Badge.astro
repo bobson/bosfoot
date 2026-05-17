@@ -1,0 +1,38 @@
+---
+/**
+ * Astro port of shadcn/ui's <Badge>. Zero JS.
+ *
+ * Variants:
+ *   - default     : ink bg / light text — "NEW" arrival
+ *   - brand       : terracotta bg / white text — "SALE", emphasized status
+ *   - secondary   : cream bg / ink text
+ *   - outline     : transparent + border, subtle status
+ *   - destructive : light danger bg / strong danger text
+ */
+
+type Variant = "default" | "brand" | "secondary" | "outline" | "destructive";
+
+interface Props {
+  variant?: Variant;
+  class?: string;
+}
+
+const { variant = "default", class: className = "" } = Astro.props;
+
+const base =
+  "inline-flex items-center justify-center gap-1 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider whitespace-nowrap rounded-sm transition-colors";
+
+const variants: Record<Variant, string> = {
+  default: "bg-foreground text-background",
+  brand: "bg-brand text-white",
+  secondary: "bg-secondary text-secondary-foreground border border-border",
+  outline: "border border-border text-foreground",
+  destructive: "bg-destructive/10 text-destructive",
+};
+
+const classes = [base, variants[variant], className].filter(Boolean).join(" ");
+---
+
+<span class={classes} data-slot="badge" data-variant={variant}>
+  <slot />
+</span>

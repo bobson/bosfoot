@@ -428,7 +428,7 @@ function Field({
     <label className={`block ${full ? "sm:col-span-2" : ""}`}>
       <span className="block text-sm font-medium mb-1.5">
         {label}
-        {required && <span className="text-[var(--color-accent)] ml-1">*</span>}
+        {required && <span className="text-[var(--color-brand)] ml-1">*</span>}
       </span>
       {children}
     </label>

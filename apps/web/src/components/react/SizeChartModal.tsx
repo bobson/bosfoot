@@ -182,7 +182,7 @@ export default function SizeChartModal({
             <div className="flex flex-wrap gap-4 pt-2">
               <a
                 href={`mailto:${t("sizeChart.helpEmail", locale)}`}
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-accent)] hover:text-[var(--color-accent-hover)]"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-brand)] hover:text-[var(--color-brand-hover)]"
               >
                 <svg
                   width="14"
@@ -206,7 +206,7 @@ export default function SizeChartModal({
                   href={brandSizingGuideUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-accent)]"
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-ink)] hover:text-[var(--color-brand)]"
                 >
                   {t("sizeChart.officialGuide", locale)} {brandName}
                   <svg

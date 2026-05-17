@@ -1,44 +1,57 @@
 ---
-import { type Locale, t, pickLocale, localePath, formatPrice } from '@/lib/i18n'
-import { urlFor } from '@/lib/sanity'
-import { type ProductCard, productSlug, totalStock } from '@/lib/queries'
+import Card from "@/components/astro/Card.astro";
+import Badge from "@/components/astro/Badge.astro";
+import {
+  type Locale,
+  t,
+  pickLocale,
+  localePath,
+  formatPrice,
+} from "@/lib/i18n";
+import { urlFor } from "@/lib/sanity";
+import { type ProductCard, productSlug, totalStock } from "@/lib/queries";
 
 interface Props {
-  product: ProductCard
-  locale: Locale
+  product: ProductCard;
+  locale: Locale;
 }
 
-const { product, locale } = Astro.props
-const name = pickLocale(product.name, locale) ?? 'Unnamed'
-const slug = productSlug(product, locale)
-const href = localePath(locale, 'products', slug)
-const inStock = totalStock(product) > 0
+const { product, locale } = Astro.props;
+const name = pickLocale(product.name, locale) ?? "Unnamed";
+const slug = productSlug(product, locale);
+const href = localePath(locale, "products", slug);
+const inStock = totalStock(product) > 0;
 
-// Unique color hex values across variants — for the color dot strip under the image
 const colorHexes = Array.from(
   new Set(
     product.variants
       .map((v) => v.colorHex)
       .filter((hex): hex is string => Boolean(hex)),
   ),
-)
+);
 
 const imageUrl = product.mainImage
-  ? urlFor(product.mainImage).width(600).height(600).quality(80).format('webp').url()
-  : null
+  ? urlFor(product.mainImage)
+      .width(600)
+      .height(600)
+      .quality(80)
+      .format("webp")
+      .url()
+  : null;
 
-const onSale = product.compareAtPrice && product.compareAtPrice > product.price
+const onSale =
+  product.compareAtPrice && product.compareAtPrice > product.price;
 ---
 
-<a
+<Card
+  as="a"
   href={href}
-  class="group block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] rounded-md"
+  class="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
 >
-  <article class="space-y-3">
-
-    <!-- Image — square aspect ratio with subtle background for transparent product shots -->
-    <div class="aspect-square overflow-hidden rounded-md bg-[var(--color-bg-secondary)] relative">
-      {imageUrl ? (
+  <!-- Image — square, with NEW/SALE badges and out-of-stock overlay -->
+  <div class="relative aspect-square overflow-hidden bg-muted">
+    {
+      imageUrl ? (
         <img
           src={imageUrl}
           alt={name}
@@ -49,69 +62,71 @@ const onSale = product.compareAtPrice && product.compareAtPrice > product.price
           class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
       ) : (
-        <div class="w-full h-full flex items-center justify-center text-[var(--color-ink-subtle)] text-xs">
+        <div class="w-full h-full flex items-center justify-center text-ink-subtle text-xs">
           No image
         </div>
-      )}
+      )
+    }
 
-      <!-- Badges -->
-      <div class="absolute top-3 left-3 flex flex-col gap-1.5">
-        {product.newArrival && (
-          <span class="px-2 py-0.5 bg-[var(--color-ink)] text-[var(--color-bg-primary)] text-[10px] uppercase tracking-wider rounded-sm">
-            {t('product.new', locale)}
-          </span>
-        )}
-        {onSale && (
-          <span class="px-2 py-0.5 bg-[var(--color-accent)] text-white text-[10px] uppercase tracking-wider rounded-sm">
-            {t('product.sale', locale)}
-          </span>
-        )}
-      </div>
-
-      {!inStock && (
-        <div class="absolute inset-0 bg-white/70 flex items-center justify-center">
-          <span class="text-sm font-medium text-[var(--color-ink)]">
-            {t('product.outOfStock', locale)}
-          </span>
-        </div>
-      )}
+    <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+      {product.newArrival && <Badge>{t("product.new", locale)}</Badge>}
+      {onSale && <Badge variant="brand">{t("product.sale", locale)}</Badge>}
     </div>
 
-    <!-- Color swatches strip — Vivobarefoot-style -->
-    {colorHexes.length > 0 && (
-      <div class="flex gap-1.5 items-center min-h-[16px]">
-        {colorHexes.slice(0, 6).map((hex) => (
-          <span
-            class="w-3.5 h-3.5 rounded-full border border-[var(--color-border-default)]"
-            style={`background:${hex}`}
-            aria-hidden="true"
-          ></span>
-        ))}
-        {colorHexes.length > 6 && (
-          <span class="text-xs text-[var(--color-ink-muted)]">+{colorHexes.length - 6}</span>
-        )}
-      </div>
-    )}
+    {
+      !inStock && (
+        <div class="absolute inset-0 bg-background/70 flex items-center justify-center">
+          <span class="text-sm font-medium text-foreground">
+            {t("product.outOfStock", locale)}
+          </span>
+        </div>
+      )
+    }
+  </div>
 
-    <!-- Brand + name -->
-    <div class="space-y-1">
-      <div class="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider">
+  <!-- Text section — generous spacing (the "more spacing" ask) -->
+  <div class="px-5 pt-5 pb-6 flex flex-col gap-3">
+    {
+      colorHexes.length > 0 && (
+        <div class="flex gap-1.5 items-center min-h-[16px]">
+          {colorHexes.slice(0, 6).map((hex) => (
+            <span
+              class="w-3.5 h-3.5 rounded-full border border-border"
+              style={`background:${hex}`}
+              aria-hidden="true"
+            />
+          ))}
+          {colorHexes.length > 6 && (
+            <span class="text-xs text-muted-foreground">
+              +{colorHexes.length - 6}
+            </span>
+          )}
+        </div>
+      )
+    }
+
+    <div class="flex flex-col gap-1">
+      <div class="text-xs text-muted-foreground uppercase tracking-wider">
         {product.brand?.name}
       </div>
-      <h3 class="text-base font-medium leading-snug group-hover:text-[var(--color-accent)] transition-colors">
+      <h3
+        class="text-base font-medium leading-snug text-foreground group-hover:text-brand transition-colors"
+      >
         {name}
       </h3>
     </div>
 
-    <!-- Price -->
-    <div class="flex items-baseline gap-2 text-sm">
-      <span class="font-medium">{formatPrice(product.price, locale)}</span>
-      {onSale && product.compareAtPrice && (
-        <span class="text-[var(--color-ink-muted)] line-through text-xs">
-          {formatPrice(product.compareAtPrice, locale)}
-        </span>
-      )}
+    <div class="flex items-baseline gap-2 text-sm pt-1">
+      <span class="font-medium text-foreground">
+        {formatPrice(product.price, locale)}
+      </span>
+      {
+        onSale && product.compareAtPrice && (
+          <span class="text-muted-foreground line-through text-xs">
+            {formatPrice(product.compareAtPrice, locale)}
+          </span>
+        )
+      }
     </div>
-
-  </article>
-</a>
+  </div>
+</Card>

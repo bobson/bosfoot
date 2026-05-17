@@ -54,7 +54,7 @@ function isImageBlock(block: PortableTextBlock): boolean {
                     href={def.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="text-[var(--color-accent)] underline hover:text-[var(--color-accent-hover)]"
+                    class="text-[var(--color-brand)] underline hover:text-[var(--color-brand-hover)]"
                   >
                     {content}
                   </a>
@@ -72,7 +72,7 @@ function isImageBlock(block: PortableTextBlock): boolean {
           return <h3 class="text-lg font-medium mt-6 mb-2">{renderText()}</h3>;
         if (style === "blockquote")
           return (
-            <blockquote class="border-l-2 border-[var(--color-accent)] pl-4 italic text-[var(--color-ink-muted)] my-4">
+            <blockquote class="border-l-2 border-[var(--color-brand)] pl-4 italic text-[var(--color-ink-muted)] my-4">
               {renderText()}
             </blockquote>
           );

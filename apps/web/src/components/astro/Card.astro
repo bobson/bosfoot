@@ -1,0 +1,33 @@
+---
+/**
+ * Astro port of shadcn/ui's <Card> primitive. Zero JS, zero hydration — just
+ * markup + Tailwind classes that match shadcn's React Card so the look stays
+ * consistent if/when sections are later promoted to React islands.
+ *
+ * Slot-based composition mirrors shadcn's named pieces (header, content,
+ * footer). Pass `as="a"` to render as a link.
+ *
+ * Defaults are intentionally the "Option B + Option A's borders + more text
+ * spacing" pattern: ring border, generous padding in the body slots.
+ */
+
+interface Props {
+  as?: "div" | "a" | "article" | "li";
+  href?: string;
+  class?: string;
+}
+
+const { as = "div", href, class: className = "" } = Astro.props;
+const Tag = as;
+
+const base =
+  "block group flex flex-col overflow-hidden rounded-xl bg-card text-card-foreground ring-1 ring-border transition-shadow hover:ring-foreground/25";
+---
+
+<Tag
+  href={href}
+  class:list={[base, className]}
+  data-slot="card"
+>
+  <slot />
+</Tag>
