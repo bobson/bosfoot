@@ -11,11 +11,11 @@
  * spacing" pattern: ring border, generous padding in the body slots.
  */
 
-interface Props {
-  as?: "div" | "a" | "article" | "li";
-  href?: string;
-  class?: string;
-}
+// interface Props {
+//   as?: "div" | "a" | "article" | "li";
+//   href?: string;
+//   class?: string;
+// }
 
 const { as = "div", href, class: className = "" } = Astro.props;
 const Tag = as;
