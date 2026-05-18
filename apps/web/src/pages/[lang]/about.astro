@@ -13,7 +13,7 @@ const { lang } = Astro.params;
 const locale = lang as Locale;
 
 const siteSettings = await getSiteSettings();
-const contactEmail = siteSettings?.contact?.email ?? "contact@bosfoot.com";
+const contactEmail = siteSettings?.contact?.email ?? "info@bosfoot.com";
 const contactPhone = siteSettings?.contact?.phone;
 const contactCity = siteSettings?.contact?.city;
 
