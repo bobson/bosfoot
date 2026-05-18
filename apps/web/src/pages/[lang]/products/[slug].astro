@@ -123,31 +123,28 @@ const breadcrumbSchema = breadcrumbLD({
   <div class="container-page py-8 md:py-12">
     <!-- Breadcrumb -->
     <nav
-      class="text-xs text-[var(--color-ink-muted)] mb-6 flex items-center gap-2"
+      class="text-xs text-muted-foreground mb-6 flex items-center gap-2"
       aria-label="Breadcrumb"
     >
-      <a
-        href={`/${locale}/`}
-        class="hover:text-[var(--color-ink)] transition-colors"
-      >
+      <a href={`/${locale}/`} class="hover:text-foreground transition-colors">
         Home
       </a>
       <span>›</span>
       <a
         href={`/${locale}/products`}
-        class="hover:text-[var(--color-ink)] transition-colors"
+        class="hover:text-foreground transition-colors"
       >
         {t("nav.products", locale)}
       </a>
       <span>›</span>
       <a
         href={`/${locale}/brands/${product.brand.slug.current}`}
-        class="hover:text-[var(--color-ink)] transition-colors"
+        class="hover:text-foreground transition-colors"
       >
         {product.brand.name}
       </a>
       <span>›</span>
-      <span class="text-[var(--color-ink)]">{name}</span>
+      <span class="text-foreground">{name}</span>
     </nav>
 
     <!-- Main grid: gallery + sticky buy panel -->
@@ -172,7 +169,7 @@ const breadcrumbSchema = breadcrumbLD({
 
     <!-- Description + Specs side by side on wide screens -->
     <div
-      class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16 pt-8 border-t border-[var(--color-border-subtle)]"
+      class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16 pt-8 border-t border-border-subtle"
     >
       {
         descriptionBlocks && descriptionBlocks.length > 0 && (

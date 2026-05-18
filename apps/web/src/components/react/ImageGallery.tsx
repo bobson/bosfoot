@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { cn } from "@/lib/utils";
 
 interface GalleryImage {
   url: string;
@@ -23,7 +24,7 @@ export default function ImageGallery({ images, productName }: Props) {
 
   if (images.length === 0) {
     return (
-      <div className="aspect-square bg-[var(--color-bg-secondary)] rounded-lg flex items-center justify-center text-[var(--color-ink-subtle)] text-sm">
+      <div className="aspect-square bg-secondary rounded-lg flex items-center justify-center text-ink-subtle text-sm">
         No image
       </div>
     );
@@ -44,11 +45,12 @@ export default function ImageGallery({ images, productName }: Props) {
               key={i}
               type="button"
               onClick={() => setActiveIndex(i)}
-              className={`flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-md overflow-hidden border-2 transition-all ${
+              className={cn(
+                "flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-md overflow-hidden border-2 transition-all",
                 i === activeIndex
-                  ? "border-[var(--color-ink)]"
-                  : "border-transparent hover:border-[var(--color-border-strong)]"
-              }`}
+                  ? "border-foreground"
+                  : "border-transparent hover:border-border-strong",
+              )}
               aria-label={`View image ${i + 1}`}
               aria-pressed={i === activeIndex}
             >
@@ -64,7 +66,7 @@ export default function ImageGallery({ images, productName }: Props) {
       )}
 
       {/* Main image */}
-      <div className="flex-1 aspect-square bg-[var(--color-bg-secondary)] rounded-lg overflow-hidden relative">
+      <div className="flex-1 aspect-square bg-secondary rounded-lg overflow-hidden relative">
         <img
           src={active.url}
           alt={active.alt ?? productName}

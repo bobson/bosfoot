@@ -12,10 +12,200 @@ import {
 } from "@/lib/filters";
 import type { ProductCard } from "@/lib/queries";
 import ProductCardReact from "./ProductCardReact";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet";
+import { cn } from "@/lib/utils";
+import { FilterIcon } from "lucide-react";
 
 interface Props {
   products: Array<ProductCard & { mainImageUrl?: string }>;
   locale: Locale;
+}
+
+type FilterOptions = ReturnType<typeof extractFilterOptions>;
+type Facets = ReturnType<typeof computeFacets>;
+
+interface FilterContentsProps {
+  filters: FilterState;
+  allOptions: FilterOptions;
+  facets: Facets;
+  locale: Locale;
+  toggleBrand: (slug: string) => void;
+  toggleSize: (size: number) => void;
+  toggleActivity: (activity: string) => void;
+  toggleGender: (gender: string) => void;
+  toggleInStock: () => void;
+}
+
+/**
+ * Filter sections, stacked vertically. Sized for a side drawer column —
+ * the size grid is the only nested grid (4 per row).
+ */
+function FilterContents({
+  filters,
+  allOptions,
+  facets,
+  locale,
+  toggleBrand,
+  toggleSize,
+  toggleActivity,
+  toggleGender,
+  toggleInStock,
+}: FilterContentsProps) {
+  return (
+    <div className="space-y-7">
+      {/* Gender */}
+      <div>
+        <h3 className="text-sm font-medium mb-3 uppercase tracking-wider text-muted-foreground">
+          {t("filter.gender", locale)}
+        </h3>
+        <div className="flex flex-col gap-2">
+          {allOptions.genders.map((gender) => {
+            const enabled =
+              facets.genders.has(gender) ||
+              filters.genders.includes(gender);
+            const checked = filters.genders.includes(gender);
+            return (
+              <label
+                key={gender}
+                className={cn(
+                  "flex items-center gap-2 text-sm cursor-pointer",
+                  !enabled && "opacity-40 cursor-not-allowed",
+                )}
+              >
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  disabled={!enabled}
+                  onChange={() => toggleGender(gender)}
+                  className="accent-foreground"
+                />
+                <span>{t(`gender.${gender}`, locale)}</span>
+              </label>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Brand */}
+      <div>
+        <h3 className="text-sm font-medium mb-3 uppercase tracking-wider text-muted-foreground">
+          {t("filter.brand", locale)}
+        </h3>
+        <div className="flex flex-col gap-2">
+          {allOptions.brands.map(({ slug, name }) => {
+            const enabled =
+              facets.brands.has(slug) || filters.brands.includes(slug);
+            const checked = filters.brands.includes(slug);
+            return (
+              <label
+                key={slug}
+                className={cn(
+                  "flex items-center gap-2 text-sm cursor-pointer",
+                  !enabled && "opacity-40 cursor-not-allowed",
+                )}
+              >
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  disabled={!enabled}
+                  onChange={() => toggleBrand(slug)}
+                  className="accent-foreground"
+                />
+                <span>{name}</span>
+              </label>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Activity */}
+      <div>
+        <h3 className="text-sm font-medium mb-3 uppercase tracking-wider text-muted-foreground">
+          {t("filter.activity", locale)}
+        </h3>
+        <div className="flex flex-col gap-2">
+          {allOptions.activities.map((activity) => {
+            const enabled =
+              facets.activities.has(activity) ||
+              filters.activities.includes(activity);
+            const checked = filters.activities.includes(activity);
+            return (
+              <label
+                key={activity}
+                className={cn(
+                  "flex items-center gap-2 text-sm cursor-pointer",
+                  !enabled && "opacity-40 cursor-not-allowed",
+                )}
+              >
+                <input
+                  type="checkbox"
+                  checked={checked}
+                  disabled={!enabled}
+                  onChange={() => toggleActivity(activity)}
+                  className="accent-foreground"
+                />
+                <span>{t(`activity.${activity}`, locale)}</span>
+              </label>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Size */}
+      <div>
+        <h3 className="text-sm font-medium mb-3 uppercase tracking-wider text-muted-foreground">
+          {t("filter.size", locale)}
+        </h3>
+        <div className="grid grid-cols-4 gap-1.5">
+          {allOptions.sizes.map((size) => {
+            const enabled =
+              facets.sizes.has(size) || filters.sizes.includes(size);
+            const checked = filters.sizes.includes(size);
+            return (
+              <button
+                key={size}
+                type="button"
+                disabled={!enabled}
+                onClick={() => toggleSize(size)}
+                className={cn(
+                  "px-2 py-2 text-xs rounded-md border transition-colors",
+                  checked
+                    ? "bg-foreground text-background border-foreground"
+                    : enabled
+                      ? "bg-background border-border hover:border-foreground"
+                      : "bg-accent border-border-subtle text-ink-subtle cursor-not-allowed",
+                )}
+              >
+                {size}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* In-stock toggle */}
+      <div>
+        <h3 className="text-sm font-medium mb-3 uppercase tracking-wider text-muted-foreground">
+          {t("filter.inStock", locale).split(" ")[0]}
+        </h3>
+        <label className="flex items-center gap-2 text-sm cursor-pointer">
+          <input
+            type="checkbox"
+            checked={filters.inStock}
+            onChange={toggleInStock}
+            className="accent-foreground"
+          />
+          <span>{t("filter.inStock", locale)}</span>
+        </label>
+      </div>
+    </div>
+  );
 }
 
 /**
@@ -23,7 +213,10 @@ interface Props {
  *
  * Why React for this: filter clicks need to update the URL, recompute facets,
  * and re-render which products are visible — all without a server roundtrip.
- * That's the kind of state coordination React is best at.
+ *
+ * Filter UX: shadcn Sheet sliding from the left on all viewports. The same
+ * drawer for mobile and desktop keeps the interaction model identical and
+ * lets Radix handle focus trap, ESC, body scroll lock, and overlay click.
  */
 export default function ProductsListing({ products, locale }: Props) {
   const allOptions = useMemo(() => extractFilterOptions(products), [products]);
@@ -42,19 +235,6 @@ export default function ProductsListing({ products, locale }: Props) {
   useLayoutEffect(() => {
     delete document.documentElement.dataset.bfFilterPending;
   }, []);
-
-  // Lock body scroll while the filter sheet is open on mobile. On desktop the
-  // panel renders inline so no lock is needed — but applying it unconditionally
-  // is harmless because the inline panel doesn't need scrolling either.
-  useEffect(() => {
-    if (!panelOpen) return;
-    const previous = document.documentElement.style.overflow;
-    const isMobile = window.matchMedia("(max-width: 767px)").matches;
-    if (isMobile) document.documentElement.style.overflow = "hidden";
-    return () => {
-      document.documentElement.style.overflow = previous;
-    };
-  }, [panelOpen]);
 
   // Sync state to URL whenever filters change
   useEffect(() => {
@@ -133,50 +313,37 @@ export default function ProductsListing({ products, locale }: Props) {
   return (
     <div>
       {/* Toolbar — count, filter button, sort */}
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-8 pb-4 border-b border-[var(--color-border-subtle)]">
-        <div className="text-sm text-[var(--color-ink-muted)]">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-8 pb-4 border-b border-border-subtle">
+        <div className="text-sm text-muted-foreground">
           {filtered.length} {t("listing.count", locale)}
           {activeFilterCount > 0 && (
-            <span className="ml-2 text-[var(--color-ink)]">
+            <span className="ml-2 text-foreground">
               · {activeFilterCount} {t("filter.activeCount", locale)}
             </span>
           )}
         </div>
 
         <div className="flex items-center gap-3">
-          <button
+          <Button
             type="button"
-            onClick={() => setPanelOpen((o) => !o)}
-            className="inline-flex items-center gap-2 px-4 py-2 text-sm border border-[var(--color-border-default)] rounded-md hover:bg-[var(--color-bg-secondary)] transition-colors"
+            variant="outline"
+            onClick={() => setPanelOpen(true)}
             aria-expanded={panelOpen}
+            className="h-10 px-4 text-sm gap-2"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden
-            >
-              <line x1="4" y1="6" x2="20" y2="6" />
-              <line x1="7" y1="12" x2="17" y2="12" />
-              <line x1="10" y1="18" x2="14" y2="18" />
-            </svg>
+            <FilterIcon className="size-4" aria-hidden />
             <span>{t("filter.title", locale)}</span>
             {activeFilterCount > 0 && (
-              <span className="ml-1 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[11px] font-medium bg-[var(--color-ink)] text-white rounded-full">
+              <span className="ml-1 inline-flex items-center justify-center min-w-[18px] h-[18px] px-1 text-[11px] font-medium bg-foreground text-background rounded-full">
                 {activeFilterCount}
               </span>
             )}
-          </button>
+          </Button>
 
           <select
             value={filters.sort}
             onChange={(e) => setSort(e.target.value as SortOrder)}
-            className="px-3 py-2 text-sm border border-[var(--color-border-default)] rounded-md bg-white cursor-pointer hover:bg-[var(--color-bg-secondary)]"
+            className="h-10 px-3 text-sm border border-border rounded-md bg-background cursor-pointer hover:bg-secondary"
             aria-label={t("sort.title", locale)}
           >
             <option value="newest">{t("sort.newest", locale)}</option>
@@ -186,237 +353,76 @@ export default function ProductsListing({ products, locale }: Props) {
         </div>
       </div>
 
-      {/* Filter panel — inline on desktop, bottom sheet on mobile */}
-      {panelOpen && (
-        <>
+      {/* Filter drawer — slides in from the left, used on all viewports */}
+      <Sheet open={panelOpen} onOpenChange={setPanelOpen}>
+        <SheetContent
+          side="left"
+          showCloseButton={true}
+          className="data-[side=left]:w-full data-[side=left]:sm:max-w-md p-0 gap-0 flex flex-col"
+        >
+          <SheetHeader className="px-5 py-4 border-b border-border">
+            <SheetTitle className="text-base font-semibold">
+              {t("filter.title", locale)}
+              {activeFilterCount > 0 && (
+                <span className="ml-2 text-sm font-normal text-muted-foreground">
+                  ({activeFilterCount})
+                </span>
+              )}
+            </SheetTitle>
+          </SheetHeader>
+
+          <div className="flex-1 overflow-y-auto px-5 py-5">
+            <FilterContents
+              filters={filters}
+              allOptions={allOptions}
+              facets={facets}
+              locale={locale}
+              toggleBrand={toggleBrand}
+              toggleSize={toggleSize}
+              toggleActivity={toggleActivity}
+              toggleGender={toggleGender}
+              toggleInStock={toggleInStock}
+            />
+          </div>
+
           <div
-            className="bf-filter-backdrop"
-            onClick={() => setPanelOpen(false)}
-            aria-hidden
-          />
-          <div
-            className="bf-filter-panel"
-            role="dialog"
-            aria-modal="true"
-            aria-label={t("filter.title", locale)}
+            className="border-t border-border bg-background flex gap-3 px-5 pt-3.5"
+            style={{
+              paddingBottom: "calc(0.875rem + env(safe-area-inset-bottom))",
+            }}
           >
-            {/* Mobile-only header */}
-            <div className="bf-filter-sheet-header">
-              <h2 className="bf-filter-sheet-title">
-                {t("filter.title", locale)}
-              </h2>
-              <button
+            {activeFilterCount > 0 && (
+              <Button
                 type="button"
-                onClick={() => setPanelOpen(false)}
-                aria-label="Close"
-                className="bf-filter-sheet-close"
+                variant="outline"
+                onClick={clearAll}
+                className="flex-1 h-11"
               >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  aria-hidden
-                >
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                </svg>
-              </button>
-            </div>
-
-            <div className="bf-filter-content">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
-            {/* Gender filter */}
-            <div>
-              <h3 className="text-sm font-medium mb-3 uppercase tracking-wider text-[var(--color-ink-muted)]">
-                {t("filter.gender", locale)}
-              </h3>
-              <div className="flex flex-col gap-2">
-                {allOptions.genders.map((gender) => {
-                  const enabled =
-                    facets.genders.has(gender) ||
-                    filters.genders.includes(gender);
-                  const checked = filters.genders.includes(gender);
-                  return (
-                    <label
-                      key={gender}
-                      className={`flex items-center gap-2 text-sm cursor-pointer ${
-                        enabled ? "" : "opacity-40 cursor-not-allowed"
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        disabled={!enabled}
-                        onChange={() => toggleGender(gender)}
-                        className="accent-[var(--color-ink)]"
-                      />
-                      <span>{t(`gender.${gender}`, locale)}</span>
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Brand filter */}
-            <div>
-              <h3 className="text-sm font-medium mb-3 uppercase tracking-wider text-[var(--color-ink-muted)]">
-                {t("filter.brand", locale)}
-              </h3>
-              <div className="flex flex-col gap-2">
-                {allOptions.brands.map(({ slug, name }) => {
-                  const enabled =
-                    facets.brands.has(slug) || filters.brands.includes(slug);
-                  const checked = filters.brands.includes(slug);
-                  return (
-                    <label
-                      key={slug}
-                      className={`flex items-center gap-2 text-sm cursor-pointer ${
-                        enabled ? "" : "opacity-40 cursor-not-allowed"
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        disabled={!enabled}
-                        onChange={() => toggleBrand(slug)}
-                        className="accent-[var(--color-ink)]"
-                      />
-                      <span>{name}</span>
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Activity filter */}
-            <div>
-              <h3 className="text-sm font-medium mb-3 uppercase tracking-wider text-[var(--color-ink-muted)]">
-                {t("filter.activity", locale)}
-              </h3>
-              <div className="flex flex-col gap-2">
-                {allOptions.activities.map((activity) => {
-                  const enabled =
-                    facets.activities.has(activity) ||
-                    filters.activities.includes(activity);
-                  const checked = filters.activities.includes(activity);
-                  return (
-                    <label
-                      key={activity}
-                      className={`flex items-center gap-2 text-sm cursor-pointer ${
-                        enabled ? "" : "opacity-40 cursor-not-allowed"
-                      }`}
-                    >
-                      <input
-                        type="checkbox"
-                        checked={checked}
-                        disabled={!enabled}
-                        onChange={() => toggleActivity(activity)}
-                        className="accent-[var(--color-ink)]"
-                      />
-                      <span>{t(`activity.${activity}`, locale)}</span>
-                    </label>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Size filter */}
-            <div>
-              <h3 className="text-sm font-medium mb-3 uppercase tracking-wider text-[var(--color-ink-muted)]">
-                {t("filter.size", locale)}
-              </h3>
-              <div className="grid grid-cols-4 gap-1.5">
-                {allOptions.sizes.map((size) => {
-                  const enabled =
-                    facets.sizes.has(size) || filters.sizes.includes(size);
-                  const checked = filters.sizes.includes(size);
-                  return (
-                    <button
-                      key={size}
-                      type="button"
-                      disabled={!enabled}
-                      onClick={() => toggleSize(size)}
-                      className={`px-2 py-2 text-xs rounded-md border transition-colors ${
-                        checked
-                          ? "bg-[var(--color-ink)] text-white border-[var(--color-ink)]"
-                          : enabled
-                            ? "bg-white border-[var(--color-border-default)] hover:border-[var(--color-ink)]"
-                            : "bg-[var(--color-bg-tertiary)] border-[var(--color-border-subtle)] text-[var(--color-ink-subtle)] cursor-not-allowed"
-                      }`}
-                    >
-                      {size}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* In-stock toggle + clear */}
-            <div className="flex flex-col gap-3">
-              <h3 className="text-sm font-medium mb-0 uppercase tracking-wider text-[var(--color-ink-muted)]">
-                {t("filter.inStock", locale).split(" ")[0]}
-              </h3>
-              <label className="flex items-center gap-2 text-sm cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={filters.inStock}
-                  onChange={toggleInStock}
-                  className="accent-[var(--color-ink)]"
-                />
-                <span>{t("filter.inStock", locale)}</span>
-              </label>
-
-              {activeFilterCount > 0 && (
-                <button
-                  type="button"
-                  onClick={clearAll}
-                  className="text-xs text-[var(--color-brand)] hover:text-[var(--color-brand-hover)] underline self-start mt-2"
-                >
-                  {t("filter.clear", locale)}
-                </button>
-              )}
-            </div>
+                {t("filter.clear", locale)}
+              </Button>
+            )}
+            <Button
+              type="button"
+              onClick={() => setPanelOpen(false)}
+              className="flex-1 h-11 hover:bg-primary/90"
+            >
+              {t("filter.showResults", locale)} {filtered.length}
+            </Button>
           </div>
-        </div>
-
-            {/* Mobile-only sticky CTA */}
-            <div className="bf-filter-sheet-cta">
-              {activeFilterCount > 0 && (
-                <button
-                  type="button"
-                  onClick={clearAll}
-                  className="bf-filter-sheet-cta-secondary"
-                >
-                  {t("filter.clear", locale)}
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={() => setPanelOpen(false)}
-                className="bf-filter-sheet-cta-primary"
-              >
-                {t("filter.showResults", locale)} {filtered.length}
-              </button>
-            </div>
-          </div>
-        </>
-      )}
+        </SheetContent>
+      </Sheet>
 
       {/* Product grid */}
       {filtered.length === 0 ? (
         <div
           data-products-grid
-          className="py-24 text-center text-[var(--color-ink-muted)]"
+          className="py-24 text-center text-muted-foreground"
         >
           <p>{t("listing.empty", locale)}</p>
           {activeFilterCount > 0 && (
             <button
               onClick={clearAll}
-              className="mt-4 text-sm text-[var(--color-brand)] underline"
+              className="mt-4 text-sm text-brand underline"
             >
               {t("filter.clear", locale)}
             </button>

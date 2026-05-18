@@ -2,6 +2,8 @@ import { useState, useMemo } from "react";
 import { type Locale, t, pickLocale, formatPrice } from "@/lib/i18n";
 import type { ProductDetail, SizeChart } from "@/lib/queries";
 import { addToCart, openCart } from "@/lib/cart";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import SizeChartModal from "./SizeChartModal";
 
 interface Props {
@@ -119,10 +121,10 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
       <div className="space-y-6">
         {/* Brand + name */}
         <div>
-          <div className="text-sm uppercase tracking-wider text-[var(--color-ink-muted)] mb-1">
+          <div className="text-sm uppercase tracking-wider text-muted-foreground mb-1">
             <a
               href={`/${locale}/brands/${product.brand.slug.current}`}
-              className="hover:text-[var(--color-brand)] transition-colors"
+              className="hover:text-brand transition-colors"
             >
               {product.brand.name}
             </a>
@@ -138,7 +140,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
             {formatPrice(product.price, locale)}
           </span>
           {onSale && product.compareAtPrice && (
-            <span className="text-base text-[var(--color-ink-muted)] line-through">
+            <span className="text-base text-muted-foreground line-through">
               {formatPrice(product.compareAtPrice, locale)}
             </span>
           )}
@@ -146,7 +148,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
 
         {/* Short description */}
         {pickLocale(product.shortDescription, locale) && (
-          <p className="text-sm text-[var(--color-ink-muted)] leading-relaxed">
+          <p className="text-sm text-muted-foreground leading-relaxed">
             {pickLocale(product.shortDescription, locale)}
           </p>
         )}
@@ -156,9 +158,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
           <ul className="space-y-1.5">
             {product.highlights.map((h, i) => (
               <li key={h._key ?? i} className="text-sm flex items-start gap-2">
-                <span className="text-[var(--color-brand)] flex-shrink-0 mt-0.5">
-                  —
-                </span>
+                <span className="text-brand flex-shrink-0 mt-0.5">—</span>
                 <span>{pickLocale(h, locale)}</span>
               </li>
             ))}
@@ -172,7 +172,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
               <h3 className="text-sm font-medium">
                 {t("detail.color", locale)}
               </h3>
-              <span className="text-sm text-[var(--color-ink-muted)]">
+              <span className="text-sm text-muted-foreground">
                 {selectedColor?.name}
               </span>
             </div>
@@ -185,11 +185,12 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
                     setSelectedColorHex(c.hex);
                     setSelectedSize(null); // reset size when color changes
                   }}
-                  className={`w-10 h-10 rounded-full border-2 transition-all ${
+                  className={cn(
+                    "w-10 h-10 rounded-full border-2 transition-all",
                     selectedColorHex === c.hex
-                      ? "border-[var(--color-ink)] scale-110"
-                      : "border-[var(--color-border-default)] hover:border-[var(--color-ink-muted)]"
-                  }`}
+                      ? "border-foreground scale-110"
+                      : "border-border hover:border-muted-foreground",
+                  )}
                   style={{ background: c.hex }}
                   aria-label={c.name}
                   aria-pressed={selectedColorHex === c.hex}
@@ -210,7 +211,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
                 <button
                   type="button"
                   onClick={() => setSizeChartOpen(true)}
-                  className="text-xs text-[var(--color-brand)] hover:text-[var(--color-brand-hover)] underline"
+                  className="text-xs text-brand hover:text-brand-hover underline"
                 >
                   {t("detail.sizeGuide", locale)} ↗
                 </button>
@@ -226,13 +227,14 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
                     type="button"
                     disabled={outOfStock}
                     onClick={() => setSelectedSize(v.sizeEU)}
-                    className={`relative py-2.5 text-sm border rounded-md transition-colors ${
+                    className={cn(
+                      "relative py-2.5 text-sm border rounded-md transition-colors",
                       isSelected
-                        ? "bg-[var(--color-ink)] text-white border-[var(--color-ink)]"
+                        ? "bg-foreground text-background border-foreground"
                         : outOfStock
-                          ? "bg-[var(--color-bg-tertiary)] border-[var(--color-border-subtle)] text-[var(--color-ink-subtle)] cursor-not-allowed line-through"
-                          : "bg-white border-[var(--color-border-default)] hover:border-[var(--color-ink)]"
-                    }`}
+                          ? "bg-accent border-border-subtle text-ink-subtle cursor-not-allowed line-through"
+                          : "bg-background border-border hover:border-foreground",
+                    )}
                   >
                     {v.sizeEU}
                   </button>
@@ -242,7 +244,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
             {selectedVariant &&
               selectedVariant.stock > 0 &&
               selectedVariant.stock <= 3 && (
-                <p className="mt-2 text-xs text-[var(--color-brand)]">
+                <p className="mt-2 text-xs text-brand">
                   {t("detail.lowStock", locale)} {selectedVariant.stock}{" "}
                   {t("detail.lowStockSuffix", locale)}
                 </p>
@@ -251,24 +253,22 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
         )}
 
         {/* Add to cart */}
-        <button
+        <Button
           type="button"
+          size="lg"
           onClick={onAddToCart}
           disabled={!selectedVariant || adding}
-          className={`w-full py-3.5 text-sm font-medium rounded-md transition-all ${
-            !selectedVariant
-              ? "bg-[var(--color-bg-tertiary)] text-[var(--color-ink-subtle)] cursor-not-allowed"
-              : adding
-                ? "bg-[var(--color-success)] text-white"
-                : "bg-[var(--color-ink)] text-white hover:bg-black"
-          }`}
+          className={cn(
+            "w-full h-12 text-sm font-medium hover:bg-primary/90",
+            adding && "bg-success text-white hover:bg-success disabled:opacity-100",
+          )}
         >
           {!selectedVariant
             ? t("detail.selectSize", locale)
             : adding
               ? "✓"
               : t("cta.addToCart", locale)}
-        </button>
+        </Button>
 
         {/* External brand link */}
         {product.brandProductUrl && (
@@ -276,7 +276,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
             href={product.brandProductUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="block text-center text-sm text-[var(--color-ink-muted)] hover:text-[var(--color-brand)] transition-colors py-2"
+            className="block text-center text-sm text-muted-foreground hover:text-brand transition-colors py-2"
           >
             {t("detail.moreFromBrand", locale)} ↗
           </a>

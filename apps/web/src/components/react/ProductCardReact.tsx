@@ -42,11 +42,11 @@ export default function ProductCardReact({ product, locale }: Props) {
   return (
     <a
       href={href}
-      className="group block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-brand)] rounded-md"
+      className="group block focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand rounded-md"
     >
       <article className="space-y-3">
         {/* Image */}
-        <div className="aspect-square overflow-hidden rounded-md bg-[var(--color-bg-secondary)] relative">
+        <div className="aspect-square overflow-hidden rounded-md bg-secondary relative">
           {product.mainImageUrl ? (
             <img
               src={product.mainImageUrl}
@@ -58,7 +58,7 @@ export default function ProductCardReact({ product, locale }: Props) {
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center text-[var(--color-ink-subtle)] text-xs">
+            <div className="w-full h-full flex items-center justify-center text-ink-subtle text-xs">
               No image
             </div>
           )}
@@ -66,20 +66,20 @@ export default function ProductCardReact({ product, locale }: Props) {
           {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-1.5">
             {product.newArrival && (
-              <span className="px-2 py-0.5 bg-[var(--color-ink)] text-[var(--color-bg-primary)] text-[10px] uppercase tracking-wider rounded-sm">
+              <span className="px-2 py-0.5 bg-foreground text-background text-[10px] uppercase tracking-wider rounded-sm">
                 {t("product.new", locale)}
               </span>
             )}
             {onSale && (
-              <span className="px-2 py-0.5 bg-[var(--color-brand)] text-white text-[10px] uppercase tracking-wider rounded-sm">
+              <span className="px-2 py-0.5 bg-brand text-white text-[10px] uppercase tracking-wider rounded-sm">
                 {t("product.sale", locale)}
               </span>
             )}
           </div>
 
           {!inStock && (
-            <div className="absolute inset-0 bg-white/70 flex items-center justify-center">
-              <span className="text-sm font-medium text-[var(--color-ink)]">
+            <div className="absolute inset-0 bg-background/70 flex items-center justify-center">
+              <span className="text-sm font-medium text-foreground">
                 {t("product.outOfStock", locale)}
               </span>
             </div>
@@ -111,13 +111,13 @@ export default function ProductCardReact({ product, locale }: Props) {
             {colorHexes.slice(0, 6).map((hex) => (
               <span
                 key={hex}
-                className="w-3.5 h-3.5 rounded-full border border-[var(--color-border-default)]"
+                className="w-3.5 h-3.5 rounded-full border border-border"
                 style={{ background: hex }}
                 aria-hidden
               />
             ))}
             {colorHexes.length > 6 && (
-              <span className="text-xs text-[var(--color-ink-muted)]">
+              <span className="text-xs text-muted-foreground">
                 +{colorHexes.length - 6}
               </span>
             )}
@@ -126,10 +126,10 @@ export default function ProductCardReact({ product, locale }: Props) {
 
         {/* Brand + name */}
         <div className="space-y-1">
-          <div className="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider">
+          <div className="text-xs text-muted-foreground uppercase tracking-wider">
             {product.brand?.name}
           </div>
-          <h3 className="text-base font-medium leading-snug group-hover:text-[var(--color-brand)] transition-colors">
+          <h3 className="text-base font-medium leading-snug group-hover:text-brand transition-colors">
             {name}
           </h3>
         </div>
@@ -140,7 +140,7 @@ export default function ProductCardReact({ product, locale }: Props) {
             {formatPrice(product.price, locale)}
           </span>
           {onSale && product.compareAtPrice && (
-            <span className="text-[var(--color-ink-muted)] line-through text-xs">
+            <span className="text-muted-foreground line-through text-xs">
               {formatPrice(product.compareAtPrice, locale)}
             </span>
           )}
