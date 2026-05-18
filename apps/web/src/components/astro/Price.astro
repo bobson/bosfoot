@@ -1,0 +1,46 @@
+---
+/**
+ * Astro mirror of the React <Price> component. Renders MKD on the primary
+ * line; on non-MK locales the EUR equivalent stacks below in muted text.
+ */
+import { type Locale, formatPriceParts } from "@/lib/i18n";
+
+interface Props {
+  amount: number;
+  locale: Locale;
+  currency?: string;
+  /** "end" right-aligns the stacked EUR line, "start" left-aligns. */
+  align?: "start" | "end";
+  class?: string;
+  primaryClass?: string;
+  secondaryClass?: string;
+}
+
+const {
+  amount,
+  locale,
+  currency = "MKD",
+  align,
+  class: className = "",
+  primaryClass = "",
+  secondaryClass = "",
+} = Astro.props;
+
+const { primary, secondary } = formatPriceParts(amount, locale, currency);
+
+const alignClass =
+  align === "end" ? "items-end" : align === "start" ? "items-start" : "";
+---
+
+{
+  secondary ? (
+    <span class:list={["inline-flex flex-col leading-tight", alignClass, className]}>
+      <span class={primaryClass}>{primary}</span>
+      <span class:list={["text-xs font-normal text-muted-foreground", secondaryClass]}>
+        {secondary}
+      </span>
+    </span>
+  ) : (
+    <span class:list={[className, primaryClass]}>{primary}</span>
+  )
+}

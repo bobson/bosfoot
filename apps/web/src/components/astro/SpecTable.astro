@@ -130,8 +130,8 @@ const features = (specs.additionalFeatures ?? [])
       {rows.length > 0 && (
         <dl class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-12 mb-6">
           {rows.map((row) => (
-            <div class="flex justify-between border-b border-[var(--color-border-subtle)] pb-2">
-              <dt class="text-sm text-[var(--color-ink-muted)]">{row.label}</dt>
+            <div class="flex justify-between border-b border-border-subtle pb-2">
+              <dt class="text-sm text-muted-foreground">{row.label}</dt>
               <dd class="text-sm font-medium">{row.value}</dd>
             </div>
           ))}
@@ -142,9 +142,7 @@ const features = (specs.additionalFeatures ?? [])
         <ul class="space-y-1.5">
           {features.map((f) => (
             <li class="text-sm flex items-start gap-2">
-              <span class="text-[var(--color-brand)] flex-shrink-0 mt-0.5">
-                —
-              </span>
+              <span class="text-brand flex-shrink-0 mt-0.5">—</span>
               <span>{f}</span>
             </li>
           ))}

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Card from "@/components/astro/Card.astro";
 import { type Locale, LOCALES, t, localePath } from "@/lib/i18n";
 import { getSiteSettings, getAllBrandSlugs } from "@/lib/queries";
 import { SHOWCASE_BRANDS } from "@/lib/brands-showcase";
@@ -36,180 +37,84 @@ const pageLead = t("brands.lead", locale);
       <h1 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
         {pageTitle}
       </h1>
-      <p class="text-base md:text-lg text-[var(--color-ink-muted)] leading-relaxed">
+      <p class="text-base md:text-lg text-muted-foreground leading-relaxed">
         {pageLead}
       </p>
     </header>
 
-    <div class="brand-grid">
+    <div
+      class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-7 xl:grid-cols-3"
+    >
       {
         SHOWCASE_BRANDS.map((brand) => {
           const isLive = liveSet.has(brand.slug);
           const href = isLive
             ? `${localePath(locale, "brands")}/${brand.slug}`
             : undefined;
-          const Tag = isLive ? "a" : "div";
           return (
-            <Tag
+            <Card
+              as={isLive ? "a" : "div"}
               href={href}
-              class:list={["brand-card", !isLive && "brand-card-static"]}
+              class:list={[
+                isLive
+                  ? "hover:-translate-y-0.5 hover:shadow-lg transition-transform"
+                  : "opacity-95 hover:ring-border cursor-default",
+              ]}
             >
-              <div class="brand-card-logo">
+              <div
+                class="flex items-center justify-center px-6 py-10 bg-sage-bg-soft border-b border-border-subtle min-h-[140px]"
+              >
                 {brand.logoSrc ? (
                   <img
                     src={brand.logoSrc}
                     alt={brand.name}
                     loading="lazy"
+                    class:list={[
+                      "max-h-16 w-auto object-contain grayscale opacity-85 transition",
+                      isLive && "group-hover:grayscale-0 group-hover:opacity-100",
+                    ]}
                   />
                 ) : (
-                  <span class="brand-card-wordmark">{brand.name}</span>
+                  <span class="text-2xl font-semibold tracking-tight text-foreground">
+                    {brand.name}
+                  </span>
                 )}
               </div>
-              <div class="brand-card-body">
-                <h2 class="brand-card-title">{brand.name}</h2>
-                <div class="brand-card-meta">
+
+              <div class="flex flex-1 flex-col gap-2 p-6">
+                <h2 class="text-lg font-semibold tracking-tight">
+                  {brand.name}
+                </h2>
+                <div
+                  class="flex items-center gap-1.5 text-[0.8125rem] uppercase tracking-wider text-muted-foreground"
+                >
                   <span>{brand.origin}</span>
                   <span aria-hidden="true">·</span>
                   <span>{brand.founded}</span>
                 </div>
-                <p class="brand-card-desc">{brand.tagline[locale]}</p>
-                <div class="brand-card-cta">
+                <p
+                  class="flex-1 text-[0.9rem] leading-relaxed text-muted-foreground mt-1"
+                >
+                  {brand.tagline[locale]}
+                </p>
+                <div
+                  class="flex items-center justify-end mt-4 pt-4 border-t border-border-subtle text-[0.8125rem]"
+                >
                   {isLive ? (
-                    <span class="brand-card-arrow">
+                    <span class="font-medium text-brand transition-colors group-hover:text-brand-hover">
                       {t("brands.viewProducts", locale)}
                     </span>
                   ) : (
-                    <span class="brand-card-soon">
+                    <span class="font-medium uppercase tracking-[0.06em] text-[0.7rem] text-sage-ink-soft">
                       {t("brands.comingSoon", locale)}
                     </span>
                   )}
                 </div>
               </div>
-            </Tag>
+            </Card>
           );
         })
       }
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .brand-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
-  }
-  @media (min-width: 700px) {
-    .brand-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.75rem;
-    }
-  }
-  @media (min-width: 1100px) {
-    .brand-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .brand-card {
-    display: flex;
-    flex-direction: column;
-    background: var(--color-bg-primary);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    transition: border-color 150ms ease, transform 150ms ease,
-      box-shadow 150ms ease;
-    color: inherit;
-  }
-  a.brand-card:hover {
-    border-color: var(--color-ink);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
-  }
-  .brand-card-static {
-    opacity: 0.92;
-  }
-
-  .brand-card-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2.5rem 1.5rem;
-    background: var(--color-sage-bg-soft);
-    border-bottom: 1px solid var(--color-border-subtle);
-    min-height: 140px;
-  }
-  .brand-card-logo img {
-    max-height: 64px;
-    width: auto;
-    object-fit: contain;
-    filter: grayscale(100%);
-    opacity: 0.85;
-    transition: filter 200ms ease, opacity 200ms ease;
-  }
-  a.brand-card:hover .brand-card-logo img {
-    filter: grayscale(0%);
-    opacity: 1;
-  }
-  .brand-card-wordmark {
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: var(--color-ink);
-  }
-
-  .brand-card-body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 1.5rem;
-    gap: 0.5rem;
-  }
-  .brand-card-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    margin: 0;
-  }
-  .brand-card-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8125rem;
-    color: var(--color-ink-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-  .brand-card-desc {
-    font-size: 0.9rem;
-    line-height: 1.55;
-    color: var(--color-ink-muted);
-    margin: 0.25rem 0 0;
-    flex: 1;
-  }
-  .brand-card-cta {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--color-border-subtle);
-    font-size: 0.8125rem;
-  }
-  .brand-card-arrow {
-    color: var(--color-brand);
-    font-weight: 500;
-    transition: color 150ms ease;
-  }
-  a.brand-card:hover .brand-card-arrow {
-    color: var(--color-brand-hover);
-  }
-  .brand-card-soon {
-    color: var(--color-sage-ink-soft);
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-size: 0.7rem;
-  }
-</style>

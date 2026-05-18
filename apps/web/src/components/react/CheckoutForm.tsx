@@ -1,6 +1,12 @@
 import { useState, useEffect, useMemo } from "react";
-import { type Locale, t, formatPrice, localePath } from "@/lib/i18n";
+import { type Locale, t, localePath } from "@/lib/i18n";
+import Price from "./Price";
 import { readCart, clearCart, subtotal, type Cart } from "@/lib/cart";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
 
 interface Props {
   locale: Locale;
@@ -44,14 +50,25 @@ const SHIPPING_RATES: Record<string, { fee: number; freeOver?: number }> = {
   GR: { fee: 2200 },
 };
 
+// Match the look of shadcn <Input> for the native country <select>.
+// `bg-background` (not transparent) so the browser's native chevron
+// renders against a solid surface in all themes.
+const NATIVE_SELECT_CLASS =
+  "h-10 w-full rounded-lg border border-input bg-background px-2.5 text-sm transition-colors outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
+
 export default function CheckoutForm({ locale }: Props) {
   const [cart, setCart] = useState<Cart>({ items: [], updatedAt: "" });
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [submitting, setSubmitting] = useState(false);
   const [errors, setErrors] = useState<string[]>([]);
+  // Tracks whether the cart has been read from localStorage. Without this,
+  // the first paint always renders the empty-cart guard (state starts empty)
+  // and flashes before useEffect populates the real items.
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setCart(readCart());
+    setMounted(true);
   }, []);
 
   const cartSubtotal = useMemo(() => subtotal(cart), [cart]);
@@ -128,16 +145,34 @@ export default function CheckoutForm({ locale }: Props) {
     }
   };
 
+  // Initial paint: cart hasn't been read from localStorage yet. Reserve
+  // roughly the same vertical space the form will occupy so the layout
+  // doesn't jump when the form renders.
+  if (!mounted) {
+    return (
+      <div className="min-h-[600px] flex flex-col items-center justify-center gap-3">
+        <div
+          role="status"
+          aria-label={t("search.loading", locale)}
+          className="size-8 rounded-full border-2 border-muted-foreground/20 border-t-foreground animate-spin"
+        />
+        <span className="text-sm text-muted-foreground">
+          {t("search.loading", locale)}
+        </span>
+      </div>
+    );
+  }
+
   // Empty cart guard
   if (cart.items.length === 0) {
     return (
       <div className="py-16 text-center">
-        <p className="text-[var(--color-ink-muted)] mb-6">
-          {t("cart.empty", locale)}
-        </p>
-        <a href={localePath(locale, "products")} className="btn btn-primary">
-          {t("cart.emptyCta", locale)}
-        </a>
+        <p className="text-muted-foreground mb-6">{t("cart.empty", locale)}</p>
+        <Button asChild>
+          <a href={localePath(locale, "products")}>
+            {t("cart.emptyCta", locale)}
+          </a>
+        </Button>
       </div>
     );
   }
@@ -155,24 +190,26 @@ export default function CheckoutForm({ locale }: Props) {
             {t("checkout.contact", locale)}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Field label={t("checkout.email", locale)} required>
-              <input
+            <Field id="email" label={t("checkout.email", locale)} required>
+              <Input
+                id="email"
                 type="email"
                 required
                 autoComplete="email"
                 value={form.email}
                 onChange={update("email")}
-                className="form-input"
+                className="h-10"
               />
             </Field>
-            <Field label={t("checkout.phone", locale)} required>
-              <input
+            <Field id="phone" label={t("checkout.phone", locale)} required>
+              <Input
+                id="phone"
                 type="tel"
                 required
                 autoComplete="tel"
                 value={form.phone}
                 onChange={update("phone")}
-                className="form-input"
+                className="h-10"
               />
             </Field>
           </div>
@@ -184,56 +221,84 @@ export default function CheckoutForm({ locale }: Props) {
             {t("checkout.shipping", locale)}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Field label={t("checkout.firstName", locale)} required>
-              <input
+            <Field
+              id="firstName"
+              label={t("checkout.firstName", locale)}
+              required
+            >
+              <Input
+                id="firstName"
                 required
                 autoComplete="given-name"
                 value={form.firstName}
                 onChange={update("firstName")}
-                className="form-input"
+                className="h-10"
               />
             </Field>
-            <Field label={t("checkout.lastName", locale)} required>
-              <input
+            <Field
+              id="lastName"
+              label={t("checkout.lastName", locale)}
+              required
+            >
+              <Input
+                id="lastName"
                 required
                 autoComplete="family-name"
                 value={form.lastName}
                 onChange={update("lastName")}
-                className="form-input"
+                className="h-10"
               />
             </Field>
-            <Field label={t("checkout.address", locale)} required full>
-              <input
+            <Field
+              id="address"
+              label={t("checkout.address", locale)}
+              required
+              full
+            >
+              <Input
+                id="address"
                 required
                 autoComplete="street-address"
                 value={form.address}
                 onChange={update("address")}
-                className="form-input"
+                className="h-10"
               />
             </Field>
-            <Field label={t("checkout.city", locale)} required>
-              <input
+            <Field id="city" label={t("checkout.city", locale)} required>
+              <Input
+                id="city"
                 required
                 autoComplete="address-level2"
                 value={form.city}
                 onChange={update("city")}
-                className="form-input"
+                className="h-10"
               />
             </Field>
-            <Field label={t("checkout.postalCode", locale)} required>
-              <input
+            <Field
+              id="postalCode"
+              label={t("checkout.postalCode", locale)}
+              required
+            >
+              <Input
+                id="postalCode"
                 required
                 autoComplete="postal-code"
                 value={form.postalCode}
                 onChange={update("postalCode")}
-                className="form-input"
+                className="h-10"
               />
             </Field>
-            <Field label={t("checkout.country", locale)} required full>
+            <Field
+              id="country"
+              label={t("checkout.country", locale)}
+              required
+              full
+            >
               <select
+                id="country"
                 value={form.country}
                 onChange={update("country")}
-                className="form-input"
+                className={NATIVE_SELECT_CLASS}
               >
                 <option value="MK">{t("country.MK", locale)}</option>
                 <option value="AL">{t("country.AL", locale)}</option>
@@ -243,13 +308,14 @@ export default function CheckoutForm({ locale }: Props) {
                 <option value="GR">{t("country.GR", locale)}</option>
               </select>
             </Field>
-            <Field label={t("checkout.notes", locale)} full>
-              <textarea
+            <Field id="notes" label={t("checkout.notes", locale)} full>
+              <Textarea
+                id="notes"
                 rows={3}
                 value={form.notes}
                 onChange={update("notes")}
-                className="form-input resize-none"
                 placeholder={t("checkout.notesPlaceholder", locale)}
+                className="resize-none"
               />
             </Field>
           </div>
@@ -261,54 +327,57 @@ export default function CheckoutForm({ locale }: Props) {
             {t("checkout.payment", locale)}
           </h2>
           <div className="space-y-3">
-            <label className="flex gap-3 p-4 border border-[var(--color-border-default)] rounded-md cursor-pointer hover:border-[var(--color-ink)] transition-colors">
-              <input
-                type="radio"
-                name="payment"
-                value="cod"
-                checked={form.paymentMethod === "cod"}
-                onChange={() =>
-                  setForm((f) => ({ ...f, paymentMethod: "cod" }))
-                }
-                className="mt-0.5 accent-[var(--color-ink)]"
-              />
-              <div>
-                <div className="text-sm font-medium">
-                  {t("payment.cod", locale)}
-                </div>
-                <div className="text-xs text-[var(--color-ink-muted)] mt-0.5">
-                  {t("payment.codDescription", locale)}
-                </div>
-              </div>
-            </label>
-
-            <label className="flex gap-3 p-4 border border-[var(--color-border-default)] rounded-md cursor-pointer hover:border-[var(--color-ink)] transition-colors">
-              <input
-                type="radio"
-                name="payment"
-                value="bankTransfer"
-                checked={form.paymentMethod === "bankTransfer"}
-                onChange={() =>
-                  setForm((f) => ({ ...f, paymentMethod: "bankTransfer" }))
-                }
-                className="mt-0.5 accent-[var(--color-ink)]"
-              />
-              <div>
-                <div className="text-sm font-medium">
-                  {t("payment.bankTransfer", locale)}
-                </div>
-                <div className="text-xs text-[var(--color-ink-muted)] mt-0.5">
-                  {t("payment.bankTransferDescription", locale)}
-                </div>
-              </div>
-            </label>
+            {(
+              [
+                {
+                  value: "cod" as const,
+                  title: t("payment.cod", locale),
+                  desc: t("payment.codDescription", locale),
+                },
+                {
+                  value: "bankTransfer" as const,
+                  title: t("payment.bankTransfer", locale),
+                  desc: t("payment.bankTransferDescription", locale),
+                },
+              ]
+            ).map((option) => {
+              const selected = form.paymentMethod === option.value;
+              return (
+                <label
+                  key={option.value}
+                  className={cn(
+                    "flex gap-3 p-4 border rounded-md cursor-pointer transition-colors",
+                    selected
+                      ? "border-foreground bg-secondary"
+                      : "border-border hover:border-foreground",
+                  )}
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    value={option.value}
+                    checked={selected}
+                    onChange={() =>
+                      setForm((f) => ({ ...f, paymentMethod: option.value }))
+                    }
+                    className="mt-0.5 accent-foreground"
+                  />
+                  <div>
+                    <div className="text-sm font-medium">{option.title}</div>
+                    <div className="text-xs text-muted-foreground mt-0.5">
+                      {option.desc}
+                    </div>
+                  </div>
+                </label>
+              );
+            })}
           </div>
         </section>
       </div>
 
       {/* Summary column */}
       <aside className="lg:col-span-5">
-        <div className="lg:sticky lg:top-24 bg-[var(--color-bg-secondary)] rounded-lg p-6 space-y-4">
+        <div className="lg:sticky lg:top-24 bg-secondary rounded-lg p-6 space-y-4">
           <h2 className="text-lg font-semibold tracking-tight">
             {t("checkout.summary", locale)}
           </h2>
@@ -320,7 +389,7 @@ export default function CheckoutForm({ locale }: Props) {
                 key={`${item.productSku}-${item.variantSku}`}
                 className="flex gap-3 text-sm"
               >
-                <div className="w-14 h-14 flex-shrink-0 rounded-md overflow-hidden bg-white">
+                <div className="w-14 h-14 flex-shrink-0 rounded-md overflow-hidden bg-background">
                   {item.image && (
                     <img
                       src={item.image}
@@ -330,107 +399,104 @@ export default function CheckoutForm({ locale }: Props) {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider">
+                  <div className="text-xs text-muted-foreground uppercase tracking-wider">
                     {item.brand}
                   </div>
                   <div className="font-medium truncate">{item.name}</div>
-                  <div className="text-xs text-[var(--color-ink-muted)]">
+                  <div className="text-xs text-muted-foreground">
                     {t("cart.size", locale)} {item.sizeEU} · {item.color} · ×
                     {item.quantity}
                   </div>
                 </div>
-                <div className="text-sm font-medium whitespace-nowrap">
-                  {formatPrice(item.price * item.quantity, locale)}
-                </div>
+                <Price
+                  amount={item.price * item.quantity}
+                  locale={locale}
+                  align="end"
+                  className="whitespace-nowrap"
+                  primaryClassName="text-sm font-medium"
+                />
               </li>
             ))}
           </ul>
 
-          <div className="border-t border-[var(--color-border-default)] pt-4 space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-[var(--color-ink-muted)]">
+          <div className="border-t border-border pt-4 space-y-2 text-sm">
+            <div className="flex justify-between items-start">
+              <span className="text-muted-foreground">
                 {t("cart.subtotal", locale)}
               </span>
-              <span>{formatPrice(cartSubtotal, locale)}</span>
+              <Price amount={cartSubtotal} locale={locale} align="end" />
             </div>
-            <div className="flex justify-between">
-              <span className="text-[var(--color-ink-muted)]">
+            <div className="flex justify-between items-start">
+              <span className="text-muted-foreground">
                 {t("checkout.shippingLabel", locale)}
               </span>
-              <span>
-                {shippingFee === 0
-                  ? t("checkout.freeShipping", locale)
-                  : formatPrice(shippingFee, locale)}
-              </span>
+              {shippingFee === 0 ? (
+                <span>{t("checkout.freeShipping", locale)}</span>
+              ) : (
+                <Price amount={shippingFee} locale={locale} align="end" />
+              )}
             </div>
-            <div className="flex justify-between text-base font-semibold border-t border-[var(--color-border-default)] pt-2">
+            <div className="flex justify-between items-start text-base font-semibold border-t border-border pt-2">
               <span>{t("checkout.total", locale)}</span>
-              <span>{formatPrice(total, locale)}</span>
+              <Price
+                amount={total}
+                locale={locale}
+                align="end"
+                primaryClassName="text-base font-semibold"
+              />
             </div>
           </div>
 
           {errors.length > 0 && (
-            <div className="bg-[var(--color-danger)]/10 border border-[var(--color-danger)] rounded-md p-3 text-sm text-[var(--color-danger)]">
+            <div className="bg-destructive/10 border border-destructive rounded-md p-3 text-sm text-destructive">
               {errors.map((err, i) => (
                 <div key={i}>{err}</div>
               ))}
             </div>
           )}
 
-          <button
+          <Button
             type="submit"
             disabled={submitting}
-            className="btn btn-primary w-full"
+            size="lg"
+            className="w-full h-12 hover:bg-primary/90"
           >
             {submitting
               ? t("checkout.placing", locale)
               : t("checkout.placeOrder", locale)}
-          </button>
+          </Button>
 
-          <p className="text-xs text-[var(--color-ink-muted)] text-center leading-relaxed">
+          <p className="text-xs text-muted-foreground text-center leading-relaxed">
             {t("checkout.terms", locale)}
           </p>
         </div>
       </aside>
-
-      <style>{`
-        .form-input {
-          width: 100%;
-          padding: 0.625rem 0.75rem;
-          border: 1px solid var(--color-border-default);
-          border-radius: var(--radius-md);
-          font-size: 0.875rem;
-          background: white;
-          transition: border-color 120ms ease;
-        }
-        .form-input:focus {
-          outline: none;
-          border-color: var(--color-ink);
-        }
-      `}</style>
     </form>
   );
 }
 
-/** Form field with label, optional `required` indicator, optional full-width */
+/** Form field with a shadcn <Label>, optional required indicator, optional
+ *  full-width column span. Renders children below the label. */
 function Field({
+  id,
   label,
   required,
   full,
   children,
 }: {
+  id: string;
   label: string;
   required?: boolean;
   full?: boolean;
   children: React.ReactNode;
 }) {
   return (
-    <label className={`block ${full ? "sm:col-span-2" : ""}`}>
-      <span className="block text-sm font-medium mb-1.5">
+    <div className={cn("block space-y-1.5", full && "sm:col-span-2")}>
+      <Label htmlFor={id}>
         {label}
-        {required && <span className="text-[var(--color-brand)] ml-1">*</span>}
-      </span>
+        {required && <span className="text-brand ml-0.5">*</span>}
+      </Label>
       {children}
-    </label>
+    </div>
   );
 }

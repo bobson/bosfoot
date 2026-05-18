@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { type Locale, t, formatPrice, localePath } from "@/lib/i18n";
+import { type Locale, t, localePath } from "@/lib/i18n";
+import Price from "./Price";
 import {
   type Cart,
   readCart,
@@ -56,7 +57,7 @@ export default function CartDrawer({ locale }: Props) {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
         side="right"
-        className="w-full sm:w-[420px] sm:max-w-none p-0 gap-0"
+        className="data-[side=right]:w-full data-[side=right]:sm:max-w-[420px] p-0 gap-0"
       >
         <SheetHeader className="px-5 py-4 border-b border-border">
           <SheetTitle className="text-lg font-semibold tracking-tight">
@@ -129,13 +130,23 @@ export default function CartDrawer({ locale }: Props) {
                     <div className="text-xs uppercase tracking-wider text-muted-foreground">
                       {item.brand}
                     </div>
-                    <a
-                      href={localePath(locale, "products", item.slug)}
-                      onClick={() => setOpen(false)}
-                      className="block text-sm font-medium leading-snug truncate text-foreground hover:text-brand transition-colors"
-                    >
-                      {item.name}
-                    </a>
+
+                    <div className="flex items-start justify-between gap-3">
+                      <a
+                        href={localePath(locale, "products", item.slug)}
+                        onClick={() => setOpen(false)}
+                        className="block text-sm font-medium leading-snug truncate text-foreground hover:text-brand transition-colors min-w-0"
+                      >
+                        {item.name}
+                      </a>
+                      <Price
+                        amount={item.price * item.quantity}
+                        locale={locale}
+                        align="end"
+                        className="whitespace-nowrap flex-shrink-0"
+                        primaryClassName="text-sm font-medium text-foreground"
+                      />
+                    </div>
 
                     <div className="text-xs text-muted-foreground mt-1 flex items-center gap-2">
                       <span>
@@ -158,7 +169,7 @@ export default function CartDrawer({ locale }: Props) {
                       )}
                     </div>
 
-                    <div className="mt-2 flex items-center justify-between">
+                    <div className="mt-2 flex items-center gap-3">
                       <div className="flex items-center border border-border rounded-md">
                         <button
                           type="button"
@@ -193,20 +204,16 @@ export default function CartDrawer({ locale }: Props) {
                         </button>
                       </div>
 
-                      <span className="text-sm font-medium text-foreground">
-                        {formatPrice(item.price * item.quantity, locale)}
-                      </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          removeFromCart(item.productSku, item.variantSku)
+                        }
+                        className="text-xs text-muted-foreground hover:text-destructive transition-colors"
+                      >
+                        {t("cart.remove", locale)}
+                      </button>
                     </div>
-
-                    <button
-                      type="button"
-                      onClick={() =>
-                        removeFromCart(item.productSku, item.variantSku)
-                      }
-                      className="mt-1 text-xs text-muted-foreground hover:text-destructive transition-colors"
-                    >
-                      {t("cart.remove", locale)}
-                    </button>
                   </div>
                 </li>
               ))}
@@ -214,13 +221,16 @@ export default function CartDrawer({ locale }: Props) {
 
             {/* Footer — subtotal + checkout button */}
             <div className="border-t border-border px-5 py-4 space-y-3">
-              <div className="flex items-baseline justify-between">
+              <div className="flex items-start justify-between">
                 <span className="text-sm font-medium text-foreground">
                   {t("cart.subtotal", locale)}
                 </span>
-                <span className="text-base font-semibold text-foreground">
-                  {formatPrice(total, locale)}
-                </span>
+                <Price
+                  amount={total}
+                  locale={locale}
+                  align="end"
+                  primaryClassName="text-base font-semibold text-foreground"
+                />
               </div>
               <p className="text-xs text-muted-foreground">
                 {t("cart.shippingNote", locale)}

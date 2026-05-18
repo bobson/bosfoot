@@ -1,12 +1,12 @@
 ---
 import Card from "@/components/astro/Card.astro";
 import Badge from "@/components/astro/Badge.astro";
+import Price from "@/components/astro/Price.astro";
 import {
   type Locale,
   t,
   pickLocale,
   localePath,
-  formatPrice,
 } from "@/lib/i18n";
 import { urlFor } from "@/lib/sanity";
 import { type ProductCard, productSlug, totalStock } from "@/lib/queries";
@@ -116,15 +116,23 @@ const onSale =
       </h3>
     </div>
 
-    <div class="flex items-baseline gap-2 text-sm pt-1">
-      <span class="font-medium text-foreground">
-        {formatPrice(product.price, locale)}
-      </span>
+    <div class="flex items-start gap-3 text-sm pt-1">
+      <Price
+        amount={product.price}
+        locale={locale}
+        align="start"
+        primaryClass="font-medium text-foreground"
+      />
       {
         onSale && product.compareAtPrice && (
-          <span class="text-muted-foreground line-through text-xs">
-            {formatPrice(product.compareAtPrice, locale)}
-          </span>
+          <Price
+            amount={product.compareAtPrice}
+            locale={locale}
+            align="start"
+            class="text-xs"
+            primaryClass="text-muted-foreground line-through"
+            secondaryClass="line-through"
+          />
         )
       }
     </div>

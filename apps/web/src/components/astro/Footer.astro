@@ -11,6 +11,19 @@ const { locale, siteSettings } = Astro.props;
 const siteName = siteSettings?.siteName ?? "Bosfoot";
 const tagline =
   pickLocale(siteSettings?.tagline, locale) ?? t("footer.tagline", locale);
+const contactEmail = siteSettings?.contact?.email ?? "info@bosfoot.com";
+
+// Legal identity line required by MK consumer-protection law: registered
+// name + registration (EMBS) + tax number (EDB). Each piece is rendered
+// only when filled in via Sanity, joined by a thin separator.
+const legalName = siteSettings?.business?.legalName ?? "БОСФУТ ТП - BOSFOOT SP";
+const legalParts = [
+  legalName,
+  siteSettings?.business?.registrationNumber &&
+    `ЕМБС ${siteSettings.business.registrationNumber}`,
+  siteSettings?.business?.vatNumber &&
+    `ЕДБ ${siteSettings.business.vatNumber}`,
+].filter(Boolean);
 
 const shopLinks = [
   { route: "products", label: t("cta.viewAll", locale) },
@@ -84,18 +97,11 @@ const linkClass =
       <div>
         <h4 class={columnHeading}>Contact</h4>
         <ul class="space-y-2 text-sm">
-          {
-            siteSettings?.contact?.email && (
-              <li>
-                <a
-                  href={`mailto:${siteSettings.contact.email}`}
-                  class={linkClass}
-                >
-                  {siteSettings.contact.email}
-                </a>
-              </li>
-            )
-          }
+          <li>
+            <a href={`mailto:${contactEmail}`} class={linkClass}>
+              {contactEmail}
+            </a>
+          </li>
           {
             siteSettings?.contact?.phone && (
               <li>
@@ -170,11 +176,12 @@ const linkClass =
 
     <!-- Copyright + legal links -->
     <div
-      class="mt-12 pt-6 border-t border-border flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+      class="mt-12 pt-6 border-t border-border flex flex-col md:flex-row md:items-start md:justify-between gap-4"
     >
-      <span class="text-xs text-muted-foreground">
-        {t("footer.copyright", locale)}
-      </span>
+      <div class="text-xs text-muted-foreground space-y-1">
+        <p>{t("footer.copyright", locale)}</p>
+        <p>{legalParts.join(" · ")}</p>
+      </div>
       <ul class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground">
         {
           legalLinks.map((link) => (

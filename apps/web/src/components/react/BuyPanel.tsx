@@ -1,9 +1,10 @@
 import { useState, useMemo } from "react";
-import { type Locale, t, pickLocale, formatPrice } from "@/lib/i18n";
+import { type Locale, t, pickLocale } from "@/lib/i18n";
 import type { ProductDetail, SizeChart } from "@/lib/queries";
 import { addToCart, openCart } from "@/lib/cart";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import Price from "./Price";
 import SizeChartModal from "./SizeChartModal";
 
 interface Props {
@@ -135,14 +136,21 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
         </div>
 
         {/* Price */}
-        <div className="flex items-baseline gap-3">
-          <span className="text-xl font-medium">
-            {formatPrice(product.price, locale)}
-          </span>
+        <div className="flex items-start gap-4">
+          <Price
+            amount={product.price}
+            locale={locale}
+            align="start"
+            primaryClassName="text-xl font-medium"
+          />
           {onSale && product.compareAtPrice && (
-            <span className="text-base text-muted-foreground line-through">
-              {formatPrice(product.compareAtPrice, locale)}
-            </span>
+            <Price
+              amount={product.compareAtPrice}
+              locale={locale}
+              align="start"
+              primaryClassName="text-base text-muted-foreground line-through"
+              secondaryClassName="line-through"
+            />
           )}
         </div>
 

@@ -83,7 +83,7 @@ const breadcrumbSchema = breadcrumbLD({
       <div class="md:col-span-8">
         <h1 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">{brand.name}</h1>
         {description && (
-          <p class="text-base text-[var(--color-ink-muted)] mb-6 leading-relaxed max-w-prose">
+          <p class="text-base text-muted-foreground mb-6 leading-relaxed max-w-prose">
             {description}
           </p>
         )}
@@ -91,7 +91,7 @@ const breadcrumbSchema = breadcrumbLD({
         <div class="flex flex-wrap gap-x-8 gap-y-3 text-sm">
           {brand.countryOfOrigin && (
             <div>
-              <div class="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider mb-0.5">
+              <div class="text-xs text-muted-foreground uppercase tracking-wider mb-0.5">
                 {t('brand.from', locale)}
               </div>
               <div>{brand.countryOfOrigin}</div>
@@ -99,7 +99,7 @@ const breadcrumbSchema = breadcrumbLD({
           )}
           {brand.yearFounded && (
             <div>
-              <div class="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider mb-0.5">
+              <div class="text-xs text-muted-foreground uppercase tracking-wider mb-0.5">
                 {t('brand.foundedIn', locale)}
               </div>
               <div>{brand.yearFounded}</div>
@@ -107,14 +107,14 @@ const breadcrumbSchema = breadcrumbLD({
           )}
           {brand.websiteUrl && (
             <div>
-              <div class="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider mb-0.5">
+              <div class="text-xs text-muted-foreground uppercase tracking-wider mb-0.5">
                 {t('brand.officialSite', locale)}
               </div>
               <a
                 href={brand.websiteUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-[var(--color-brand)] hover:text-[var(--color-brand-hover)] underline"
+                class="text-brand hover:text-brand-hover underline"
               >
                 {new URL(brand.websiteUrl).hostname.replace('www.', '')} ↗
               </a>
@@ -127,13 +127,13 @@ const breadcrumbSchema = breadcrumbLD({
 
   <!-- Size chart -->
   {brand.sizeChart && brand.sizeChart.rows && brand.sizeChart.rows.length > 0 && (
-    <section class="bg-[var(--color-bg-secondary)] border-y border-[var(--color-border-subtle)]">
+    <section class="bg-secondary border-y border-border-subtle">
       <div class="container-page py-12">
         <h2 class="text-xl md:text-2xl font-semibold tracking-tight mb-2">
           {t('brand.sizeChart', locale)}
         </h2>
         {sizeChartNotes && (
-          <p class="text-sm text-[var(--color-ink-muted)] mb-6 max-w-prose leading-relaxed">
+          <p class="text-sm text-muted-foreground mb-6 max-w-prose leading-relaxed">
             {sizeChartNotes}
           </p>
         )}
@@ -141,10 +141,10 @@ const breadcrumbSchema = breadcrumbLD({
           <table class="min-w-full text-sm border-collapse">
             <thead>
               <tr class="text-left">
-                <th class="px-3 md:px-6 py-3 font-medium uppercase tracking-wider text-xs text-[var(--color-ink-muted)] border-b border-[var(--color-border-default)]">
+                <th class="px-3 md:px-6 py-3 font-medium uppercase tracking-wider text-xs text-muted-foreground border-b border-border">
                   EU
                 </th>
-                <th class="px-3 md:px-6 py-3 font-medium uppercase tracking-wider text-xs text-[var(--color-ink-muted)] border-b border-[var(--color-border-default)]">
+                <th class="px-3 md:px-6 py-3 font-medium uppercase tracking-wider text-xs text-muted-foreground border-b border-border">
                   {measurementLabel} (mm)
                 </th>
               </tr>
@@ -154,11 +154,11 @@ const breadcrumbSchema = breadcrumbLD({
                 .slice()
                 .sort((a, b) => a.sizeEU - b.sizeEU)
                 .map((row) => (
-                  <tr class="hover:bg-white transition-colors">
-                    <td class="px-3 md:px-6 py-2 border-b border-[var(--color-border-subtle)] font-medium">
+                  <tr class="hover:bg-background transition-colors">
+                    <td class="px-3 md:px-6 py-2 border-b border-border-subtle font-medium">
                       {row.sizeEU}
                     </td>
-                    <td class="px-3 md:px-6 py-2 border-b border-[var(--color-border-subtle)] text-[var(--color-ink-muted)]">
+                    <td class="px-3 md:px-6 py-2 border-b border-border-subtle text-muted-foreground">
                       {row.lengthMM}
                     </td>
                   </tr>

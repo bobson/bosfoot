@@ -1363,22 +1363,35 @@ function formatTwoDecimals(n: number): string {
 }
 
 /**
- * Format a price for display.
+ * Format a price as separate parts so the UI can stack EUR below MKD.
+ *
+ * On `mk` locale (or non-MKD currency): only `primary` is set.
+ * On `sq` / `en` locale: `primary` is MKD, `secondary` is the EUR equivalent.
+ *
+ * Components render this via `<Price>` / `<Price.astro>`. For strings that
+ * must stay inline (alt text, structured data), use `formatPrice` below.
+ */
+export function formatPriceParts(
+  amount: number,
+  locale: Locale,
+  currency = 'MKD',
+): { primary: string; secondary?: string } {
+  const primary = `${formatInt(amount)} ${t(`currency.${currency}`, locale)}`
+  if (locale === 'mk' || currency !== 'MKD') {
+    return { primary }
+  }
+  const eurAmount = amount / MKD_PER_EUR
+  return { primary, secondary: `${formatTwoDecimals(eurAmount)} €` }
+}
+
+/**
+ * Single-string price formatter — kept for non-UI uses (structured data,
+ * alt text, plain-text contexts). UI surfaces should use <Price> instead.
  *
  * On `mk` locale: just MKD, e.g. `7 500 ден`
  * On `sq` / `en` locale: MKD with EUR in brackets, e.g. `7 500 ден (122.00 €)`
- *
- * Always uses space as thousands separator — this matches MKD convention,
- * is unambiguous internationally, and avoids server/client locale mismatch
- * which causes React hydration errors.
  */
 export function formatPrice(amount: number, locale: Locale, currency = 'MKD'): string {
-  const mkdString = `${formatInt(amount)} ${t(`currency.${currency}`, locale)}`
-
-  if (locale === 'mk' || currency !== 'MKD') {
-    return mkdString
-  }
-
-  const eurAmount = amount / MKD_PER_EUR
-  return `${mkdString} (${formatTwoDecimals(eurAmount)} €)`
+  const { primary, secondary } = formatPriceParts(amount, locale, currency)
+  return secondary ? `${primary} (${secondary})` : primary
 }

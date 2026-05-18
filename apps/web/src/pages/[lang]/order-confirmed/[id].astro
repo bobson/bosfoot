@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { type Locale, LOCALES, t, formatPrice } from "@/lib/i18n";
+import Button from "@/components/astro/Button.astro";
+import { type Locale, LOCALES, t } from "@/lib/i18n";
+import Price from "@/components/astro/Price.astro";
 import { getSiteSettings } from "@/lib/queries";
 import { sanityWrite } from "@/lib/sanity-server";
 
@@ -51,7 +53,7 @@ if (!order) {
     <!-- Confirmation header -->
     <div class="text-center mb-12">
       <div
-        class="w-16 h-16 rounded-full bg-[var(--color-success)]/10 flex items-center justify-center mx-auto mb-6"
+        class="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-6"
       >
         <svg
           width="32"
@@ -62,7 +64,7 @@ if (!order) {
           stroke-width="1.5"
           stroke-linecap="round"
           stroke-linejoin="round"
-          class="text-[var(--color-success)]"
+          class="text-success"
           aria-hidden="true"
         >
           <polyline points="20 6 9 17 4 12"></polyline>
@@ -71,19 +73,19 @@ if (!order) {
       <h1 class="text-3xl font-semibold tracking-tight mb-3">
         {t("order.confirmed", locale)}
       </h1>
-      <p class="text-[var(--color-ink-muted)]">{t("order.thanks", locale)}</p>
+      <p class="text-muted-foreground">{t("order.thanks", locale)}</p>
     </div>
 
     <!-- Order number + payment instructions -->
-    <div class="bg-[var(--color-bg-secondary)] rounded-lg p-6 mb-8">
+    <div class="bg-secondary rounded-lg p-6 mb-8">
       <div class="flex items-center justify-between mb-4">
-        <span class="text-sm text-[var(--color-ink-muted)]">
+        <span class="text-sm text-muted-foreground">
           {t("order.number", locale)}
         </span>
         <span class="font-semibold tracking-wide">{order.orderNumber}</span>
       </div>
 
-      <p class="text-sm text-[var(--color-ink-muted)] leading-relaxed">
+      <p class="text-sm text-muted-foreground leading-relaxed">
         {
           order.paymentMethod === "cod"
             ? t("order.cod", locale)
@@ -96,7 +98,7 @@ if (!order) {
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
       <div>
         <h2
-          class="text-sm font-medium uppercase tracking-wider text-[var(--color-ink-muted)] mb-2"
+          class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-2"
         >
           {t("checkout.contact", locale)}
         </h2>
@@ -104,89 +106,90 @@ if (!order) {
           {order.customer.firstName}
           {order.customer.lastName}
         </p>
-        <p class="text-sm text-[var(--color-ink-muted)]">
-          {order.customer.email}
-        </p>
-        <p class="text-sm text-[var(--color-ink-muted)]">
-          {order.customer.phone}
-        </p>
+        <p class="text-sm text-muted-foreground">{order.customer.email}</p>
+        <p class="text-sm text-muted-foreground">{order.customer.phone}</p>
       </div>
       <div>
         <h2
-          class="text-sm font-medium uppercase tracking-wider text-[var(--color-ink-muted)] mb-2"
+          class="text-sm font-medium uppercase tracking-wider text-muted-foreground mb-2"
         >
           {t("checkout.shipping", locale)}
         </h2>
         <p class="text-sm">{order.shippingAddress.address}</p>
-        <p class="text-sm text-[var(--color-ink-muted)]">
+        <p class="text-sm text-muted-foreground">
           {order.shippingAddress.postalCode}
           {order.shippingAddress.city}
         </p>
-        <p class="text-sm text-[var(--color-ink-muted)]">
+        <p class="text-sm text-muted-foreground">
           {order.shippingAddress.country}
         </p>
       </div>
     </div>
 
     <!-- Line items -->
-    <div
-      class="border border-[var(--color-border-subtle)] rounded-lg overflow-hidden mb-8"
-    >
-      <ul class="divide-y divide-[var(--color-border-subtle)]">
+    <div class="border border-border-subtle rounded-lg overflow-hidden mb-8">
+      <ul class="divide-y divide-border-subtle">
         {
           order.items.map((item: any) => (
-            <li class="flex items-center justify-between px-5 py-3 text-sm">
+            <li class="flex items-start justify-between px-5 py-3 text-sm gap-3">
               <div>
                 <span class="font-medium">{item.productSnapshot.name}</span>
-                <span class="text-[var(--color-ink-muted)] ml-2">
+                <span class="text-muted-foreground ml-2">
                   EU {item.sizeEU} · {item.color}
                 </span>
                 {item.quantity > 1 && (
-                  <span class="text-[var(--color-ink-muted)]">
-                    {" "}
-                    × {item.quantity}
-                  </span>
+                  <span class="text-muted-foreground"> × {item.quantity}</span>
                 )}
               </div>
-              <span class="font-medium">
-                {formatPrice(item.lineTotal, locale)}
-              </span>
+              <Price
+                amount={item.lineTotal}
+                locale={locale}
+                align="end"
+                primaryClass="font-medium"
+              />
             </li>
           ))
         }
       </ul>
       <div
-        class="px-5 py-3 bg-[var(--color-bg-secondary)] border-t border-[var(--color-border-subtle)]"
+        class="px-5 py-3 bg-secondary border-t border-border-subtle"
       >
-        <div class="flex justify-between text-sm mb-1">
-          <span class="text-[var(--color-ink-muted)]"
-            >{t("cart.subtotal", locale)}</span
-          >
-          <span>{formatPrice(order.totals.subtotal, locale)}</span>
+        <div class="flex justify-between items-start text-sm mb-1">
+          <span class="text-muted-foreground">{t("cart.subtotal", locale)}</span>
+          <Price amount={order.totals.subtotal} locale={locale} align="end" />
         </div>
-        <div class="flex justify-between text-sm mb-2">
-          <span class="text-[var(--color-ink-muted)]"
+        <div class="flex justify-between items-start text-sm mb-2">
+          <span class="text-muted-foreground"
             >{t("checkout.shippingLabel", locale)}</span
           >
-          <span>
-            {
-              order.totals.shipping === 0
-                ? t("checkout.freeShipping", locale)
-                : formatPrice(order.totals.shipping, locale)
-            }
-          </span>
+          {
+            order.totals.shipping === 0 ? (
+              <span>{t("checkout.freeShipping", locale)}</span>
+            ) : (
+              <Price
+                amount={order.totals.shipping}
+                locale={locale}
+                align="end"
+              />
+            )
+          }
         </div>
-        <div class="flex justify-between font-semibold">
+        <div class="flex justify-between items-start font-semibold">
           <span>{t("checkout.total", locale)}</span>
-          <span>{formatPrice(order.totals.total, locale)}</span>
+          <Price
+            amount={order.totals.total}
+            locale={locale}
+            align="end"
+            primaryClass="font-semibold"
+          />
         </div>
       </div>
     </div>
 
     <div class="text-center">
-      <a href={`/${locale}/`} class="btn btn-primary">
+      <Button href={`/${locale}/`}>
         {t("order.continueShopping", locale)}
-      </a>
+      </Button>
     </div>
   </div>
 </BaseLayout>

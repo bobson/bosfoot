@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { type Locale, t, formatPrice } from "@/lib/i18n";
+import { type Locale, t } from "@/lib/i18n";
 import {
   Dialog,
   DialogContent,
   DialogTitle,
 } from "@/components/ui/dialog";
+import Price from "./Price";
 
 interface Props {
   locale: Locale;
@@ -200,9 +201,13 @@ export default function SearchOverlay({ locale }: Props) {
                           {item.brand}
                         </div>
                       </div>
-                      <div className="text-sm font-medium text-foreground whitespace-nowrap">
-                        {formatPrice(item.price, locale)}
-                      </div>
+                      <Price
+                        amount={item.price}
+                        locale={locale}
+                        align="end"
+                        className="whitespace-nowrap"
+                        primaryClassName="text-sm font-medium text-foreground"
+                      />
                     </a>
                   </li>
                 );

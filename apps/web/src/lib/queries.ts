@@ -20,6 +20,13 @@ export type SiteSettings = {
   tagline?: { mk?: string; sq?: string; en?: string }
   contact?: { email?: string; phone?: string; city?: string }
   social?: { instagram?: string; facebook?: string; tiktok?: string }
+  business?: {
+    legalName?: string
+    registrationNumber?: string
+    vatNumber?: string
+    bankAccount?: string
+    bankName?: string
+  }
   announcement?: {
     enabled?: boolean
     text?: { mk?: string; sq?: string; en?: string }
@@ -76,6 +83,7 @@ const SITE_SETTINGS_QUERY = `
     tagline,
     contact,
     social,
+    business,
     announcement,
     homepage{
       heroTitle,
