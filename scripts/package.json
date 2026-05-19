@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "catalog": "tsx import.ts",
-    "catalog:apply": "tsx import.ts --apply"
+    "catalog:apply": "tsx import.ts --apply",
+    "articles": "tsx articles.ts",
+    "articles:apply": "tsx articles.ts --apply"
   },
   "dependencies": {
     "@sanity/client": "^7.0.0",

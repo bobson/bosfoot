@@ -235,9 +235,9 @@ export const ui: UIStrings = {
     en: 'at your feet',
   },
   'home.hero.lead': {
-    mk: 'Премиум боси патики за оние кои сакаат природен чекор. Курирани од европските мајстори на занаетот.',
-    sq: 'Këpucë barefoot premium për ata që duan një hap natyral. Të zgjedhura nga mjeshtrit evropianë.',
-    en: 'Premium barefoot shoes for people who want a natural step. Curated from European masters of the craft.',
+    mk: 'Премиум боси патики за оние кои сакаат природен чекор. Изработени од европските мајстори на занаетот.',
+    sq: 'Këpucë barefoot premium për ata që duan një hap natyral. Të punuara nga mjeshtrit evropianë.',
+    en: 'Premium barefoot shoes for people who want a natural step. Made by European masters of the craft.',
   },
   'home.hero.shopMen': {
     mk: 'Машки',

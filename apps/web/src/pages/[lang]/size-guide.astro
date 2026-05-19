@@ -13,7 +13,7 @@ const { lang } = Astro.params;
 const locale = lang as Locale;
 
 const siteSettings = await getSiteSettings();
-const contactEmail = siteSettings?.contact?.email ?? "contact@bosfoot.com";
+const contactEmail = siteSettings?.contact?.email ?? "info@bosfoot.com";
 
 const pageTitle = t("sizeGuide.title", locale);
 const pageLead = t("sizeGuide.lead", locale);
@@ -49,28 +49,47 @@ const steps = [
       <h1 class="text-3xl md:text-4xl font-semibold tracking-tight mb-4">
         {pageTitle}
       </h1>
-      <p class="text-base md:text-lg text-[var(--color-ink-muted)] leading-relaxed">
+      <p class="text-base md:text-lg text-muted-foreground leading-relaxed">
         {pageLead}
       </p>
     </header>
 
-    <div class="guide-layout">
+    <div
+      class="grid grid-cols-1 gap-10 mb-16 min-[900px]:grid-cols-[1.4fr_1fr] min-[900px]:gap-16"
+    >
       <!-- Steps -->
-      <ol class="guide-steps">
+      <ol class="list-none p-0 m-0 flex flex-col gap-8">
         {
-          steps.map((step) => (
-            <li class="guide-step">
-              <h2 class="guide-step-title">{step.title}</h2>
-              <p class="guide-step-body">{step.body}</p>
+          steps.map((step, idx) => (
+            <li
+              class:list={[
+                "pb-8 border-b border-border-subtle",
+                idx === steps.length - 1 && "border-b-0 pb-0",
+              ]}
+            >
+              <h2 class="text-xl md:text-[1.4rem] font-semibold tracking-tight mb-3">
+                {step.title}
+              </h2>
+              <p class="text-base leading-[1.65] text-muted-foreground m-0">
+                {step.body}
+              </p>
             </li>
           ))
         }
       </ol>
 
       <!-- Tip + visual sidebar -->
-      <aside class="guide-aside">
-        <div class="guide-illustration" aria-hidden="true">
-          <svg viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <aside class="flex flex-col gap-6">
+        <div
+          class="bg-secondary border border-border-subtle rounded-lg p-8 text-muted-foreground flex items-center justify-center"
+          aria-hidden="true"
+        >
+          <svg
+            viewBox="0 0 200 280"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-full max-w-[220px] h-auto"
+          >
             <!-- Stylised foot outline -->
             <path
               d="M100 20 C 130 20, 150 50, 150 90 L 150 200 C 150 240, 130 260, 100 260 C 70 260, 50 240, 50 200 L 50 90 C 50 50, 70 20, 100 20 Z"
@@ -96,154 +115,51 @@ const steps = [
           </svg>
         </div>
 
-        <div class="guide-tip">
-          <h3 class="guide-tip-title">{t("sizeGuide.tip.title", locale)}</h3>
-          <p class="guide-tip-body">{t("sizeGuide.tip.body", locale)}</p>
+        <div
+          class="bg-background border-l-[3px] border-brand px-6 py-5 rounded-r-md"
+        >
+          <h3
+            class="text-xs font-semibold uppercase tracking-[0.08em] text-brand m-0 mb-2"
+          >
+            {t("sizeGuide.tip.title", locale)}
+          </h3>
+          <p class="text-[0.95rem] leading-[1.55] m-0 text-foreground">
+            {t("sizeGuide.tip.body", locale)}
+          </p>
         </div>
       </aside>
     </div>
 
     <!-- Per-brand charts callout -->
-    <div class="guide-section">
-      <h2 class="guide-section-title">{t("sizeGuide.brands.title", locale)}</h2>
-      <p class="guide-section-body">{t("sizeGuide.brands.lead", locale)}</p>
-      <a href={localePath(locale, "brands")} class="guide-section-cta">
+    <div class="border-t border-border-subtle py-12 max-w-[42rem]">
+      <h2 class="text-2xl font-semibold tracking-tight mb-3">
+        {t("sizeGuide.brands.title", locale)}
+      </h2>
+      <p class="text-base leading-[1.65] text-muted-foreground mb-4">
+        {t("sizeGuide.brands.lead", locale)}
+      </p>
+      <a
+        href={localePath(locale, "brands")}
+        class="text-[0.95rem] font-medium text-brand hover:text-brand-hover transition-colors"
+      >
         {t("nav.brands", locale)} →
       </a>
     </div>
 
     <!-- Help callout -->
-    <div class="guide-help">
-      <h2 class="guide-help-title">{t("sizeGuide.help.title", locale)}</h2>
-      <p class="guide-help-body">{t("sizeGuide.help.body", locale)}</p>
-      <a href={`mailto:${contactEmail}`} class="guide-help-cta">
+    <div class="border-t border-border-subtle py-12 max-w-[42rem]">
+      <h2 class="text-2xl font-semibold tracking-tight mb-3">
+        {t("sizeGuide.help.title", locale)}
+      </h2>
+      <p class="text-base leading-[1.65] text-muted-foreground mb-4">
+        {t("sizeGuide.help.body", locale)}
+      </p>
+      <a
+        href={`mailto:${contactEmail}`}
+        class="text-[0.95rem] font-medium text-brand hover:text-brand-hover transition-colors"
+      >
         {contactEmail} →
       </a>
     </div>
   </section>
 </BaseLayout>
-
-<style>
-  .guide-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-    margin-bottom: 4rem;
-  }
-  @media (min-width: 900px) {
-    .guide-layout {
-      grid-template-columns: 1.4fr 1fr;
-      gap: 4rem;
-    }
-  }
-
-  /* Steps */
-  .guide-steps {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-  }
-  .guide-step {
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--color-border-subtle);
-  }
-  .guide-step:last-child {
-    border-bottom: none;
-    padding-bottom: 0;
-  }
-  .guide-step-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    letter-spacing: -0.005em;
-    margin: 0 0 0.75rem;
-  }
-  @media (min-width: 768px) {
-    .guide-step-title {
-      font-size: 1.4rem;
-    }
-  }
-  .guide-step-body {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.65;
-    color: var(--color-ink-muted);
-  }
-
-  /* Aside */
-  .guide-aside {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .guide-illustration {
-    background: var(--color-bg-secondary);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-lg);
-    padding: 2rem;
-    color: var(--color-ink-muted);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .guide-illustration svg {
-    width: 100%;
-    max-width: 220px;
-    height: auto;
-  }
-  .guide-tip {
-    background: var(--color-bg-primary);
-    border-left: 3px solid var(--color-brand);
-    padding: 1.25rem 1.5rem;
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-  }
-  .guide-tip-title {
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-brand);
-    margin: 0 0 0.5rem;
-  }
-  .guide-tip-body {
-    font-size: 0.95rem;
-    line-height: 1.55;
-    margin: 0;
-    color: var(--color-ink);
-  }
-
-  /* Brand charts + Help sections */
-  .guide-section,
-  .guide-help {
-    border-top: 1px solid var(--color-border-subtle);
-    padding: 3rem 0;
-    max-width: 42rem;
-  }
-  .guide-section-title,
-  .guide-help-title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    margin: 0 0 0.75rem;
-  }
-  .guide-section-body,
-  .guide-help-body {
-    font-size: 1rem;
-    line-height: 1.65;
-    color: var(--color-ink-muted);
-    margin: 0 0 1rem;
-  }
-  .guide-section-cta,
-  .guide-help-cta {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--color-brand);
-    transition: color 150ms ease;
-  }
-  .guide-section-cta:hover,
-  .guide-help-cta:hover {
-    color: var(--color-brand-hover);
-  }
-</style>

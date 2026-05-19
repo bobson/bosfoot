@@ -91,14 +91,14 @@ const pageTitle = t("home.articles.title", locale);
       <h1 class="text-3xl md:text-4xl font-semibold tracking-tight mb-3">
         {pageTitle}
       </h1>
-      <p class="text-[var(--color-ink-muted)] max-w-prose">
+      <p class="text-muted-foreground max-w-prose">
         {t("home.articles.lead", locale)}
       </p>
     </header>
 
     {
       articles.length === 0 ? (
-        <div class="py-16 text-center text-[var(--color-ink-muted)]">
+        <div class="py-16 text-center text-muted-foreground">
           <p>—</p>
         </div>
       ) : (
@@ -106,7 +106,7 @@ const pageTitle = t("home.articles.title", locale);
           {articles.map((article) => (
             <a href={articleHref(article)} class="group block">
               {article.coverImage && (
-                <div class="aspect-[16/10] overflow-hidden rounded-md bg-[var(--color-bg-secondary)] mb-4">
+                <div class="aspect-[16/10] overflow-hidden rounded-md bg-secondary mb-4">
                   <img
                     src={urlFor(article.coverImage)
                       .width(800)
@@ -122,15 +122,15 @@ const pageTitle = t("home.articles.title", locale);
               )}
               <div class="px-1">
                 {article.publishedAt && (
-                  <time class="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider">
+                  <time class="text-xs text-muted-foreground uppercase tracking-wider">
                     {formatDate(article.publishedAt)}
                   </time>
                 )}
-                <h2 class="text-lg font-semibold leading-snug mt-1 mb-2 group-hover:text-[var(--color-brand)] transition-colors">
+                <h2 class="text-lg font-semibold leading-snug mt-1 mb-2 group-hover:text-brand transition-colors">
                   {pickLocale(article.title, locale)}
                 </h2>
                 {pickLocale(article.lead, locale) && (
-                  <p class="text-sm text-[var(--color-ink-muted)] leading-relaxed line-clamp-2">
+                  <p class="text-sm text-muted-foreground leading-relaxed line-clamp-2">
                     {pickLocale(article.lead, locale)}
                   </p>
                 )}

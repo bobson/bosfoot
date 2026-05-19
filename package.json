@@ -11,7 +11,9 @@
     "web:build": "pnpm --filter web build",
     "dev": "pnpm --parallel --filter \"./apps/*\" dev",
     "catalog": "pnpm --filter scripts catalog",
-    "catalog:apply": "pnpm --filter scripts catalog:apply"
+    "catalog:apply": "pnpm --filter scripts catalog:apply",
+    "articles": "pnpm --filter scripts articles",
+    "articles:apply": "pnpm --filter scripts articles:apply"
   },
   "devDependencies": {
     "typescript": "~5.9.3"

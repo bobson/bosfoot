@@ -138,31 +138,31 @@ const breadcrumbSchema = breadcrumbLD({
   <article class="article-page">
     <!-- Breadcrumb -->
     <nav
-      class="container-page text-xs text-[var(--color-ink-muted)] pt-6 mb-8 flex items-center gap-2"
+      class="container-page text-xs text-muted-foreground pt-6 mb-8 flex items-center gap-2"
       aria-label="Breadcrumb"
     >
       <a
         href={`/${locale}/`}
-        class="hover:text-[var(--color-ink)] transition-colors"
+        class="hover:text-foreground transition-colors"
       >
         Home
       </a>
       <span>›</span>
       <a
         href={`/${locale}/articles`}
-        class="hover:text-[var(--color-ink)] transition-colors"
+        class="hover:text-foreground transition-colors"
       >
         {t("home.articles.title", locale)}
       </a>
       <span>›</span>
-      <span class="text-[var(--color-ink)] truncate">{title}</span>
+      <span class="text-foreground truncate">{title}</span>
     </nav>
 
     <!-- Header -->
     <header class="container-page max-w-3xl mb-10">
       {
         article.publishedAt && (
-          <time class="text-xs text-[var(--color-ink-muted)] uppercase tracking-wider">
+          <time class="text-xs text-muted-foreground uppercase tracking-wider">
             {formatDate(article.publishedAt)}
             {article.author && ` · ${article.author}`}
           </time>
@@ -175,7 +175,7 @@ const breadcrumbSchema = breadcrumbLD({
       </h1>
       {
         lead && (
-          <p class="text-lg text-[var(--color-ink-muted)] leading-relaxed">
+          <p class="text-lg text-muted-foreground leading-relaxed">
             {lead}
           </p>
         )
@@ -201,10 +201,10 @@ const breadcrumbSchema = breadcrumbLD({
     <div class="container-page max-w-2xl pb-16 md:pb-24">
       <PortableText blocks={bodyBlocks} />
 
-      <div class="mt-16 pt-8 border-t border-[var(--color-border-subtle)]">
+      <div class="mt-16 pt-8 border-t border-border-subtle">
         <a
           href={`/${locale}/articles`}
-          class="text-sm text-[var(--color-ink-muted)] hover:text-[var(--color-brand)] transition-colors"
+          class="text-sm text-muted-foreground hover:text-brand transition-colors"
         >
           ← {t("home.articles.viewAll", locale)}
         </a>
