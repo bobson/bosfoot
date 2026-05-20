@@ -37,6 +37,7 @@ export type SiteSettings = {
     heroSubtitle?: { mk?: string; sq?: string; en?: string }
     heroImage?: SanityImage
   }
+  chatFaq?: { mk?: string; sq?: string; en?: string }
 }
 
 export type SanityImage = {
@@ -89,7 +90,8 @@ const SITE_SETTINGS_QUERY = `
       heroTitle,
       heroSubtitle,
       heroImage
-    }
+    },
+    chatFaq
   }
 `
 

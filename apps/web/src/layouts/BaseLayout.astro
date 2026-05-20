@@ -4,6 +4,8 @@ import { ClientRouter } from "astro:transitions";
 import Header from "@/components/astro/Header.astro";
 import Footer from "@/components/astro/Footer.astro";
 import CartDrawer from "@/components/react/CartDrawer.tsx";
+import ChatWidget from "@/components/react/ChatWidget.tsx";
+import SpeedInsights from "@vercel/speed-insights/astro";
 import { type Locale, t, pickLocale } from "@/lib/i18n";
 import type { SiteSettings } from "@/lib/queries";
 import { organizationLD, websiteLD } from "@/lib/structured-data";
@@ -131,6 +133,12 @@ const allSchemas = [
          transition:persist keeps the React island mounted across navigations so
          the drawer doesn't unmount if it's open during a nav. -->
     <CartDrawer locale={locale} client:load transition:persist />
+
+    <!-- Floating chat agent — Claude Haiku 4.5-backed customer support widget.
+         Loaded idle so it never competes with critical-path JS. -->
+    <ChatWidget client:idle transition:persist />
+
+    <SpeedInsights />
   </body>
 </html>
 

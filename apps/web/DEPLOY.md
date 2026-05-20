@@ -89,17 +89,23 @@ git push
 
 ### Environment variables
 
-Click **Environment Variables** and add three:
+Click **Environment Variables** and add four:
 
 | Name | Value | Environment |
 |---|---|---|
 | `PUBLIC_SANITY_PROJECT_ID` | `s0p60sp0` | All |
 | `PUBLIC_SANITY_DATASET` | `production` | All |
 | `SANITY_WRITE_TOKEN` | (paste the token you generated) | All |
+| `ANTHROPIC_API_KEY` | (from Anthropic Console — see below) | All |
 
 The first two are public — safe to commit (they're already in your client-side
-code as `import.meta.env.PUBLIC_*`). The write token is server-only — never put
-it in a `PUBLIC_` env var.
+code as `import.meta.env.PUBLIC_*`). The Sanity write token and Anthropic API key
+are server-only — never put either in a `PUBLIC_` env var.
+
+**Getting the Anthropic API key:** visit https://console.anthropic.com/settings/keys
+→ **Create Key**. Billing and usage live at
+https://console.anthropic.com/settings/billing. The key powers `/api/chat`, the
+customer-support chat widget mounted in `BaseLayout` (Claude Haiku 4.5).
 
 Click **Deploy**. First build takes 2-4 minutes.
 
