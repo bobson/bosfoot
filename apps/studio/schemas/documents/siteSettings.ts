@@ -16,6 +16,7 @@ export const siteSettings = defineType({
     { name: 'homepage', title: 'Homepage' },
     { name: 'announcement', title: 'Announcement bar' },
     { name: 'seo', title: 'Default SEO' },
+    { name: 'chat', title: 'Chat agent' },
   ],
   fields: [
     defineField({ name: 'siteName', type: 'string', initialValue: 'Bosfoot', group: 'general' }),
@@ -107,6 +108,17 @@ export const siteSettings = defineType({
         defineField({ name: 'description', type: 'localeText' }),
         defineField({ name: 'ogImage', type: 'image' }),
       ],
+    }),
+
+    // Chat agent
+    defineField({
+      name: 'chatFaq',
+      title: 'Chat agent knowledge base',
+      type: 'localeText',
+      group: 'chat',
+      description:
+        'Free-form text the chat agent uses when answering customer questions: shipping, returns, payment, brand voice, anything specific to Bosfoot that isn\'t in the size charts. Write it like notes for a new employee. Three languages — the agent picks based on the customer\'s message.',
+      rows: 20,
     }),
   ],
   preview: {
