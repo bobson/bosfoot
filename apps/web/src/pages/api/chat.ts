@@ -48,20 +48,26 @@ function rateLimited(ip: string): boolean {
 
 function originOk(request: Request, url: URL): boolean {
     const origin = request.headers.get('origin')
-    if (!origin) {
-        const referer = request.headers.get('referer')
-        if (!referer) return false
-        try {
-            return new URL(referer).host === url.host
-        } catch {
-            return false
-        }
+    const referer = request.headers.get('referer')
+
+    let incomingHost: string | null = null
+    if (origin) {
+        try { incomingHost = new URL(origin).host } catch {}
+    } else if (referer) {
+        try { incomingHost = new URL(referer).host } catch {}
     }
-    try {
-        return new URL(origin).host === url.host
-    } catch {
-        return false
-    }
+    if (!incomingHost) return false
+
+    const normalize = (h: string) => h.replace(/^www\./, '').toLowerCase()
+    const a = normalize(incomingHost)
+    const b = normalize(url.host)
+
+    if (a === b) return true
+    // Vercel preview deployments — host looks like bosfoot-git-xxx.vercel.app
+    if (a.endsWith('.vercel.app')) return true
+
+    console.warn('chat: origin rejected', { origin, referer, host: url.host })
+    return false
 }
 
 function jsonError(status: number, error: string): Response {
