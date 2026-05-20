@@ -1,5 +1,4 @@
 ---
-import Card from "@/components/astro/Card.astro";
 import Button from "@/components/astro/Button.astro";
 import { type Locale, t, localePath } from "@/lib/i18n";
 import type { SiteSettings } from "@/lib/queries";
@@ -23,39 +22,43 @@ const productsPath = localePath(locale, "products");
 <section
   class="hero-section relative overflow-hidden bg-secondary border-b border-border"
 >
-  <!-- Full-section hero image -->
-  <img
-    src="/images/hero.webp"
-    alt=""
-    loading="eager"
-    fetchpriority="high"
-    decoding="async"
-    class="absolute inset-0 w-full h-full object-cover object-center md:object-right"
-  />
-
-  <!-- Left-side gradient so heading + lead + buttons stay legible -->
-  <div
-    aria-hidden="true"
-    class="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/95 via-white/75 to-white/0 md:via-white/60 md:to-transparent"
-  >
-  </div>
+  <!-- Full-section hero image — responsive srcset, eager + high priority for LCP -->
+  <picture>
+    <source
+      type="image/webp"
+      srcset="/images/hero/bosfoot_hero_400w.webp 400w,
+              /images/hero/bosfoot_hero_600w.webp 600w,
+              /images/hero/bosfoot_hero_900w.webp 900w,
+              /images/hero/bosfoot_hero_1200w.webp 1200w"
+      sizes="100vw"
+    />
+    <img
+      src="/images/hero/bosfoot_hero_600w.jpg"
+      alt="Bosfoot forest green barefoot sneaker on wet cobblestone"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      class="absolute inset-0 w-full h-full object-cover object-[center_78%]"
+    />
+  </picture>
 
   <div
     class="container-page relative grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16 py-16 md:py-24 lg:py-32"
   >
-    <!-- Left: tagline + CTAs -->
-    <div class="max-w-xl">
+    <!-- Left: tagline + CTAs. White text + cheap text-shadow for legibility
+         over the moody image (no filter / no blur — mobile-friendly). -->
+    <div class="max-w-xl hero-copy">
       <h1
-        class="font-semibold leading-[1.05] tracking-tight text-foreground text-[2.5rem] md:text-6xl xl:text-[5rem] mb-6"
+        class="font-semibold leading-[1.05] tracking-tight text-white text-[2.5rem] md:text-6xl xl:text-[5rem] mb-6"
       >
         <span class="block">{t("home.hero.line1", locale)}</span>
-        <span class="block text-brand italic font-medium">
+        <span class="block text-[#f4a574] italic font-medium">
           {t("home.hero.line2", locale)}
         </span>
       </h1>
 
       <p
-        class="text-[1.05rem] leading-relaxed text-foreground/80 mb-10 max-w-md"
+        class="hero-lead text-[1.1rem] md:text-[1.15rem] font-medium leading-relaxed text-white mb-10 max-w-md"
       >
         {t("home.hero.lead", locale)}
       </p>
@@ -67,48 +70,53 @@ const productsPath = localePath(locale, "products");
         <Button href={`${productsPath}?gender=womens`} size="lg">
           {t("home.hero.shopWomen", locale)}
         </Button>
-        <Button href={`${productsPath}?gender=kids`} variant="outline" size="lg">
+        <Button
+          href={`${productsPath}?gender=kids`}
+          variant="outline"
+          size="lg"
+          class="!border-white !text-white hover:!bg-white hover:!text-foreground"
+        >
           {t("home.hero.shopKids", locale)}
         </Button>
       </div>
     </div>
 
-    <!-- Right: translucent rotating quote card. In flow so it stacks under
-         the buttons on mobile; sits beside them in the grid on desktop. -->
+    <!-- Right: rotating quote, no panel — just text floating on the image
+         with a soft shadow for legibility. Stacks under buttons on mobile. -->
     <div class="lg:flex lg:justify-end">
-      <Card
-        class="hero-quote-card relative w-full lg:max-w-md min-h-[220px] md:min-h-[240px] p-7 md:p-8 shadow-lg"
+      <div
+        class="hero-quote-card relative w-full lg:max-w-md min-h-[220px] md:min-h-[240px] p-7 md:p-8"
       >
         <div class="hero-quote-slide hero-quote-slide-1 absolute inset-7 md:inset-8 flex flex-col">
-          <div class="font-serif text-5xl md:text-6xl leading-none text-brand font-bold mb-1">"</div>
-          <p class="text-sm md:text-[0.95rem] leading-[1.55] italic text-foreground m-0 flex-1">
+          <div class="font-serif text-5xl md:text-6xl leading-none text-white/85 font-bold mb-1">"</div>
+          <p class="text-lg md:text-xl leading-[1.4] italic font-semibold text-white m-0 flex-1">
             {t("home.quote.1.text", locale)}
           </p>
-          <p class="mt-3 text-[0.7rem] md:text-[0.75rem] text-muted-foreground font-medium uppercase tracking-widest">
+          <p class="mt-4 text-xs md:text-sm text-white/85 font-semibold uppercase tracking-widest">
             — {t("home.quote.1.attr", locale)}
           </p>
         </div>
 
         <div class="hero-quote-slide hero-quote-slide-2 absolute inset-7 md:inset-8 flex flex-col">
-          <div class="font-serif text-5xl md:text-6xl leading-none text-brand font-bold mb-1">"</div>
-          <p class="text-sm md:text-[0.95rem] leading-[1.55] italic text-foreground m-0 flex-1">
+          <div class="font-serif text-5xl md:text-6xl leading-none text-white/85 font-bold mb-1">"</div>
+          <p class="text-lg md:text-xl leading-[1.4] italic font-semibold text-white m-0 flex-1">
             {t("home.quote.2.text", locale)}
           </p>
-          <p class="mt-3 text-[0.7rem] md:text-[0.75rem] text-muted-foreground font-medium uppercase tracking-widest">
+          <p class="mt-4 text-xs md:text-sm text-white/85 font-semibold uppercase tracking-widest">
             — {t("home.quote.2.attr", locale)}
           </p>
         </div>
 
         <div class="hero-quote-slide hero-quote-slide-3 absolute inset-7 md:inset-8 flex flex-col">
-          <div class="font-serif text-5xl md:text-6xl leading-none text-brand font-bold mb-1">"</div>
-          <p class="text-sm md:text-[0.95rem] leading-[1.55] italic text-foreground m-0 flex-1">
+          <div class="font-serif text-5xl md:text-6xl leading-none text-white/85 font-bold mb-1">"</div>
+          <p class="text-lg md:text-xl leading-[1.4] italic font-semibold text-white m-0 flex-1">
             {t("home.quote.3.text", locale)}
           </p>
-          <p class="mt-3 text-[0.7rem] md:text-[0.75rem] text-muted-foreground font-medium uppercase tracking-widest">
+          <p class="mt-4 text-xs md:text-sm text-white/85 font-semibold uppercase tracking-widest">
             — {t("home.quote.3.attr", locale)}
           </p>
         </div>
-      </Card>
+      </div>
     </div>
   </div>
 </section>
@@ -124,12 +132,21 @@ const productsPath = localePath(locale, "products");
     }
   }
 
-  /* Glassy translucent overlay so the hero image shows through.
-     Overrides shadcn Card's solid bg-card; keeps the ring/shadow look. */
-  .hero-quote-card {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: saturate(140%) blur(10px);
-    -webkit-backdrop-filter: saturate(140%) blur(10px);
+  /* Cheap text-shadows (no filter, no blur — mobile-friendly).
+     Headline + quote panel get a soft halo; body text uses a tighter,
+     darker shadow that stays crisp at small sizes. */
+  .hero-copy h1,
+  .hero-quote-card div,
+  .hero-quote-card p {
+    text-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.6),
+      0 2px 18px rgba(0, 0, 0, 0.45);
+  }
+
+  .hero-lead {
+    text-shadow:
+      0 1px 1px rgba(0, 0, 0, 0.85),
+      0 1px 4px rgba(0, 0, 0, 0.6);
   }
 
   /* 18s rotation keyframe — CSS-only, no JS. Kept in <style> because

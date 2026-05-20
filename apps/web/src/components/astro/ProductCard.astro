@@ -1,5 +1,4 @@
 ---
-import Card from "@/components/astro/Card.astro";
 import Badge from "@/components/astro/Badge.astro";
 import Price from "@/components/astro/Price.astro";
 import {
@@ -43,10 +42,10 @@ const onSale =
   product.compareAtPrice && product.compareAtPrice > product.price;
 ---
 
-<Card
-  as="a"
+<a
   href={href}
-  class="focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+  data-slot="card"
+  class="block group flex flex-col bg-card text-card-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
 >
   <!-- Image — square, with NEW/SALE badges and out-of-stock overlay -->
   <div class="relative aspect-square overflow-hidden bg-muted">
@@ -95,7 +94,7 @@ const onSale =
   </div>
 
   <!-- Text section — generous spacing (the "more spacing" ask) -->
-  <div class="px-5 pt-5 pb-6 flex flex-col gap-3">
+  <div class="pt-5 pb-6 flex flex-col gap-3">
     {
       colorHexes.length > 0 && (
         <div class="flex gap-1.5 items-center min-h-4">
@@ -147,4 +146,4 @@ const onSale =
       }
     </div>
   </div>
-</Card>
+</a>

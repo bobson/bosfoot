@@ -32,7 +32,8 @@ export default function ProductCardReact({ product, locale }: Props) {
   return (
     <a
       href={href}
-      className="block group flex flex-col overflow-hidden rounded-xl bg-card text-card-foreground ring-1 ring-border transition-shadow hover:ring-foreground/25 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      data-slot="card"
+      className="block group flex flex-col bg-card text-card-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       {/* Image */}
       <div className="relative aspect-square overflow-hidden bg-muted">
@@ -83,7 +84,7 @@ export default function ProductCardReact({ product, locale }: Props) {
       </div>
 
       {/* Text section */}
-      <div className="px-3 py-2 flex flex-col gap-2">
+      <div className="py-2 flex flex-col gap-2">
         {colorHexes.length > 0 && (
           <div className="flex gap-1.5 items-center min-h-4">
             {colorHexes.slice(0, 6).map((hex) => (
