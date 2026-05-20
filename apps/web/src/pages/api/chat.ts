@@ -46,7 +46,20 @@ function rateLimited(ip: string): boolean {
     return false
 }
 
-function originOk(request: Request, url: URL): boolean {
+// The Vercel adapter doesn't forward the public Host into Astro's `url.host`
+// (it shows up as "localhost"), so we can't compare against the request URL.
+// Use the `site` config as the canonical truth instead.
+const SITE_HOST = (() => {
+    try {
+        return new URL(import.meta.env.SITE ?? 'https://bosfoot.com').host
+            .replace(/^www\./, '')
+            .toLowerCase()
+    } catch {
+        return 'bosfoot.com'
+    }
+})()
+
+function originOk(request: Request): boolean {
     const origin = request.headers.get('origin')
     const referer = request.headers.get('referer')
 
@@ -58,15 +71,15 @@ function originOk(request: Request, url: URL): boolean {
     }
     if (!incomingHost) return false
 
-    const normalize = (h: string) => h.replace(/^www\./, '').toLowerCase()
-    const a = normalize(incomingHost)
-    const b = normalize(url.host)
+    const h = incomingHost.replace(/^www\./, '').toLowerCase()
 
-    if (a === b) return true
+    if (h === SITE_HOST) return true
     // Vercel preview deployments — host looks like bosfoot-git-xxx.vercel.app
-    if (a.endsWith('.vercel.app')) return true
+    if (h.endsWith('.vercel.app')) return true
+    // Local dev (astro dev on localhost:4321)
+    if (h === 'localhost' || h.startsWith('localhost:') || h.startsWith('127.0.0.1')) return true
 
-    console.warn('chat: origin rejected', { origin, referer, host: url.host })
+    console.warn('chat: origin rejected', { origin, referer, siteHost: SITE_HOST })
     return false
 }
 
@@ -77,8 +90,8 @@ function jsonError(status: number, error: string): Response {
     })
 }
 
-export const POST: APIRoute = async ({ request, clientAddress, url }) => {
-    if (!originOk(request, url)) {
+export const POST: APIRoute = async ({ request, clientAddress }) => {
+    if (!originOk(request)) {
         return jsonError(403, 'Forbidden')
     }
 
