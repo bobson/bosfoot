@@ -1,7 +1,12 @@
 import { type Locale, t, pickLocale } from "@/lib/i18n";
 import { convertSize } from "@/lib/sizes";
 import type { SizeChart } from "@/lib/queries";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { ArrowUpRightIcon, MailIcon, XIcon } from "lucide-react";
 
 interface Props {
@@ -55,6 +60,9 @@ export default function SizeChartModal({
           <DialogTitle className="text-lg font-semibold tracking-tight">
             {t("brand.sizeChart", locale)} — {brandName}
           </DialogTitle>
+          <DialogDescription className="sr-only">
+            Size chart and measurement guide
+          </DialogDescription>
           <button
             type="button"
             onClick={onClose}

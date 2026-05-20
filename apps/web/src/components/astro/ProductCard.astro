@@ -73,6 +73,16 @@ const onSale =
       {onSale && <Badge variant="brand">{t("product.sale", locale)}</Badge>}
     </div>
 
+    <!-- Demo notice — every product card carries this until the brand
+         publishes real catalog imagery. Placed top-right so it never clashes
+         with the NEW/SALE badges on the left. -->
+    <span
+      class="absolute top-3 right-3 inline-flex items-center px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded-sm bg-amber-100 text-amber-900 ring-1 ring-amber-200/60"
+      title="Demo product — image and details are for design preview only"
+    >
+      Demo
+    </span>
+
     {
       !inStock && (
         <div class="absolute inset-0 bg-background/70 flex items-center justify-center">

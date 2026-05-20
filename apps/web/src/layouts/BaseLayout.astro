@@ -64,17 +64,17 @@ const allSchemas = [
     <meta property="og:url" content={Astro.url.toString()} />
     {ogImage && <meta property="og:image" content={ogImage} />}
 
-    <!-- Inter font from Google Fonts. Subsetted to Latin + Cyrillic since
-         we use both. The unicode-range fallback ensures Albanian's accented
-         characters fall back to Latin Extended. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- IBM Plex Sans is self-hosted via @font-face in global.css. Preload
+         the Latin subset (loaded on every page in every locale — Cyrillic
+         and Latin-Ext load lazily only on pages that need them). -->
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap&subset=latin,latin-ext,cyrillic"
+      rel="preload"
+      href="/fonts/plex-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
 
-    <!-- Favicon — we'll add a real one later -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!-- JSON-LD structured data: Organization + WebSite are always present;

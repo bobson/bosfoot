@@ -14,6 +14,7 @@ import {
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
@@ -68,6 +69,9 @@ export default function CartDrawer({ locale }: Props) {
               </span>
             )}
           </SheetTitle>
+          <SheetDescription className="sr-only">
+            Shopping cart
+          </SheetDescription>
         </SheetHeader>
 
         {isEmpty ? (

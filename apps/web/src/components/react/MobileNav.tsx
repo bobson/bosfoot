@@ -2,6 +2,7 @@ import { useState } from "react";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -61,6 +62,9 @@ export default function MobileNav({
           <SheetTitle className="flex items-center">
             <img src={logoSrc} alt={siteName} className="h-9 w-auto" />
           </SheetTitle>
+          <SheetDescription className="sr-only">
+            Site navigation
+          </SheetDescription>
         </SheetHeader>
 
         <nav className="flex flex-col py-2" aria-label="Mobile primary">

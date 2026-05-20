@@ -44,19 +44,26 @@ const legalLinks = [
 ] as const;
 
 const columnHeading =
-  "text-xs font-medium uppercase tracking-wider text-muted-foreground mb-4";
+  "text-xs font-medium uppercase tracking-wider text-[#fefdfb]/60 mb-4";
 const linkClass =
-  "text-foreground transition-colors hover:text-brand";
+  "text-[#fefdfb] transition-colors hover:text-brand";
 ---
 
-<footer class="mt-24 bg-secondary border-t border-border">
+<footer
+  class="mt-24 border-t text-[#fefdfb]"
+  style="background:#332f2e;border-color:rgba(254,253,251,0.12)"
+>
   <div class="container-page py-16">
     <div class="grid grid-cols-2 md:grid-cols-5 gap-10 md:gap-12">
 
       <!-- Brand block -->
       <div class="col-span-2">
-        <img src="/images/logo.svg" alt={siteName} class="h-10 w-auto mb-4" />
-        <p class="text-sm text-muted-foreground max-w-xs leading-relaxed">
+        <img
+          src="/images/logo-white.svg"
+          alt={siteName}
+          class="h-10 w-auto mb-4"
+        />
+        <p class="text-sm text-[#fefdfb]/70 max-w-xs leading-relaxed">
           {tagline}
         </p>
       </div>
@@ -116,7 +123,7 @@ const linkClass =
           }
           {
             siteSettings?.contact?.city && (
-              <li class="text-muted-foreground">{siteSettings.contact.city}</li>
+              <li class="text-[#fefdfb]/70">{siteSettings.contact.city}</li>
             )
           }
         </ul>
@@ -176,19 +183,20 @@ const linkClass =
 
     <!-- Copyright + legal links -->
     <div
-      class="mt-12 pt-6 border-t border-border flex flex-col md:flex-row md:items-start md:justify-between gap-4"
+      class="mt-12 pt-6 border-t flex flex-col md:flex-row md:items-start md:justify-between gap-4"
+      style="border-color:rgba(254,253,251,0.12)"
     >
-      <div class="text-xs text-muted-foreground space-y-1">
+      <div class="text-xs text-[#fefdfb]/60 space-y-1">
         <p>{t("footer.copyright", locale)}</p>
         <p>{legalParts.join(" · ")}</p>
       </div>
-      <ul class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-muted-foreground">
+      <ul class="flex flex-wrap gap-x-4 gap-y-2 text-xs text-[#fefdfb]/60">
         {
           legalLinks.map((link) => (
             <li>
               <a
                 href={localePath(locale, link.route)}
-                class="transition-colors hover:text-foreground"
+                class="transition-colors hover:text-[#fefdfb]"
               >
                 {link.label}
               </a>

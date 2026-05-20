@@ -121,6 +121,36 @@ const breadcrumbSchema = breadcrumbLD({
   structuredData={[productSchema, breadcrumbSchema]}
 >
   <div class="container-page py-8 md:py-12">
+    <!-- Demo notice — matches the amber "Demo" pill on product cards so the
+         visual language is consistent across grid and detail pages. -->
+    <div
+      class="mb-6 flex items-center gap-2 rounded-md bg-amber-50 px-3 py-2 text-xs text-amber-900 ring-1 ring-amber-200/70"
+      role="note"
+    >
+      <svg
+        width="14"
+        height="14"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+        class="shrink-0"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <line x1="12" y1="8" x2="12" y2="12" />
+        <line x1="12" y1="16" x2="12.01" y2="16" />
+      </svg>
+      <span>
+        <strong class="font-semibold uppercase tracking-wider">Demo</strong>
+        <span class="ml-1">
+          — images and product details are for design preview only.
+        </span>
+      </span>
+    </div>
+
     <!-- Breadcrumb -->
     <nav
       class="text-xs text-muted-foreground mb-6 flex items-center gap-2"

@@ -65,6 +65,14 @@ export default function ProductCardReact({ product, locale }: Props) {
           )}
         </div>
 
+        {/* Demo notice — kept top-right so it never collides with NEW/SALE. */}
+        <span
+          className="absolute top-3 right-3 inline-flex items-center px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider rounded-sm bg-amber-100 text-amber-900 ring-1 ring-amber-200/60"
+          title="Demo product — image and details are for design preview only"
+        >
+          Demo
+        </span>
+
         {!inStock && (
           <div className="absolute inset-0 bg-background/70 flex items-center justify-center">
             <span className="text-sm font-medium text-foreground">

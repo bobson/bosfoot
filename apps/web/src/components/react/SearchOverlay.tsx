@@ -3,6 +3,7 @@ import { type Locale, t } from "@/lib/i18n";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
 } from "@/components/ui/dialog";
 import Price from "./Price";
@@ -103,6 +104,9 @@ export default function SearchOverlay({ locale }: Props) {
         <DialogTitle className="sr-only">
           {t("search.title", locale)}
         </DialogTitle>
+        <DialogDescription className="sr-only">
+          {t("search.placeholder", locale)}
+        </DialogDescription>
 
         {/* Search input bar */}
         <div className="flex items-center gap-3 px-4 md:px-5 py-3 border-b border-border">

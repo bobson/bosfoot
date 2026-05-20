@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
@@ -369,6 +370,9 @@ export default function ProductsListing({ products, locale }: Props) {
                 </span>
               )}
             </SheetTitle>
+            <SheetDescription className="sr-only">
+              Refine the product list by filters
+            </SheetDescription>
           </SheetHeader>
 
           <div className="flex-1 overflow-y-auto px-5 py-5">

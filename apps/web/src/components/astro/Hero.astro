@@ -13,33 +13,38 @@ const { locale } = Astro.props;
 const productsPath = localePath(locale, "products");
 
 /**
- * Hero — pure CSS, no images, no JS.
- *
- * Layout: split column on desktop. Left: tagline + lead + 3 CTAs.
- * Right: rotating quote card (shadcn Card) over a subtle muted backdrop.
- *
- * The card rotates between 3 quotes using CSS keyframes on three stacked
- * absolute-positioned children. Total cycle: 18s (6s per slide). Respects
- * prefers-reduced-motion.
+ * Hero — full-section background image with text + CTAs in the left grid
+ * column and a translucent rotating quote card in the right column. On
+ * mobile the right column stacks under the buttons. A gradient wash keeps
+ * the left-side text legible over the image. Respects prefers-reduced-motion.
  */
 ---
 
 <section
-  class="relative overflow-hidden bg-secondary border-b border-border py-16 md:py-24"
+  class="hero-section relative overflow-hidden bg-secondary border-b border-border"
 >
-  <!-- Subtle decorative line for visual interest, no image needed -->
+  <!-- Full-section hero image -->
+  <img
+    src="/images/hero.webp"
+    alt=""
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+    class="absolute inset-0 w-full h-full object-cover object-center md:object-right"
+  />
+
+  <!-- Left-side gradient so heading + lead + buttons stay legible -->
   <div
     aria-hidden="true"
-    class="pointer-events-none absolute top-1/2 -left-[10%] w-[120%] h-px bg-border opacity-50"
-    style="transform: rotate(-3deg)"
+    class="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/95 via-white/75 to-white/0 md:via-white/60 md:to-transparent"
   >
   </div>
 
   <div
-    class="container-page relative grid grid-cols-1 lg:grid-cols-[1.2fr_1fr] items-center gap-12 lg:gap-16"
+    class="container-page relative grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16 py-16 md:py-24 lg:py-32"
   >
     <!-- Left: tagline + CTAs -->
-    <div class="max-w-2xl">
+    <div class="max-w-xl">
       <h1
         class="font-semibold leading-[1.05] tracking-tight text-foreground text-[2.5rem] md:text-6xl xl:text-[5rem] mb-6"
       >
@@ -50,7 +55,7 @@ const productsPath = localePath(locale, "products");
       </h1>
 
       <p
-        class="text-[1.05rem] leading-relaxed text-muted-foreground mb-10 max-w-md"
+        class="text-[1.05rem] leading-relaxed text-foreground/80 mb-10 max-w-md"
       >
         {t("home.hero.lead", locale)}
       </p>
@@ -68,42 +73,65 @@ const productsPath = localePath(locale, "products");
       </div>
     </div>
 
-    <!-- Right: rotating quote card -->
-    <Card class="relative min-h-[280px] md:min-h-[320px] p-10 md:p-12 shadow-sm">
-      <div class="hero-quote-slide hero-quote-slide-1 absolute inset-10 md:inset-12 flex flex-col">
-        <div class="font-serif text-7xl leading-none text-brand font-bold mb-2">"</div>
-        <p class="text-[1.05rem] md:text-[1.15rem] leading-[1.55] italic text-foreground m-0 flex-1">
-          {t("home.quote.1.text", locale)}
-        </p>
-        <p class="mt-5 text-[0.8125rem] text-muted-foreground font-medium uppercase tracking-widest">
-          — {t("home.quote.1.attr", locale)}
-        </p>
-      </div>
+    <!-- Right: translucent rotating quote card. In flow so it stacks under
+         the buttons on mobile; sits beside them in the grid on desktop. -->
+    <div class="lg:flex lg:justify-end">
+      <Card
+        class="hero-quote-card relative w-full lg:max-w-md min-h-[220px] md:min-h-[240px] p-7 md:p-8 shadow-lg"
+      >
+        <div class="hero-quote-slide hero-quote-slide-1 absolute inset-7 md:inset-8 flex flex-col">
+          <div class="font-serif text-5xl md:text-6xl leading-none text-brand font-bold mb-1">"</div>
+          <p class="text-sm md:text-[0.95rem] leading-[1.55] italic text-foreground m-0 flex-1">
+            {t("home.quote.1.text", locale)}
+          </p>
+          <p class="mt-3 text-[0.7rem] md:text-[0.75rem] text-muted-foreground font-medium uppercase tracking-widest">
+            — {t("home.quote.1.attr", locale)}
+          </p>
+        </div>
 
-      <div class="hero-quote-slide hero-quote-slide-2 absolute inset-10 md:inset-12 flex flex-col">
-        <div class="font-serif text-7xl leading-none text-brand font-bold mb-2">"</div>
-        <p class="text-[1.05rem] md:text-[1.15rem] leading-[1.55] italic text-foreground m-0 flex-1">
-          {t("home.quote.2.text", locale)}
-        </p>
-        <p class="mt-5 text-[0.8125rem] text-muted-foreground font-medium uppercase tracking-widest">
-          — {t("home.quote.2.attr", locale)}
-        </p>
-      </div>
+        <div class="hero-quote-slide hero-quote-slide-2 absolute inset-7 md:inset-8 flex flex-col">
+          <div class="font-serif text-5xl md:text-6xl leading-none text-brand font-bold mb-1">"</div>
+          <p class="text-sm md:text-[0.95rem] leading-[1.55] italic text-foreground m-0 flex-1">
+            {t("home.quote.2.text", locale)}
+          </p>
+          <p class="mt-3 text-[0.7rem] md:text-[0.75rem] text-muted-foreground font-medium uppercase tracking-widest">
+            — {t("home.quote.2.attr", locale)}
+          </p>
+        </div>
 
-      <div class="hero-quote-slide hero-quote-slide-3 absolute inset-10 md:inset-12 flex flex-col">
-        <div class="font-serif text-7xl leading-none text-brand font-bold mb-2">"</div>
-        <p class="text-[1.05rem] md:text-[1.15rem] leading-[1.55] italic text-foreground m-0 flex-1">
-          {t("home.quote.3.text", locale)}
-        </p>
-        <p class="mt-5 text-[0.8125rem] text-muted-foreground font-medium uppercase tracking-widest">
-          — {t("home.quote.3.attr", locale)}
-        </p>
-      </div>
-    </Card>
+        <div class="hero-quote-slide hero-quote-slide-3 absolute inset-7 md:inset-8 flex flex-col">
+          <div class="font-serif text-5xl md:text-6xl leading-none text-brand font-bold mb-1">"</div>
+          <p class="text-sm md:text-[0.95rem] leading-[1.55] italic text-foreground m-0 flex-1">
+            {t("home.quote.3.text", locale)}
+          </p>
+          <p class="mt-3 text-[0.7rem] md:text-[0.75rem] text-muted-foreground font-medium uppercase tracking-widest">
+            — {t("home.quote.3.attr", locale)}
+          </p>
+        </div>
+      </Card>
+    </div>
   </div>
 </section>
 
 <style>
+  /* Minimum height so the hero feels substantial even on short content. */
+  .hero-section {
+    min-height: 640px;
+  }
+  @media (min-width: 1024px) {
+    .hero-section {
+      min-height: 720px;
+    }
+  }
+
+  /* Glassy translucent overlay so the hero image shows through.
+     Overrides shadcn Card's solid bg-card; keeps the ring/shadow look. */
+  .hero-quote-card {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: saturate(140%) blur(10px);
+    -webkit-backdrop-filter: saturate(140%) blur(10px);
+  }
+
   /* 18s rotation keyframe — CSS-only, no JS. Kept in <style> because
      scoped `animation-delay` on three siblings is awkward in pure Tailwind. */
   .hero-quote-slide {
