@@ -48,7 +48,7 @@ const localeLinks = LOCALES.map((lang) => ({
     <!-- LEFT: burger (mobile, inside MobileNav island) + logo -->
     <div class="flex items-center gap-2 md:gap-3">
       <MobileNav
-        client:load
+        client:media="(max-width: 767px)"
         navLinks={mobileNavLinks}
         localeLinks={localeLinks}
         logoSrc="/images/logo.svg"
@@ -142,7 +142,7 @@ const localeLinks = LOCALES.map((lang) => ({
         }
       </div>
 
-      <CartCount locale={locale} client:load />
+      <CartCount locale={locale} client:idle transition:persist />
     </div>
   </div>
 </header>
