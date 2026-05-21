@@ -75,7 +75,12 @@ const pageLead = t("brands.lead", locale);
                     ]}
                   />
                 ) : (
-                  <span class="text-2xl font-semibold tracking-tight text-foreground">
+                  <span
+                    class:list={[
+                      "text-2xl text-foreground",
+                      brand.wordmarkClass ?? "font-semibold tracking-tight",
+                    ]}
+                  >
                     {brand.name}
                   </span>
                 )}

@@ -18,6 +18,12 @@ export type ShowcaseBrand = {
   name: string
   /** Path under /public — when set, replaces the wordmark with an image. */
   logoSrc?: string
+  /**
+   * Tailwind classes that give each text wordmark a distinct typographic
+   * personality (case + weight + tracking + optional italic). Used only when
+   * `logoSrc` is absent. Drop once real SVG logos land.
+   */
+  wordmarkClass?: string
   /** Origin country, shown as subtle metadata. */
   origin: string
   /** Year founded, shown as subtle metadata. */
@@ -30,6 +36,7 @@ export const SHOWCASE_BRANDS: ShowcaseBrand[] = [
   {
     slug: 'xero-shoes',
     name: 'Xero Shoes',
+    wordmarkClass: 'lowercase font-light tracking-tight',
     origin: 'USA',
     founded: 2009,
     tagline: {
@@ -41,6 +48,7 @@ export const SHOWCASE_BRANDS: ShowcaseBrand[] = [
   {
     slug: 'vivobarefoot',
     name: 'Vivobarefoot',
+    wordmarkClass: 'lowercase font-extrabold tracking-tighter',
     origin: 'UK',
     founded: 2012,
     tagline: {
@@ -52,6 +60,7 @@ export const SHOWCASE_BRANDS: ShowcaseBrand[] = [
   {
     slug: 'lems-shoes',
     name: 'Lems Shoes',
+    wordmarkClass: 'uppercase font-bold tracking-widest',
     origin: 'USA',
     founded: 2008,
     tagline: {
@@ -63,6 +72,7 @@ export const SHOWCASE_BRANDS: ShowcaseBrand[] = [
   {
     slug: 'belenka',
     name: 'Belenka',
+    wordmarkClass: 'italic font-medium tracking-tight',
     origin: 'Czechia',
     founded: 2017,
     tagline: {
@@ -74,6 +84,7 @@ export const SHOWCASE_BRANDS: ShowcaseBrand[] = [
   {
     slug: 'groundies',
     name: 'Groundies',
+    wordmarkClass: 'uppercase font-normal tracking-[0.35em]',
     origin: 'Germany',
     founded: 2018,
     tagline: {

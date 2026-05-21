@@ -92,7 +92,12 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
                   class="h-11 w-auto object-contain grayscale transition-[filter] duration-200 group-hover:grayscale-0"
                 />
               ) : (
-                <span class="text-lg md:text-xl font-semibold tracking-tight whitespace-nowrap text-foreground">
+                <span
+                  class:list={[
+                    "text-lg md:text-xl whitespace-nowrap text-foreground",
+                    brand.wordmarkClass ?? "font-semibold tracking-tight",
+                  ]}
+                >
                   {brand.name}
                 </span>
               )}
