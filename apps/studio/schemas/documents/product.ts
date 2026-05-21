@@ -10,6 +10,7 @@ export const product = defineType({
     { name: 'pricing', title: 'Pricing' },
     { name: 'variants', title: 'Variants & stock' },
     { name: 'specs', title: 'Specs' },
+    { name: 'detail', title: 'Detail page sections' },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
@@ -249,6 +250,36 @@ export const product = defineType({
       type: 'boolean',
       initialValue: false,
       group: 'main',
+    }),
+
+    // ── Detail page sections (rendered as accordion on PDP) ─
+    defineField({
+      name: 'sizeAndFit',
+      title: 'Size & fit',
+      type: 'localeText',
+      description: 'Sizing advice (e.g. "Fits true to size"). Shown as an expandable section on the product page.',
+      group: 'detail',
+    }),
+    defineField({
+      name: 'aboutShoe',
+      title: 'About this shoe',
+      type: 'localeText',
+      description: 'Story / use-case. Shown as an expandable section on the product page.',
+      group: 'detail',
+    }),
+    defineField({
+      name: 'productInfo',
+      title: 'Product info',
+      type: 'localeText',
+      description: 'Materials, construction, weight, stack height, care. Shown as an expandable section on the product page.',
+      group: 'detail',
+    }),
+    defineField({
+      name: 'sustainability',
+      title: 'Sustainability',
+      type: 'localeText',
+      description: 'Recycled content, certifications, packaging. Shown as an expandable section on the product page.',
+      group: 'detail',
     }),
 
     // ── SEO ─────────────────────────────────────────────────

@@ -17,17 +17,50 @@
       "sizeChart": {
         "measurementType": "footLengthMM",
         "rows": [
-          { "sizeEU": 36, "lengthMM": 225 },
-          { "sizeEU": 37, "lengthMM": 230 },
-          { "sizeEU": 38, "lengthMM": 235 },
-          { "sizeEU": 39, "lengthMM": 245 },
-          { "sizeEU": 40, "lengthMM": 250 },
-          { "sizeEU": 41, "lengthMM": 260 },
-          { "sizeEU": 42, "lengthMM": 270 },
-          { "sizeEU": 43, "lengthMM": 280 },
-          { "sizeEU": 44, "lengthMM": 290 },
-          { "sizeEU": 45, "lengthMM": 300 },
-          { "sizeEU": 46, "lengthMM": 310 }
+          {
+            "sizeEU": 36,
+            "lengthMM": 225
+          },
+          {
+            "sizeEU": 37,
+            "lengthMM": 230
+          },
+          {
+            "sizeEU": 38,
+            "lengthMM": 235
+          },
+          {
+            "sizeEU": 39,
+            "lengthMM": 245
+          },
+          {
+            "sizeEU": 40,
+            "lengthMM": 250
+          },
+          {
+            "sizeEU": 41,
+            "lengthMM": 260
+          },
+          {
+            "sizeEU": 42,
+            "lengthMM": 270
+          },
+          {
+            "sizeEU": 43,
+            "lengthMM": 280
+          },
+          {
+            "sizeEU": 44,
+            "lengthMM": 290
+          },
+          {
+            "sizeEU": 45,
+            "lengthMM": 300
+          },
+          {
+            "sizeEU": 46,
+            "lengthMM": 310
+          }
         ],
         "notes": {
           "mk": "Должините се за стапалото. Xero препорачува околу 12-15мм слободен простор пред најдолгиот прст. Ако сте помеѓу две големини, изберете ја поголемата.",
@@ -35,9 +68,77 @@
           "en": "Lengths refer to your foot. Xero recommends about 12-15mm of space in front of your longest toe. If you're between two sizes, pick the larger one."
         }
       }
+    },
+    {
+      "slug": "freet",
+      "name": "Freet",
+      "countryOfOrigin": "GB",
+      "yearFounded": 2010,
+      "websiteUrl": "https://freetbarefoot.com",
+      "sizingGuideUrl": "https://freetbarefoot.com/pages/size-guide",
+      "featured": true,
+      "order": 6,
+      "description": {
+        "mk": "Британски бренд за босоноги патики основан во 2010 година во Северен Јоркшир од Ендру и Сара. Дизајниран за надворешна употреба — планинарење, трчање на патеки, тренинг и секојдневен живот — со широк простор за прстите, флексибилни ѓонови и нула надолен пад. Користи рециклирани материјали (BottleYarn, CoffeeYarn) и трае.",
+        "sq": "Markë britanike e këpucëve barefoot, e themeluar në vitin 2010 në Yorkshire-in e Veriut nga Andrew dhe Sarah. E dizajnuar për përdorim në natyrë — alpinizëm, vrapim në shtigje, trajnim dhe jetë të përditshme — me hapësirë të gjerë për gishtërinjtë, shollë fleksibël dhe zero drop. Përdor materiale të ricikluara (BottleYarn, CoffeeYarn) dhe ndërtohet për të zgjatur.",
+        "en": "UK barefoot shoe brand founded in 2010 in North Yorkshire by Andrew and Sarah. Designed for outdoor use — hiking, trail running, training, and everyday life — with wide toe boxes, flexible soles, and zero drop. Uses recycled materials (BottleYarn, CoffeeYarn) and is built to last."
+      },
+      "sizeChart": {
+        "measurementType": "footLengthMM",
+        "rows": [
+          {
+            "sizeEU": 36,
+            "lengthMM": 230
+          },
+          {
+            "sizeEU": 37,
+            "lengthMM": 237
+          },
+          {
+            "sizeEU": 38,
+            "lengthMM": 244
+          },
+          {
+            "sizeEU": 39,
+            "lengthMM": 251
+          },
+          {
+            "sizeEU": 40,
+            "lengthMM": 258
+          },
+          {
+            "sizeEU": 41,
+            "lengthMM": 265
+          },
+          {
+            "sizeEU": 42,
+            "lengthMM": 272
+          },
+          {
+            "sizeEU": 43,
+            "lengthMM": 279
+          },
+          {
+            "sizeEU": 44,
+            "lengthMM": 286
+          },
+          {
+            "sizeEU": 45,
+            "lengthMM": 293
+          },
+          {
+            "sizeEU": 46,
+            "lengthMM": 300
+          }
+        ],
+        "notes": {
+          "mk": "Должините се за стапалото. Freet препорачува комотно одговарање — повеќето клиенти ја носат својата вообичаена големина.",
+          "sq": "Gjatësitë janë për këmbën. Freet rekomandon përshtatje komode — shumica e klientëve mbajnë madhësinë e tyre të zakonshme.",
+          "en": "Lengths refer to your foot. Freet recommends a comfortable fit — most customers wear their usual size."
+        }
+      }
     }
   ],
-
   "categories": [
     {
       "slug": "running",
@@ -67,12 +168,14 @@
       }
     }
   ],
-
   "products": [
     {
       "sku": "XR-HFS2",
       "brandSlug": "xero-shoes",
-      "categorySlugs": ["running", "training"],
+      "categorySlugs": [
+        "running",
+        "training"
+      ],
       "name": {
         "mk": "HFS 2",
         "sq": "HFS 2",
@@ -86,7 +189,11 @@
       "price": 7900,
       "brandProductUrl": "https://xeroshoes.eu/products/hfs-2-men",
       "highlights": [
-        { "mk": "Веганско", "sq": "Vegan", "en": "Vegan" },
+        {
+          "mk": "Веганско",
+          "sq": "Vegan",
+          "en": "Vegan"
+        },
         {
           "mk": "Дишливо плетиво",
           "sq": "Pëlhurë e ajrosur",
@@ -123,7 +230,10 @@
           }
         ]
       },
-      "activities": ["running", "training"],
+      "activities": [
+        "running",
+        "training"
+      ],
       "gender": "mens",
       "featured": true,
       "newArrival": true,
@@ -131,33 +241,1101 @@
       "variants": [
         {
           "sizeEU": 40,
-          "color": { "mk": "Црна", "sq": "E zezë", "en": "Black" },
+          "color": {
+            "mk": "Црна",
+            "sq": "E zezë",
+            "en": "Black"
+          },
           "colorHex": "#1a1a1a",
           "stock": 3,
           "sku": "XR-HFS2-BLK-40"
         },
         {
           "sizeEU": 41,
-          "color": { "mk": "Црна", "sq": "E zezë", "en": "Black" },
+          "color": {
+            "mk": "Црна",
+            "sq": "E zezë",
+            "en": "Black"
+          },
           "colorHex": "#1a1a1a",
           "stock": 5,
           "sku": "XR-HFS2-BLK-41"
         },
         {
           "sizeEU": 42,
-          "color": { "mk": "Црна", "sq": "E zezë", "en": "Black" },
+          "color": {
+            "mk": "Црна",
+            "sq": "E zezë",
+            "en": "Black"
+          },
           "colorHex": "#1a1a1a",
           "stock": 4,
           "sku": "XR-HFS2-BLK-42"
         },
         {
           "sizeEU": 43,
-          "color": { "mk": "Црна", "sq": "E zezë", "en": "Black" },
+          "color": {
+            "mk": "Црна",
+            "sq": "E zezë",
+            "en": "Black"
+          },
           "colorHex": "#1a1a1a",
           "stock": 2,
           "sku": "XR-HFS2-BLK-43"
         }
       ]
+    },
+    {
+      "sku": "FR-CHAMOIS",
+      "brandSlug": "freet",
+      "categorySlugs": [],
+      "name": {
+        "mk": "Chamois",
+        "sq": "Chamois",
+        "en": "Chamois"
+      },
+      "shortDescription": {
+        "mk": "Премиум кожен барефоот чизми дизајниран за најтешките планински предизвици, при тоа прекрасно удобни и исклучително лесни.",
+        "sq": "Çizme barefoot prej lëkure premium, e dizajnuar për sfidat më të vështira malore, e komode dhe jashtëzakonisht e lehtë në të njëjtën kohë.",
+        "en": "Premium leather, barefoot boot designed to take on the toughest mountain challenges, whilst being wonderfully comfortable and extremely lightweight."
+      },
+      "highlights": [
+        {
+          "mk": "Водоотпорно",
+          "sq": "I papërshkueshëm nga uji",
+          "en": "WATERPROOF"
+        },
+        {
+          "mk": "Силен грип",
+          "sq": "Grip i fortë",
+          "en": "GRIPPY"
+        },
+        {
+          "mk": "Лесно",
+          "sq": "I lehtë",
+          "en": "LIGHTWEIGHT"
+        },
+        {
+          "mk": "Издржливо",
+          "sq": "I qëndrueshëm",
+          "en": "TOUGH"
+        }
+      ],
+      "price": 12900,
+      "variants": [
+        {
+          "sizeEU": 36,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#4a2c1a",
+          "stock": 0,
+          "sku": "FR-CHAMOIS-36"
+        },
+        {
+          "sizeEU": 37,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#4a2c1a",
+          "stock": 0,
+          "sku": "FR-CHAMOIS-37"
+        },
+        {
+          "sizeEU": 38,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#4a2c1a",
+          "stock": 0,
+          "sku": "FR-CHAMOIS-38"
+        },
+        {
+          "sizeEU": 39,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#4a2c1a",
+          "stock": 0,
+          "sku": "FR-CHAMOIS-39"
+        },
+        {
+          "sizeEU": 40,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#4a2c1a",
+          "stock": 3,
+          "sku": "FR-CHAMOIS-40"
+        },
+        {
+          "sizeEU": 41,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#4a2c1a",
+          "stock": 5,
+          "sku": "FR-CHAMOIS-41"
+        },
+        {
+          "sizeEU": 42,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#4a2c1a",
+          "stock": 5,
+          "sku": "FR-CHAMOIS-42"
+        },
+        {
+          "sizeEU": 43,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#4a2c1a",
+          "stock": 4,
+          "sku": "FR-CHAMOIS-43"
+        },
+        {
+          "sizeEU": 44,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#4a2c1a",
+          "stock": 3,
+          "sku": "FR-CHAMOIS-44"
+        },
+        {
+          "sizeEU": 45,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#4a2c1a",
+          "stock": 0,
+          "sku": "FR-CHAMOIS-45"
+        },
+        {
+          "sizeEU": 46,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#4a2c1a",
+          "stock": 0,
+          "sku": "FR-CHAMOIS-46"
+        }
+      ],
+      "sizeAndFit": {
+        "mk": "Купувачите велат дека одговара точно по големината — можете да ја носите вашата вообичаена големина.",
+        "sq": "Klientët thonë se përshtatet sipas madhësisë — mund të mbani madhësinë tuaj të zakonshme.",
+        "en": "Customers say it fits true to size — you may stay at your usual size."
+      },
+      "aboutShoe": {
+        "mk": "Комбинира удобност, леснотија и издржливост.\n\n6мм MountainGrip ножеви обезбедуваат одличен грип на стрмни кални патеки.\n\nПремиум, мазен кожен горен дел и целосна водоотпорна, дишлива обвивка ја заокружуваат највисоката заштита.",
+        "sq": "Kombinon komoditetin, lehtësinë dhe qëndrueshmërinë.\n\nThumbat MountainGrip 6mm sigurojnë grip të shkëlqyer në shtigje të pjerrëta dhe me baltë.\n\nLëkurë premium, e lëmuar në pjesën e sipërme dhe veshje plotësisht e papërshkueshme nga uji dhe e ajrosur e plotësojnë nivelin më të lartë të mbrojtjes.",
+        "en": "Combines comfort, lightness and toughness.\n\n6mm MountainGrip lugs provide superb grip for steep muddy trails.\n\nPremium, smooth leather upper and full waterproof, breathable lining completes the highest level of protection."
+      },
+      "productInfo": {
+        "mk": "Горен дел\nКожа: премиум, целозрнеста кожа.\nКонвенционални врвки — кафеави.\n\nОбвивка\nЦелосна водоотпорна, дишлива обвивка.\n\nВлошка\nFlexile Nano: полесна, потенка верзија на нашата 3мм Flexile влошка, која дава малку повеќе осет за подлогата и дишливост.\n\nСредна потпетица\nFirmFlex: флексибилност со одредена заштита на потешки, карпести терени.\n\nГон\nMountainGrip: 6,0 мм газен профил за потешки, повлажни патеки и теренот без патека.\n\nВодоотпорност\nВодоотпорна обвивка и водоотпорен горен дел даваат добро ниво на водоотпорност.\n\nТежина\n860 грама на пар во големина 42.\n\nВисина на ѓонот\n12,5 мм со влошка; 10 мм без влошка.\n\nНега\nИзбришете со влажна крпа. Сушете на воздух. Третирајте со кондиционер/водоодбивач погоден за премиум кожа како Nikwax восок за водоотпорност за кожа.\n\nНе препорачуваме ставање на вашите Freet патики во машина за перење или сушара.",
+        "sq": "Pjesa e sipërme\nLëkurë: premium, lëkurë e plotë.\nLidhëse konvencionale — kafe.\n\nVeshja\nVeshje e plotë e papërshkueshme nga uji, e ajrosur.\n\nSole e brendshme\nFlexile Nano: një version më i lehtë, më i hollë i solës sonë Flexile prej 3mm, që jep pak më shumë ndjesi të tokës dhe ajrosje.\n\nMidsole\nFirmFlex: fleksibilitet me njëfarë mbrojtjeje në terrene më të vështira, me gurë.\n\nSolla e jashtme\nMountainGrip: 6,0 mm gjurmë për shtigje më të vështira, më të lagështa dhe jashtë rrugës.\n\nPapërshkueshmëria nga uji\nVeshja e papërshkueshme nga uji dhe pjesa e sipërme rezistente ndaj ujit japin një nivel të mirë papërshkueshmërie.\n\nPesha\n860 gramë çift në madhësinë 42.\n\nLartësia e solës\n12,5 mm me sole të brendshme; 10 mm pa sole të brendshme.\n\nKujdesi\nFshijeni me një copë të lagësht. Thajeni në ajër. Trajtojeni me një kondicioner/papërshkueshmërues të përshtatshëm për lëkurë premium si dylli i papërshkueshmërisë Nikwax për lëkurë.\n\nNuk rekomandojmë vendosjen e Freet-eve tuaj në lavatriçe ose tharëse.",
+        "en": "Upper\nLeather: premium, full grain leather.\nConventional lace — brown.\n\nLining\nFull waterproof, breathable bootee lining.\n\nInsole\nFlexile Nano: a lighter, thinner version of our 3mm Flexile insole, which gives a little more ground feel and breathability.\n\nMidsole\nFirmFlex: flexibility with some protection on more arduous, rocky terrain.\n\nOutsole\nMountainGrip: 6.0 mm tread for tougher, wetter trails and off track.\n\nWaterproofness\nWaterproof lining and water resistant upper give a good level of waterproofness.\n\nWeight\n860 grams per pair size 42.\n\nStack Height\n12.5 mm with insole; 10 mm without insole.\n\nCare\nWipe with a damp cloth. Air dry. Treat with a conditioner/waterproofer suitable for premium leather such as Nikwax waterproofing wax for leather.\n\nWe do not recommend putting your Freets in the washing machine or dryer."
+      },
+      "sustainability": {
+        "mk": "Горен дел: премиум целозрнеста кожа со Gold сертификат од Leather Working Group\nВрвки: 70% рециклирано (BottleYarn)\nСредна потпетица: 70% рециклирано (BottleYarn)\nВлошка: 60% рециклирано\nГон: 60% природен каучук\nПакување: кутија/обвивка од рециклирани и рециклабилни картон и хартија\nНадворешно пакување: рециклирани и рециклабилни пластика или картон/хартиен пакет",
+        "sq": "Pjesa e sipërme: lëkurë premium me certifikim Gold nga Leather Working Group\nLidhëset: 70% të ricikluara (BottleYarn)\nMidsole: 70% e ricikluar (BottleYarn)\nSolla e brendshme: 60% e ricikluar\nSolla e jashtme: 60% gomë natyrale\nPaketimi: kuti/mbështjellje nga karton dhe letër të ricikluara dhe të riciklueshme\nPaketimi i jashtëm: paketim plastik ose karton/letër i ricikluar dhe i riciklueshëm",
+        "en": "Upper: Premium full grain leather Gold Certificated by the Leather Working Group\nLaces: 70% recycled (BottleYarn)\nMidsole: 70% recycled (BottleYarn)\nInsole: 60% recycled\nOutsole: 60% natural rubber\nPackaging: box/wrapping recycled and recyclable card & paper\nOuter packaging: recycled and recyclable plastic or card/paper packet"
+      },
+      "activities": [
+        "hiking"
+      ],
+      "gender": "unisex",
+      "status": "active"
+    },
+    {
+      "sku": "FR-KELD3",
+      "brandSlug": "freet",
+      "categorySlugs": [],
+      "name": {
+        "mk": "Keld 3",
+        "sq": "Keld 3",
+        "en": "Keld 3"
+      },
+      "shortDescription": {
+        "mk": "Врвна патика за активности во топло време — лесна, минималистичка и сестрана за патеки и патувања.",
+        "sq": "Këpucë maksimale për aventurat në mot të ngrohtë — e lehtë, minimaliste dhe e gjithanshme për shtigje dhe udhëtime.",
+        "en": "The ultimate performance shoe for adventures in warm weather."
+      },
+      "highlights": [
+        {
+          "mk": "Брзо сушење",
+          "sq": "Tharje e shpejtë",
+          "en": "QUICK-DRY"
+        },
+        {
+          "mk": "Дишливо",
+          "sq": "I ajrosur",
+          "en": "BREATHABLE"
+        },
+        {
+          "mk": "Патека",
+          "sq": "Shteg",
+          "en": "TRAIL"
+        }
+      ],
+      "price": 5500,
+      "variants": [
+        {
+          "sizeEU": 36,
+          "color": {
+            "mk": "Маслинеста",
+            "sq": "Ulli",
+            "en": "Olive"
+          },
+          "colorHex": "#5e6b3f",
+          "stock": 0,
+          "sku": "FR-KELD3-36"
+        },
+        {
+          "sizeEU": 37,
+          "color": {
+            "mk": "Маслинеста",
+            "sq": "Ulli",
+            "en": "Olive"
+          },
+          "colorHex": "#5e6b3f",
+          "stock": 0,
+          "sku": "FR-KELD3-37"
+        },
+        {
+          "sizeEU": 38,
+          "color": {
+            "mk": "Маслинеста",
+            "sq": "Ulli",
+            "en": "Olive"
+          },
+          "colorHex": "#5e6b3f",
+          "stock": 0,
+          "sku": "FR-KELD3-38"
+        },
+        {
+          "sizeEU": 39,
+          "color": {
+            "mk": "Маслинеста",
+            "sq": "Ulli",
+            "en": "Olive"
+          },
+          "colorHex": "#5e6b3f",
+          "stock": 0,
+          "sku": "FR-KELD3-39"
+        },
+        {
+          "sizeEU": 40,
+          "color": {
+            "mk": "Маслинеста",
+            "sq": "Ulli",
+            "en": "Olive"
+          },
+          "colorHex": "#5e6b3f",
+          "stock": 3,
+          "sku": "FR-KELD3-40"
+        },
+        {
+          "sizeEU": 41,
+          "color": {
+            "mk": "Маслинеста",
+            "sq": "Ulli",
+            "en": "Olive"
+          },
+          "colorHex": "#5e6b3f",
+          "stock": 5,
+          "sku": "FR-KELD3-41"
+        },
+        {
+          "sizeEU": 42,
+          "color": {
+            "mk": "Маслинеста",
+            "sq": "Ulli",
+            "en": "Olive"
+          },
+          "colorHex": "#5e6b3f",
+          "stock": 5,
+          "sku": "FR-KELD3-42"
+        },
+        {
+          "sizeEU": 43,
+          "color": {
+            "mk": "Маслинеста",
+            "sq": "Ulli",
+            "en": "Olive"
+          },
+          "colorHex": "#5e6b3f",
+          "stock": 4,
+          "sku": "FR-KELD3-43"
+        },
+        {
+          "sizeEU": 44,
+          "color": {
+            "mk": "Маслинеста",
+            "sq": "Ulli",
+            "en": "Olive"
+          },
+          "colorHex": "#5e6b3f",
+          "stock": 3,
+          "sku": "FR-KELD3-44"
+        },
+        {
+          "sizeEU": 45,
+          "color": {
+            "mk": "Маслинеста",
+            "sq": "Ulli",
+            "en": "Olive"
+          },
+          "colorHex": "#5e6b3f",
+          "stock": 0,
+          "sku": "FR-KELD3-45"
+        },
+        {
+          "sizeEU": 46,
+          "color": {
+            "mk": "Маслинеста",
+            "sq": "Ulli",
+            "en": "Olive"
+          },
+          "colorHex": "#5e6b3f",
+          "stock": 0,
+          "sku": "FR-KELD3-46"
+        }
+      ],
+      "sizeAndFit": {
+        "mk": "Купувачите велат дека одговара точно по големината — можете да ја носите вашата вообичаена големина.",
+        "sq": "Klientët thonë se përshtatet sipas madhësisë — mund të mbani madhësinë tuaj të zakonshme.",
+        "en": "Customers say it fits true to size — you may stay at your usual size."
+      },
+      "aboutShoe": {
+        "mk": "Ултра-минимална сестрана патика за патувања и авантури, погодна за патеки и надвор од нив, со подобрен дизајн.\n\nУживајте во свежината како кај сандала, а истовремено држете ги отпадоците од патеката надвор.\n\nЗаштита комбинирана со флексибилност, мала тежина и барефоот удобност.",
+        "sq": "Këpucë ultra-minimale, e gjithanshme për udhëtime dhe aventura, e përshtatshme për shtegje dhe jashtë tyre, me dizajn të përmirësuar.\n\nShijoni freskinë e një sandali ndërkohë që mbani jashtë mbeturinat e shtegut.\n\nMbrojtje e kombinuar me fleksibilitet, peshë të lehtë dhe komfort barefoot.",
+        "en": "Ultra-minimal versatile travel and adventure shoe suitable for both on and off the trail with improved design.\n\nEnjoy the coolness of a sandal whilst keeping trail debris out.\n\nProtection combined with flexibility, light weight and barefoot comfort."
+      },
+      "productInfo": {
+        "mk": "Горен дел\nBottleYarn: дишлива, издржлива, мрежа што ја носи влагата, направена од рециклирани пластични шишиња.\nКонвенционални врвки — светло маслинести со сини точки.\n\nОбвивка\nБез обвивка за целосна дишливост.\n\nВлошка\nReBound 4 мм: енергетски одѕив со осет за подлогата за целосно природно движење. Идеално за подобри перформанси на потврди подлоги и на подолги растојанија.\n\nСредна потпетица\nSoftFlex: целосно флексибилна за максимално движење на стапалото.\n\nГон\nTrailGrip: 3,0 мм газен профил за добар грип и издржливост на различни површини на патеки.\nСтрана прицврстена за горниот дел за зголемена издржливост.\n\nВодоотпорност\nНе е водоотпорно, високо дишливо. Користете водоотпорни чорапи за студени/влажни услови.\n\nТежина\n435 грама на пар во големина 42.\n\nВисина на ѓонот\n10,5 мм со Flexile влошка; 7,5 мм без влошка.\n\nНега\nРачно перете со млака вода и благ детергент. Сушете на воздух.\n\nНе препорачуваме ставање на вашите Freet патики во машина за перење или сушара.",
+        "sq": "Pjesa e sipërme\nBottleYarn: rrjetë e ajrosur, e qëndrueshme, që largon lagështinë, prej shisheve plastike të ricikluara.\nLidhëse konvencionale — ulli i çelët me njolla blu.\n\nVeshja\nPa veshje për ajrosje të plotë.\n\nSole e brendshme\nReBound 4 mm: kthim energjie me ndjesi të tokës për lëvizje natyrale. Ideale për performancë në sipërfaqe më të forta dhe distanca më të gjata.\n\nMidsole\nSoftFlex: plotësisht fleksibël për lëvizje maksimale të këmbës.\n\nSolla e jashtme\nTrailGrip: 3,0 mm gjurmë për grip dhe qëndrueshmëri të mirë në sipërfaqe të ndryshme shtegjesh.\nMuri anësor i qepur me pjesën e sipërme për qëndrueshmëri më të madhe.\n\nPapërshkueshmëria nga uji\nNuk është i papërshkueshëm nga uji, shumë i ajrosur. Përdor çorape të papërshkueshme për kushte të ftohta / të lagështa.\n\nPesha\n435 gramë çift në madhësinë 42.\n\nLartësia e solës\n10,5 mm me sole Flexile; 7,5 mm pa sole.\n\nKujdesi\nLani me dorë me ujë të vakët dhe detergjent të butë. Thajeni në ajër.\n\nNuk rekomandojmë vendosjen e Freet-eve tuaj në lavatriçe ose tharëse.",
+        "en": "Upper\nBottleYarn: breathable, durable, moisture moving mesh, made from recycled plastic bottles.\nConventional lace — light olive with blue fleck.\n\nLining\nUnlined for complete breathability.\n\nInsole\nReBound 4 mm: energy return with ground connectivity to allow full natural movement. Ideal for performance on harder surfaces and longer distances.\n\nMidsole\nSoftFlex: fully flexible for maximum foot movement.\n\nOutsole\nTrailGrip: 3.0 mm tread gives good grip and durability on a variety of trail surfaces.\nSidewall stitched to the upper for increased durability.\n\nWaterproofness\nNot waterproof, highly breathable. Use a waterproof sock for cold / wet conditions.\n\nWeight\n435 grams per pair size 42.\n\nStack Height\n10.5 mm with Flexile insole; 7.5 mm without insole.\n\nCare\nHand wash with luke warm water and mild detergent. Air dry.\n\nWe do not recommend putting your Freets in the washing machine or dryer."
+      },
+      "sustainability": {
+        "mk": "Горен дел: 60% рециклиран (BottleYarn)\nГон: 60% природен каучук\nОбвивка: 65% рециклирано (BottleYarn)\nВрвки: 70% рециклирано (BottleYarn)\nВлошка: 60% рециклирано\nПакување: кутија/обвивка од рециклирани и рециклабилни картон и хартија\nНадворешно пакување: рециклирана и рециклабилна пластика или картон/хартиен пакет",
+        "sq": "Pjesa e sipërme: 60% e ricikluar (BottleYarn)\nSolla e jashtme: 60% gomë natyrale\nVeshja: 65% e ricikluar (BottleYarn)\nLidhëset: 70% të ricikluara (BottleYarn)\nSolla e brendshme: 60% e ricikluar\nPaketimi: kuti/mbështjellje nga karton dhe letër të ricikluara dhe të riciklueshme\nPaketimi i jashtëm: plastikë ose karton/letër i ricikluar dhe i riciklueshëm",
+        "en": "Upper: 60% recycled (BottleYarn)\nOutsole: 60% natural rubber\nLining: 65% recycled (BottleYarn)\nLace: 70% recycled (BottleYarn)\nInsole: 60% recycled\nPackaging: box/wrapping recycled and recyclable card & paper\nOuter packaging: recycled and recyclable plastic or card/paper packet"
+      },
+      "activities": [
+        "hiking",
+        "running",
+        "training"
+      ],
+      "gender": "unisex",
+      "status": "active"
+    },
+    {
+      "sku": "FR-RICHMOND2",
+      "brandSlug": "freet",
+      "categorySlugs": [],
+      "name": {
+        "mk": "Richmond 2",
+        "sq": "Richmond 2",
+        "en": "Richmond 2"
+      },
+      "shortDescription": {
+        "mk": "Класична desert чизма за поделовни денови во канцеларија или за опуштено дружење со пријатели.",
+        "sq": "Çizme klasike desert për ditë më të zyrtarizuara në zyrë ose për relaksim me miqtë.",
+        "en": "A classic desert boot for smarter days at the office or casual relaxing with friends."
+      },
+      "highlights": [
+        {
+          "mk": "Урбано",
+          "sq": "Urban",
+          "en": "URBAN"
+        },
+        {
+          "mk": "Опуштена удобност",
+          "sq": "Komfort i qetë",
+          "en": "RELAXED COMFORT"
+        },
+        {
+          "mk": "Отпорно на вода",
+          "sq": "Rezistent ndaj ujit",
+          "en": "WATER RESISTANT"
+        },
+        {
+          "mk": "Издржливо",
+          "sq": "I qëndrueshëm",
+          "en": "DURABLE"
+        }
+      ],
+      "price": 8600,
+      "variants": [
+        {
+          "sizeEU": 36,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#5a3825",
+          "stock": 0,
+          "sku": "FR-RICHMOND2-36"
+        },
+        {
+          "sizeEU": 37,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#5a3825",
+          "stock": 0,
+          "sku": "FR-RICHMOND2-37"
+        },
+        {
+          "sizeEU": 38,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#5a3825",
+          "stock": 0,
+          "sku": "FR-RICHMOND2-38"
+        },
+        {
+          "sizeEU": 39,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#5a3825",
+          "stock": 0,
+          "sku": "FR-RICHMOND2-39"
+        },
+        {
+          "sizeEU": 40,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#5a3825",
+          "stock": 3,
+          "sku": "FR-RICHMOND2-40"
+        },
+        {
+          "sizeEU": 41,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#5a3825",
+          "stock": 5,
+          "sku": "FR-RICHMOND2-41"
+        },
+        {
+          "sizeEU": 42,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#5a3825",
+          "stock": 5,
+          "sku": "FR-RICHMOND2-42"
+        },
+        {
+          "sizeEU": 43,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#5a3825",
+          "stock": 4,
+          "sku": "FR-RICHMOND2-43"
+        },
+        {
+          "sizeEU": 44,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#5a3825",
+          "stock": 3,
+          "sku": "FR-RICHMOND2-44"
+        },
+        {
+          "sizeEU": 45,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#5a3825",
+          "stock": 0,
+          "sku": "FR-RICHMOND2-45"
+        },
+        {
+          "sizeEU": 46,
+          "color": {
+            "mk": "Кафеаво-црно",
+            "sq": "Kafe-zezë",
+            "en": "Brown Black"
+          },
+          "colorHex": "#5a3825",
+          "stock": 0,
+          "sku": "FR-RICHMOND2-46"
+        }
+      ],
+      "sizeAndFit": {
+        "mk": "Купувачите велат дека одговара точно по големината — можете да ја носите вашата вообичаена големина.",
+        "sq": "Klientët thonë se përshtatet sipas madhësisë — mund të mbani madhësinë tuaj të zakonshme.",
+        "en": "Customers say it fits true to size — you may stay at your usual size."
+      },
+      "aboutShoe": {
+        "mk": "Сите придобивки на барефоот, секој ден. Сега ажурирана за поголема удобност и издржливост.\n\nНашата премиум кожа е мека, дишлива, отпорна на вода — обезбедувајќи целодневна удобност.\n\nБезвременски убав изглед во чевел погоден за град и природа.",
+        "sq": "Të gjitha përfitimet e barefoot çdo ditë. Tani e përditësuar për më shumë komfort dhe qëndrueshmëri.\n\nLëkura jonë premium është e butë, e ajrosur, rezistente ndaj ujit, duke dhënë komfort gjatë gjithë ditës.\n\nPamje e bukur pa kohë në një këpucë të përshtatshme për qytet dhe fshat.",
+        "en": "All the benefits of barefoot everyday. Now updated for more comfort and durability.\n\nOur premium leather is soft, breathable, water resistant, giving all day comfort.\n\nTimeless good looks in a shoe suitable for town and country."
+      },
+      "productInfo": {
+        "mk": "Горен дел\nКожа: премиум, целозрнеста кожа.\nКонвенционални врвки — кафеави.\n\nОбвивка\nДишлива обвивка што ја носи влагата.\n\nВлошка\nFlexile: 3,0 мм со одредена амортизација и одличен осет за подлогата за целосно природно движење.\n\nСредна потпетица\nSoftFlex: целосно флексибилна за максимално движење на стапалото.\n\nГон\nUrbanGrip: 3,0 мм газен профил со широка површина за оптимален грип и издржливост на урбани површини.\n\nВодоотпорност\nОтпорен на вода горен дел кога редовно се третира со следење на упатствата за нега.\n\nТежина\n640 грама на пар во големина 42.\n\nВисина на ѓонот\n9,5 мм со Flexile влошка; 6,5 мм без влошка. Нула надолен пад.\n\nНега\nИзбришете со влажна крпа. Сушете на воздух. Третирајте со кондиционер/водоодбивач погоден за премиум кожа како Nikwax восок за водоотпорност за кожа.\n\nНе препорачуваме ставање на вашите Freet патики во машина за перење или сушара.",
+        "sq": "Pjesa e sipërme\nLëkurë: premium, lëkurë e plotë.\nLidhëse konvencionale — kafe.\n\nVeshja\nVeshje e ajrosur që largon lagështinë.\n\nSole e brendshme\nFlexile: 3,0 mm me njëfarë amortizimi dhe ndjesi të shkëlqyer të tokës për lëvizje plotësisht natyrale.\n\nMidsole\nSoftFlex: plotësisht fleksibël për lëvizje maksimale të këmbës.\n\nSolla e jashtme\nUrbanGrip: 3,0 mm gjurmë me sipërfaqe të gjerë për grip dhe qëndrueshmëri optimale në sipërfaqe urbane.\n\nPapërshkueshmëria nga uji\nPjesa e sipërme rezistente ndaj ujit kur trajtohet rregullisht sipas udhëzimeve të kujdesit.\n\nPesha\n640 gramë çift në madhësinë 42.\n\nLartësia e solës\n9,5 mm me sole Flexile; 6,5 mm pa sole. Zero drop.\n\nKujdesi\nFshijeni me një copë të lagësht. Thajeni në ajër. Trajtojeni me një kondicioner/papërshkueshmërues të përshtatshëm për lëkurë premium si dylli i papërshkueshmërisë Nikwax për lëkurë.\n\nNuk rekomandojmë vendosjen e Freet-eve tuaj në lavatriçe ose tharëse.",
+        "en": "Upper\nLeather: premium, full grain leather.\nConventional lace — brown.\n\nLining\nBreathable, moisture moving lining.\n\nInsole\nFlexile: 3.0 mm some shock absorption with excellent ground connectivity to allow full natural movement.\n\nMidsole\nSoftFlex: fully flexible for maximum foot movement.\n\nOutsole\nUrbanGrip: 3.0 mm wide-area tread for optimum grip and durability on urban surfaces.\n\nWaterproofness\nWater resistant upper when treated regularly, by following the care instructions.\n\nWeight\n640 grams per pair size 42.\n\nStack Height\n9.5 mm with Flexile insole; 6.5 mm without insole, zero drop.\n\nCare\nWipe with a damp cloth. Air dry. Treat with a conditioner/waterproofer suitable for premium leather such as Nikwax waterproofing wax for leather.\n\nWe do not recommend putting your Freets in the washing machine or dryer."
+      },
+      "sustainability": {
+        "mk": "Врвки: 70% BottleYarn\nЗадник/микро обвивка: 70% BottleYarn\nВлошка: 60% BottleYarn\nГон: 60% природен каучук од одржливо шумарство\nПакување: кутија/обвивка од рециклирани и рециклабилни картон и хартија\nНадворешно пакување: рециклирана и рециклабилна пластика или картон/хартиен пакет\nDWR: издржлив третман со водоодбивност. Без употреба на PFC",
+        "sq": "Lidhëset: 70% BottleYarn\nMbështetje/mikro-veshje: 70% BottleYarn\nSolla e brendshme: 60% BottleYarn\nSolla e jashtme: 60% gomë natyrale e marrë nga pylltari e qëndrueshme\nPaketimi: kuti/mbështjellje nga karton dhe letër të ricikluara dhe të riciklueshme\nPaketimi i jashtëm: plastikë ose karton/letër i ricikluar dhe i riciklueshëm\nDWR: trajtim i qëndrueshëm i papërshkueshmërisë nga uji. Pa përdorim PFC-sh",
+        "en": "Laces: 70% BottleYarn\nBacker/micro lining: 70% BottleYarn\nInsole: 60% BottleYarn\nOutsole: 60% natural rubber tapped from sustainable forestry\nPackaging: box/wrapping recycled and recyclable card & paper\nOuter packaging: recycled and recyclable plastic or card/paper packet\nDWR: Durable water repellency treatment. No use of PFCs"
+      },
+      "activities": [
+        "casual",
+        "office"
+      ],
+      "gender": "unisex",
+      "status": "active"
+    },
+    {
+      "sku": "FR-VIBE2",
+      "brandSlug": "freet",
+      "categorySlugs": [],
+      "name": {
+        "mk": "Vibe 2",
+        "sq": "Vibe 2",
+        "en": "Vibe 2"
+      },
+      "shortDescription": {
+        "mk": "Дизајнирано за заморни активности, но целосно опуштено за секојдневно носење.",
+        "sq": "E dizajnuar për aktivitete kërkuese, por plotësisht e qetë për përdorim të përditshëm.",
+        "en": "Designed for demanding activity but completely at ease with wearing casually everyday."
+      },
+      "highlights": [
+        {
+          "mk": "Одржливо",
+          "sq": "I qëndrueshëm",
+          "en": "SUSTAINABLE"
+        },
+        {
+          "mk": "Лесно",
+          "sq": "I lehtë",
+          "en": "LIGHTWEIGHT"
+        },
+        {
+          "mk": "Дишливо",
+          "sq": "I ajrosur",
+          "en": "BREATHABLE"
+        },
+        {
+          "mk": "Издржливо",
+          "sq": "I qëndrueshëm",
+          "en": "DURABLE"
+        }
+      ],
+      "price": 6200,
+      "variants": [
+        {
+          "sizeEU": 36,
+          "color": {
+            "mk": "Бело",
+            "sq": "E bardhë",
+            "en": "White"
+          },
+          "colorHex": "#f0f0eb",
+          "stock": 0,
+          "sku": "FR-VIBE2-WHITE-36"
+        },
+        {
+          "sizeEU": 37,
+          "color": {
+            "mk": "Бело",
+            "sq": "E bardhë",
+            "en": "White"
+          },
+          "colorHex": "#f0f0eb",
+          "stock": 0,
+          "sku": "FR-VIBE2-WHITE-37"
+        },
+        {
+          "sizeEU": 38,
+          "color": {
+            "mk": "Бело",
+            "sq": "E bardhë",
+            "en": "White"
+          },
+          "colorHex": "#f0f0eb",
+          "stock": 0,
+          "sku": "FR-VIBE2-WHITE-38"
+        },
+        {
+          "sizeEU": 39,
+          "color": {
+            "mk": "Бело",
+            "sq": "E bardhë",
+            "en": "White"
+          },
+          "colorHex": "#f0f0eb",
+          "stock": 0,
+          "sku": "FR-VIBE2-WHITE-39"
+        },
+        {
+          "sizeEU": 40,
+          "color": {
+            "mk": "Бело",
+            "sq": "E bardhë",
+            "en": "White"
+          },
+          "colorHex": "#f0f0eb",
+          "stock": 3,
+          "sku": "FR-VIBE2-WHITE-40"
+        },
+        {
+          "sizeEU": 41,
+          "color": {
+            "mk": "Бело",
+            "sq": "E bardhë",
+            "en": "White"
+          },
+          "colorHex": "#f0f0eb",
+          "stock": 5,
+          "sku": "FR-VIBE2-WHITE-41"
+        },
+        {
+          "sizeEU": 42,
+          "color": {
+            "mk": "Бело",
+            "sq": "E bardhë",
+            "en": "White"
+          },
+          "colorHex": "#f0f0eb",
+          "stock": 5,
+          "sku": "FR-VIBE2-WHITE-42"
+        },
+        {
+          "sizeEU": 43,
+          "color": {
+            "mk": "Бело",
+            "sq": "E bardhë",
+            "en": "White"
+          },
+          "colorHex": "#f0f0eb",
+          "stock": 4,
+          "sku": "FR-VIBE2-WHITE-43"
+        },
+        {
+          "sizeEU": 44,
+          "color": {
+            "mk": "Бело",
+            "sq": "E bardhë",
+            "en": "White"
+          },
+          "colorHex": "#f0f0eb",
+          "stock": 3,
+          "sku": "FR-VIBE2-WHITE-44"
+        },
+        {
+          "sizeEU": 45,
+          "color": {
+            "mk": "Бело",
+            "sq": "E bardhë",
+            "en": "White"
+          },
+          "colorHex": "#f0f0eb",
+          "stock": 0,
+          "sku": "FR-VIBE2-WHITE-45"
+        },
+        {
+          "sizeEU": 46,
+          "color": {
+            "mk": "Бело",
+            "sq": "E bardhë",
+            "en": "White"
+          },
+          "colorHex": "#f0f0eb",
+          "stock": 0,
+          "sku": "FR-VIBE2-WHITE-46"
+        },
+        {
+          "sizeEU": 36,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-VIBE2-BLACK-36"
+        },
+        {
+          "sizeEU": 37,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-VIBE2-BLACK-37"
+        },
+        {
+          "sizeEU": 38,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-VIBE2-BLACK-38"
+        },
+        {
+          "sizeEU": 39,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-VIBE2-BLACK-39"
+        },
+        {
+          "sizeEU": 40,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 3,
+          "sku": "FR-VIBE2-BLACK-40"
+        },
+        {
+          "sizeEU": 41,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 5,
+          "sku": "FR-VIBE2-BLACK-41"
+        },
+        {
+          "sizeEU": 42,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 5,
+          "sku": "FR-VIBE2-BLACK-42"
+        },
+        {
+          "sizeEU": 43,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 4,
+          "sku": "FR-VIBE2-BLACK-43"
+        },
+        {
+          "sizeEU": 44,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 3,
+          "sku": "FR-VIBE2-BLACK-44"
+        },
+        {
+          "sizeEU": 45,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-VIBE2-BLACK-45"
+        },
+        {
+          "sizeEU": 46,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-VIBE2-BLACK-46"
+        }
+      ],
+      "sizeAndFit": {
+        "mk": "Купувачите велат дека одговара точно по големината — можете да ја носите вашата вообичаена големина.",
+        "sq": "Klientët thonë se përshtatet sipas madhësisë — mund të mbani madhësinë tuaj të zakonshme.",
+        "en": "Customers say it fits true to size — you may stay at your usual size."
+      },
+      "aboutShoe": {
+        "mk": "Flyknit горен дел со удобна обвивка за целодневна удобност со или без чорапи.\n\nВлошка ReBound со енергетски одѕив плус UrbanGrip ѓон даваат одличен осет за подлогата со амортизација.\n\nВисоко дишливо за моменти кога темпото се забрзува.",
+        "sq": "Pjesa e sipërme Flyknit me veshje komode për komfort gjatë gjithë ditës me ose pa çorape.\n\nSolla e brendshme ReBound me kthim energjie plus solla e jashtme UrbanGrip japin ndjesi të shkëlqyer të tokës me amortizim.\n\nShumë e ajrosur për kur ritmi shpejtohet.",
+        "en": "Flyknit upper with comfy lining for all day comfort with or without socks.\n\nReBound energy return insole plus UrbanGrip outsole gives excellent ground feel with shock absorption.\n\nHighly breathable for when the tempo speeds up."
+      },
+      "productInfo": {
+        "mk": "Горен дел\nBottleYarn: дишлива, издржлива, мрежа што ја носи влагата, направена од рециклирани пластични шишиња.\nКонвенционални врвки — црни.\n\nОбвивка\nБез обвивка за целосна дишливост.\n\nВлошка\nReBound 4 мм: енергетски одѕив со осет за подлогата за целосно природно движење. Идеално за подобри перформанси на потврди подлоги и подолги растојанија.\n\nСредна потпетица\nSoftFlex: целосно флексибилна за максимално движење на стапалото.\n\nГон\nUrbanGrip: 3,0 мм газен профил со широка површина за оптимален грип и издржливост на урбани површини.\n\nВодоотпорност\nНе е водоотпорно, високо дишливо. Користете водоотпорни чорапи за студени/влажни услови.\n\nТежина\n585 грама на пар во големина 42.\n\nВисина на ѓонот\n10,5 мм со влошка; 6,5 мм без влошка. Нула надолен пад.\n\nНега\nРачно перете со млака вода и благ детергент. Сушете на воздух.\n\nНе препорачуваме ставање на вашите Freet патики во машина за перење или сушара.",
+        "sq": "Pjesa e sipërme\nBottleYarn: rrjetë e ajrosur, e qëndrueshme, që largon lagështinë, prej shisheve plastike të ricikluara.\nLidhëse konvencionale — të zeza.\n\nVeshja\nPa veshje për ajrosje të plotë.\n\nSole e brendshme\nReBound 4 mm: kthim energjie me ndjesi të tokës për lëvizje natyrale. Ideale për performancë në sipërfaqe më të forta dhe distanca më të gjata.\n\nMidsole\nSoftFlex: plotësisht fleksibël për lëvizje maksimale të këmbës.\n\nSolla e jashtme\nUrbanGrip: 3,0 mm gjurmë me sipërfaqe të gjerë për grip dhe qëndrueshmëri optimale në sipërfaqe urbane.\n\nPapërshkueshmëria nga uji\nNuk është i papërshkueshëm nga uji, shumë i ajrosur. Përdor çorape të papërshkueshme për kushte të ftohta / të lagështa.\n\nPesha\n585 gramë çift në madhësinë 42.\n\nLartësia e solës\n10,5 mm me sole; 6,5 mm pa sole. Zero drop.\n\nKujdesi\nLani me dorë me ujë të vakët dhe detergjent të butë. Thajeni në ajër.\n\nNuk rekomandojmë vendosjen e Freet-eve tuaj në lavatriçe ose tharëse.",
+        "en": "Upper\nBottleYarn: breathable, durable, moisture moving mesh, made from recycled plastic bottles.\nConventional lace — black.\n\nLining\nUnlined for complete breathability.\n\nInsole\nReBound 4 mm: energy return with ground connectivity to allow full natural movement. Ideal for performance on harder surfaces and longer distances.\n\nMidsole\nSoftFlex: fully flexible for maximum foot movement.\n\nOutsole\nUrbanGrip: 3.0 mm wide-area tread for optimum grip and durability on urban surfaces.\n\nWaterproofness\nNot waterproof, highly breathable. Use a waterproof sock for cold / wet conditions.\n\nWeight\n585 grams per pair size 42.\n\nStack Height\n10.5 mm with insole; 6.5 mm without insole, zero drop.\n\nCare\nHand wash with luke warm water and mild detergent. Air dry.\n\nWe do not recommend putting your Freets in the washing machine or dryer."
+      },
+      "sustainability": {
+        "mk": "Горен дел: 30% рециклирано (BottleYarn)\nГон: 60% природен каучук\nОбвивка: 65% рециклирано (BottleYarn)\nВрвки: 70% рециклирано (BottleYarn)\nВлошка: 60% рециклирано\nПакување: кутија/обвивка од рециклирани и рециклабилни картон и хартија\nНадворешно пакување: рециклирана и рециклабилна пластика или картон/хартиен пакет",
+        "sq": "Pjesa e sipërme: 30% e ricikluar (BottleYarn)\nSolla e jashtme: 60% gomë natyrale\nVeshja: 65% e ricikluar (BottleYarn)\nLidhëset: 70% të ricikluara (BottleYarn)\nSolla e brendshme: 60% e ricikluar\nPaketimi: kuti/mbështjellje nga karton dhe letër të ricikluara dhe të riciklueshme\nPaketimi i jashtëm: plastikë ose karton/letër i ricikluar dhe i riciklueshëm",
+        "en": "Upper: 30% recycled (BottleYarn)\nOutsole: 60% natural rubber\nLining: 65% recycled (BottleYarn)\nLace: 70% recycled (BottleYarn)\nInsole: 60% recycled\nPackaging: box/wrapping recycled and recyclable card & paper\nOuter packaging: recycled and recyclable plastic or card/paper packet"
+      },
+      "activities": [
+        "training",
+        "casual",
+        "running"
+      ],
+      "gender": "unisex",
+      "status": "active"
+    },
+    {
+      "sku": "FR-YORK2",
+      "brandSlug": "freet",
+      "categorySlugs": [],
+      "name": {
+        "mk": "York 2",
+        "sq": "York 2",
+        "en": "York 2"
+      },
+      "shortDescription": {
+        "mk": "Класична секојдневна кожна патика со подобрена форма и издржливост. Неверојатна удобност и изглед за долги денови во град.",
+        "sq": "Këpucë klasike e përditshme prej lëkure me përshtatje dhe qëndrueshmëri të përmirësuar. Komfort dhe pamje e mahnitshme për ditë të gjata në qytet.",
+        "en": "Classic everyday leather shoe with improved fit and durability. Amazing comfort and looks for long days in town."
+      },
+      "highlights": [
+        {
+          "mk": "Урбано",
+          "sq": "Urban",
+          "en": "URBAN"
+        },
+        {
+          "mk": "Удобно",
+          "sq": "Komod",
+          "en": "COMFORT"
+        },
+        {
+          "mk": "Отпорно на вода",
+          "sq": "Rezistent ndaj ujit",
+          "en": "WATER RESISTANT"
+        },
+        {
+          "mk": "Издржливо",
+          "sq": "I qëndrueshëm",
+          "en": "DURABLE"
+        }
+      ],
+      "price": 8300,
+      "variants": [
+        {
+          "sizeEU": 36,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-YORK2-36"
+        },
+        {
+          "sizeEU": 37,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-YORK2-37"
+        },
+        {
+          "sizeEU": 38,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-YORK2-38"
+        },
+        {
+          "sizeEU": 39,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-YORK2-39"
+        },
+        {
+          "sizeEU": 40,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 3,
+          "sku": "FR-YORK2-40"
+        },
+        {
+          "sizeEU": 41,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 5,
+          "sku": "FR-YORK2-41"
+        },
+        {
+          "sizeEU": 42,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 5,
+          "sku": "FR-YORK2-42"
+        },
+        {
+          "sizeEU": 43,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 4,
+          "sku": "FR-YORK2-43"
+        },
+        {
+          "sizeEU": 44,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 3,
+          "sku": "FR-YORK2-44"
+        },
+        {
+          "sizeEU": 45,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-YORK2-45"
+        },
+        {
+          "sizeEU": 46,
+          "color": {
+            "mk": "Црно",
+            "sq": "E zezë",
+            "en": "Black"
+          },
+          "colorHex": "#1a1a1a",
+          "stock": 0,
+          "sku": "FR-YORK2-46"
+        }
+      ],
+      "sizeAndFit": {
+        "mk": "Купувачите велат дека одговара точно по големината — можете да ја носите вашата вообичаена големина.",
+        "sq": "Klientët thonë se përshtatet sipas madhësisë — mund të mbani madhësinë tuaj të zakonshme.",
+        "en": "Customers say it fits true to size — you may stay at your usual size."
+      },
+      "aboutShoe": {
+        "mk": "Нов издржлив и целосно флексибилен ѓон со страничен шев.\n\nВисоко функционална со отпорност на вода и барефоот удобност.\n\nНајдобрата кожа дава неспоредлива издржливост и безвременски стил.",
+        "sq": "Sollë e re e qëndrueshme dhe plotësisht fleksibël me qepje anësore.\n\nShumë funksionale me rezistencë ndaj ujit dhe komfort barefoot.\n\nLëkura më e mirë jep qëndrueshmëri të pakrahasueshme dhe stil pa kohë.",
+        "en": "New durable and fully flexible outsole with side wall stitching.\n\nHighly functional with water resistance and barefoot comfort.\n\nThe best leather gives unrivalled durability and timeless style."
+      },
+      "productInfo": {
+        "mk": "Горен дел\nКожа: премиум, целозрнеста кожа.\nКонвенционални врвки — црни.\n\nОбвивка\nДишлива обвивка што ја носи влагата.\n\nВлошка\nFlexile: 3,0 мм со одредена амортизација и одличен осет за подлогата за целосно природно движење.\n\nСредна потпетица\nSoftFlex: целосно флексибилна за максимално движење на стапалото.\n\nГон\nUrbanGrip: 3,0 мм газен профил со широка површина за оптимален грип и издржливост на урбани површини.\n\nВодоотпорност\nОтпорен на вода горен дел кога редовно се третира со следење на упатствата за нега.\n\nТежина\n480 грама на пар во големина 42.\n\nВисина на ѓонот\n9,0 мм со влошка; 6,0 мм без влошка. Нула надолен пад.\n\nНега\nИзбришете со влажна крпа. Сушете на воздух. Третирајте со кондиционер/водоодбивач погоден за премиум кожа како Nikwax восок за водоотпорност за кожа.\n\nНе препорачуваме ставање на вашите Freet патики во машина за перење или сушара.",
+        "sq": "Pjesa e sipërme\nLëkurë: premium, lëkurë e plotë.\nLidhëse konvencionale — të zeza.\n\nVeshja\nVeshje e ajrosur që largon lagështinë.\n\nSole e brendshme\nFlexile: 3,0 mm me njëfarë amortizimi dhe ndjesi të shkëlqyer të tokës për lëvizje plotësisht natyrale.\n\nMidsole\nSoftFlex: plotësisht fleksibël për lëvizje maksimale të këmbës.\n\nSolla e jashtme\nUrbanGrip: 3,0 mm gjurmë me sipërfaqe të gjerë për grip dhe qëndrueshmëri optimale në sipërfaqe urbane.\n\nPapërshkueshmëria nga uji\nPjesa e sipërme rezistente ndaj ujit kur trajtohet rregullisht sipas udhëzimeve të kujdesit.\n\nPesha\n480 gramë çift në madhësinë 42.\n\nLartësia e solës\n9,0 mm me sole; 6,0 mm pa sole. Zero drop.\n\nKujdesi\nFshijeni me një copë të lagësht. Thajeni në ajër. Trajtojeni me një kondicioner/papërshkueshmërues të përshtatshëm për lëkurë premium si dylli i papërshkueshmërisë Nikwax për lëkurë.\n\nNuk rekomandojmë vendosjen e Freet-eve tuaj në lavatriçe ose tharëse.",
+        "en": "Upper\nLeather: premium, full grain leather.\nConventional lace — black.\n\nLining\nBreathable, moisture moving lining.\n\nInsole\nFlexile: 3.0 mm some shock absorption with excellent ground connectivity to allow full natural movement.\n\nMidsole\nSoftFlex: fully flexible for maximum foot movement.\n\nOutsole\nUrbanGrip: 3.0 mm wide-area tread for optimum grip and durability on urban surfaces.\n\nWaterproofness\nWater resistant upper when treated regularly, by following the care instructions.\n\nWeight\n480 grams per pair size 42.\n\nStack Height\n9.0 mm with insole; 6.0 mm without insole, zero drop.\n\nCare\nWipe with a damp cloth. Air dry. Treat with a conditioner/waterproofer suitable for premium leather such as Nikwax waterproofing wax for leather.\n\nWe do not recommend putting your Freets in the washing machine or dryer."
+      },
+      "sustainability": {
+        "mk": "Кожа: Gold сертификат од Leather Working Group\nВрвки: 70% BottleYarn\nЗадник/микро обвивка: 70% BottleYarn\nВлошка: 60% BottleYarn\nГон: 60% природен каучук од одржливо шумарство\nПакување: кутија/обвивка од рециклирани и рециклабилни картон и хартија\nНадворешно пакување: рециклирана и рециклабилна пластика или картон/хартиен пакет\nDWR: издржлив третман со водоодбивност. Без употреба на PFC",
+        "sq": "Lëkurë: certifikim Gold nga Leather Working Group\nLidhëset: 70% BottleYarn\nMbështetje/mikro-veshje: 70% BottleYarn\nSolla e brendshme: 60% BottleYarn\nSolla e jashtme: 60% gomë natyrale e marrë nga pylltari e qëndrueshme\nPaketimi: kuti/mbështjellje nga karton dhe letër të ricikluara dhe të riciklueshme\nPaketimi i jashtëm: plastikë ose karton/letër i ricikluar dhe i riciklueshëm\nDWR: trajtim i qëndrueshëm i papërshkueshmërisë nga uji. Pa përdorim PFC-sh",
+        "en": "Leather: Leather Working Group Gold Certificated\nLaces: 70% BottleYarn\nBacker/micro lining: 70% BottleYarn\nInsole: 60% BottleYarn\nOutsole: 60% natural rubber tapped from sustainable forestry\nPackaging: box/wrapping recycled and recyclable card & paper\nOuter packaging: recycled and recyclable plastic or card/paper packet\nDWR: Durable water repellency treatment. No use of PFCs"
+      },
+      "activities": [
+        "casual",
+        "office"
+      ],
+      "gender": "unisex",
+      "status": "active"
     }
   ]
 }

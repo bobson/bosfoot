@@ -96,6 +96,11 @@ export type CatalogProduct = {
   status?: 'draft' | 'active' | 'outOfStock' | 'archived'
   featured?: boolean
   newArrival?: boolean
+  /** Free-text detail-page sections, rendered as accordion on the PDP. */
+  sizeAndFit?: LocaleText
+  aboutShoe?: LocaleText
+  productInfo?: LocaleText
+  sustainability?: LocaleText
 }
 
 export type Catalog = {

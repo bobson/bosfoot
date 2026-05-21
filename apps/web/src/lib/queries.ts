@@ -355,6 +355,10 @@ export type ProductDetail = {
   gender?: 'mens' | 'womens' | 'unisex' | 'kids'
   activities?: string[]
   status: 'draft' | 'active' | 'outOfStock' | 'archived'
+  sizeAndFit?: { mk?: string; sq?: string; en?: string }
+  aboutShoe?: { mk?: string; sq?: string; en?: string }
+  productInfo?: { mk?: string; sq?: string; en?: string }
+  sustainability?: { mk?: string; sq?: string; en?: string }
   brand: {
     _id: string
     name: string
@@ -392,6 +396,10 @@ const PRODUCT_DETAIL_QUERY = `
     gender,
     activities,
     status,
+    sizeAndFit,
+    aboutShoe,
+    productInfo,
+    sustainability,
     "brand": brand->{
       _id,
       name,

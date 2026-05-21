@@ -93,4 +93,16 @@ export const SHOWCASE_BRANDS: ShowcaseBrand[] = [
       en: 'German design with an urban aesthetic. Barefoot shoes that fit the office too.',
     },
   },
+  {
+    slug: 'freet',
+    name: 'Freet',
+    wordmarkClass: 'lowercase font-bold tracking-tight italic',
+    origin: 'UK',
+    founded: 2010,
+    tagline: {
+      mk: 'Британски бренд за надворешна употреба — планинарење, патеки, секојдневен живот. Издржливо и со рециклирани материјали.',
+      sq: 'Markë britanike për përdorim në natyrë — alpinizëm, shtigje, jetë e përditshme. E qëndrueshme dhe me materiale të ricikluara.',
+      en: 'UK brand built for the outdoors — hiking, trails, everyday life. Durable and made with recycled materials.',
+    },
+  },
 ]

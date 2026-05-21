@@ -230,6 +230,76 @@ const breadcrumbSchema = breadcrumbLD({
       }
     </div>
 
+    {/* Prominent detail sections — About this shoe + Size & fit. Plain
+        paragraph blocks with headings, shown above the accordion. */}
+    {
+      (() => {
+        const aboutBody = pickLocale(product.aboutShoe, locale);
+        const sizeAndFitBody = pickLocale(product.sizeAndFit, locale);
+        const prominent = [
+          { label: t("detail.aboutShoe", locale), body: aboutBody },
+          { label: t("detail.sizeAndFit", locale), body: sizeAndFitBody },
+        ].filter((s) => s.body && s.body.trim().length > 0);
+
+        if (prominent.length === 0) return null;
+        return (
+          <div class="mb-12 space-y-10 max-w-3xl">
+            {prominent.map((s) => (
+              <section>
+                <h2 class="text-lg md:text-xl font-semibold tracking-tight text-foreground mb-3">
+                  {s.label}
+                </h2>
+                <div class="text-base text-muted-foreground leading-relaxed whitespace-pre-line">
+                  {s.body}
+                </div>
+              </section>
+            ))}
+          </div>
+        );
+      })()
+    }
+
+    {/* Expandable detail sections — Product info + Sustainability.
+        Native <details>, zero JS. Hidden if neither has content. */}
+    {
+      (() => {
+        const accordion = [
+          { label: t("detail.productInfo", locale), body: pickLocale(product.productInfo, locale) },
+          { label: t("detail.sustainability", locale), body: pickLocale(product.sustainability, locale) },
+        ].filter((s) => s.body && s.body.trim().length > 0);
+
+        if (accordion.length === 0) return null;
+        return (
+          <div class="mb-16 divide-y divide-border-subtle border-t border-b border-border-subtle">
+            {accordion.map((s) => (
+              <details class="group py-4 px-1">
+                <summary class="flex items-center justify-between cursor-pointer list-none text-base font-medium text-foreground py-2 outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm">
+                  <span>{s.label}</span>
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="text-muted-foreground transition-transform duration-200 group-open:rotate-180"
+                    aria-hidden="true"
+                  >
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </summary>
+                <div class="pt-2 pb-2 text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+                  {s.body}
+                </div>
+              </details>
+            ))}
+          </div>
+        );
+      })()
+    }
+
     {/* Related — more from the same brand */}
     {
       related.length >= 1 && (

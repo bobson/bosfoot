@@ -52,7 +52,7 @@ const c = {
 // ─── Plan structure ───────────────────────────────────────────────────
 type PlanItem =
   | { kind: 'create'; type: string; label: string; doc: SanityDoc; imagePath?: string | null; galleryPaths?: string[] }
-  | { kind: 'update'; type: string; label: string; doc: SanityDoc; diffLines: string[]; imagePath?: string | null; galleryPaths?: string[] }
+  | { kind: 'update'; type: string; label: string; doc: SanityDoc; diffLines: string[]; imagePath?: string | null; galleryPaths?: string[]; existingMainImage?: unknown; existingGallery?: unknown }
   | { kind: 'unchanged'; type: string; label: string }
   | { kind: 'error'; type: string; label: string; message: string }
 
@@ -173,6 +173,10 @@ function buildProductDoc(p: CatalogProduct): SanityDoc {
     status: p.status ?? 'active',
     featured: p.featured ?? false,
     newArrival: p.newArrival ?? false,
+    sizeAndFit: p.sizeAndFit ? { _type: 'localeText', ...p.sizeAndFit } : undefined,
+    aboutShoe: p.aboutShoe ? { _type: 'localeText', ...p.aboutShoe } : undefined,
+    productInfo: p.productInfo ? { _type: 'localeText', ...p.productInfo } : undefined,
+    sustainability: p.sustainability ? { _type: 'localeText', ...p.sustainability } : undefined,
     publishedAt: new Date().toISOString(),
   }
 }
@@ -312,7 +316,18 @@ async function buildPlan(catalog: Catalog): Promise<PlanItem[]> {
         galleryPaths,
       })
     } else {
-      const diffLines = diffDocs(existingDoc, newDoc)
+      // Preserve existing mainImage/gallery when no new source is provided —
+      // otherwise `createOrReplace` below would wipe them.
+      const existingMainImage = imagePath ? undefined : existingDoc.mainImage
+      const existingGallery =
+        galleryPaths.length > 0 ? undefined : existingDoc.gallery
+
+      // Pre-merge into newDoc so diffing reports correctly (no spurious "mainImage unset")
+      const newDocWithImages: SanityDoc = { ...newDoc }
+      if (existingMainImage !== undefined) newDocWithImages.mainImage = existingMainImage
+      if (existingGallery !== undefined) newDocWithImages.gallery = existingGallery
+
+      const diffLines = diffDocs(existingDoc, newDocWithImages)
       if (diffLines.length === 0) {
         plan.push({
           kind: 'unchanged',
@@ -324,10 +339,12 @@ async function buildPlan(catalog: Catalog): Promise<PlanItem[]> {
           kind: 'update',
           type: 'product',
           label: `${p.name.mk} (${p.sku})`,
-          doc: newDoc,
+          doc: newDocWithImages,
           diffLines,
           imagePath,
           galleryPaths,
+          existingMainImage,
+          existingGallery,
         })
       }
     }

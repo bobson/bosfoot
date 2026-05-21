@@ -100,13 +100,17 @@ export function switchLocale(currentPath: string, target: Locale): string {
   return '/' + segments.join('/')
 }
 
-/** Pick the right value from a localized object. Falls back to mk → en → first available. */
+/** Pick the right value from a localized object. Falls back to mk → en → sq.
+ *  Empty strings are treated as missing so locale fields stored as `''`
+ *  (e.g. content that's English-only with mk: '' placeholder) fall through. */
 export function pickLocale<T>(
   value: { mk?: T; sq?: T; en?: T } | undefined,
   locale: Locale,
 ): T | undefined {
   if (!value) return undefined
-  return value[locale] ?? value.mk ?? value.en ?? value.sq
+  const pick = (v: T | undefined): T | undefined =>
+    typeof v === 'string' ? (v.trim() ? v : undefined) : v
+  return pick(value[locale]) ?? pick(value.mk) ?? pick(value.en) ?? pick(value.sq)
 }
 
 /* ─────────────────────────────────────────────────────────────────────
@@ -783,6 +787,26 @@ export const ui: UIStrings = {
     mk: 'Повеќе од',
     sq: 'Më shumë nga',
     en: 'More from',
+  },
+  'detail.sizeAndFit': {
+    mk: 'Големина и форма',
+    sq: 'Madhësia dhe forma',
+    en: 'Size & fit',
+  },
+  'detail.aboutShoe': {
+    mk: 'За оваа патика',
+    sq: 'Rreth kësaj këpuce',
+    en: 'About this shoe',
+  },
+  'detail.productInfo': {
+    mk: 'Информации за производот',
+    sq: 'Informacion mbi produktin',
+    en: 'Product info',
+  },
+  'detail.sustainability': {
+    mk: 'Одржливост',
+    sq: 'Qëndrueshmëria',
+    en: 'Sustainability',
   },
   'detail.viewAllFromBrand': {
     mk: 'Сите од',

@@ -78,6 +78,9 @@ importers:
       astro:
         specifier: ^5.1.0
         version: 5.18.1(@types/node@24.12.3)(@vercel/functions@2.2.13)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.3)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.4)
+      astro-loading-indicator:
+        specifier: ^0.8.0
+        version: 0.8.0(astro@5.18.1(@types/node@24.12.3)(@vercel/functions@2.2.13)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.3)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.4))
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -3893,6 +3896,11 @@ packages:
   ast-types@0.16.1:
     resolution: {integrity: sha512-6t10qk83GOG8p0vKmaCr8eiilZwO171AvbROMtvvNiwrTly62t+7XkA8RdIIVbpMhCASAsxgAzdRSwh6nw/5Dg==}
     engines: {node: '>=4'}
+
+  astro-loading-indicator@0.8.0:
+    resolution: {integrity: sha512-huqaHbSCe8KLWnogxu9yNDybtVyp9OhJhU9LA5GwzBo8g4CcAQWcwjurleV+OpJAK2qNL2gO/V5ocPltvCC7Dg==}
+    peerDependencies:
+      astro: ^4.0.0 || ^5.0.0 || ^6.0.0
 
   astro@5.18.1:
     resolution: {integrity: sha512-m4VWilWZ+Xt6NPoYzC4CgGZim/zQUO7WFL0RHCH0AiEavF1153iC3+me2atDvXpf/yX4PyGUeD8wZLq1cirT3g==}
@@ -12490,6 +12498,10 @@ snapshots:
   ast-types@0.16.1:
     dependencies:
       tslib: 2.8.1
+
+  astro-loading-indicator@0.8.0(astro@5.18.1(@types/node@24.12.3)(@vercel/functions@2.2.13)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.3)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.4)):
+    dependencies:
+      astro: 5.18.1(@types/node@24.12.3)(@vercel/functions@2.2.13)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.3)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.4)
 
   astro@5.18.1(@types/node@24.12.3)(@vercel/functions@2.2.13)(jiti@2.7.0)(lightningcss@1.32.0)(rollup@4.60.3)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.8.4):
     dependencies:

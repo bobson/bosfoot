@@ -13,7 +13,8 @@
     "catalog": "pnpm --filter scripts catalog",
     "catalog:apply": "pnpm --filter scripts catalog:apply",
     "articles": "pnpm --filter scripts articles",
-    "articles:apply": "pnpm --filter scripts articles:apply"
+    "articles:apply": "pnpm --filter scripts articles:apply",
+    "extract:freet": "pnpm --filter scripts extract:freet"
   },
   "devDependencies": {
     "typescript": "~5.9.3"
