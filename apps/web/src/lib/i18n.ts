@@ -779,6 +779,16 @@ export const ui: UIStrings = {
     sq: 'Më shumë në faqen zyrtare',
     en: 'More info on official site',
   },
+  'detail.relatedTitle': {
+    mk: 'Повеќе од',
+    sq: 'Më shumë nga',
+    en: 'More from',
+  },
+  'detail.viewAllFromBrand': {
+    mk: 'Сите од',
+    sq: 'Të gjitha nga',
+    en: 'View all from',
+  },
   'detail.specs': {
     mk: 'Спецификации',
     sq: 'Specifikimet',

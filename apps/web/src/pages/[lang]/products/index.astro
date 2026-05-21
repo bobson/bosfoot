@@ -74,8 +74,14 @@ const pageTitle = t('listing.title', locale)
     })();
   </script>
   <style is:inline>
+    /* Skeleton is hidden by default. The real grid renders normally. */
+    [data-products-skeleton] { display: none; }
+    /* Filter-pending swap: show skeleton, hide real grid. */
+    html[data-bf-filter-pending="true"] [data-products-skeleton] {
+      display: grid !important;
+    }
     html[data-bf-filter-pending="true"] [data-products-grid] {
-      visibility: hidden;
+      display: none !important;
     }
   </style>
 

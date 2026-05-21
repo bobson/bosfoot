@@ -2,6 +2,7 @@
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import SpecTable from "@/components/astro/SpecTable.astro";
 import PortableText from "@/components/astro/PortableText.astro";
+import ProductCard from "@/components/astro/ProductCard.astro";
 import ImageGallery from "@/components/react/ImageGallery.tsx";
 import BuyPanel from "@/components/react/BuyPanel.tsx";
 import { type Locale, LOCALES, t, pickLocale, localePath } from "@/lib/i18n";
@@ -9,6 +10,7 @@ import {
   getSiteSettings,
   getProductBySlug,
   getAllProductSlugs,
+  getProductsByBrand,
 } from "@/lib/queries";
 import { urlFor } from "@/lib/sanity";
 import { productLD, breadcrumbLD } from "@/lib/structured-data";
@@ -44,6 +46,10 @@ if (!product) {
 }
 
 const name = pickLocale(product.name, locale) ?? "Product";
+
+// Related products from the same brand, current product excluded, max 4.
+const relatedRaw = await getProductsByBrand(product.brand.slug.current);
+const related = relatedRaw.filter((p) => p._id !== product._id).slice(0, 4);
 
 // Description for this locale (Portable Text)
 const descriptionBlocks =
@@ -223,5 +229,29 @@ const breadcrumbSchema = breadcrumbLD({
         )
       }
     </div>
+
+    {/* Related — more from the same brand */}
+    {
+      related.length >= 1 && (
+        <section class="pt-12 md:pt-16 pb-4 border-t border-border-subtle">
+          <div class="flex items-end justify-between flex-wrap gap-4 mb-8 md:mb-10">
+            <h2 class="text-xl md:text-2xl font-semibold tracking-tight text-foreground m-0">
+              {t("detail.relatedTitle", locale)} {product.brand.name}
+            </h2>
+            <a
+              href={`${localePath(locale, "brands")}/${product.brand.slug.current}`}
+              class="text-sm text-muted-foreground whitespace-nowrap transition-colors hover:text-brand"
+            >
+              {t("detail.viewAllFromBrand", locale)} {product.brand.name} →
+            </a>
+          </div>
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4">
+            {related.map((p) => (
+              <ProductCard product={p} locale={locale} />
+            ))}
+          </div>
+        </section>
+      )
+    }
   </div>
 </BaseLayout>

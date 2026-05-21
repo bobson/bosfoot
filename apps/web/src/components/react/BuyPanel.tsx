@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { type Locale, t, pickLocale } from "@/lib/i18n";
 import type { ProductDetail, SizeChart } from "@/lib/queries";
 import { addToCart, openCart } from "@/lib/cart";
@@ -62,6 +62,23 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
   const [sizeChartOpen, setSizeChartOpen] = useState(false);
   const [adding, setAdding] = useState(false);
+  const [showStickyBar, setShowStickyBar] = useState(false);
+
+  const inlineAddBtnRef = useRef<HTMLButtonElement>(null);
+  const sizePickerRef = useRef<HTMLDivElement>(null);
+
+  // Show the mobile sticky bar only when the inline Add-to-cart button is out
+  // of view. Single IntersectionObserver per page, cleaned up on unmount.
+  useEffect(() => {
+    const target = inlineAddBtnRef.current;
+    if (!target) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowStickyBar(!entry.isIntersecting),
+      { threshold: 0 },
+    );
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
 
   const selectedColor = useMemo(
     () => colorGroups.find((c) => c.hex === selectedColorHex),
@@ -210,7 +227,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
 
         {/* Size picker */}
         {sizesForColor.length > 0 && (
-          <div>
+          <div ref={sizePickerRef} className="scroll-mt-24">
             <div className="flex items-baseline justify-between mb-3">
               <h3 className="text-sm font-medium">
                 {t("detail.size", locale)}
@@ -262,6 +279,7 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
 
         {/* Add to cart */}
         <Button
+          ref={inlineAddBtnRef}
           type="button"
           size="lg"
           onClick={onAddToCart}
@@ -302,6 +320,54 @@ export default function BuyPanel({ product, locale, mainImageUrl }: Props) {
           locale={locale}
         />
       )}
+
+      {/* Mobile sticky buy bar — appears once the inline Add-to-cart scrolls
+          out of view. Hidden on md+ where the desktop sticky BuyPanel column
+          keeps the inline button visible anyway. */}
+      <div
+        className={cn(
+          "md:hidden fixed inset-x-0 bottom-0 z-40 bg-background/95 backdrop-blur border-t border-border shadow-[0_-4px_16px_-8px_rgba(0,0,0,0.15)] transition-transform duration-200 ease-out",
+          showStickyBar ? "translate-y-0" : "translate-y-full",
+        )}
+        style={{ paddingBottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+        aria-hidden={!showStickyBar}
+      >
+        <div className="container-page flex items-center gap-3 py-3">
+          <Price
+            amount={product.price}
+            locale={locale}
+            align="start"
+            primaryClassName="text-base font-semibold leading-tight"
+            secondaryClassName="text-xs leading-tight"
+            className="min-w-0 flex-shrink-0"
+          />
+          <Button
+            type="button"
+            size="lg"
+            onClick={() => {
+              if (!selectedVariant) {
+                sizePickerRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
+              } else {
+                onAddToCart();
+              }
+            }}
+            disabled={adding}
+            className={cn(
+              "flex-1 h-12 text-sm font-medium hover:bg-primary/90",
+              adding && "bg-success text-white hover:bg-success disabled:opacity-100",
+            )}
+          >
+            {!selectedVariant
+              ? t("detail.selectSize", locale)
+              : adding
+                ? "✓"
+                : t("cta.addToCart", locale)}
+          </Button>
+        </div>
+      </div>
     </>
   );
 }

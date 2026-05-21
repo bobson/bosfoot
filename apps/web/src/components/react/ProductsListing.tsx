@@ -416,6 +416,24 @@ export default function ProductsListing({ products, locale }: Props) {
         </SheetContent>
       </Sheet>
 
+      {/* Skeleton grid — only visible while data-bf-filter-pending is set
+          on <html> (see CSS in [lang]/products/index.astro). Replaces the
+          brief whitespace gap during hydration when the URL has filters. */}
+      <div
+        data-products-skeleton
+        aria-hidden
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-6 md:gap-y-12"
+      >
+        {Array.from({ length: 12 }).map((_, i) => (
+          <div key={i} className="flex flex-col">
+            <div className="aspect-square w-full bg-muted rounded-md animate-pulse" />
+            <div className="mt-3 h-3 w-1/3 bg-muted rounded animate-pulse" />
+            <div className="mt-2 h-4 w-3/4 bg-muted rounded animate-pulse" />
+            <div className="mt-3 h-5 w-1/4 bg-muted rounded animate-pulse" />
+          </div>
+        ))}
+      </div>
+
       {/* Product grid */}
       {filtered.length === 0 ? (
         <div
