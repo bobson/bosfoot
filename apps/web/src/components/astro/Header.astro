@@ -3,6 +3,7 @@ import {
   type Locale,
   LOCALES,
   LOCALE_SHORT_LABELS,
+  LOCALE_FLAGS,
   localePath,
   switchLocale,
   t,
@@ -37,8 +38,11 @@ const localeLinks = LOCALES.map((lang) => ({
   lang,
   href: switchLocale(currentPath, lang),
   label: LOCALE_SHORT_LABELS[lang],
+  flag: LOCALE_FLAGS[lang],
   isActive: lang === locale,
 }));
+
+const activeLocale = localeLinks.find((l) => l.isActive)!;
 ---
 
 <header
@@ -99,45 +103,97 @@ const localeLinks = LOCALES.map((lang) => ({
         </svg>
       </button>
 
-      <!-- Mobile: native select (no chevron) — native UX, no JS -->
-      <select
-        class="md:hidden appearance-none bg-transparent border border-border rounded-sm text-foreground text-xs font-medium px-2.5 py-1.5 leading-none text-center cursor-pointer focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-1"
-        style="text-align-last: center;"
+      <!-- Mobile: custom dropdown (button + animated panel) -->
+      <div class="md:hidden relative" data-lang-switcher>
+        <button
+          type="button"
+          class="inline-flex items-center gap-1.5 border border-border rounded-sm text-foreground text-xs font-medium pl-2 pr-1.5 py-1.5 leading-none cursor-pointer transition-colors hover:bg-secondary outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          aria-haspopup="listbox"
+          aria-expanded="false"
+          aria-label="Language"
+          data-lang-trigger
+        >
+          <span class="emoji-font text-sm leading-none" aria-hidden="true">{activeLocale.flag}</span>
+          <span class="tracking-wide">{activeLocale.label}</span>
+          <svg
+            width="10"
+            height="10"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="transition-transform duration-200 opacity-70"
+            data-lang-chevron
+            aria-hidden="true"
+          >
+            <polyline points="3 4.5 6 7.5 9 4.5"></polyline>
+          </svg>
+        </button>
+
+        <ul
+          role="listbox"
+          aria-label="Language"
+          class="absolute right-0 top-full mt-1.5 min-w-[7rem] origin-top-right bg-popover border border-border rounded-md shadow-lg py-1 z-40 opacity-0 scale-95 -translate-y-1 pointer-events-none transition duration-150 ease-out"
+          data-lang-panel
+        >
+          {
+            localeLinks.map((opt) => (
+              <li role="none">
+                <a
+                  href={opt.href}
+                  role="option"
+                  aria-selected={opt.isActive ? "true" : "false"}
+                  hreflang={opt.lang}
+                  class:list={[
+                    "flex items-center gap-2.5 px-3 py-2 text-xs transition-colors",
+                    opt.isActive
+                      ? "text-foreground font-semibold bg-secondary"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/60",
+                  ]}
+                >
+                  <span class="emoji-font text-base leading-none" aria-hidden="true">
+                    {opt.flag}
+                  </span>
+                  <span class="tracking-wide">{opt.label}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Desktop: inline switcher — flag stacked over letter -->
+      <div
+        class="hidden md:flex items-center gap-2"
         aria-label="Language"
-        onchange="if(this.value){window.location.href=this.value;}"
       >
         {
           localeLinks.map((opt) => (
-            <option value={opt.href} selected={opt.isActive}>
-              {opt.label}
-            </option>
-          ))
-        }
-      </select>
-
-      <!-- Desktop: inline switcher -->
-      <div
-        class="hidden md:flex items-center gap-1 text-xs"
-        aria-label="Language"
-      >
-        {
-          localeLinks.map((opt, i) => (
-            <>
-              {i > 0 && <span class="text-ink-subtle">·</span>}
-              <a
-                href={opt.href}
+            <a
+              href={opt.href}
+              class:list={[
+                "flex flex-col items-center leading-none px-1 py-0.5 rounded-sm transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring",
+                opt.isActive
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground",
+              ]}
+              hreflang={opt.lang}
+              aria-current={opt.isActive ? "true" : undefined}
+            >
+              <span class="emoji-font text-base leading-none" aria-hidden="true">
+                {opt.flag}
+              </span>
+              <span
                 class:list={[
-                  "px-1 transition-colors",
-                  opt.isActive
-                    ? "font-medium text-foreground"
-                    : "text-muted-foreground hover:text-foreground",
+                  "text-[10px] mt-0.5 tracking-wide",
+                  opt.isActive ? "font-semibold" : "font-medium",
                 ]}
-                hreflang={opt.lang}
-                aria-current={opt.isActive ? "true" : undefined}
               >
                 {opt.label}
-              </a>
-            </>
+              </span>
+            </a>
           ))
         }
       </div>
@@ -149,3 +205,63 @@ const localeLinks = LOCALES.map((lang) => ({
 
 <!-- Search overlay — mounted globally, hidden until search:open event fires -->
 <SearchOverlay locale={locale} client:idle />
+
+<script>
+  // Re-runs on every ClientRouter swap (header DOM is replaced on each page).
+  // We track the previous binding so document-level listeners don't stack.
+  let cleanup: (() => void) | null = null;
+
+  const setup = () => {
+    cleanup?.();
+    cleanup = null;
+
+    const root = document.querySelector<HTMLElement>("[data-lang-switcher]");
+    if (!root) return;
+    const trigger = root.querySelector<HTMLButtonElement>("[data-lang-trigger]");
+    const panel = root.querySelector<HTMLElement>("[data-lang-panel]");
+    const chevron = root.querySelector<SVGElement>("[data-lang-chevron]");
+    if (!trigger || !panel || !chevron) return;
+
+    const OPEN = ["opacity-100", "scale-100", "translate-y-0", "pointer-events-auto"];
+    const CLOSED = ["opacity-0", "scale-95", "-translate-y-1", "pointer-events-none"];
+
+    const setOpen = (open: boolean) => {
+      trigger.setAttribute("aria-expanded", String(open));
+      if (open) {
+        panel.classList.remove(...CLOSED);
+        panel.classList.add(...OPEN);
+        chevron.classList.add("rotate-180");
+      } else {
+        panel.classList.remove(...OPEN);
+        panel.classList.add(...CLOSED);
+        chevron.classList.remove("rotate-180");
+      }
+    };
+
+    const onTrigger = (e: MouseEvent) => {
+      e.stopPropagation();
+      setOpen(trigger.getAttribute("aria-expanded") !== "true");
+    };
+    const onDocClick = (e: MouseEvent) => {
+      if (!root.contains(e.target as Node)) setOpen(false);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        trigger.focus();
+      }
+    };
+
+    trigger.addEventListener("click", onTrigger);
+    document.addEventListener("click", onDocClick);
+    document.addEventListener("keydown", onKey);
+
+    cleanup = () => {
+      trigger.removeEventListener("click", onTrigger);
+      document.removeEventListener("click", onDocClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  };
+
+  document.addEventListener("astro:page-load", setup);
+</script>

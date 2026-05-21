@@ -37,6 +37,7 @@ interface Props {
 export default function CartDrawer({ locale }: Props) {
   const [cart, setCart] = useState<Cart>({ items: [], updatedAt: "" });
   const [open, setOpen] = useState(false);
+  const [checkoutPending, setCheckoutPending] = useState(false);
 
   useEffect(() => {
     setCart(readCart());
@@ -50,6 +51,22 @@ export default function CartDrawer({ locale }: Props) {
     };
   }, []);
 
+  // After every ClientRouter navigation, reset pending state and force-clear
+  // any body scroll lock Radix Dialog might have left behind. Without this the
+  // checkout page lands with `body { overflow: hidden }` and is unscrollable
+  // on mobile until a focusable element is tapped.
+  useEffect(() => {
+    const onSwap = () => {
+      setCheckoutPending(false);
+      setOpen(false);
+      document.body.style.removeProperty("overflow");
+      document.body.style.removeProperty("pointer-events");
+      document.body.removeAttribute("data-scroll-locked");
+    };
+    document.addEventListener("astro:after-swap", onSwap);
+    return () => document.removeEventListener("astro:after-swap", onSwap);
+  }, []);
+
   const total = subtotal(cart);
   const isEmpty = cart.items.length === 0;
   const itemCount = cart.items.reduce((s, i) => s + i.quantity, 0);
@@ -58,7 +75,7 @@ export default function CartDrawer({ locale }: Props) {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetContent
         side="right"
-        className="data-[side=right]:w-full data-[side=right]:sm:max-w-[420px] p-0 gap-0"
+        className="data-[side=right]:w-[85%] data-[side=right]:sm:w-full data-[side=right]:sm:max-w-[420px] p-0 gap-0"
       >
         <SheetHeader className="px-5 py-4 border-b border-border">
           <SheetTitle className="text-lg font-semibold tracking-tight">
@@ -116,7 +133,7 @@ export default function CartDrawer({ locale }: Props) {
                   <a
                     href={localePath(locale, "products", item.slug)}
                     onClick={() => setOpen(false)}
-                    className="block w-20 h-20 flex-shrink-0 rounded-md overflow-hidden bg-secondary"
+                    className="block w-20 h-20 shrink-0 rounded-md overflow-hidden bg-secondary"
                   >
                     {item.image ? (
                       <img
@@ -130,29 +147,21 @@ export default function CartDrawer({ locale }: Props) {
                     )}
                   </a>
 
-                  <div className="flex-1 min-w-0">
-                    <div className="text-xs uppercase tracking-wider text-muted-foreground">
-                      {item.brand}
-                    </div>
+                  <div className="flex-1 min-w-0 flex items-start justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <div className="text-xs uppercase tracking-wider text-muted-foreground truncate">
+                        {item.brand}
+                      </div>
 
-                    <div className="flex items-start justify-between gap-3">
                       <a
                         href={localePath(locale, "products", item.slug)}
                         onClick={() => setOpen(false)}
-                        className="block text-sm font-medium leading-snug truncate text-foreground hover:text-brand transition-colors min-w-0"
+                        className="block text-sm font-medium leading-snug truncate text-foreground hover:text-brand transition-colors mt-0.5"
                       >
                         {item.name}
                       </a>
-                      <Price
-                        amount={item.price * item.quantity}
-                        locale={locale}
-                        align="end"
-                        className="whitespace-nowrap flex-shrink-0"
-                        primaryClassName="text-sm font-medium text-foreground"
-                      />
-                    </div>
 
-                    <div className="text-xs text-muted-foreground mt-1 flex items-center gap-2">
+                      <div className="text-xs text-muted-foreground mt-1 flex items-center gap-2">
                       <span>
                         {t("cart.size", locale)} {item.sizeEU}
                       </span>
@@ -189,7 +198,7 @@ export default function CartDrawer({ locale }: Props) {
                         >
                           −
                         </button>
-                        <span className="px-2 text-sm min-w-[20px] text-center">
+                        <span className="px-2 text-sm min-w-5 text-center">
                           {item.quantity}
                         </span>
                         <button
@@ -213,11 +222,38 @@ export default function CartDrawer({ locale }: Props) {
                         onClick={() =>
                           removeFromCart(item.productSku, item.variantSku)
                         }
-                        className="text-xs text-muted-foreground hover:text-destructive transition-colors"
+                        className="ml-auto inline-flex items-center justify-center w-8 h-8 text-muted-foreground hover:text-destructive transition-colors rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                        aria-label={t("cart.remove", locale)}
+                        title={t("cart.remove", locale)}
                       >
-                        {t("cart.remove", locale)}
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden
+                        >
+                          <polyline points="3 6 5 6 21 6" />
+                          <path d="M19 6l-1.5 14a2 2 0 0 1-2 1.8h-7a2 2 0 0 1-2-1.8L5 6" />
+                          <path d="M10 11v6" />
+                          <path d="M14 11v6" />
+                          <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                        </svg>
                       </button>
                     </div>
+                    </div>
+
+                    <Price
+                      amount={item.price * item.quantity}
+                      locale={locale}
+                      align="end"
+                      className="whitespace-nowrap shrink-0"
+                      primaryClassName="text-sm font-medium text-foreground"
+                    />
                   </div>
                 </li>
               ))}
@@ -239,8 +275,28 @@ export default function CartDrawer({ locale }: Props) {
               <p className="text-xs text-muted-foreground">
                 {t("cart.shippingNote", locale)}
               </p>
-              <Button asChild className="w-full">
-                <a href={localePath(locale, "checkout")}>
+              <Button
+                asChild
+                className="w-full h-9 text-base md:text-sm aria-disabled:opacity-60 aria-disabled:pointer-events-none"
+              >
+                <a
+                  href={localePath(locale, "checkout")}
+                  aria-disabled={checkoutPending}
+                  onClick={(e) => {
+                    if (checkoutPending) {
+                      e.preventDefault();
+                      return;
+                    }
+                    setCheckoutPending(true);
+                    setOpen(false);
+                  }}
+                >
+                  {checkoutPending && (
+                    <span
+                      className="inline-block w-4 h-4 rounded-full border-2 border-current border-r-transparent animate-spin mr-2"
+                      aria-hidden
+                    />
+                  )}
                   {t("cart.checkout", locale)}
                 </a>
               </Button>

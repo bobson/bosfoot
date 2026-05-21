@@ -29,6 +29,12 @@ export const LOCALE_SHORT_LABELS: Record<Locale, string> = {
   en: 'EN',
 }
 
+export const LOCALE_FLAGS: Record<Locale, string> = {
+  mk: '🇲🇰',
+  sq: '🇦🇱',
+  en: '🇬🇧',
+}
+
 /**
  * URL path segments. We use English slugs across all locales for v1.
  * This trades a small SEO benefit for significant routing simplicity.

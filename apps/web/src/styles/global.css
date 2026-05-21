@@ -212,6 +212,13 @@
   @media (min-width: 768px) {
     .container-page { padding-inline: 2rem; }
   }
+
+  /* Force system emoji font so flag emojis (🇲🇰 🇦🇱 🇬🇧) render in color
+     even on systems where the page font (IBM Plex Sans) lacks emoji glyphs. */
+  .emoji-font {
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji',
+      'Twemoji Mozilla', 'EmojiOne Color', 'Android Emoji', sans-serif;
+  }
 }
 
 /* ── shadcn token bridge ─────────────────────────────────────

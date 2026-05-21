@@ -17,6 +17,7 @@ interface LocaleLink {
   lang: string;
   href: string;
   label: string;
+  flag: string;
   isActive: boolean;
 }
 
@@ -81,26 +82,34 @@ export default function MobileNav({
         </nav>
 
         <div
-          className="flex items-center gap-1 px-5 py-4 text-xs"
+          className="flex items-center gap-3 px-5 py-4"
           aria-label="Language"
         >
-          {localeLinks.map((opt, i) => (
-            <span key={opt.lang} className="contents">
-              {i > 0 && <span className="text-ink-subtle">·</span>}
-              <a
-                href={opt.href}
-                hrefLang={opt.lang}
-                aria-current={opt.isActive ? "true" : undefined}
+          {localeLinks.map((opt) => (
+            <a
+              key={opt.lang}
+              href={opt.href}
+              hrefLang={opt.lang}
+              aria-current={opt.isActive ? "true" : undefined}
+              className={
+                "flex flex-col items-center leading-none px-1.5 py-1 rounded-sm transition-colors " +
+                (opt.isActive
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground")
+              }
+            >
+              <span className="emoji-font text-lg leading-none" aria-hidden>
+                {opt.flag}
+              </span>
+              <span
                 className={
-                  "px-1.5 py-0.5 transition-colors " +
-                  (opt.isActive
-                    ? "font-semibold text-foreground"
-                    : "text-muted-foreground hover:text-foreground")
+                  "text-[11px] mt-1 tracking-wide " +
+                  (opt.isActive ? "font-semibold" : "font-medium")
                 }
               >
                 {opt.label}
-              </a>
-            </span>
+              </span>
+            </a>
           ))}
         </div>
       </SheetContent>
