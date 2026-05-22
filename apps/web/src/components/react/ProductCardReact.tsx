@@ -16,7 +16,12 @@ interface Props {
 export default function ProductCardReact({ product, locale }: Props) {
   const name = pickLocale(product.name, locale) ?? "Unnamed";
   const slug = productSlug(product, locale);
-  const href = localePath(locale, "products", slug);
+  const href = localePath(
+    locale,
+    "products",
+    product.brand.slug.current,
+    slug,
+  );
   const inStock = totalStock(product) > 0;
   const onSale =
     product.compareAtPrice && product.compareAtPrice > product.price;

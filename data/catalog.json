@@ -1,75 +1,6 @@
 {
   "brands": [
     {
-      "slug": "xero-shoes",
-      "name": "Xero Shoes",
-      "countryOfOrigin": "US",
-      "yearFounded": 2009,
-      "websiteUrl": "https://xeroshoes.eu",
-      "sizingGuideUrl": "https://xeroshoes.eu/pages/size-charts",
-      "featured": true,
-      "order": 1,
-      "description": {
-        "mk": "Американски бренд за босоноги патики основан во 2009 година во Колорадо. Xero Shoes прават патики и сандали со широк простор за прстите, нула надолен пад и тенки флексибилни ѓонови.",
-        "sq": "Markë amerikane e këpucëve barefoot, e themeluar në vitin 2009 në Kolorado. Xero Shoes prodhon këpucë dhe sandale me hapësirë të gjerë për gishtërinjtë, zero drop dhe shollë të hollë fleksibël.",
-        "en": "American barefoot shoe brand founded in 2009 in Colorado. Xero Shoes makes shoes and sandals with wide toe boxes, zero drop, and thin flexible soles."
-      },
-      "sizeChart": {
-        "measurementType": "footLengthMM",
-        "rows": [
-          {
-            "sizeEU": 36,
-            "lengthMM": 225
-          },
-          {
-            "sizeEU": 37,
-            "lengthMM": 230
-          },
-          {
-            "sizeEU": 38,
-            "lengthMM": 235
-          },
-          {
-            "sizeEU": 39,
-            "lengthMM": 245
-          },
-          {
-            "sizeEU": 40,
-            "lengthMM": 250
-          },
-          {
-            "sizeEU": 41,
-            "lengthMM": 260
-          },
-          {
-            "sizeEU": 42,
-            "lengthMM": 270
-          },
-          {
-            "sizeEU": 43,
-            "lengthMM": 280
-          },
-          {
-            "sizeEU": 44,
-            "lengthMM": 290
-          },
-          {
-            "sizeEU": 45,
-            "lengthMM": 300
-          },
-          {
-            "sizeEU": 46,
-            "lengthMM": 310
-          }
-        ],
-        "notes": {
-          "mk": "Должините се за стапалото. Xero препорачува околу 12-15мм слободен простор пред најдолгиот прст. Ако сте помеѓу две големини, изберете ја поголемата.",
-          "sq": "Gjatësitë janë për këmbën. Xero rekomandon rreth 12-15mm hapësirë para gishtit më të gjatë. Nëse jeni midis dy madhësive, zgjidhni më të madhen.",
-          "en": "Lengths refer to your foot. Xero recommends about 12-15mm of space in front of your longest toe. If you're between two sizes, pick the larger one."
-        }
-      }
-    },
-    {
       "slug": "freet",
       "name": "Freet",
       "countryOfOrigin": "GB",
@@ -77,7 +8,7 @@
       "websiteUrl": "https://freetbarefoot.com",
       "sizingGuideUrl": "https://freetbarefoot.com/pages/size-guide",
       "featured": true,
-      "order": 6,
+      "order": 1,
       "description": {
         "mk": "Британски бренд за босоноги патики основан во 2010 година во Северен Јоркшир од Ендру и Сара. Дизајниран за надворешна употреба — планинарење, трчање на патеки, тренинг и секојдневен живот — со широк простор за прстите, флексибилни ѓонови и нула надолен пад. Користи рециклирани материјали (BottleYarn, CoffeeYarn) и трае.",
         "sq": "Markë britanike e këpucëve barefoot, e themeluar në vitin 2010 në Yorkshire-in e Veriut nga Andrew dhe Sarah. E dizajnuar për përdorim në natyrë — alpinizëm, vrapim në shtigje, trajnim dhe jetë të përditshme — me hapësirë të gjerë për gishtërinjtë, shollë fleksibël dhe zero drop. Përdor materiale të ricikluara (BottleYarn, CoffeeYarn) dhe ndërtohet për të zgjatur.",
@@ -137,6 +68,75 @@
           "en": "Lengths refer to your foot. Freet recommends a comfortable fit — most customers wear their usual size."
         }
       }
+    },
+    {
+      "slug": "xero-shoes",
+      "name": "Xero Shoes",
+      "countryOfOrigin": "US",
+      "yearFounded": 2009,
+      "websiteUrl": "https://xeroshoes.eu",
+      "sizingGuideUrl": "https://xeroshoes.eu/pages/size-charts",
+      "featured": true,
+      "order": 2,
+      "description": {
+        "mk": "Американски бренд за босоноги патики основан во 2009 година во Колорадо. Xero Shoes прават патики и сандали со широк простор за прстите, нула надолен пад и тенки флексибилни ѓонови.",
+        "sq": "Markë amerikane e këpucëve barefoot, e themeluar në vitin 2009 në Kolorado. Xero Shoes prodhon këpucë dhe sandale me hapësirë të gjerë për gishtërinjtë, zero drop dhe shollë të hollë fleksibël.",
+        "en": "American barefoot shoe brand founded in 2009 in Colorado. Xero Shoes makes shoes and sandals with wide toe boxes, zero drop, and thin flexible soles."
+      },
+      "sizeChart": {
+        "measurementType": "footLengthMM",
+        "rows": [
+          {
+            "sizeEU": 36,
+            "lengthMM": 225
+          },
+          {
+            "sizeEU": 37,
+            "lengthMM": 230
+          },
+          {
+            "sizeEU": 38,
+            "lengthMM": 235
+          },
+          {
+            "sizeEU": 39,
+            "lengthMM": 245
+          },
+          {
+            "sizeEU": 40,
+            "lengthMM": 250
+          },
+          {
+            "sizeEU": 41,
+            "lengthMM": 260
+          },
+          {
+            "sizeEU": 42,
+            "lengthMM": 270
+          },
+          {
+            "sizeEU": 43,
+            "lengthMM": 280
+          },
+          {
+            "sizeEU": 44,
+            "lengthMM": 290
+          },
+          {
+            "sizeEU": 45,
+            "lengthMM": 300
+          },
+          {
+            "sizeEU": 46,
+            "lengthMM": 310
+          }
+        ],
+        "notes": {
+          "mk": "Должините се за стапалото. Xero препорачува околу 12-15мм слободен простор пред најдолгиот прст. Ако сте помеѓу две големини, изберете ја поголемата.",
+          "sq": "Gjatësitë janë për këmbën. Xero rekomandon rreth 12-15mm hapësirë para gishtit më të gjatë. Nëse jeni midis dy madhësive, zgjidhni më të madhen.",
+          "en": "Lengths refer to your foot. Xero recommends about 12-15mm of space in front of your longest toe. If you're between two sizes, pick the larger one."
+        }
+      }
     }
   ],
   "categories": [
@@ -170,7 +170,7 @@
   ],
   "products": [
     {
-      "sku": "XR-HFS2",
+      "sku": "hfs-2",
       "brandSlug": "xero-shoes",
       "categorySlugs": [
         "running",
@@ -248,7 +248,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 3,
-          "sku": "XR-HFS2-BLK-40"
+          "sku": "hfs-2-blk-40"
         },
         {
           "sizeEU": 41,
@@ -259,7 +259,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 5,
-          "sku": "XR-HFS2-BLK-41"
+          "sku": "hfs-2-blk-41"
         },
         {
           "sizeEU": 42,
@@ -270,7 +270,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 4,
-          "sku": "XR-HFS2-BLK-42"
+          "sku": "hfs-2-blk-42"
         },
         {
           "sizeEU": 43,
@@ -281,12 +281,12 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 2,
-          "sku": "XR-HFS2-BLK-43"
+          "sku": "hfs-2-blk-43"
         }
       ]
     },
     {
-      "sku": "FR-CHAMOIS",
+      "sku": "chamois",
       "brandSlug": "freet",
       "categorySlugs": [],
       "name": {
@@ -332,7 +332,7 @@
           },
           "colorHex": "#4a2c1a",
           "stock": 0,
-          "sku": "FR-CHAMOIS-36"
+          "sku": "chamois-36"
         },
         {
           "sizeEU": 37,
@@ -343,7 +343,7 @@
           },
           "colorHex": "#4a2c1a",
           "stock": 0,
-          "sku": "FR-CHAMOIS-37"
+          "sku": "chamois-37"
         },
         {
           "sizeEU": 38,
@@ -354,7 +354,7 @@
           },
           "colorHex": "#4a2c1a",
           "stock": 0,
-          "sku": "FR-CHAMOIS-38"
+          "sku": "chamois-38"
         },
         {
           "sizeEU": 39,
@@ -365,7 +365,7 @@
           },
           "colorHex": "#4a2c1a",
           "stock": 0,
-          "sku": "FR-CHAMOIS-39"
+          "sku": "chamois-39"
         },
         {
           "sizeEU": 40,
@@ -376,7 +376,7 @@
           },
           "colorHex": "#4a2c1a",
           "stock": 3,
-          "sku": "FR-CHAMOIS-40"
+          "sku": "chamois-40"
         },
         {
           "sizeEU": 41,
@@ -387,7 +387,7 @@
           },
           "colorHex": "#4a2c1a",
           "stock": 5,
-          "sku": "FR-CHAMOIS-41"
+          "sku": "chamois-41"
         },
         {
           "sizeEU": 42,
@@ -398,7 +398,7 @@
           },
           "colorHex": "#4a2c1a",
           "stock": 5,
-          "sku": "FR-CHAMOIS-42"
+          "sku": "chamois-42"
         },
         {
           "sizeEU": 43,
@@ -409,7 +409,7 @@
           },
           "colorHex": "#4a2c1a",
           "stock": 4,
-          "sku": "FR-CHAMOIS-43"
+          "sku": "chamois-43"
         },
         {
           "sizeEU": 44,
@@ -420,7 +420,7 @@
           },
           "colorHex": "#4a2c1a",
           "stock": 3,
-          "sku": "FR-CHAMOIS-44"
+          "sku": "chamois-44"
         },
         {
           "sizeEU": 45,
@@ -431,7 +431,7 @@
           },
           "colorHex": "#4a2c1a",
           "stock": 0,
-          "sku": "FR-CHAMOIS-45"
+          "sku": "chamois-45"
         },
         {
           "sizeEU": 46,
@@ -442,7 +442,7 @@
           },
           "colorHex": "#4a2c1a",
           "stock": 0,
-          "sku": "FR-CHAMOIS-46"
+          "sku": "chamois-46"
         }
       ],
       "sizeAndFit": {
@@ -472,7 +472,7 @@
       "status": "active"
     },
     {
-      "sku": "FR-KELD3",
+      "sku": "keld-3",
       "brandSlug": "freet",
       "categorySlugs": [],
       "name": {
@@ -513,7 +513,7 @@
           },
           "colorHex": "#5e6b3f",
           "stock": 0,
-          "sku": "FR-KELD3-36"
+          "sku": "keld-3-36"
         },
         {
           "sizeEU": 37,
@@ -524,7 +524,7 @@
           },
           "colorHex": "#5e6b3f",
           "stock": 0,
-          "sku": "FR-KELD3-37"
+          "sku": "keld-3-37"
         },
         {
           "sizeEU": 38,
@@ -535,7 +535,7 @@
           },
           "colorHex": "#5e6b3f",
           "stock": 0,
-          "sku": "FR-KELD3-38"
+          "sku": "keld-3-38"
         },
         {
           "sizeEU": 39,
@@ -546,7 +546,7 @@
           },
           "colorHex": "#5e6b3f",
           "stock": 0,
-          "sku": "FR-KELD3-39"
+          "sku": "keld-3-39"
         },
         {
           "sizeEU": 40,
@@ -557,7 +557,7 @@
           },
           "colorHex": "#5e6b3f",
           "stock": 3,
-          "sku": "FR-KELD3-40"
+          "sku": "keld-3-40"
         },
         {
           "sizeEU": 41,
@@ -568,7 +568,7 @@
           },
           "colorHex": "#5e6b3f",
           "stock": 5,
-          "sku": "FR-KELD3-41"
+          "sku": "keld-3-41"
         },
         {
           "sizeEU": 42,
@@ -579,7 +579,7 @@
           },
           "colorHex": "#5e6b3f",
           "stock": 5,
-          "sku": "FR-KELD3-42"
+          "sku": "keld-3-42"
         },
         {
           "sizeEU": 43,
@@ -590,7 +590,7 @@
           },
           "colorHex": "#5e6b3f",
           "stock": 4,
-          "sku": "FR-KELD3-43"
+          "sku": "keld-3-43"
         },
         {
           "sizeEU": 44,
@@ -601,7 +601,7 @@
           },
           "colorHex": "#5e6b3f",
           "stock": 3,
-          "sku": "FR-KELD3-44"
+          "sku": "keld-3-44"
         },
         {
           "sizeEU": 45,
@@ -612,7 +612,7 @@
           },
           "colorHex": "#5e6b3f",
           "stock": 0,
-          "sku": "FR-KELD3-45"
+          "sku": "keld-3-45"
         },
         {
           "sizeEU": 46,
@@ -623,7 +623,7 @@
           },
           "colorHex": "#5e6b3f",
           "stock": 0,
-          "sku": "FR-KELD3-46"
+          "sku": "keld-3-46"
         }
       ],
       "sizeAndFit": {
@@ -655,7 +655,7 @@
       "status": "active"
     },
     {
-      "sku": "FR-RICHMOND2",
+      "sku": "richmond-2",
       "brandSlug": "freet",
       "categorySlugs": [],
       "name": {
@@ -701,7 +701,7 @@
           },
           "colorHex": "#5a3825",
           "stock": 0,
-          "sku": "FR-RICHMOND2-36"
+          "sku": "richmond-2-36"
         },
         {
           "sizeEU": 37,
@@ -712,7 +712,7 @@
           },
           "colorHex": "#5a3825",
           "stock": 0,
-          "sku": "FR-RICHMOND2-37"
+          "sku": "richmond-2-37"
         },
         {
           "sizeEU": 38,
@@ -723,7 +723,7 @@
           },
           "colorHex": "#5a3825",
           "stock": 0,
-          "sku": "FR-RICHMOND2-38"
+          "sku": "richmond-2-38"
         },
         {
           "sizeEU": 39,
@@ -734,7 +734,7 @@
           },
           "colorHex": "#5a3825",
           "stock": 0,
-          "sku": "FR-RICHMOND2-39"
+          "sku": "richmond-2-39"
         },
         {
           "sizeEU": 40,
@@ -745,7 +745,7 @@
           },
           "colorHex": "#5a3825",
           "stock": 3,
-          "sku": "FR-RICHMOND2-40"
+          "sku": "richmond-2-40"
         },
         {
           "sizeEU": 41,
@@ -756,7 +756,7 @@
           },
           "colorHex": "#5a3825",
           "stock": 5,
-          "sku": "FR-RICHMOND2-41"
+          "sku": "richmond-2-41"
         },
         {
           "sizeEU": 42,
@@ -767,7 +767,7 @@
           },
           "colorHex": "#5a3825",
           "stock": 5,
-          "sku": "FR-RICHMOND2-42"
+          "sku": "richmond-2-42"
         },
         {
           "sizeEU": 43,
@@ -778,7 +778,7 @@
           },
           "colorHex": "#5a3825",
           "stock": 4,
-          "sku": "FR-RICHMOND2-43"
+          "sku": "richmond-2-43"
         },
         {
           "sizeEU": 44,
@@ -789,7 +789,7 @@
           },
           "colorHex": "#5a3825",
           "stock": 3,
-          "sku": "FR-RICHMOND2-44"
+          "sku": "richmond-2-44"
         },
         {
           "sizeEU": 45,
@@ -800,7 +800,7 @@
           },
           "colorHex": "#5a3825",
           "stock": 0,
-          "sku": "FR-RICHMOND2-45"
+          "sku": "richmond-2-45"
         },
         {
           "sizeEU": 46,
@@ -811,7 +811,7 @@
           },
           "colorHex": "#5a3825",
           "stock": 0,
-          "sku": "FR-RICHMOND2-46"
+          "sku": "richmond-2-46"
         }
       ],
       "sizeAndFit": {
@@ -842,7 +842,7 @@
       "status": "active"
     },
     {
-      "sku": "FR-VIBE2",
+      "sku": "vibe-2",
       "brandSlug": "freet",
       "categorySlugs": [],
       "name": {
@@ -888,7 +888,7 @@
           },
           "colorHex": "#f0f0eb",
           "stock": 0,
-          "sku": "FR-VIBE2-WHITE-36"
+          "sku": "vibe-2-white-36"
         },
         {
           "sizeEU": 37,
@@ -899,7 +899,7 @@
           },
           "colorHex": "#f0f0eb",
           "stock": 0,
-          "sku": "FR-VIBE2-WHITE-37"
+          "sku": "vibe-2-white-37"
         },
         {
           "sizeEU": 38,
@@ -910,7 +910,7 @@
           },
           "colorHex": "#f0f0eb",
           "stock": 0,
-          "sku": "FR-VIBE2-WHITE-38"
+          "sku": "vibe-2-white-38"
         },
         {
           "sizeEU": 39,
@@ -921,7 +921,7 @@
           },
           "colorHex": "#f0f0eb",
           "stock": 0,
-          "sku": "FR-VIBE2-WHITE-39"
+          "sku": "vibe-2-white-39"
         },
         {
           "sizeEU": 40,
@@ -932,7 +932,7 @@
           },
           "colorHex": "#f0f0eb",
           "stock": 3,
-          "sku": "FR-VIBE2-WHITE-40"
+          "sku": "vibe-2-white-40"
         },
         {
           "sizeEU": 41,
@@ -943,7 +943,7 @@
           },
           "colorHex": "#f0f0eb",
           "stock": 5,
-          "sku": "FR-VIBE2-WHITE-41"
+          "sku": "vibe-2-white-41"
         },
         {
           "sizeEU": 42,
@@ -954,7 +954,7 @@
           },
           "colorHex": "#f0f0eb",
           "stock": 5,
-          "sku": "FR-VIBE2-WHITE-42"
+          "sku": "vibe-2-white-42"
         },
         {
           "sizeEU": 43,
@@ -965,7 +965,7 @@
           },
           "colorHex": "#f0f0eb",
           "stock": 4,
-          "sku": "FR-VIBE2-WHITE-43"
+          "sku": "vibe-2-white-43"
         },
         {
           "sizeEU": 44,
@@ -976,7 +976,7 @@
           },
           "colorHex": "#f0f0eb",
           "stock": 3,
-          "sku": "FR-VIBE2-WHITE-44"
+          "sku": "vibe-2-white-44"
         },
         {
           "sizeEU": 45,
@@ -987,7 +987,7 @@
           },
           "colorHex": "#f0f0eb",
           "stock": 0,
-          "sku": "FR-VIBE2-WHITE-45"
+          "sku": "vibe-2-white-45"
         },
         {
           "sizeEU": 46,
@@ -998,7 +998,7 @@
           },
           "colorHex": "#f0f0eb",
           "stock": 0,
-          "sku": "FR-VIBE2-WHITE-46"
+          "sku": "vibe-2-white-46"
         },
         {
           "sizeEU": 36,
@@ -1009,7 +1009,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-VIBE2-BLACK-36"
+          "sku": "vibe-2-black-36"
         },
         {
           "sizeEU": 37,
@@ -1020,7 +1020,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-VIBE2-BLACK-37"
+          "sku": "vibe-2-black-37"
         },
         {
           "sizeEU": 38,
@@ -1031,7 +1031,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-VIBE2-BLACK-38"
+          "sku": "vibe-2-black-38"
         },
         {
           "sizeEU": 39,
@@ -1042,7 +1042,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-VIBE2-BLACK-39"
+          "sku": "vibe-2-black-39"
         },
         {
           "sizeEU": 40,
@@ -1053,7 +1053,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 3,
-          "sku": "FR-VIBE2-BLACK-40"
+          "sku": "vibe-2-black-40"
         },
         {
           "sizeEU": 41,
@@ -1064,7 +1064,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 5,
-          "sku": "FR-VIBE2-BLACK-41"
+          "sku": "vibe-2-black-41"
         },
         {
           "sizeEU": 42,
@@ -1075,7 +1075,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 5,
-          "sku": "FR-VIBE2-BLACK-42"
+          "sku": "vibe-2-black-42"
         },
         {
           "sizeEU": 43,
@@ -1086,7 +1086,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 4,
-          "sku": "FR-VIBE2-BLACK-43"
+          "sku": "vibe-2-black-43"
         },
         {
           "sizeEU": 44,
@@ -1097,7 +1097,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 3,
-          "sku": "FR-VIBE2-BLACK-44"
+          "sku": "vibe-2-black-44"
         },
         {
           "sizeEU": 45,
@@ -1108,7 +1108,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-VIBE2-BLACK-45"
+          "sku": "vibe-2-black-45"
         },
         {
           "sizeEU": 46,
@@ -1119,7 +1119,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-VIBE2-BLACK-46"
+          "sku": "vibe-2-black-46"
         }
       ],
       "sizeAndFit": {
@@ -1151,7 +1151,7 @@
       "status": "active"
     },
     {
-      "sku": "FR-YORK2",
+      "sku": "york-2",
       "brandSlug": "freet",
       "categorySlugs": [],
       "name": {
@@ -1197,7 +1197,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-YORK2-36"
+          "sku": "york-2-36"
         },
         {
           "sizeEU": 37,
@@ -1208,7 +1208,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-YORK2-37"
+          "sku": "york-2-37"
         },
         {
           "sizeEU": 38,
@@ -1219,7 +1219,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-YORK2-38"
+          "sku": "york-2-38"
         },
         {
           "sizeEU": 39,
@@ -1230,7 +1230,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-YORK2-39"
+          "sku": "york-2-39"
         },
         {
           "sizeEU": 40,
@@ -1241,7 +1241,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 3,
-          "sku": "FR-YORK2-40"
+          "sku": "york-2-40"
         },
         {
           "sizeEU": 41,
@@ -1252,7 +1252,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 5,
-          "sku": "FR-YORK2-41"
+          "sku": "york-2-41"
         },
         {
           "sizeEU": 42,
@@ -1263,7 +1263,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 5,
-          "sku": "FR-YORK2-42"
+          "sku": "york-2-42"
         },
         {
           "sizeEU": 43,
@@ -1274,7 +1274,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 4,
-          "sku": "FR-YORK2-43"
+          "sku": "york-2-43"
         },
         {
           "sizeEU": 44,
@@ -1285,7 +1285,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 3,
-          "sku": "FR-YORK2-44"
+          "sku": "york-2-44"
         },
         {
           "sizeEU": 45,
@@ -1296,7 +1296,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-YORK2-45"
+          "sku": "york-2-45"
         },
         {
           "sizeEU": 46,
@@ -1307,7 +1307,7 @@
           },
           "colorHex": "#1a1a1a",
           "stock": 0,
-          "sku": "FR-YORK2-46"
+          "sku": "york-2-46"
         }
       ],
       "sizeAndFit": {

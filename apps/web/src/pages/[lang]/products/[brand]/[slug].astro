@@ -18,16 +18,20 @@ import { productLD, breadcrumbLD } from "@/lib/structured-data";
 export const prerender = true;
 
 /**
- * Generate one page per (locale × product slug) at build time.
+ * Generate one page per (locale × brand × product slug) at build time.
  * A product can have a different slug per language; we generate them all.
+ * Brand slug isn't localized — single segment across all languages.
  */
 export async function getStaticPaths() {
   const slugSets = await getAllProductSlugs();
-  const paths: Array<{ params: { lang: Locale; slug: string } }> = [];
+  const paths: Array<{
+    params: { lang: Locale; brand: string; slug: string };
+  }> = [];
   for (const set of slugSets) {
+    if (!set.brand) continue;
     for (const lang of LOCALES) {
       const slug = (set as Record<string, string | undefined>)[lang];
-      if (slug) paths.push({ params: { lang, slug } });
+      if (slug) paths.push({ params: { lang, brand: set.brand, slug } });
     }
   }
   return paths;

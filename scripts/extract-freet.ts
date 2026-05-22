@@ -12,8 +12,8 @@
  *       shoe.json               ← all editable fields: name, price, stock per size,
  *                                 colors, activities, status, MK/SQ/EN translations
  *       images/
- *         FR-{SHOE}.webp        ← main image (catalog importer convention)
- *         FR-{SHOE}-1.webp      ← gallery 1
+ *         {slug}.webp           ← main image (catalog importer convention)
+ *         {slug}-1.webp         ← gallery 1
  *         ...
  *
  * What this does:
@@ -50,7 +50,6 @@ const REPO_ROOT = resolve(__dirname, '..')
 const FREET_DIR = resolve(REPO_ROOT, 'data', 'freet')
 const CATALOG_PATH = resolve(REPO_ROOT, 'data', 'catalog.json')
 const BRAND_SLUG = 'freet'
-const SKU_PREFIX = 'FR'
 
 // ─── Source file shapes ───────────────────────────────────────────────
 // These mirror what the user edits in data/freet/{slug}/shoe.json.
@@ -99,7 +98,7 @@ function readJson<T>(path: string): T {
 }
 
 function shoeSlugToSku(slug: string): string {
-  return `${SKU_PREFIX}-${slug.toUpperCase().replace(/-/g, '')}`
+  return slug
 }
 
 /**
@@ -107,8 +106,8 @@ function shoeSlugToSku(slug: string): string {
  * colors, each color/size pair becomes a distinct variant.
  *
  * Variant SKU format:
- *   FR-CHAMOIS-42         (single-color shoe)
- *   FR-VIBE2-WHITE-42     (multi-color shoe)
+ *   chamois-42            (single-color shoe)
+ *   vibe-2-white-42       (multi-color shoe)
  */
 function buildVariants(masterSku: string, shoe: ShoeSource): CatalogVariant[] {
   const stock = shoe.stock ?? {}
@@ -125,7 +124,7 @@ function buildVariants(masterSku: string, shoe: ShoeSource): CatalogVariant[] {
   for (const color of colors) {
     for (const size of sizes) {
       const colorSuffix = colors.length > 1
-        ? `-${(color.name.en ?? color.name.mk ?? 'X').toUpperCase().replace(/[^A-Z0-9]/g, '')}`
+        ? `-${(color.name.en ?? color.name.mk ?? 'x').toLowerCase().replace(/[^a-z0-9]/g, '')}`
         : ''
       variants.push({
         sizeEU: size,

@@ -131,7 +131,7 @@ export default function CartDrawer({ locale }: Props) {
                   className="py-4 flex gap-3"
                 >
                   <a
-                    href={localePath(locale, "products", item.slug)}
+                    href={localePath(locale, "products", item.brandSlug, item.slug)}
                     onClick={() => setOpen(false)}
                     className="block w-20 h-20 shrink-0 rounded-md overflow-hidden bg-secondary"
                   >
@@ -154,7 +154,7 @@ export default function CartDrawer({ locale }: Props) {
                       </div>
 
                       <a
-                        href={localePath(locale, "products", item.slug)}
+                        href={localePath(locale, "products", item.brandSlug, item.slug)}
                         onClick={() => setOpen(false)}
                         className="block text-sm font-medium leading-snug truncate text-foreground hover:text-brand transition-colors mt-0.5"
                       >

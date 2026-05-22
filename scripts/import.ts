@@ -5,8 +5,10 @@
  *   pnpm catalog           Dry run — print what would happen, no writes
  *   pnpm catalog:apply   Apply changes to Sanity
  *
- * Reads data/catalog.json. Looks for product images at data/images/{sku}.{ext}.
- * Uses SKU and slug as natural keys — re-running updates existing documents.
+ * Reads data/catalog.json. Looks for product images by slug — {slug}.{ext}
+ * for the main image and {slug}-1.{ext}, {slug}-2.{ext}, ... for the gallery,
+ * anywhere under data/. The slug is derived from name.en (falling back to
+ * name.mk). SKU and slug are natural keys, so re-running updates existing docs.
  */
 
 import { readFileSync } from 'node:fs'
@@ -303,8 +305,9 @@ async function buildPlan(catalog: Catalog): Promise<PlanItem[]> {
     const newDoc = buildProductDoc(p)
     const existingDoc = existing.get(newDoc._id)
 
-    const imagePath = findProductImage(p.sku, DATA_DIR)
-    const galleryPaths = findGalleryImages(p.sku, DATA_DIR)
+    const imageSlug = asciifySlug(p.name.en ?? p.name.mk)
+    const imagePath = findProductImage(imageSlug, DATA_DIR)
+    const galleryPaths = findGalleryImages(imageSlug, DATA_DIR)
 
     if (!existingDoc) {
       plan.push({
@@ -328,6 +331,25 @@ async function buildPlan(catalog: Catalog): Promise<PlanItem[]> {
       if (existingGallery !== undefined) newDocWithImages.gallery = existingGallery
 
       const diffLines = diffDocs(existingDoc, newDocWithImages)
+
+      // Force an update when the existing doc is missing image data that
+      // we now have files for. Otherwise this gets classified "unchanged"
+      // (both sides have undefined mainImage), the apply phase skips it,
+      // and the newly added image files never get uploaded.
+      const existingGalleryCount = Array.isArray(existingDoc.gallery)
+        ? existingDoc.gallery.length
+        : 0
+      const needsMainUpload = imagePath != null && existingDoc.mainImage == null
+      const needsGalleryUpload = galleryPaths.length > existingGalleryCount
+      if (needsMainUpload || needsGalleryUpload) {
+        const parts: string[] = []
+        if (needsMainUpload) parts.push('main')
+        if (needsGalleryUpload) {
+          parts.push(`${galleryPaths.length - existingGalleryCount} gallery`)
+        }
+        diffLines.push(`    images: will upload ${parts.join(' + ')}`)
+      }
+
       if (diffLines.length === 0) {
         plan.push({
           kind: 'unchanged',

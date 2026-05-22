@@ -127,17 +127,17 @@ function getImageIndex(dataDir: string): Map<string, string> {
   return _imageIndex;
 }
 
-/** Find an image whose filename matches {sku}.{ext} anywhere under data/images/. */
-export function findProductImage(sku: string, dataDir: string): string | null {
-  return getImageIndex(dataDir).get(sku) ?? null;
+/** Find an image whose filename matches {slug}.{ext} anywhere under data/. */
+export function findProductImage(slug: string, dataDir: string): string | null {
+  return getImageIndex(dataDir).get(slug) ?? null;
 }
 
-/** Find {sku}-1, {sku}-2, ... anywhere under data/images/, in order. */
-export function findGalleryImages(sku: string, dataDir: string): string[] {
+/** Find {slug}-1, {slug}-2, ... anywhere under data/, in order. */
+export function findGalleryImages(slug: string, dataDir: string): string[] {
   const idx = getImageIndex(dataDir);
   const found: string[] = [];
   for (let i = 1; i <= 12; i++) {
-    const path = idx.get(`${sku}-${i}`);
+    const path = idx.get(`${slug}-${i}`);
     if (path) found.push(path);
   }
   return found;

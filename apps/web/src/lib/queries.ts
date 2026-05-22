@@ -289,7 +289,7 @@ export async function getAllBrandSlugs(): Promise<string[]> {
 }
 
 /* ─────────────────────────────────────────────────────────────────────
-   PRODUCT DETAIL — for /[lang]/products/[slug]/ pages
+   PRODUCT DETAIL — for /[lang]/products/[brand]/[slug]/ pages
    ───────────────────────────────────────────────────────────────────── */
 
 export type PortableTextBlock = {
@@ -419,7 +419,8 @@ const ALL_PRODUCT_SLUGS_QUERY = `
   *[_type == "product" && status == "active"]{
     "mk": slug.mk.current,
     "sq": slug.sq.current,
-    "en": slug.en.current
+    "en": slug.en.current,
+    "brand": brand->slug.current
   }
 `
 
@@ -428,7 +429,7 @@ export async function getProductBySlug(slug: string): Promise<ProductDetail | nu
 }
 
 export async function getAllProductSlugs(): Promise<
-  Array<{ mk?: string; sq?: string; en?: string }>
+  Array<{ mk?: string; sq?: string; en?: string; brand?: string }>
 > {
   return sanity.fetch(ALL_PRODUCT_SLUGS_QUERY)
 }

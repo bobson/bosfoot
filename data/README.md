@@ -5,7 +5,8 @@ This folder holds the source-of-truth product data that gets imported into Sanit
 ## Files
 
 - `catalog.json` — the catalog: brands, categories, products, variants
-- `images/` — product images named after SKUs (see below)
+- `{brand}/{slug}/images/` — product images named after the product slug
+  (see below). Freet lives at `data/freet/{slug}/images/`.
 
 ## How imports work
 
@@ -21,15 +22,18 @@ instead of creating duplicates. Safe to run repeatedly.
 
 ## Image conventions
 
-For each product with SKU `XR-HFS2`:
+Images are looked up by the product **slug** (derived from `name.en`,
+falling back to `name.mk`). For Freet's "Vibe 2" the slug is `vibe-2`:
 
-| File                   | Purpose          |
-| ---------------------- | ---------------- |
-| `images/XR-HFS2.jpg`   | Main image       |
-| `images/XR-HFS2-1.jpg` | Gallery image 1  |
-| `images/XR-HFS2-2.jpg` | Gallery image 2  |
-| `images/XR-HFS2-3.jpg` | Gallery image 3  |
-| ... up to `-12`        | up to 12 gallery |
+| File                                       | Purpose          |
+| ------------------------------------------ | ---------------- |
+| `freet/vibe-2/images/vibe-2.webp`          | Main image       |
+| `freet/vibe-2/images/vibe-2-1.webp`        | Gallery image 1  |
+| `freet/vibe-2/images/vibe-2-2.webp`        | Gallery image 2  |
+| ... up to `-12`                            | up to 12 gallery |
+
+The importer walks the whole `data/` tree and matches by filename stem, so
+the directory layout is flexible — just keep stems unique.
 
 Supported extensions: `.jpg`, `.jpeg`, `.png`, `.webp`. First match wins.
 
@@ -66,7 +70,8 @@ then have native speakers review.
 
 1. Find the brand entry, or add a new brand if needed
 2. Add a new entry under `products` with all variants
-3. Drop images into `images/` named after the SKU
+3. Drop images into `{brand}/{slug}/images/` named after the product slug
+   (e.g. `vibe-2.webp`, `vibe-2-1.webp`, ...)
 4. Run `pnpm catalog` to preview, then `pnpm catalog:apply`
 5. Set the product to `featured: true` if you want it on the homepage
 

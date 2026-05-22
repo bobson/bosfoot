@@ -7,7 +7,7 @@
  *
  * Schemas used:
  *   - Organization + WebSite — on every page, via BaseLayout
- *   - Product             — on /[lang]/products/[slug]
+ *   - Product             — on /[lang]/products/[brand]/[slug]
  *   - Article             — on /[lang]/articles/[slug]
  *   - BreadcrumbList      — wherever the user is more than one level deep
  *

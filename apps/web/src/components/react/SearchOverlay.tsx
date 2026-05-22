@@ -177,7 +177,7 @@ export default function SearchOverlay({ locale }: Props) {
             <ul className="divide-y divide-border">
               {results.map((item) => {
                 const href = item.slug
-                  ? `/${locale}/products/${item.slug}`
+                  ? `/${locale}/products/${item.brandSlug}/${item.slug}`
                   : `/${locale}/products`;
                 return (
                   <li key={item.sku}>

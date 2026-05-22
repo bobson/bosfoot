@@ -62,10 +62,19 @@ export const ROUTES: Record<string, Record<Locale, string>> = {
   shipping: { mk: 'shipping', sq: 'shipping', en: 'shipping' },
 }
 
-/** Build a localized path: localePath('en', 'products', 'xero-hfs2') → '/en/products/xero-hfs2' */
-export function localePath(locale: Locale, route: keyof typeof ROUTES, slug?: string): string {
+/**
+ * Build a localized path. Extra slug segments are appended in order:
+ *   localePath('en', 'products')                       → '/en/products'
+ *   localePath('en', 'products', 'freet', 'vibe-2')    → '/en/products/freet/vibe-2'
+ */
+export function localePath(
+  locale: Locale,
+  route: keyof typeof ROUTES,
+  ...slugs: string[]
+): string {
   const segment = ROUTES[route][locale]
-  return slug ? `/${locale}/${segment}/${slug}` : `/${locale}/${segment}`
+  const tail = slugs.filter(Boolean).join('/')
+  return tail ? `/${locale}/${segment}/${tail}` : `/${locale}/${segment}`
 }
 
 /** Extract locale from a URL pathname like /mk/proizvodi/... */

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface GalleryImage {
@@ -13,14 +13,65 @@ interface Props {
 }
 
 /**
- * Vivobarefoot-style product gallery:
- *   - Main image on the right (large)
- *   - Vertical thumbnail strip on the left
- *   - Click thumbnail to swap main image
- *   - On mobile, thumbnails become a horizontal strip below the main image
+ * Product gallery.
+ *   - Desktop: vertical thumbnail strip + large main image.
+ *   - Mobile: full-bleed swipeable carousel (CSS scroll-snap, no JS lib)
+ *     with a full-bleed thumbnail strip below.
  */
 export default function ImageGallery({ images, productName }: Props) {
   const [activeIndex, setActiveIndex] = useState(0);
+  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const slideRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const thumbRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const didMountRef = useRef(false);
+
+  // Track which carousel slide is centered via IntersectionObserver.
+  // Cheaper than scroll listeners and matches scroll-snap semantics.
+  useEffect(() => {
+    const root = carouselRef.current;
+    if (!root || images.length <= 1) return;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
+            const idx = slideRefs.current.findIndex((el) => el === entry.target);
+            if (idx >= 0) setActiveIndex(idx);
+          }
+        }
+      },
+      { root, threshold: [0.6] },
+    );
+
+    for (const el of slideRefs.current) if (el) io.observe(el);
+    return () => io.disconnect();
+  }, [images.length]);
+
+  // When the active thumb changes (from a tap or swipe), scroll the thumb
+  // strip horizontally so the highlighted thumb stays in view. Skipped on
+  // the first mount, otherwise the browser scrolls the whole page to put
+  // the thumb in view and pushes the carousel out of the viewport.
+  useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      return;
+    }
+    const thumb = thumbRefs.current[activeIndex];
+    const strip = thumb?.parentElement;
+    if (!thumb || !strip) return;
+    const target =
+      thumb.offsetLeft - strip.clientWidth / 2 + thumb.clientWidth / 2;
+    strip.scrollTo({ left: target, behavior: "smooth" });
+  }, [activeIndex]);
+
+  const goTo = (i: number) => {
+    setActiveIndex(i);
+    const slide = slideRefs.current[i];
+    const root = carouselRef.current;
+    if (slide && root) {
+      root.scrollTo({ left: slide.offsetLeft, behavior: "smooth" });
+    }
+  };
 
   if (images.length === 0) {
     return (
@@ -33,48 +84,113 @@ export default function ImageGallery({ images, productName }: Props) {
   const active = images[activeIndex];
 
   return (
-    <div className="flex flex-col-reverse md:flex-row gap-4">
-      {/* Thumbnails — horizontal on mobile, vertical on desktop */}
-      {images.length > 1 && (
+    <>
+      {/* Mobile: full-bleed swipeable carousel + full-bleed thumb strip */}
+      <div className="md:hidden">
         <div
-          className="flex md:flex-col gap-2 md:gap-3 overflow-x-auto md:overflow-visible md:w-20 flex-shrink-0"
-          aria-label="Product images"
+          ref={carouselRef}
+          className="-mx-5 flex w-screen snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          aria-roledescription="carousel"
+          aria-label={productName}
         >
           {images.map((img, i) => (
-            <button
+            <div
               key={i}
-              type="button"
-              onClick={() => setActiveIndex(i)}
-              className={cn(
-                "flex-shrink-0 w-16 h-16 md:w-20 md:h-20 rounded-md overflow-hidden border-2 transition-all",
-                i === activeIndex
-                  ? "border-foreground"
-                  : "border-transparent hover:border-border-strong",
-              )}
-              aria-label={`View image ${i + 1}`}
-              aria-pressed={i === activeIndex}
+              ref={(el) => {
+                slideRefs.current[i] = el;
+              }}
+              className="aspect-square w-screen flex-shrink-0 snap-center bg-secondary"
+              aria-roledescription="slide"
+              aria-label={`${i + 1} of ${images.length}`}
             >
               <img
-                src={img.thumbUrl}
-                alt=""
-                loading="lazy"
-                className="w-full h-full object-cover"
+                src={img.url}
+                alt={img.alt ?? productName}
+                loading={i === 0 ? "eager" : "lazy"}
+                fetchPriority={i === 0 ? "high" : "auto"}
+                className="h-full w-full object-cover"
+                draggable={false}
               />
-            </button>
+            </div>
           ))}
         </div>
-      )}
 
-      {/* Main image */}
-      <div className="flex-1 aspect-square bg-secondary rounded-lg overflow-hidden relative">
-        <img
-          src={active.url}
-          alt={active.alt ?? productName}
-          loading="eager"
-          fetchPriority="high"
-          className="w-full h-full object-cover"
-        />
+        {images.length > 1 && (
+          <div
+            className="-mx-5 mt-2 flex w-screen gap-1 overflow-x-auto px-1 py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            aria-label="Product images"
+          >
+            {images.map((img, i) => (
+              <button
+                key={i}
+                type="button"
+                ref={(el) => {
+                  thumbRefs.current[i] = el;
+                }}
+                onClick={() => goTo(i)}
+                className={cn(
+                  "aspect-square w-16 flex-shrink-0 overflow-hidden rounded-md border-2 transition-all",
+                  i === activeIndex
+                    ? "border-foreground"
+                    : "border-transparent",
+                )}
+                aria-label={`View image ${i + 1}`}
+                aria-pressed={i === activeIndex}
+              >
+                <img
+                  src={img.thumbUrl}
+                  alt=""
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        )}
       </div>
-    </div>
+
+      {/* Desktop: vertical thumbs + main image */}
+      <div className="hidden md:flex md:flex-row md:gap-4">
+        {images.length > 1 && (
+          <div
+            className="flex w-20 flex-shrink-0 flex-col gap-3"
+            aria-label="Product images"
+          >
+            {images.map((img, i) => (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setActiveIndex(i)}
+                className={cn(
+                  "h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border-2 transition-all",
+                  i === activeIndex
+                    ? "border-foreground"
+                    : "border-transparent hover:border-border-strong",
+                )}
+                aria-label={`View image ${i + 1}`}
+                aria-pressed={i === activeIndex}
+              >
+                <img
+                  src={img.thumbUrl}
+                  alt=""
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              </button>
+            ))}
+          </div>
+        )}
+
+        <div className="relative aspect-square flex-1 overflow-hidden rounded-lg bg-secondary">
+          <img
+            src={active.url}
+            alt={active.alt ?? productName}
+            loading="eager"
+            fetchPriority="high"
+            className="h-full w-full object-cover"
+          />
+        </div>
+      </div>
+    </>
   );
 }
