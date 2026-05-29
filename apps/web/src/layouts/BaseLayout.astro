@@ -6,7 +6,7 @@ import Footer from "@/components/astro/Footer.astro";
 import CartDrawer from "@/components/react/CartDrawer.tsx";
 import ChatWidget from "@/components/react/ChatWidget.tsx";
 import SpeedInsights from "@vercel/speed-insights/astro";
-import { type Locale, t, pickLocale } from "@/lib/i18n";
+import { type Locale, LOCALES, t, pickLocale, switchLocale } from "@/lib/i18n";
 import type { SiteSettings } from "@/lib/queries";
 import { organizationLD, websiteLD } from "@/lib/structured-data";
 
@@ -38,7 +38,8 @@ const fallbackDescription = pickLocale(siteSettings?.tagline, locale);
 const metaDescription = description ?? fallbackDescription ?? "";
 
 // Always include Organization + WebSite; pages can pass extra schemas via prop.
-const siteUrl = Astro.site ?? "https://bosfoot.com";
+const siteUrl = (Astro.site ?? "https://bosfoot.com").toString().replace(/\/$/, "");
+const currentPath = Astro.url.pathname;
 const allSchemas = [
   organizationLD({ siteUrl, siteSettings }),
   websiteLD({ siteUrl, siteSettings, locale }),
@@ -66,6 +67,21 @@ const allSchemas = [
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url.toString()} />
     {ogImage && <meta property="og:image" content={ogImage} />}
+
+    <!-- hreflang: tell Google which locale serves which language.
+         x-default points to mk (the primary market). -->
+    {LOCALES.map((lang) => (
+      <link
+        rel="alternate"
+        hreflang={lang}
+        href={`${siteUrl}${switchLocale(currentPath, lang)}`}
+      />
+    ))}
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={`${siteUrl}${switchLocale(currentPath, "mk")}`}
+    />
 
     <!-- Early connection to Sanity CDN so image fetches skip the TCP/TLS
          handshake cost. -->
