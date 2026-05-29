@@ -90,9 +90,6 @@ const allSchemas = [
     <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192.png" />
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon/android-chrome-512.png" />
 
-    <!-- SPA-style navigation: patches the DOM in place instead of full reloads,
-         so stylesheets and the already-loaded variable font persist across
-         navigations (no font swap / nav-link reflow per page change). -->
     <ClientRouter />
 
     <!-- JSON-LD structured data: Organization + WebSite are always present;
@@ -109,16 +106,6 @@ const allSchemas = [
     <slot name="head" />
   </head>
   <body>
-    {/* Top navigation progress bar. Hooks into Astro's ClientRouter lifecycle
-        and only appears if the next page takes longer than 300ms to swap, so
-        fast cached navigations don't flash a sliver. */}
-    <div
-      id="nav-progress"
-      class="fixed top-0 left-0 right-0 h-[2px] bg-brand z-[60] origin-left pointer-events-none"
-      style="transform: scaleX(0); opacity: 0;"
-      aria-hidden="true"
-    ></div>
-
     {
       siteSettings?.announcement?.enabled && siteSettings.announcement.text && (
         <div
@@ -145,87 +132,13 @@ const allSchemas = [
 
     <Footer locale={locale} siteSettings={siteSettings} />
 
-    <!-- Cart drawer — fixed position, available everywhere; opens on cart events.
-         transition:persist keeps the React island mounted across navigations so
-         the drawer doesn't unmount if it's open during a nav. -->
+    <!-- Cart drawer — persisted so it stays mounted and open across navigations. -->
     <CartDrawer locale={locale} client:load transition:persist />
 
-    <!-- Floating chat agent — Claude Haiku 4.5-backed customer support widget.
-         Loaded idle so it never competes with critical-path JS. -->
+    <!-- Floating chat agent — persisted so conversation state survives navigation. -->
     <ChatWidget client:idle transition:persist />
 
     <SpeedInsights />
-
-    {/* Nav progress bar lifecycle. Listeners bind once and survive across
-        ClientRouter swaps because the script lives in <body> and the swap
-        replaces inner content, not document-level event handlers. */}
-    <script>
-      const SHOW_DELAY_MS = 300;
-      let showTimer: number | null = null;
-      let fadeTimer1: number | null = null;
-      let fadeTimer2: number | null = null;
-      let visible = false;
-
-      const bar = () => document.getElementById("nav-progress");
-
-      const apply = (
-        el: HTMLElement,
-        scaleX: number,
-        opacity: number,
-        durationMs: number,
-      ) => {
-        el.style.transition =
-          durationMs === 0
-            ? "none"
-            : `transform ${durationMs}ms ease-out, opacity ${durationMs}ms ease-out`;
-        el.style.transform = `scaleX(${scaleX})`;
-        el.style.opacity = String(opacity);
-      };
-
-      const start = () => {
-        const el = bar();
-        if (!el) return;
-        if (fadeTimer1 !== null) clearTimeout(fadeTimer1);
-        if (fadeTimer2 !== null) clearTimeout(fadeTimer2);
-        fadeTimer1 = fadeTimer2 = null;
-        apply(el, 0, 0, 0);
-        visible = false;
-        showTimer = window.setTimeout(() => {
-          const e = bar();
-          if (!e) return;
-          apply(e, 0.7, 1, 400);
-          visible = true;
-        }, SHOW_DELAY_MS);
-      };
-
-      const finish = () => {
-        if (showTimer !== null) {
-          clearTimeout(showTimer);
-          showTimer = null;
-        }
-        const el = bar();
-        if (!el) return;
-        if (!visible) {
-          apply(el, 0, 0, 0);
-          return;
-        }
-        apply(el, 1, 1, 150);
-        fadeTimer1 = window.setTimeout(() => {
-          const e = bar();
-          if (!e) return;
-          apply(e, 1, 0, 250);
-          fadeTimer2 = window.setTimeout(() => {
-            const e2 = bar();
-            if (!e2) return;
-            apply(e2, 0, 0, 0);
-            visible = false;
-          }, 260);
-        }, 160);
-      };
-
-      document.addEventListener("astro:before-preparation", start);
-      document.addEventListener("astro:after-swap", finish);
-    </script>
   </body>
 </html>
 

@@ -51,10 +51,8 @@ export default function CartDrawer({ locale }: Props) {
     };
   }, []);
 
-  // After every ClientRouter navigation, reset pending state and force-clear
-  // any body scroll lock Radix Dialog might have left behind. Without this the
-  // checkout page lands with `body { overflow: hidden }` and is unscrollable
-  // on mobile until a focusable element is tapped.
+  // On navigation, close the drawer and clear any body scroll lock Radix may
+  // have left behind (prevents checkout page landing unscrollable on mobile).
   useEffect(() => {
     const onSwap = () => {
       setCheckoutPending(false);

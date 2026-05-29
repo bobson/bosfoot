@@ -47,6 +47,7 @@ const activeLocale = localeLinks.find((l) => l.isActive)!;
 
 <header
   class="sticky top-0 z-30 bg-background border-b border-border"
+  transition:persist={`site-header-${locale}`}
 >
   <div class="container-page flex items-center justify-between py-3 gap-3">
     <!-- LEFT: burger (mobile, inside MobileNav island) + logo -->
@@ -207,8 +208,6 @@ const activeLocale = localeLinks.find((l) => l.isActive)!;
 <SearchOverlay locale={locale} client:idle />
 
 <script>
-  // Re-runs on every ClientRouter swap (header DOM is replaced on each page).
-  // We track the previous binding so document-level listeners don't stack.
   let cleanup: (() => void) | null = null;
 
   const setup = () => {

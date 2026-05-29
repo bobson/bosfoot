@@ -295,3 +295,12 @@
   --input: var(--color-border-default);
   --ring: var(--color-brand);                  /* terracotta focus ring */
 }
+
+/* ── Navigation transitions ──────────────────────────────────────
+   ClientRouter intercepts navigations and swaps the DOM in place.
+   Kill all animations so page changes snap instantly while the
+   persistent header stays mounted and never re-renders. */
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation: none;
+}
