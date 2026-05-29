@@ -194,7 +194,7 @@ const breadcrumbSchema = breadcrumbLD({
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-16">
       <!-- Gallery -->
       <div class="lg:col-span-7">
-        <ImageGallery images={galleryImages} productName={name} client:load />
+        <ImageGallery images={galleryImages} productName={name} client:idle />
       </div>
 
       <!-- Buy panel (sticky on desktop) -->
@@ -204,7 +204,7 @@ const breadcrumbSchema = breadcrumbLD({
             product={product}
             locale={locale}
             mainImageUrl={cartThumbnailUrl}
-            client:load
+            client:idle
           />
         </div>
       </div>

@@ -67,11 +67,12 @@ const breadcrumbSchema = breadcrumbLD({
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
 
       <!-- Logo / image column -->
-      <div class="md:col-span-4">
+      <div class="md:col-span-4 flex items-center h-32">
         {brand.logo ? (
           <img
-            src={urlFor(brand.logo).width(400).format('webp').url()}
+            src={urlFor(brand.logo).width(400).quality(80).format('webp').url()}
             alt={brand.name}
+            loading="lazy"
             class="max-h-32 w-auto"
           />
         ) : (

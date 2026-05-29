@@ -4,10 +4,14 @@ import CheckoutForm from "@/components/react/CheckoutForm.tsx";
 import { type Locale, LOCALES, t } from "@/lib/i18n";
 import { getSiteSettings } from "@/lib/queries";
 
-export const prerender = false;
+export const prerender = true;
 
-const lang = Astro.params.lang as Locale;
-const locale = LOCALES.includes(lang) ? lang : "mk";
+export async function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
 
 const siteSettings = await getSiteSettings();
 ---

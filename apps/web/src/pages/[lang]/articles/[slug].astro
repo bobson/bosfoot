@@ -53,7 +53,7 @@ const bodyBlocks =
       : article.body_en;
 
 const coverUrl = article.coverImage
-  ? urlFor(article.coverImage).width(1600).quality(85).format("webp").url()
+  ? urlFor(article.coverImage).width(1600).height(900).quality(85).format("webp").url()
   : undefined;
 
 const ogImage = article.coverImage
@@ -192,6 +192,8 @@ const breadcrumbSchema = breadcrumbLD({
             class="w-full h-auto rounded-lg"
             loading="eager"
             fetchpriority="high"
+            width="1600"
+            height="900"
           />
         </div>
       )

@@ -133,7 +133,7 @@ const allSchemas = [
     <Footer locale={locale} siteSettings={siteSettings} />
 
     <!-- Cart drawer — persisted so it stays mounted and open across navigations. -->
-    <CartDrawer locale={locale} client:load transition:persist />
+    <CartDrawer locale={locale} client:idle transition:persist />
 
     <!-- Floating chat agent — persisted so conversation state survives navigation. -->
     <ChatWidget client:idle transition:persist />
