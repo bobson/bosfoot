@@ -38,7 +38,7 @@ export default function ProductCardReact({ product, locale }: Props) {
     <a
       href={href}
       data-slot="card"
-      className="block group flex flex-col bg-card text-card-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      className="block group flex flex-col bg-transparent text-card-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
     >
       {/* Image */}
       <div className="relative aspect-square overflow-hidden bg-muted">
@@ -88,14 +88,14 @@ export default function ProductCardReact({ product, locale }: Props) {
         )}
       </div>
 
-      {/* Text section */}
-      <div className="py-2 flex flex-col gap-2">
+      {/* Text section — centered, tight spacing */}
+      <div className="pt-3 pb-2 flex flex-col items-center text-center gap-1.5">
         {colorHexes.length > 0 && (
-          <div className="flex gap-1.5 items-center min-h-4">
+          <div className="flex gap-1.5 items-center justify-center min-h-4">
             {colorHexes.slice(0, 6).map((hex) => (
               <span
                 key={hex}
-                className="w-3.5 h-3.5 rounded-full border border-border"
+                className="w-3 h-3 rounded-full border border-border"
                 style={{ background: hex }}
                 aria-hidden
               />
@@ -108,27 +108,27 @@ export default function ProductCardReact({ product, locale }: Props) {
           </div>
         )}
 
-        <div className="flex flex-col gap-1">
-          <div className="text-xs text-muted-foreground uppercase tracking-wider">
+        <div className="flex flex-col items-center gap-0.5">
+          <div className="label-caps text-[10px] text-muted-foreground">
             {product.brand?.name}
           </div>
-          <h3 className="text-base font-medium leading-snug text-foreground group-hover:text-brand transition-colors">
+          <h3 className="text-base font-bold leading-snug text-foreground group-hover:text-brand transition-colors">
             {name}
           </h3>
         </div>
 
-        <div className="flex items-start gap-3 text-sm pt-1">
+        <div className="flex items-start justify-center gap-3 text-sm">
           <Price
             amount={product.price}
             locale={locale}
-            align="start"
+            align="center"
             primaryClassName="font-medium text-foreground"
           />
           {onSale && product.compareAtPrice && (
             <Price
               amount={product.compareAtPrice}
               locale={locale}
-              align="start"
+              align="center"
               className="text-xs"
               primaryClassName="text-muted-foreground line-through"
               secondaryClassName="line-through"

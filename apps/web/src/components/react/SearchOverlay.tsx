@@ -192,6 +192,9 @@ export default function SearchOverlay({ locale }: Props) {
                             src={item.image}
                             alt={item.name}
                             className="w-full h-full object-cover"
+                            loading="lazy"
+                            width={48}
+                            height={48}
                           />
                         ) : (
                           <span className="text-[10px] text-ink-subtle">—</span>

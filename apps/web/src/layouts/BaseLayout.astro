@@ -67,6 +67,10 @@ const allSchemas = [
     <meta property="og:url" content={Astro.url.toString()} />
     {ogImage && <meta property="og:image" content={ogImage} />}
 
+    <!-- Early connection to Sanity CDN so image fetches skip the TCP/TLS
+         handshake cost. -->
+    <link rel="preconnect" href="https://cdn.sanity.io" />
+
     <!-- IBM Plex Sans is self-hosted via @font-face in global.css. Preload
          the Latin subset (loaded on every page in every locale — Cyrillic
          and Latin-Ext load lazily only on pages that need them). -->
@@ -101,6 +105,8 @@ const allSchemas = [
         />
       ))
     }
+    <!-- Pages can inject preload links and other head elements here. -->
+    <slot name="head" />
   </head>
   <body>
     {/* Top navigation progress bar. Hooks into Astro's ClientRouter lifecycle

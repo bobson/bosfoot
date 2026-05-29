@@ -38,6 +38,14 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
   description={tagline}
   siteSettings={siteSettings}
 >
+  <link
+    slot="head"
+    rel="preload"
+    as="image"
+    type="image/webp"
+    imagesrcset="/images/hero/bosfoot_hero_400w.webp 400w, /images/hero/bosfoot_hero_600w.webp 600w, /images/hero/bosfoot_hero_900w.webp 900w, /images/hero/bosfoot_hero_1200w.webp 1200w"
+    imagesizes="100vw"
+  />
   <!-- Hero with tagline and rotating quote card -->
   <Hero locale={locale} siteSettings={siteSettings} />
 
@@ -47,7 +55,7 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
       <section class="py-20 md:py-24 bg-background">
         <div class="container-page">
           <div class="flex items-end justify-between flex-wrap gap-4 mb-10">
-            <h2 class="text-[1.75rem] md:text-[2.25rem] font-semibold tracking-tight m-0 text-foreground">
+            <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold tracking-tight m-0 text-foreground">
               {t("home.featured.title", locale)}
             </h2>
             <a
@@ -73,7 +81,7 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
   <!-- Brand strip — featured brands as wordmarks/logos -->
   <section class="py-16 bg-background border-y border-border">
     <div class="container-page">
-      <h2 class="text-xl font-medium uppercase tracking-widest text-muted-foreground text-center mb-10 m-0">
+      <h2 class="label-caps text-sm text-muted-foreground text-center mb-10 m-0">
         {t("section.brands", locale)}
       </h2>
       <div class="flex flex-wrap items-center justify-center gap-7 md:gap-x-16 md:gap-y-8">

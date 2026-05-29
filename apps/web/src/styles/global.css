@@ -87,24 +87,24 @@
 
 @theme {
   /* ── Colors ────────────────────────────────────────────────── */
-  --color-bg-primary: #ffffff;
-  --color-bg-secondary: #fafaf8;
-  --color-bg-tertiary: #f2f0eb;
+  --color-bg-primary: #ffffff;          /* Page background — pure white */
+  --color-bg-secondary: #fafafa;        /* Section dividers (Why barefoot, etc.) */
+  --color-bg-tertiary: #f7f5f0;         /* Product card — warm off-white */
 
-  --color-ink: #332f2e;
-  --color-ink-muted: #6b6b6b;
-  --color-ink-subtle: #9a9a9a;
+  --color-ink: #111111;                 /* Primary text + primary button (near-black) */
+  --color-ink-muted: #666666;           /* Secondary text — medium gray */
+  --color-ink-subtle: #999999;
 
-  --color-border-subtle: #ececec;
-  --color-border-default: #e5e5e0;
-  --color-border-strong: #cdcdc6;
+  --color-border-subtle: #f0f0f0;       /* Light gray */
+  --color-border-default: #f0f0f0;
+  --color-border-strong: #e0e0e0;
 
-  --color-brand: #b85c2c;
-  --color-brand-hover: #9c4d24;
+  --color-brand: #c4582e;               /* Accent / interactive — burnt orange */
+  --color-brand-hover: #a84826;
   --color-brand-soft: #f5e8df;
 
-  /* Natural sage palette — used to break up cream sections on the homepage.
-     Inspired by earthy barefoot brands; pairs with the terracotta accent. */
+  /* Sage palette retained for historical references on legacy pages
+     (e.g. brands index). Homepage now uses gray section dividers. */
   --color-sage-bg: #eef0e6;
   --color-sage-bg-soft: #f5f7ee;
   --color-sage-ink: #4a5c3f;
@@ -120,6 +120,7 @@
     'IBM Plex Sans', 'IBM Plex Sans Fallback', ui-sans-serif, system-ui,
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'IBM Plex Sans', 'IBM Plex Sans Fallback', sans-serif;
+  --font-serif: Georgia, 'Times New Roman', serif;  /* Editorial moments — long testimonials */
 
   /* Type scale — discrete sizes only, no in-between values */
   --text-xs: 0.75rem; /* 12 */
@@ -164,8 +165,8 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 600;
-    letter-spacing: -0.01em;
+    font-weight: 700;
+    letter-spacing: -0.015em;
     line-height: 1.15;
   }
 
@@ -211,6 +212,23 @@
 
   @media (min-width: 768px) {
     .container-page { padding-inline: 2rem; }
+  }
+
+  /* Small-caps labels — used on section eyebrows, brand wordmarks above
+     product titles, and metadata strips. Wide 2.5px letter-spacing gives
+     the editorial feel; weight 600 keeps it readable at small sizes. */
+  .label-caps {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+  }
+
+  /* Italic accent — for the second half of editorial headlines
+     ("Made for / feet that move"). Inter-style italic in brand orange. */
+  .accent-italic {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--color-brand);
   }
 
   /* Force system emoji font so flag emojis (🇲🇰 🇦🇱 🇬🇧) render in color

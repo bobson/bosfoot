@@ -6,7 +6,7 @@ interface Props {
   locale: Locale;
   currency?: string;
   /** Alignment for the stacked EUR line. Defaults to inheriting alignment. */
-  align?: "start" | "end";
+  align?: "start" | "center" | "end";
   /** Class for the wrapper. */
   className?: string;
   /** Class for the primary (MKD) line. */
@@ -40,6 +40,7 @@ export default function Price({
       className={cn(
         "inline-flex flex-col leading-tight",
         align === "end" && "items-end",
+        align === "center" && "items-center",
         align === "start" && "items-start",
         className,
       )}

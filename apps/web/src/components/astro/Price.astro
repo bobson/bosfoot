@@ -9,8 +9,8 @@ interface Props {
   amount: number;
   locale: Locale;
   currency?: string;
-  /** "end" right-aligns the stacked EUR line, "start" left-aligns. */
-  align?: "start" | "end";
+  /** Aligns the stacked EUR line under the MKD primary. */
+  align?: "start" | "center" | "end";
   class?: string;
   primaryClass?: string;
   secondaryClass?: string;
@@ -29,7 +29,10 @@ const {
 const { primary, secondary } = formatPriceParts(amount, locale, currency);
 
 const alignClass =
-  align === "end" ? "items-end" : align === "start" ? "items-start" : "";
+  align === "end" ? "items-end"
+  : align === "center" ? "items-center"
+  : align === "start" ? "items-start"
+  : "";
 ---
 
 {

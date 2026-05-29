@@ -37,7 +37,7 @@ function formatDate(iso: string | undefined): string {
       <div class="container-page">
         <div class="flex items-end justify-between gap-8 flex-wrap mb-12">
           <div>
-            <h2 class="text-[1.75rem] md:text-[2.25rem] font-semibold tracking-tight mb-2 text-foreground">
+            <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold tracking-tight mb-2 text-foreground">
               {t("home.articles.title", locale)}
             </h2>
             <p class="text-[0.9375rem] text-muted-foreground m-0 max-w-md">
@@ -75,11 +75,11 @@ function formatDate(iso: string | undefined): string {
               )}
               <div class="px-1">
                 {article.publishedAt && (
-                  <time class="text-xs text-muted-foreground uppercase tracking-widest">
+                  <time class="label-caps text-[10px] text-muted-foreground">
                     {formatDate(article.publishedAt)}
                   </time>
                 )}
-                <h3 class="text-lg font-semibold tracking-tight mt-2 mb-2.5 leading-snug text-foreground transition-colors group-hover:text-brand">
+                <h3 class="text-lg font-bold tracking-tight mt-2 mb-2.5 leading-snug text-foreground transition-colors group-hover:text-brand">
                   {pickLocale(article.title, locale)}
                 </h3>
                 {pickLocale(article.lead, locale) && (

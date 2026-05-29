@@ -130,6 +130,9 @@ const breadcrumbSchema = breadcrumbLD({
   ogImage={ogImage}
   structuredData={[productSchema, breadcrumbSchema]}
 >
+  {galleryImages[0] && (
+    <link slot="head" rel="preload" as="image" href={galleryImages[0].url} />
+  )}
   <div class="container-page py-8 md:py-12">
     <!-- Demo notice — matches the amber "Demo" pill on product cards so the
          visual language is consistent across grid and detail pages. -->
