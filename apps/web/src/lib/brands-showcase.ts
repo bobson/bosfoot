@@ -38,7 +38,7 @@ export const SHOWCASE_BRANDS: ShowcaseBrand[] = [
   {
     slug: 'freet',
     name: 'Freet',
-    logoSrc: '/images/brands/freet.jpg',
+    logoSrc: '/images/brands/freet.svg',
     origin: 'UK',
     founded: 2010,
     tagline: {

@@ -11,6 +11,7 @@ import {
 interface NavLink {
   href: string;
   label: string;
+  badge?: boolean;
 }
 
 interface LocaleLink {
@@ -74,9 +75,14 @@ export default function MobileNav({
               key={link.href}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="block px-5 py-3.5 text-base text-foreground border-b border-border transition-colors hover:bg-secondary hover:text-brand"
+              className="flex items-center gap-2 px-5 py-3.5 text-base text-foreground border-b border-border transition-colors hover:bg-secondary hover:text-brand"
             >
               {link.label}
+              {link.badge && (
+                <span className="bg-brand text-white text-[0.5rem] font-bold uppercase tracking-[0.08em] leading-none px-1.5 py-0.5 rounded-full">
+                  New
+                </span>
+              )}
             </a>
           ))}
         </nav>
@@ -91,6 +97,24 @@ export default function MobileNav({
               href={opt.href}
               hrefLang={opt.lang}
               aria-current={opt.isActive ? "true" : undefined}
+              onClick={(e) => {
+                // This island is persisted inside the header, so `opt.href` is
+                // frozen to the page where it first rendered. Re-derive the
+                // target from the live URL (only the leading locale segment
+                // changes — route segments are locale-independent).
+                e.preventDefault();
+                const rest = window.location.pathname
+                  .split("/")
+                  .filter(Boolean)
+                  .slice(1)
+                  .join("/");
+                const dest =
+                  (rest ? `/${opt.lang}/${rest}` : `/${opt.lang}`) +
+                  window.location.search +
+                  window.location.hash;
+                setOpen(false);
+                window.location.assign(dest);
+              }}
               className={
                 "flex flex-col items-center leading-none px-1.5 py-1 rounded-sm transition-colors " +
                 (opt.isActive

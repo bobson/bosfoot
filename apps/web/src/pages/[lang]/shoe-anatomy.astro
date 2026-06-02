@@ -1,0 +1,317 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Button from "@/components/astro/Button.astro";
+import { type Locale, LOCALES, t, localePath } from "@/lib/i18n";
+import { getSiteSettings } from "@/lib/queries";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  return LOCALES.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params;
+const locale = lang as Locale;
+const siteSettings = await getSiteSettings();
+
+const terms = [
+  {
+    num: "01",
+    title: t("shoeAnatomy.stackHeight.title", locale),
+    body: t("shoeAnatomy.stackHeight.body", locale),
+    tip: t("shoeAnatomy.stackHeight.tip", locale),
+    icon: `<svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <line x1="4" y1="22" x2="24" y2="22"/>
+      <line x1="4" y1="17" x2="24" y2="17"/>
+      <line x1="4" y1="12" x2="24" y2="12"/>
+      <line x1="8" y1="6" x2="8" y2="22" stroke-dasharray="2 2" opacity="0.4"/>
+      <line x1="20" y1="6" x2="20" y2="22" stroke-dasharray="2 2" opacity="0.4"/>
+      <polyline points="5,8 8,4 11,8"/>
+      <polyline points="17,8 20,4 23,8"/>
+    </svg>`,
+  },
+  {
+    num: "02",
+    title: t("shoeAnatomy.zeroDrop.title", locale),
+    body: t("shoeAnatomy.zeroDrop.body", locale),
+    tip: t("shoeAnatomy.zeroDrop.tip", locale),
+    icon: `<svg width="28" height="28" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <line x1="3" y1="22" x2="33" y2="22"/>
+      <polyline points="9,16 4,22 9,28"/>
+      <polyline points="27,16 32,22 27,28"/>
+      <line x1="14" y1="10" x2="22" y2="10" stroke-dasharray="2 2"/>
+    </svg>`,
+  },
+  {
+    num: "03",
+    title: t("shoeAnatomy.toeBox.title", locale),
+    body: t("shoeAnatomy.toeBox.body", locale),
+    tip: t("shoeAnatomy.toeBox.tip", locale),
+    icon: `<svg width="28" height="28" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <line x1="6" y1="30" x2="3" y2="6"/>
+      <line x1="12" y1="30" x2="10" y2="4"/>
+      <line x1="18" y1="30" x2="18" y2="3"/>
+      <line x1="24" y1="30" x2="26" y2="4"/>
+      <line x1="30" y1="30" x2="33" y2="6"/>
+      <path d="M3 30 Q18 36 33 30" stroke-dasharray="2 2" opacity="0.5"/>
+    </svg>`,
+  },
+  {
+    num: "04",
+    title: t("shoeAnatomy.flexibility.title", locale),
+    body: t("shoeAnatomy.flexibility.body", locale),
+    tip: t("shoeAnatomy.flexibility.tip", locale),
+    icon: `<svg width="28" height="28" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 22 Q 10 14, 18 22 T 33 22"/>
+      <line x1="3" y1="28" x2="33" y2="28" stroke-dasharray="2 2" opacity="0.5"/>
+    </svg>`,
+  },
+  {
+    num: "05",
+    title: t("shoeAnatomy.upper.title", locale),
+    body: t("shoeAnatomy.upper.body", locale),
+    tip: t("shoeAnatomy.upper.tip", locale),
+    icon: `<svg width="28" height="28" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M4 26 Q 10 8 18 6 Q 26 8 32 26"/>
+      <path d="M4 26 Q 18 32 32 26" stroke-dasharray="3 2" opacity="0.5"/>
+    </svg>`,
+  },
+  {
+    num: "06",
+    title: t("shoeAnatomy.insole.title", locale),
+    body: t("shoeAnatomy.insole.body", locale),
+    tip: t("shoeAnatomy.insole.tip", locale),
+    icon: `<svg width="28" height="28" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M6 20 Q 10 10 18 9 Q 26 10 30 20 Q 28 28 18 28 Q 8 28 6 20Z"/>
+      <path d="M10 22 Q 18 26 26 22" opacity="0.4"/>
+    </svg>`,
+  },
+];
+
+const compareRows = [
+  {
+    spec: t("shoeAnatomy.stackHeight.title", locale),
+    barefoot: "6 – 15 mm",
+    conventional: "25 – 35 mm",
+  },
+  {
+    spec: t("shoeAnatomy.zeroDrop.title", locale),
+    barefoot: "0 mm",
+    conventional: "8 – 12 mm",
+  },
+  {
+    spec: t("shoeAnatomy.toeBox.title", locale),
+    barefoot: locale === "mk" ? "Широк" : locale === "sq" ? "I gjerë" : "Wide",
+    conventional: locale === "mk" ? "Тесен" : locale === "sq" ? "I ngushtë" : "Narrow",
+  },
+  {
+    spec: t("shoeAnatomy.flexibility.title", locale),
+    barefoot: locale === "mk" ? "Висока" : locale === "sq" ? "E lartë" : "High",
+    conventional: locale === "mk" ? "Ниска" : locale === "sq" ? "E ulët" : "Low",
+  },
+];
+---
+
+<BaseLayout
+  locale={locale}
+  title={t("shoeAnatomy.title", locale)}
+  description={t("shoeAnatomy.lead", locale)}
+  siteSettings={siteSettings}
+>
+
+  <!-- Hero -->
+  <section class="bg-secondary border-b border-border">
+    <div class="container-page py-16 md:py-24 max-w-3xl">
+      <p class="label-caps text-xs text-brand mb-4">{t("nav.shoeAnatomy", locale)}</p>
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] mb-6">
+        {t("shoeAnatomy.title", locale)}
+      </h1>
+      <p class="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
+        {t("shoeAnatomy.lead", locale)}
+      </p>
+    </div>
+  </section>
+
+  <!-- Shoe diagram -->
+  <section class="container-page py-16 md:py-20">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-10">
+      {t("shoeAnatomy.diagram.title", locale)}
+    </h2>
+
+    <div class="bg-secondary rounded-2xl p-8 md:p-12 overflow-x-auto">
+      <svg
+        viewBox="0 0 640 260"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        class="w-full max-w-2xl mx-auto"
+        aria-label={t("shoeAnatomy.diagram.title", locale)}
+      >
+        <!-- Defs -->
+        <defs>
+          <marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L6,3 z" fill="#888"/>
+          </marker>
+          <marker id="arr-rev" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse">
+            <path d="M0,0 L0,6 L6,3 z" fill="#888"/>
+          </marker>
+          <marker id="arr-brand" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+            <path d="M0,0 L0,6 L6,3 z" fill="#c9652c"/>
+          </marker>
+          <marker id="arr-brand-rev" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto-start-reverse">
+            <path d="M0,0 L0,6 L6,3 z" fill="#c9652c"/>
+          </marker>
+        </defs>
+
+        <!-- Ground line -->
+        <line x1="60" y1="210" x2="560" y2="210" stroke="#ccc" stroke-width="1" stroke-dasharray="5 4"/>
+
+        <!-- Zero drop reference line (brand color) -->
+        <line x1="70" y1="183" x2="530" y2="183" stroke="#c9652c" stroke-width="1" stroke-dasharray="6 3" opacity="0.7"/>
+
+        <!-- Outsole (dark, thin band) -->
+        <path d="M 100 183 L 490 183 Q 510 183 518 190 Q 524 196 518 200 Q 510 204 490 205 L 100 205 Q 80 205 74 198 Q 68 192 76 186 Q 82 183 100 183 Z" fill="#2a2825"/>
+
+        <!-- Insole -->
+        <rect x="102" y="172" width="386" height="11" rx="3" fill="#9a8a78" opacity="0.7"/>
+
+        <!-- Upper — main body -->
+        <path d="M 100 183 L 100 115 Q 105 70 160 52 Q 220 36 310 34 Q 390 34 440 52 Q 475 68 485 105 Q 492 140 490 183" fill="#e8e2da" stroke="#a09080" stroke-width="1.5"/>
+
+        <!-- Toe bumper -->
+        <path d="M 490 183 Q 510 183 520 170 Q 526 158 518 148 Q 508 138 490 140 L 490 183" fill="#d8d0c8" stroke="#a09080" stroke-width="1.2"/>
+
+        <!-- Lace area detail -->
+        <path d="M 200 48 Q 310 38 400 50" stroke="#b0a090" stroke-width="1" stroke-dasharray="3 3" opacity="0.6"/>
+
+        <!-- === CALLOUT LINES & LABELS === -->
+
+        <!-- Upper label -->
+        <line x1="300" y1="90" x2="300" y2="20" stroke="#888" stroke-width="1" marker-end="url(#arr)"/>
+        <text x="300" y="15" text-anchor="middle" font-size="12" fill="#555" font-family="system-ui, sans-serif">
+          {t("shoeAnatomy.diagram.upper", locale)}
+        </text>
+
+        <!-- Toe box label (right side) -->
+        <line x1="515" y1="160" x2="570" y2="145" stroke="#888" stroke-width="1" marker-start="url(#arr)"/>
+        <text x="578" y="141" font-size="12" fill="#555" font-family="system-ui, sans-serif">
+          {t("shoeAnatomy.diagram.toeBox", locale)}
+        </text>
+
+        <!-- Insole label -->
+        <line x1="102" y1="177" x2="55" y2="155" stroke="#888" stroke-width="1" marker-start="url(#arr)"/>
+        <text x="8" y="148" font-size="12" fill="#555" font-family="system-ui, sans-serif">
+          {t("shoeAnatomy.diagram.insole", locale)}
+        </text>
+
+        <!-- Outsole label -->
+        <line x1="102" y1="194" x2="55" y2="215" stroke="#888" stroke-width="1" marker-start="url(#arr)"/>
+        <text x="8" y="225" font-size="12" fill="#555" font-family="system-ui, sans-serif">
+          {t("shoeAnatomy.diagram.outsole", locale)}
+        </text>
+
+        <!-- Stack height arrow (left side) -->
+        <line x1="42" y1="183" x2="42" y2="205" stroke="#888" stroke-width="1.2" marker-start="url(#arr-rev)" marker-end="url(#arr)"/>
+        <text x="36" y="197" text-anchor="end" font-size="10" fill="#888" font-family="system-ui, sans-serif" transform="rotate(-90, 36, 197)">
+          {t("shoeAnatomy.diagram.stackHeight", locale)}
+        </text>
+
+        <!-- Zero drop label (brand color) -->
+        <text x="310" y="179" text-anchor="middle" font-size="11" fill="#c9652c" font-family="system-ui, sans-serif" font-weight="500">
+          ← {t("shoeAnatomy.diagram.zeroDrop", locale)} →
+        </text>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Glossary -->
+  <section class="bg-secondary border-y border-border">
+    <div class="container-page py-16 md:py-20">
+      <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-10">
+        {t("shoeAnatomy.glossary.title", locale)}
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {terms.map((term) => (
+          <div class="bg-background rounded-xl p-7 flex flex-col gap-4">
+            <div class="flex items-start gap-4">
+              <span class="text-[0.7rem] font-bold tracking-[0.12em] text-muted-foreground/60 mt-1 w-7 flex-shrink-0">
+                {term.num}
+              </span>
+              <div class="flex items-center gap-3">
+                <div class="text-brand flex-shrink-0" set:html={term.icon} />
+                <h3 class="text-base font-semibold tracking-tight">{term.title}</h3>
+              </div>
+            </div>
+            <p class="text-[0.9rem] leading-relaxed text-muted-foreground pl-11">
+              {term.body}
+            </p>
+            <!-- Practical tip -->
+            <div class="pl-11 flex items-start gap-2">
+              <span class="text-brand text-xs font-bold uppercase tracking-wider flex-shrink-0 mt-0.5">→</span>
+              <p class="text-[0.8125rem] text-muted-foreground/80 leading-snug italic">
+                {term.tip}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Comparison table -->
+  <section class="container-page py-16 md:py-20 max-w-3xl">
+    <h2 class="text-2xl md:text-3xl font-bold tracking-tight mb-8">
+      {t("shoeAnatomy.compare.title", locale)}
+    </h2>
+
+    <div class="overflow-x-auto rounded-xl border border-border">
+      <table class="w-full text-sm border-collapse">
+        <thead>
+          <tr class="bg-secondary">
+            <th class="text-left px-5 py-3 text-xs uppercase tracking-wider text-muted-foreground font-medium border-b border-border">
+              {locale === "mk" ? "Карактеристика" : locale === "sq" ? "Karakteristika" : "Feature"}
+            </th>
+            <th class="text-left px-5 py-3 text-xs uppercase tracking-wider text-brand font-medium border-b border-border">
+              {locale === "mk" ? "Боса патика" : locale === "sq" ? "Këpucë barefoot" : "Barefoot shoe"}
+            </th>
+            <th class="text-left px-5 py-3 text-xs uppercase tracking-wider text-muted-foreground font-medium border-b border-border">
+              {locale === "mk" ? "Обична патика" : locale === "sq" ? "Këpucë normale" : "Conventional shoe"}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {compareRows.map((row, idx) => (
+            <tr class:list={[idx % 2 === 0 ? "bg-background" : "bg-secondary/50"]}>
+              <td class="px-5 py-3 font-medium border-b border-border-subtle">{row.spec}</td>
+              <td class="px-5 py-3 text-brand font-semibold border-b border-border-subtle">{row.barefoot}</td>
+              <td class="px-5 py-3 text-muted-foreground border-b border-border-subtle">{row.conventional}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-secondary border-t border-border">
+    <div class="container-page py-14 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 max-w-4xl">
+      <div>
+        <p class="font-semibold text-lg tracking-tight mb-1">
+          {locale === "mk" ? "Сега кога знаеш што бараш —" : locale === "sq" ? "Tani që dini çfarë të kërkoni —" : "Now that you know what to look for —"}
+        </p>
+        <p class="text-muted-foreground text-sm">
+          {locale === "mk" ? "Секој производ ги прикажува сите спецификации опишани погоре." : locale === "sq" ? "Çdo produkt tregon të gjitha specifikimet e përshkruara më lart." : "Every product shows all the specs described above."}
+        </p>
+      </div>
+      <div class="flex gap-3 flex-shrink-0">
+        <Button href={localePath(locale, "products")} variant="brand" size="sm">
+          {locale === "mk" ? "Разгледај производи →" : locale === "sq" ? "Shfleto produktet →" : "Browse products →"}
+        </Button>
+        <Button href={localePath(locale, "newToBarefoot")} variant="secondary" size="sm">
+          {t("nav.newToBarefoot", locale)}
+        </Button>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

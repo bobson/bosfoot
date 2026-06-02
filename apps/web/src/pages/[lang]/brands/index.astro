@@ -64,7 +64,10 @@ const pageLead = t("brands.lead", locale);
               ]}
             >
               <div
-                class="flex items-center justify-center px-6 py-10 bg-sage-bg-soft border-b border-border-subtle min-h-[140px]"
+                class:list={[
+                  "flex items-center justify-center px-6 py-10 border-b border-border-subtle min-h-[140px]",
+                  !isComingSoon ? "bg-[#92be00]" : "bg-sage-bg-soft",
+                ]}
               >
                 {brand.logoSrc ? (
                   <img
@@ -72,8 +75,8 @@ const pageLead = t("brands.lead", locale);
                     alt={brand.name}
                     loading="lazy"
                     class:list={[
-                      "max-h-16 w-auto object-contain grayscale opacity-85 transition",
-                      (isLive && !isComingSoon) && "group-hover:grayscale-0 group-hover:opacity-100",
+                      "max-h-16 w-auto object-contain transition",
+                      isComingSoon ? "grayscale opacity-85" : "opacity-95",
                     ]}
                   />
                 ) : (

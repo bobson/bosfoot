@@ -58,7 +58,7 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
           return (
             <a
               href={localePath(locale, "brands")}
-              class="flex flex-col items-center gap-2 opacity-80 hover:opacity-100 hover:-translate-y-px transition-all duration-150"
+              class="flex flex-col items-center gap-3 bg-[#92be00] rounded-xl px-6 py-4 opacity-85 hover:opacity-100 hover:-translate-y-px transition-all duration-150"
               aria-label={freet.name}
             >
               {freet.logoSrc ? (
@@ -66,7 +66,7 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
                   src={freet.logoSrc}
                   alt={freet.name}
                   loading="lazy"
-                  class="h-16 md:h-20 w-auto object-contain grayscale"
+                  class="h-12 md:h-14 w-auto object-contain"
                 />
               ) : (
                 <span class:list={["text-2xl md:text-3xl whitespace-nowrap text-foreground", freet.wordmarkClass ?? "font-semibold tracking-tight"]}>
@@ -78,10 +78,10 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
         })()}
 
         {/* Coming soon brands — one row, wraps on small screens */}
-        <div class="flex flex-wrap items-end justify-center gap-6 md:gap-10">
+        <div class="flex flex-wrap items-center justify-center gap-4 md:gap-6">
           {SHOWCASE_BRANDS.filter((b) => b.comingSoon).map((brand) => (
             <div
-              class="flex flex-col items-center gap-1.5 opacity-40 cursor-default"
+              class="flex flex-col items-center gap-1.5 rounded-xl px-6 py-4 opacity-40 cursor-default"
               aria-label={brand.name}
             >
               {brand.logoSrc ? (
@@ -96,7 +96,7 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
                   {brand.name}
                 </span>
               )}
-              <span class="text-[0.6rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground border border-border rounded-full px-2 py-px whitespace-nowrap">
+              <span class="text-[0.6rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground">
                 {t("brands.comingSoon", locale)}
               </span>
             </div>

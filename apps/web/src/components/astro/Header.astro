@@ -23,15 +23,17 @@ const currentPath = Astro.url.pathname;
 const siteName = siteSettings?.siteName ?? "Bosfoot";
 
 const navLinks = [
-  { route: "products", label: t("nav.products", locale) },
-  { route: "brands", label: t("nav.brands", locale) },
-  { route: "sizeGuide", label: t("nav.sizeGuide", locale) },
-  { route: "about", label: t("nav.about", locale) },
+  { route: "products", label: t("nav.products", locale), badge: false },
+  { route: "brands", label: t("nav.brands", locale), badge: false },
+  { route: "newToBarefoot", label: t("nav.newToBarefoot", locale), badge: true },
+  { route: "sizeGuide", label: t("nav.sizeGuide", locale), badge: false },
+  { route: "about", label: t("nav.about", locale), badge: false },
 ] as const;
 
 const mobileNavLinks = navLinks.map((l) => ({
   href: localePath(locale, l.route),
   label: l.label,
+  badge: l.badge,
 }));
 
 const localeLinks = LOCALES.map((lang) => ({
@@ -71,9 +73,14 @@ const activeLocale = localeLinks.find((l) => l.isActive)!;
         navLinks.map((link) => (
           <a
             href={localePath(locale, link.route)}
-            class="text-sm text-foreground transition-colors hover:text-brand"
+            class="relative text-sm text-foreground transition-colors hover:text-brand"
           >
             {link.label}
+            {link.badge && (
+              <span class="absolute -top-2 -right-7 bg-brand text-white text-[0.5rem] font-bold uppercase tracking-[0.08em] leading-none px-1.5 py-0.5 rounded-full">
+                New
+              </span>
+            )}
           </a>
         ))
       }
@@ -144,6 +151,8 @@ const activeLocale = localeLinks.find((l) => l.isActive)!;
               <li role="none">
                 <a
                   href={opt.href}
+                  data-locale-switch
+                  data-lang={opt.lang}
                   role="option"
                   aria-selected={opt.isActive ? "true" : "false"}
                   hreflang={opt.lang}
@@ -174,6 +183,8 @@ const activeLocale = localeLinks.find((l) => l.isActive)!;
           localeLinks.map((opt) => (
             <a
               href={opt.href}
+              data-locale-switch
+              data-lang={opt.lang}
               class:list={[
                 "flex flex-col items-center leading-none px-1 py-0.5 rounded-sm transition-colors outline-none focus-visible:ring-2 focus-visible:ring-ring",
                 opt.isActive
@@ -210,7 +221,25 @@ const activeLocale = localeLinks.find((l) => l.isActive)!;
 <script>
   let cleanup: (() => void) | null = null;
 
+  // The header is `transition:persist`-ed, so its locale-switch links are not
+  // re-rendered on client-side navigation and would keep pointing at the page
+  // where the header first rendered. Re-derive them from the current path on
+  // every navigation. URL segments are locale-independent (only the leading
+  // segment is the locale), so swapping that segment is all that's needed.
+  const syncLocaleLinks = () => {
+    const rest = location.pathname.split("/").filter(Boolean).slice(1).join("/");
+    const suffix = location.search + location.hash;
+    document
+      .querySelectorAll<HTMLAnchorElement>("[data-locale-switch][data-lang]")
+      .forEach((a) => {
+        const lang = a.dataset.lang!;
+        a.setAttribute("href", (rest ? `/${lang}/${rest}` : `/${lang}`) + suffix);
+      });
+  };
+
   const setup = () => {
+    syncLocaleLinks();
+
     cleanup?.();
     cleanup = null;
 

@@ -50,6 +50,8 @@ export const LOCALE_FLAGS: Record<Locale, string> = {
 export const ROUTES: Record<string, Record<Locale, string>> = {
   products: { mk: 'products', sq: 'products', en: 'products' },
   brands: { mk: 'brands', sq: 'brands', en: 'brands' },
+  newToBarefoot: { mk: 'new-to-barefoot', sq: 'new-to-barefoot', en: 'new-to-barefoot' },
+  shoeAnatomy: { mk: 'shoe-anatomy', sq: 'shoe-anatomy', en: 'shoe-anatomy' },
   cart: { mk: 'cart', sq: 'cart', en: 'cart' },
   checkout: { mk: 'checkout', sq: 'checkout', en: 'checkout' },
   about: { mk: 'about', sq: 'about', en: 'about' },
@@ -150,6 +152,16 @@ export const ui: UIStrings = {
     mk: 'Водич за големини',
     sq: 'Udhëzues përmasash',
     en: 'Size guide',
+  },
+  'nav.newToBarefoot': {
+    mk: 'Здравје на стапалата',
+    sq: 'Shëndeti i këmbëve',
+    en: 'Foot Health',
+  },
+  'nav.shoeAnatomy': {
+    mk: 'Анатомија на патика',
+    sq: 'Anatomia e këpucës',
+    en: 'Shoe anatomy',
   },
 
   // Buttons / CTAs
@@ -355,7 +367,7 @@ export const ui: UIStrings = {
     en: 'Why Bosfoot',
   },
   'home.whyUs.1.title': {
-    mk: 'Курирана селекција',
+    mk: 'Внимателно избрана колекција',
     sq: 'Përzgjedhje e kuruar',
     en: 'Curated selection',
   },
@@ -751,9 +763,9 @@ export const ui: UIStrings = {
     en: 'Official guide',
   },
   'sizeChart.helpEmail': {
-    mk: 'contact@bosfoot.com',
-    sq: 'contact@bosfoot.com',
-    en: 'contact@bosfoot.com',
+    mk: 'info@bosfoot.com',
+    sq: 'info@bosfoot.com',
+    en: 'info@bosfoot.com',
   },
 
   // Product detail page
@@ -950,9 +962,9 @@ export const ui: UIStrings = {
     en: 'Brands',
   },
   'brands.lead': {
-    mk: 'Курирана колекција од европски мајстори за боси патики. Секој бренд има своја филозофија — заедничко им е длабокото почитување на анатомијата на стапалото.',
-    sq: 'Koleksion i kuruar nga mjeshtër evropianë të këpucëve barefoot. Çdo markë ka filozofinë e saj — të përbashkët kanë respektin e thellë për anatominë e këmbës.',
-    en: 'A curated collection from European barefoot makers. Each brand has its own philosophy — what they share is a deep respect for the anatomy of the foot.',
+    mk: 'Внимателно избрана колекција од европски мајстори за боси патики. Секој бренд има своја филозофија — заедничко им е длабокото почитување на анатомијата на стапалото.',
+    sq: 'Koleksion i zgjedhur me kujdes nga mjeshtër evropianë të këpucëve barefoot. Çdo markë ka filozofinë e saj — të përbashkët kanë respektin e thellë për anatominë e këmbës.',
+    en: 'A hand-picked collection from European barefoot makers. Each brand has its own philosophy — what they share is a deep respect for the anatomy of the foot.',
   },
   'brands.productCount.one': {
     mk: 'производ',
@@ -1057,6 +1069,455 @@ export const ui: UIStrings = {
     en: 'Write to us — we\'ll help you personally. We have every model in our hands and know how they run on size.',
   },
 
+  // ── Foot Health hub page ──────────────────────────────────
+  'footHealth.eyebrow': {
+    mk: 'Здравје на стапалата',
+    sq: 'Shëndeti i këmbëve',
+    en: 'Foot Health',
+  },
+  'footHealth.title': {
+    mk: 'Стапалата заслужуваат подобро.',
+    sq: 'Këmbët meritojnë më shumë.',
+    en: 'Your feet deserve better.',
+  },
+  'footHealth.subtitle': {
+    mk: 'Почни да разбираш зошто.',
+    sq: 'Fillo të kuptosh pse.',
+    en: 'Start learning why.',
+  },
+  // Topic card category labels
+  'footHealth.topic.achilles': {
+    mk: 'Ахилот и потколеници',
+    sq: 'Akili dhe kërcinjtë',
+    en: 'Achilles & calves',
+  },
+  'footHealth.topic.heel': {
+    mk: 'Петица и свод',
+    sq: 'Thembra dhe harku',
+    en: 'Heel & arch',
+  },
+  'footHealth.topic.knees': {
+    mk: 'Колена и грб',
+    sq: 'Gjunjët dhe shpina',
+    en: 'Knees & back',
+  },
+  'footHealth.topic.transition': {
+    mk: 'Водич за транзиција',
+    sq: 'Udhëzues tranzicioni',
+    en: 'Transition guide',
+  },
+  // Dark CTA banner
+  'footHealth.cta.title': {
+    mk: 'Не си сигурен дали боси патики се за тебе?',
+    sq: 'Nuk je i sigurt nëse këpucët barefoot janë për ty?',
+    en: 'Not sure if barefoot shoes are for you?',
+  },
+  'footHealth.cta.body': {
+    mk: 'Прочитај го нашиот целосен водич за почетници — бесплатно, без обврски.',
+    sq: 'Lexo udhëzuesin tonë të plotë për fillestarë — falas, pa detyrime.',
+    en: 'Read our complete beginner\'s guide — free, no strings attached.',
+  },
+  'footHealth.cta.button': {
+    mk: 'Започни тука',
+    sq: 'Fillo këtu',
+    en: 'Start here',
+  },
+  // Symptoms / signs section
+  'footHealth.signs.eyebrow': {
+    mk: 'Дали те засегнува ова?',
+    sq: 'A të prek kjo?',
+    en: 'Does this affect you?',
+  },
+  'footHealth.signs.title': {
+    mk: 'Препознај ги знаците на лоши обувки',
+    sq: 'Njih shenjat e këpucëve të këqija',
+    en: 'Recognise the signs of bad shoes',
+  },
+  'footHealth.signs.kneePain': {
+    mk: 'Болка во колена',
+    sq: 'Dhimbje në gjunjë',
+    en: 'Knee pain',
+  },
+  'footHealth.signs.heavyLegs': {
+    mk: 'Тешки нозе навечер',
+    sq: 'Këmbë të rënda në mbrëmje',
+    en: 'Heavy legs in the evening',
+  },
+  'footHealth.signs.heelPain': {
+    mk: 'Болка во петицата',
+    sq: 'Dhimbje në thembër',
+    en: 'Heel pain',
+  },
+  'footHealth.signs.flatFeet': {
+    mk: 'Плоско стопало',
+    sq: 'Këmbë të sheshta',
+    en: 'Flat feet',
+  },
+  'footHealth.signs.varicose': {
+    mk: 'Варикозни вени',
+    sq: 'Vena varikoze',
+    en: 'Varicose veins',
+  },
+  'footHealth.signs.backPain': {
+    mk: 'Болка во грб',
+    sq: 'Dhimbje shpine',
+    en: 'Back pain',
+  },
+  'footHealth.signs.bentToes': {
+    mk: 'Искривени прсти',
+    sq: 'Gishtërinj të shtrembër',
+    en: 'Bent toes',
+  },
+  'footHealth.signs.swollenFeet': {
+    mk: 'Отечени нозе',
+    sq: 'Këmbë të fryra',
+    en: 'Swollen feet',
+  },
+  'footHealth.signs.fatigue': {
+    mk: 'Замор при одење',
+    sq: 'Lodhje gjatë ecjes',
+    en: 'Fatigue when walking',
+  },
+  'footHealth.signs.note': {
+    mk: 'Ако препознаваш некој од овие симптоми — обувките можат да бидат причината.',
+    sq: 'Nëse njeh ndonjë nga këto simptoma — këpucët mund të jenë shkaku.',
+    en: 'If you recognise any of these symptoms — your shoes could be the cause.',
+  },
+  'footHealth.signs.link': {
+    mk: 'Дознај повеќе за здравјето на стапалата',
+    sq: 'Mëso më shumë për shëndetin e këmbëve',
+    en: 'Learn more about foot health',
+  },
+
+  // ── New to barefoot page ──────────────────────────────────
+  'newToBarefoot.title': {
+    mk: 'Нови кај боси патики?',
+    sq: 'Fillestare me këpucët barefoot?',
+    en: 'New to barefoot shoes?',
+  },
+  'newToBarefoot.lead': {
+    mk: 'Ако никогаш не си носел боси патики, оваа страница е за тебе. Ќе ти објасниме зошто се различни, зошто важи тоа и како безбедно да почнеш.',
+    sq: 'Nëse nuk keni veshur kurrë këpucë barefoot, kjo faqe është për ju. Do të shpjegojmë pse janë të ndryshme, pse ka rëndësi dhe si të filloni në mënyrë të sigurt.',
+    en: 'If you\'ve never worn barefoot shoes, this page is for you. We\'ll explain what makes them different, why it matters, and how to start safely.',
+  },
+  'newToBarefoot.what.title': {
+    mk: 'Три работи кои ги прават поинакви',
+    sq: 'Tre gjëra që i bëjnë të ndryshme',
+    en: 'Three things that make them different',
+  },
+  'newToBarefoot.what.lead': {
+    mk: 'Обична чевла го обликува стапалото. Боса чевла го ослободува. Разликата лежи во три основни карактеристики:',
+    sq: 'Këpuca konvencionale e modelon këmbën. Këpuca barefoot e liron atë. Ndryshimi qëndron në tre karakteristika bazë:',
+    en: 'A conventional shoe shapes your foot. A barefoot shoe frees it. The difference comes down to three features:',
+  },
+  'newToBarefoot.feature1.title': {
+    mk: 'Широк простор за прстите',
+    sq: 'Hapësirë e gjerë për gishtërinjtë',
+    en: 'Wide toe box',
+  },
+  'newToBarefoot.feature1.body': {
+    mk: 'Прстите треба простор да се распостелат. Тесна чевла ги стиска — со текот на времето тоа ја слабее мускулатурата и ги деформира прстите. Широкиот простор го враќа природниот облик на стапалото.',
+    sq: 'Gishtërinjtë kanë nevojë për hapësirë të hapen. Këpuca e ngushtë i shtrydhë — me kalimin e kohës kjo dobëson muskulaturën dhe deformon gishtërinjtë. Hapësira e gjerë e kthen formën natyrale të këmbës.',
+    en: 'Toes need room to splay. A narrow shoe squeezes them — over time this weakens the muscles and deforms the toes. A wide toe box returns the foot to its natural shape.',
+  },
+  'newToBarefoot.feature2.title': {
+    mk: 'Нула надолен пад',
+    sq: 'Zero drop',
+    en: 'Zero drop',
+  },
+  'newToBarefoot.feature2.body': {
+    mk: 'Кај обичните чевли петицата е повисока од прстите — тоа го скратува ахиловото тетиво и го наведнува телото нанапред. Кај босите патики петицата и прстите се на исто ниво, баш како кога одиш бос по рамна подлога.',
+    sq: 'Tek këpucët normale thembra është më e lartë se gishtërinjtë — kjo shkurton tendinën e Akilit dhe anon trupin përpara. Tek barefoot thembra dhe gishtërinjtë janë në të njëjtin nivel, si kur ecni zbathur.',
+    en: 'In regular shoes the heel is higher than the toes — this shortens the Achilles tendon and tilts the body forward. In barefoot shoes heel and toes are level, just like walking barefoot on a flat surface.',
+  },
+  'newToBarefoot.feature3.title': {
+    mk: 'Тенок и флексибилен ѓон',
+    sq: 'Sole e hollë dhe fleksibël',
+    en: 'Thin flexible sole',
+  },
+  'newToBarefoot.feature3.body': {
+    mk: 'Дебелата амортизација ги блокира сигналите кои стапалото ги испраќа кон мозокот. Тенкиот ѓон ти дозволува да ја чувствуваш подлогата — тоа се нарекува проприоцепција. Стапалото реагира природно, а со тоа и целото тело.',
+    sq: 'Amortizimi i trashë bllokon sinjalet që këmba i dërgon trurit. Solla e hollë ju lejon të ndjeni tokën — kjo quhet proprioceptim. Këmba reagon natyrisht, dhe me të edhe i gjithë trupi.',
+    en: 'Thick cushioning blocks the signals your foot sends to your brain. A thin sole lets you feel the ground — this is called proprioception. The foot responds naturally, and so does the rest of your body.',
+  },
+  'newToBarefoot.transition.title': {
+    mk: 'Како да преминеш безбедно',
+    sq: 'Si të kalosh në mënyrë të sigurt',
+    en: 'How to transition safely',
+  },
+  'newToBarefoot.transition.lead': {
+    mk: 'Ова е најважното нешто кое треба да го знаеш: не можеш само да ги обуеш и да продолжиш со вообичаениот распоред. Стапалата и мускулите на нозете биле во обични чевли со години — потребно е време да се зајакнат.',
+    sq: 'Kjo është gjëja më e rëndësishme: nuk mund t\'i vishni dhe të vazhdoni me rutinën normale. Këmbët dhe muskujt kanë qenë në këpucë normale për vite — duhet kohë për t\'u forcuar.',
+    en: 'This is the most important thing to know: you can\'t just put them on and carry on with your normal routine. Your feet and lower leg muscles have been in conventional shoes for years — they need time to strengthen.',
+  },
+  'newToBarefoot.transition.week1.title': {
+    mk: 'Недели 1–2: Полека почни',
+    sq: 'Javët 1–2: Fillo ngadalë',
+    en: 'Weeks 1–2: Start slowly',
+  },
+  'newToBarefoot.transition.week1.body': {
+    mk: 'Носи ги 1–2 часа дневно за секојдневни активности — одење, работа. Не трчај. Дај им на мускулите да се навикнат на новото оптоварување. Замор или болка е знак дека правиш повеќе отколку треба.',
+    sq: 'Vishini 1–2 orë në ditë për aktivitete të përditshme — ecje, punë. Mos vraponi. Lërini muskujt të mësohen. Lodhja ose dhimbja është shenjë se po bëni shumë.',
+    en: 'Wear them 1–2 hours a day for everyday activities — walking, errands. Don\'t run. Let your muscles adapt. Fatigue or soreness means you\'re doing too much.',
+  },
+  'newToBarefoot.transition.week3.title': {
+    mk: 'Недели 3–4: Зголеми постепено',
+    sq: 'Javët 3–4: Rrit gradualisht',
+    en: 'Weeks 3–4: Build gradually',
+  },
+  'newToBarefoot.transition.week3.body': {
+    mk: 'Ако се чувствуваш добро, зголеми на 3–4 часа. Вклучи ги и на кратки прошетки. Мускулите на стапалото и потколеницата веројатно ќе бидат малку занемарени — тоа е нормално и добро.',
+    sq: 'Nëse ndjeheni mirë, rritni në 3–4 orë. Përfshijini edhe në shëtitje të shkurtra. Muskujt e këmbës dhe viçit do të jenë pak të lodhur — kjo është normale dhe e mirë.',
+    en: 'If you feel good, increase to 3–4 hours. Include them on short walks. Foot and calf muscles will probably be a little sore — that\'s normal and a good sign.',
+  },
+  'newToBarefoot.transition.month2.title': {
+    mk: 'Месец 2+: Стапалото почнува да се менува',
+    sq: 'Muaji 2+: Këmba fillon të ndryshojë',
+    en: 'Month 2+: Your foot starts to change',
+  },
+  'newToBarefoot.transition.month2.body': {
+    mk: 'Постепено ги заменуваш обичните чевли во сè повеќе ситуации. Стапалата стануваат посилни, ходот е постабилен. Многу луѓе забележуваат дека болките во колената и грбот се намалуваат.',
+    sq: 'Gradualisht i zëvendësoni këpucët normale në situata gjithnjë e më shumë. Këmbët bëhen më të forta, ecja më e qëndrueshme. Shumë njerëz vërejnë se dhimbjet në gjunjë dhe shpinë zvogëlohen.',
+    en: 'You gradually replace conventional shoes in more situations. Feet get stronger, gait more stable. Many people notice knee and back pain decreasing.',
+  },
+  'newToBarefoot.mistakes.title': {
+    mk: 'Чести грешки',
+    sq: 'Gabimet e zakonshme',
+    en: 'Common mistakes',
+  },
+  'newToBarefoot.mistake1.title': {
+    mk: 'Прекумерно носење на почетокот',
+    sq: 'Mbarveshje e tepërt në fillim',
+    en: 'Overdoing it at the start',
+  },
+  'newToBarefoot.mistake1.body': {
+    mk: 'Болките по првата недела речиси секогаш значат едно: премногу, премногу брзо. Два часа дневно е доволно за почеток.',
+    sq: 'Dhimbjet pas javës së parë pothuajse gjithmonë nënkuptojnë: shumë, shumë shpejt. Dy orë në ditë janë të mjaftueshme.',
+    en: 'Soreness after the first week almost always means: too much, too fast. Two hours a day is enough to start.',
+  },
+  'newToBarefoot.mistake2.title': {
+    mk: 'Трчање пред одење',
+    sq: 'Vrapim para ecjes',
+    en: 'Running before walking',
+  },
+  'newToBarefoot.mistake2.body': {
+    mk: 'Боси трчање е напреден чекор. Прво зајакни ги стапалата со одење. Трчањето може да почне по 2–3 месеци, постепено и внимателно.',
+    sq: 'Vrapimi barefoot është hap i avancuar. Fillimisht forconi këmbët me ecje. Vrapimi mund të fillojë pas 2–3 muajsh, gradualisht.',
+    en: 'Barefoot running is an advanced step. First strengthen your feet with walking. Running can begin after 2–3 months, gradually and carefully.',
+  },
+  'newToBarefoot.mistake3.title': {
+    mk: 'Очекување брзи резултати',
+    sq: 'Pritshmëri për rezultate të shpejta',
+    en: 'Expecting quick results',
+  },
+  'newToBarefoot.mistake3.body': {
+    mk: 'Транзицијата трае месеци. Телото не се адаптира преку ноќ. Стрпливоста е дел од процесот — тело кое постепено се менува е потрајно од она кое брза.',
+    sq: 'Tranzicioni zgjat muaj. Trupi nuk adaptohet gjatë natës. Durimi është pjesë e procesit — ndryshimi gradual zgjat më shumë.',
+    en: 'Transition takes months. The body doesn\'t adapt overnight. Patience is part of the process — gradual change lasts longer than rushing.',
+  },
+  'newToBarefoot.faq.title': {
+    mk: 'Чести прашања',
+    sq: 'Pyetje të shpeshta',
+    en: 'Frequently asked questions',
+  },
+  'newToBarefoot.faq.1.q': {
+    mk: 'Дали босите патики се погодни за сите?',
+    sq: 'A janë këpucët barefoot të përshtatshme për të gjithë?',
+    en: 'Are barefoot shoes suitable for everyone?',
+  },
+  'newToBarefoot.faq.1.a': {
+    mk: 'Речиси за секого — но транзицијата мора да биде постепена. Ако имаш специфични медицински состојби на стапалото, консултирај се со специјалист пред да почнеш.',
+    sq: 'Pothuajse për të gjithë — por tranzicioni duhet të jetë gradual. Nëse keni kushte mjekësore specifike, konsultohuni me specialist.',
+    en: 'For almost everyone — but the transition must be gradual. If you have specific medical foot conditions, consult a specialist before starting.',
+  },
+  'newToBarefoot.faq.2.q': {
+    mk: 'Дали ќе ме болат стапалата?',
+    sq: 'A do të më dhembin këmbët?',
+    en: 'Will my feet hurt?',
+  },
+  'newToBarefoot.faq.2.a': {
+    mk: 'Лесна мускулна болка на почетокот е нормална — мускулите работат на нов начин. Остра болка значи дека треба да запреш. Постепена транзиција го минимизира ова.',
+    sq: 'Dhimbje e lehtë muskulore në fillim është normale. Dhimbja e mprehtë nënkupton se duhet të ndaloni. Tranzicioni gradual e minimizon këtë.',
+    en: 'Mild muscle soreness at the start is normal — muscles are working in a new way. Sharp pain means you should stop. A gradual transition minimises this.',
+  },
+  'newToBarefoot.faq.3.q': {
+    mk: 'Кога можам да почнам да трчам?',
+    sq: 'Kur mund të filloj të vrapoj?',
+    en: 'When can I start running in them?',
+  },
+  'newToBarefoot.faq.3.a': {
+    mk: 'По 2–3 месеци на редовно носење за одење. Почни со кратки интервали (5–10 минути) и зголемувај постепено. Некои чекаат 6 месеци — и тоа е во ред.',
+    sq: 'Pas 2–3 muajsh të veshjeve të rregullta për ecje. Filloni me intervale të shkurtra (5–10 minuta) dhe rritni gradualisht.',
+    en: 'After 2–3 months of regular walking use. Start with short intervals (5–10 minutes) and build gradually. Some people wait 6 months — that\'s fine too.',
+  },
+  'newToBarefoot.faq.4.q': {
+    mk: 'Можам ли да ги носам на работа?',
+    sq: 'A mund t\'i mbaj në punë?',
+    en: 'Can I wear them to work?',
+  },
+  'newToBarefoot.faq.4.a': {
+    mk: 'Да — но примени ги истите правила. Ако работиш стоечки 8 часа, почни со неколку часа и постепено зголемувај.',
+    sq: 'Po — por zbatoni të njëjtat rregulla. Nëse punoni në këmbë 8 orë, filloni me disa orë dhe rritni gradualisht.',
+    en: 'Yes — but apply the same gradual rules. If you stand for 8 hours at work, start with a few hours and build up.',
+  },
+  'newToBarefoot.cta.title': {
+    mk: 'Готов да почнеш?',
+    sq: 'Gati të fillosh?',
+    en: 'Ready to start?',
+  },
+  'newToBarefoot.cta.body': {
+    mk: 'Секоја патика во нашата продавница ја покажува дебелината на ѓонот, надолниот пад и ширината на просторот за прстите. Не си сигурен која? Пиши ни — ние лично ги носиме сите модели кои ги нудиме.',
+    sq: 'Çdo këpucë tregon trashësinë e solës, drop-in dhe gjerësinë e hapësirës për gishtërinjtë. Nuk jeni të sigurt cilën? Na shkruani — ne i mbajmë personalisht të gjitha modelet.',
+    en: 'Every shoe in our store shows sole thickness, drop, and toe box width. Not sure which one? Write to us — we personally wear every model we stock.',
+  },
+
+  // ── Shoe anatomy page ─────────────────────────────────────
+  'shoeAnatomy.title': {
+    mk: 'Анатомија на боса патика',
+    sq: 'Anatomia e këpucës barefoot',
+    en: 'Anatomy of a barefoot shoe',
+  },
+  'shoeAnatomy.lead': {
+    mk: 'На страницата на секој производ ќе видиш спецификации: дебелина на ѓонот, тежина, материјали. Оваа страница објаснува што значат и зошто важат за боси патики.',
+    sq: 'Në faqen e çdo produkti do të shihni specifikime: trashësinë e solës, peshën, materialet. Kjo faqe shpjegon çfarë nënkuptojnë dhe pse kanë rëndësi për këpucët barefoot.',
+    en: 'On every product page you\'ll see specs: sole thickness, weight, materials. This page explains what they mean and why they matter for barefoot shoes.',
+  },
+  'shoeAnatomy.diagram.title': {
+    mk: 'Делови на патика',
+    sq: 'Pjesët e këpucës',
+    en: 'Parts of the shoe',
+  },
+  'shoeAnatomy.diagram.upper': {
+    mk: 'Горен дел',
+    sq: 'Pjesa e sipërme',
+    en: 'Upper',
+  },
+  'shoeAnatomy.diagram.insole': {
+    mk: 'Влошка',
+    sq: 'Sole e brendshme',
+    en: 'Insole',
+  },
+  'shoeAnatomy.diagram.outsole': {
+    mk: 'Ѓон',
+    sq: 'Solla e jashtme',
+    en: 'Outsole',
+  },
+  'shoeAnatomy.diagram.stackHeight': {
+    mk: 'Висина на ѓонот',
+    sq: 'Lartësia e solës',
+    en: 'Stack height',
+  },
+  'shoeAnatomy.diagram.zeroDrop': {
+    mk: 'Нула надолен пад',
+    sq: 'Zero drop',
+    en: 'Zero drop',
+  },
+  'shoeAnatomy.diagram.toeBox': {
+    mk: 'Простор за прстите',
+    sq: 'Hapësirë për gishtërinjtë',
+    en: 'Toe box',
+  },
+  'shoeAnatomy.glossary.title': {
+    mk: 'Речник на термини',
+    sq: 'Fjalori i termave',
+    en: 'Glossary of terms',
+  },
+  'shoeAnatomy.stackHeight.title': {
+    mk: 'Висина на ѓонот (Stack height)',
+    sq: 'Lartësia e solës (Stack height)',
+    en: 'Stack height',
+  },
+  'shoeAnatomy.stackHeight.body': {
+    mk: 'Вкупната дебелина помеѓу стапалото и земјата — ѓон плус влошка. Пониската висина значи повеќе осет за подлогата (проприоцепција). Повеќето боси патики имаат 6–15 мм, наспроти 25–35 мм кај обичните патики.',
+    sq: 'Trashësia totale midis këmbës dhe tokës — solla e jashtme plus solla e brendshme. Lartësia më e ulët do të thotë më shumë ndjesi të tokës (proprioceptim). Shumica e këpucëve barefoot kanë 6–15 mm, krahasuar me 25–35 mm tek këpucët normale.',
+    en: 'The total thickness between your foot and the ground — outsole plus insole. Lower stack means more ground feel (proprioception). Most barefoot shoes sit at 6–15 mm, versus 25–35 mm in conventional trainers.',
+  },
+  'shoeAnatomy.stackHeight.tip': {
+    mk: 'На страницата на производот: „Дебелина на ѓонот — X мм (Y мм со влошка)". Помало = повеќе осет за подлогата.',
+    sq: 'Në faqen e produktit: "Trashësia e solës — X mm (Y mm me sole të brendshme)". Më e vogël = më shumë ndjesi të tokës.',
+    en: 'On the product page: "Sole thickness — X mm (Y mm with insole)". Smaller = more ground feel.',
+  },
+  'shoeAnatomy.zeroDrop.title': {
+    mk: 'Нула надолен пад (Zero drop)',
+    sq: 'Zero drop',
+    en: 'Zero drop',
+  },
+  'shoeAnatomy.zeroDrop.body': {
+    mk: 'Разликата во висина помеѓу петицата и прстите. Нула значи дека петицата и прстите се на исто ниво — точно како кога одиш бос. Обичните патики имаат 8–12 мм надолен пад, што го скратува ахиловото тетиво и го наведнува телото нанапред со текот на времето.',
+    sq: 'Diferenca e lartësisë midis thembrës dhe gishtërinjve. Zero do të thotë se thembra dhe gishtërinjtë janë në të njëjtin nivel — ashtu si kur ecni zbathur. Këpucët normale kanë 8–12 mm drop, që shkurton tendinën e Akilit dhe anon trupin përpara me kalimin e kohës.',
+    en: 'The height difference between heel and toes. Zero means heel and toes are at the same level — exactly like walking barefoot. Conventional shoes carry 8–12 mm of drop, which shortens the Achilles tendon and tilts the body forward over time.',
+  },
+  'shoeAnatomy.zeroDrop.tip': {
+    mk: 'Сите боси патики во нашата продавница се zero drop. Тоа не е наведено одделно бидејќи е подразбирано.',
+    sq: 'Të gjitha këpucët barefoot në dyqanin tonë janë zero drop. Kjo nuk është listuar veçmas sepse është e nënkuptuar.',
+    en: 'All barefoot shoes in our store are zero drop. It\'s not listed separately because it\'s a given.',
+  },
+  'shoeAnatomy.toeBox.title': {
+    mk: 'Простор за прстите (Toe box)',
+    sq: 'Hapësirë për gishtërinjtë (Toe box)',
+    en: 'Toe box',
+  },
+  'shoeAnatomy.toeBox.body': {
+    mk: 'Ширината на предниот дел на патиката каде се наоѓаат прстите. Широк простор им дозволува на прстите да се распостелат природно и да го стабилизираат телото. Тесниот простор со текот на времето придонесува кон вклештени прсти, ункии и грчеви.',
+    sq: 'Gjerësia e pjesës së përparme të këpucës ku ndodhen gishtërinjtë. Hapësira e gjerë i lejon gishtërinjtë të hapen natyrshëm dhe të stabilizojnë trupin. Hapësira e ngushtë me kalimin e kohës kontribuon në gishtërinj të shtypur, çekan dhe krampe.',
+    en: 'The width of the front part of the shoe where your toes sit. A wide toe box lets toes splay naturally and stabilise the body. A narrow box contributes to bunions, hammer toes, and cramps over time.',
+  },
+  'shoeAnatomy.toeBox.tip': {
+    mk: 'Ставена е во описот на производот. Кога пробуваш патика: внатре треба да имаш доволно место за да ги движиш сите прсти слободно.',
+    sq: 'Është e përfshirë në përshkrimin e produktit. Kur provoni këpucën: brenda duhet të keni hapësirë të mjaftueshme për të lëvizur të gjithë gishtërinjtë lirshëm.',
+    en: 'Covered in the product description. When trying a shoe: you should have enough room inside to move all toes freely.',
+  },
+  'shoeAnatomy.flexibility.title': {
+    mk: 'Флексибилност на ѓонот',
+    sq: 'Fleksibiliteti i solës',
+    en: 'Sole flexibility',
+  },
+  'shoeAnatomy.flexibility.body': {
+    mk: 'Способноста на ѓонот да се свива заедно со стапалото. Крут ѓон го блокира природното движење на стапалото и ги слабее мускулите. Флексибилен ѓон дозволува стапалото да работи онака како природата го нацртала — виткање, вртење, апсорпција на удар.',
+    sq: 'Aftësia e solës për t\'u përkulur së bashku me këmbën. Solla e ngurtë bllokon lëvizjen natyrale të këmbës dhe dobëson muskujt. Solla fleksibël i lejon këmbës të punojë siç e ka projektuar natyra — përkulje, rrotullim, absorbim i goditjes.',
+    en: 'The ability of the sole to bend with your foot. A stiff sole blocks natural foot movement and weakens muscles. A flexible sole lets the foot work as nature designed — bending, twisting, absorbing impact.',
+  },
+  'shoeAnatomy.flexibility.tip': {
+    mk: 'Не е нумеричка вредност во спецификациите. Тест: можеш ли да ја свиткаш патиката на половина со рака? Ако да — е флексибилна.',
+    sq: 'Nuk është vlerë numerike në specifikime. Testi: mund ta përkulni këpucën në gjysmë me dorë? Nëse po — është fleksibël.',
+    en: 'Not a numeric value in specs. Test: can you fold the shoe in half with your hand? If yes — it\'s flexible.',
+  },
+  'shoeAnatomy.upper.title': {
+    mk: 'Горен дел (Upper)',
+    sq: 'Pjesa e sipërme (Upper)',
+    en: 'Upper',
+  },
+  'shoeAnatomy.upper.body': {
+    mk: 'Делот на патиката кој го обвиткува стапалото. Материјалот одредува дишливост, водоотпорност и тежина. Мреж (mesh) — максимална дишливост, не е водоотпорно. Кожа — издржливост и водоотпорност, помалку дишливо. Синтетика — баланс помеѓу двете.',
+    sq: 'Pjesa e këpucës që mbërthen këmbën. Materiali përcakton ajrosjen, rezistencën ndaj ujit dhe peshën. Rrjetë (mesh) — ajrosje maksimale, jo rezistente ndaj ujit. Lëkurë — qëndrueshmëri dhe rezistencë ndaj ujit, më pak e ajrosur. Sintetike — balancë midis të dyjave.',
+    en: 'The part of the shoe that wraps your foot. The material determines breathability, water resistance, and weight. Mesh — maximum breathability, not waterproof. Leather — durable and water resistant, less breathable. Synthetic — a balance between the two.',
+  },
+  'shoeAnatomy.upper.tip': {
+    mk: 'На страницата на производот: „Горен дел" под материјали. Наведен е и специфичниот материјал (BottleYarn, кожа, итн.).',
+    sq: 'Në faqen e produktit: "Pjesa e sipërme" nën materiale. Është listuar edhe materiali specifik (BottleYarn, lëkurë, etj.).',
+    en: 'On the product page: "Upper" under materials. The specific material (BottleYarn, leather, etc.) is listed there.',
+  },
+  'shoeAnatomy.insole.title': {
+    mk: 'Влошка (Insole)',
+    sq: 'Solla e brendshme (Insole)',
+    en: 'Insole',
+  },
+  'shoeAnatomy.insole.body': {
+    mk: 'Подлогата внатре во патиката на која стои стапалото. Кај босите патики е намерно тенка — 3–4 мм. Многу модели имаат отстранлива влошка: можеш да ја извадиш за уште потенок осет или да ставиш ортопедска. Некои модели воопшто немаат влошка.',
+    sq: 'Mbështetja brenda këpucës mbi të cilën qëndron këmba. Tek këpucët barefoot është me qëllim e hollë — 3–4 mm. Shumë modele kanë sole të brendshme të lëvizshme: mund ta hiqni për ndjesi edhe më të hollë ose të vendosni ortopedike. Disa modele nuk kanë fare.',
+    en: 'The inner lining inside the shoe your foot stands on. In barefoot shoes it\'s intentionally thin — 3–4 mm. Many models have a removable insole: you can take it out for even more ground feel or swap in an orthopaedic one. Some models have none at all.',
+  },
+  'shoeAnatomy.insole.tip': {
+    mk: 'На страницата на производот: „Влошка — отстранлива" е наведено кај спецификациите ако важи. Дебелината на ѓонот е прикажана со и без влошка.',
+    sq: 'Në faqen e produktit: "Sole e brendshme — e lëvizshme" është listuar te specifikimet nëse vlen. Trashësia e solës tregohet me dhe pa sole të brendshme.',
+    en: 'On the product page: "Insole — removable" is listed in specs where applicable. Sole thickness is shown both with and without the insole.',
+  },
+  'shoeAnatomy.compare.title': {
+    mk: 'Боса патика наспроти обична патика',
+    sq: 'Këpucë barefoot kundrejt këpucës normale',
+    en: 'Barefoot shoe vs. conventional shoe',
+  },
+
   // ── About page ────────────────────────────────────────────
   'about.title': {
     mk: 'За нас',
@@ -1064,9 +1525,9 @@ export const ui: UIStrings = {
     en: 'About us',
   },
   'about.lead': {
-    mk: 'Bosfoot е првата куратска продавница за боси патики на Балканот. Веруваме дека стапалата заслужуваат подобро.',
-    sq: 'Bosfoot është dyqani i parë i kuruar i këpucëve barefoot në Ballkan. Besojmë se këmbët meritojnë më shumë.',
-    en: 'Bosfoot is the first curated barefoot shoe shop in the Balkans. We believe feet deserve better.',
+    mk: 'Bosfoot е првата специјализирана продавница за боси патики на Балканот. Веруваме дека стапалата заслужуваат подобро.',
+    sq: 'Bosfoot është dyqani i parë i specializuar i këpucëve barefoot në Ballkan. Besojmë se këmbët meritojnë më shumë.',
+    en: 'Bosfoot is the first dedicated barefoot shoe shop in the Balkans. We believe feet deserve better.',
   },
   'about.story.title': {
     mk: 'Нашата приказна',
@@ -1084,9 +1545,9 @@ export const ui: UIStrings = {
     en: 'Our mission',
   },
   'about.mission.body': {
-    mk: 'Да ги вратиме стапалата на местото каде што природата ги има замислено — слободни, силни, чувствителни. Со курирана селекција од најдобрите европски брендови, локална поддршка и совет од прва рака.',
-    sq: 'T\'i kthejmë këmbët në vendin ku natyra i ka projektuar — të lira, të forta, të ndjeshme. Me një përzgjedhje të kuruar nga markat më të mira evropiane, mbështetje lokale dhe këshilla nga dora e parë.',
-    en: 'To return feet to the place nature designed them — free, strong, sensitive. With a curated selection of the best European brands, local support and first-hand advice.',
+    mk: 'Да ги вратиме стапалата на местото каде што природата ги има замислено — слободни, силни, чувствителни. Со лично избрани брендови од Европа, локална поддршка и совет од прва рака.',
+    sq: 'T\'i kthejmë këmbët në vendin ku natyra i ka projektuar — të lira, të forta, të ndjeshme. Me marka të zgjedhura personalisht nga Europa, mbështetje lokale dhe këshilla nga dora e parë.',
+    en: 'To return feet to the place nature designed them — free, strong, sensitive. With personally selected brands from Europe, local support and first-hand advice.',
   },
   'about.values.title': {
     mk: 'Што нѐ води',
