@@ -10,163 +10,64 @@ interface Props {
 
 const { locale } = Astro.props;
 const productsPath = localePath(locale, "products");
-
-/**
- * Hero — full-section background image with text + CTAs in the left grid
- * column and a translucent rotating quote card in the right column. On
- * mobile the right column stacks under the buttons. A gradient wash keeps
- * the left-side text legible over the image. Respects prefers-reduced-motion.
- */
 ---
 
-<section
-  class="hero-section relative overflow-hidden bg-secondary border-b border-border"
->
-  <!-- Full-section hero image — responsive srcset, eager + high priority for LCP -->
+<section class="hero-section relative overflow-hidden bg-stone-900">
+  <!-- Responsive image: small for mobile, large for tablet+ -->
   <picture>
     <source
+      media="(min-width: 768px)"
+      srcset="/images/hero/hero-large.webp"
       type="image/webp"
-      srcset="/images/hero/bosfoot_hero_400w.webp 400w,
-              /images/hero/bosfoot_hero_600w.webp 600w,
-              /images/hero/bosfoot_hero_900w.webp 900w,
-              /images/hero/bosfoot_hero_1200w.webp 1200w"
-      sizes="100vw"
     />
     <img
-      src="/images/hero/bosfoot_hero_600w.jpg"
-      alt="Bosfoot forest green barefoot sneaker on wet cobblestone"
+      src="/images/hero/hero-small.webp"
+      alt="Freet barefoot shoes and boots"
       loading="eager"
       fetchpriority="high"
       decoding="async"
-      class="absolute inset-0 w-full h-full object-cover object-[center_78%]"
+      class="absolute inset-0 w-full h-full object-cover object-top"
     />
   </picture>
 
-  <div
-    class="container-page relative grid grid-cols-1 lg:grid-cols-2 items-center gap-10 lg:gap-16 py-16 md:py-24 lg:py-32"
-  >
-    <!-- Left: tagline + CTAs. White text + cheap text-shadow for legibility
-         over the moody image (no filter / no blur — mobile-friendly). -->
-    <div class="max-w-xl hero-copy">
-      <h1
-        class="font-bold leading-[1.05] tracking-tight text-white text-[2.5rem] md:text-6xl xl:text-[5rem] mb-6"
-      >
-        <span class="block">{t("home.hero.line1", locale)}</span>
-        <span class="block italic font-semibold text-[#e89366]">
-          {t("home.hero.line2", locale)}
-        </span>
+  <!-- Bottom-left gradient for text legibility -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+
+  <!-- Text + CTAs — bottom left -->
+  <div class="container-page relative h-full flex items-end pb-10 md:pb-14">
+    <div class="max-w-sm md:max-w-md">
+      <h1 class="text-[1.6rem] md:text-[2rem] font-semibold leading-[1.2] tracking-tight text-white mb-6">
+        {t("home.hero.line1", locale)}{" "}
+        <span class="italic font-normal">{t("home.hero.line2", locale)}</span>
       </h1>
 
-      <p
-        class="hero-lead text-[1.1rem] md:text-[1.15rem] font-medium leading-relaxed text-white mb-10 max-w-md"
-      >
-        {t("home.hero.lead", locale)}
-      </p>
-
-      <div class="flex flex-wrap gap-3">
-        <Button href={`${productsPath}?gender=mens`} size="lg">
+      <div class="flex gap-3">
+        <Button href={`${productsPath}?gender=mens`} size="sm">
           {t("home.hero.shopMen", locale)}
         </Button>
-        <Button href={`${productsPath}?gender=womens`} size="lg">
-          {t("home.hero.shopWomen", locale)}
-        </Button>
         <Button
-          href={`${productsPath}?gender=kids`}
+          href={`${productsPath}?gender=womens`}
           variant="outline"
-          size="lg"
+          size="sm"
           class="!border-white !text-white hover:!bg-white hover:!text-foreground"
         >
-          {t("home.hero.shopKids", locale)}
+          {t("home.hero.shopWomen", locale)}
         </Button>
-      </div>
-    </div>
-
-    <!-- Right: rotating quote, no panel — just text floating on the image
-         with a soft shadow for legibility. Stacks under buttons on mobile. -->
-    <div class="lg:flex lg:justify-end">
-      <div
-        class="hero-quote-card relative w-full lg:max-w-md min-h-[220px] md:min-h-[240px] p-7 md:p-8"
-      >
-        <div class="hero-quote-slide hero-quote-slide-1 absolute inset-7 md:inset-8 flex flex-col">
-          <div class="font-serif text-5xl md:text-6xl leading-none text-white/85 font-bold mb-1">"</div>
-          <p class="font-serif text-lg md:text-xl leading-[1.45] italic font-normal text-white m-0 flex-1">
-            {t("home.quote.1.text", locale)}
-          </p>
-          <p class="label-caps mt-4 text-[11px] md:text-xs text-white/85">
-            — {t("home.quote.1.attr", locale)}
-          </p>
-        </div>
-
-        <div class="hero-quote-slide hero-quote-slide-2 absolute inset-7 md:inset-8 flex flex-col">
-          <div class="font-serif text-5xl md:text-6xl leading-none text-white/85 font-bold mb-1">"</div>
-          <p class="font-serif text-lg md:text-xl leading-[1.45] italic font-normal text-white m-0 flex-1">
-            {t("home.quote.2.text", locale)}
-          </p>
-          <p class="label-caps mt-4 text-[11px] md:text-xs text-white/85">
-            — {t("home.quote.2.attr", locale)}
-          </p>
-        </div>
-
-        <div class="hero-quote-slide hero-quote-slide-3 absolute inset-7 md:inset-8 flex flex-col">
-          <div class="font-serif text-5xl md:text-6xl leading-none text-white/85 font-bold mb-1">"</div>
-          <p class="font-serif text-lg md:text-xl leading-[1.45] italic font-normal text-white m-0 flex-1">
-            {t("home.quote.3.text", locale)}
-          </p>
-          <p class="label-caps mt-4 text-[11px] md:text-xs text-white/85">
-            — {t("home.quote.3.attr", locale)}
-          </p>
-        </div>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* Minimum height so the hero feels substantial even on short content. */
   .hero-section {
-    min-height: 640px;
+    min-height: 520px;
+    height: 62svh;
+    max-height: 780px;
   }
-  @media (min-width: 1024px) {
+  @media (min-width: 768px) {
     .hero-section {
-      min-height: 720px;
+      min-height: 580px;
+      height: 68svh;
     }
-  }
-
-  /* Cheap text-shadows (no filter, no blur — mobile-friendly).
-     Headline + quote panel get a soft halo; body text uses a tighter,
-     darker shadow that stays crisp at small sizes. */
-  .hero-copy h1,
-  .hero-quote-card div,
-  .hero-quote-card p {
-    text-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.6),
-      0 2px 18px rgba(0, 0, 0, 0.45);
-  }
-
-  .hero-lead {
-    text-shadow:
-      0 1px 1px rgba(0, 0, 0, 0.85),
-      0 1px 4px rgba(0, 0, 0, 0.6);
-  }
-
-  /* 18s rotation keyframe — CSS-only, no JS. Kept in <style> because
-     scoped `animation-delay` on three siblings is awkward in pure Tailwind. */
-  .hero-quote-slide {
-    opacity: 0;
-    animation: hero-quote-rotate 18s infinite;
-  }
-  .hero-quote-slide-1 { animation-delay: 0s; }
-  .hero-quote-slide-2 { animation-delay: -12s; }
-  .hero-quote-slide-3 { animation-delay: -6s; }
-
-  @keyframes hero-quote-rotate {
-    0%, 2% { opacity: 0; transform: translateY(8px); }
-    5%, 28% { opacity: 1; transform: translateY(0); }
-    33%, 100% { opacity: 0; transform: translateY(-8px); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .hero-quote-slide { animation: none; opacity: 1; }
-    .hero-quote-slide:not(:first-child) { display: none; }
   }
 </style>

@@ -30,9 +30,24 @@ export type ShowcaseBrand = {
   founded: number
   /** Short tagline shown on the brands index. Localized. */
   tagline: Record<Locale, string>
+  /** Whether this brand is coming soon. */
+  comingSoon?: boolean
 }
 
 export const SHOWCASE_BRANDS: ShowcaseBrand[] = [
+  {
+    slug: 'freet',
+    name: 'Freet',
+    logoSrc: '/images/brands/freet.jpg',
+    origin: 'UK',
+    founded: 2010,
+    tagline: {
+      mk: 'Британски бренд за надворешна употреба — планинарење, патеки, секојдневен живот. Издржливо и со рециклирани материјали.',
+      sq: 'Markë britanike për përdorim në natyrë — alpinizëm, shtigje, jetë e përditshme. E qëndrueshme dhe me materiale të ricikluara.',
+      en: 'UK brand built for the outdoors — hiking, trails, everyday life. Durable and made with recycled materials.',
+    },
+    comingSoon: false,
+  },
   {
     slug: 'xero-shoes',
     name: 'Xero Shoes',
@@ -44,6 +59,7 @@ export const SHOWCASE_BRANDS: ShowcaseBrand[] = [
       sq: 'Këpucë të lehta, fleksibël me hapësirë të gjerë për gishtërinjtë. Erdhën nga sandalet e bëra në shtëpi.',
       en: 'Light, flexible shoes with a wide toe box. Started from sandals made at the kitchen table.',
     },
+    comingSoon: true,
   },
   {
     slug: 'vivobarefoot',
@@ -56,30 +72,7 @@ export const SHOWCASE_BRANDS: ShowcaseBrand[] = [
       sq: 'Pionierë britanikë të barefoot — me fokus në qëndrueshmërinë dhe materialet regjeneruese.',
       en: 'British barefoot pioneers — focused on sustainability and regenerative materials.',
     },
-  },
-  {
-    slug: 'lems-shoes',
-    name: 'Lems Shoes',
-    wordmarkClass: 'uppercase font-bold tracking-widest',
-    origin: 'USA',
-    founded: 2008,
-    tagline: {
-      mk: 'Минималистички патики во природна форма на стапалото — комотни и за секојдневно носење.',
-      sq: 'Këpucë minimaliste në formë natyrale të këmbës — komode për përdorim të përditshëm.',
-      en: 'Minimalist shoes in a natural foot shape — comfortable for everyday wear.',
-    },
-  },
-  {
-    slug: 'belenka',
-    name: 'Belenka',
-    wordmarkClass: 'italic font-medium tracking-tight',
-    origin: 'Czechia',
-    founded: 2017,
-    tagline: {
-      mk: 'Чешка квалитета и кожа од Европа. Семејна работилница со посветеност на занаетот.',
-      sq: 'Cilësi çeke dhe lëkurë nga Evropa. Punëtori familjare me përkushtim ndaj zanatit.',
-      en: 'Czech quality and European leather. A family workshop with deep craft commitment.',
-    },
+    comingSoon: true,
   },
   {
     slug: 'groundies',
@@ -89,20 +82,9 @@ export const SHOWCASE_BRANDS: ShowcaseBrand[] = [
     founded: 2018,
     tagline: {
       mk: 'Германски дизајн со урбана естетика. Барефоот патики кои се вклопуваат и во канцеларија.',
-      sq: 'Dizajn gjerman me estetikë urbane. Këpucë barefoot që përshtaten edhe në zyrë.',
+      sq: 'Dizajn gjerman me estetikë urbane. Këпucë barefoot që përshtaten edhe në zyrë.',
       en: 'German design with an urban aesthetic. Barefoot shoes that fit the office too.',
     },
-  },
-  {
-    slug: 'freet',
-    name: 'Freet',
-    wordmarkClass: 'lowercase font-bold tracking-tight italic',
-    origin: 'UK',
-    founded: 2010,
-    tagline: {
-      mk: 'Британски бренд за надворешна употреба — планинарење, патеки, секојдневен живот. Издржливо и со рециклирани материјали.',
-      sq: 'Markë britanike për përdorim në natyrë — alpinizëm, shtigje, jetë e përditshme. E qëndrueshme dhe me materiale të ricikluara.',
-      en: 'UK brand built for the outdoors — hiking, trails, everyday life. Durable and made with recycled materials.',
-    },
+    comingSoon: true,
   },
 ]

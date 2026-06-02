@@ -22,18 +22,26 @@ const steps = [
   {
     title: t("sizeGuide.step1.title", locale),
     body: t("sizeGuide.step1.body", locale),
+    image: "/images/sizing/freet-fit.webp",
+    imageAlt: "Fit guide — small, true, large sizing diagram",
   },
   {
     title: t("sizeGuide.step2.title", locale),
     body: t("sizeGuide.step2.body", locale),
+    image: "/images/sizing/measure-foot-top.webp",
+    imageAlt: "Top view — foot on paper against wall",
   },
   {
     title: t("sizeGuide.step3.title", locale),
     body: t("sizeGuide.step3.body", locale),
+    image: "/images/sizing/measure-foot-side.webp",
+    imageAlt: "Side view — keeping pencil vertical at 90°",
   },
   {
     title: t("sizeGuide.step4.title", locale),
     body: t("sizeGuide.step4.body", locale),
+    image: "/images/sizing/measure-foot-dims.webp",
+    imageAlt: "Measuring the foot outline with a ruler",
   },
 ];
 ---
@@ -54,80 +62,43 @@ const steps = [
       </p>
     </header>
 
-    <div
-      class="grid grid-cols-1 gap-10 mb-16 min-[900px]:grid-cols-[1.4fr_1fr] min-[900px]:gap-16"
-    >
-      <!-- Steps -->
-      <ol class="list-none p-0 m-0 flex flex-col gap-8">
-        {
-          steps.map((step, idx) => (
-            <li
-              class:list={[
-                "pb-8 border-b border-border-subtle",
-                idx === steps.length - 1 && "border-b-0 pb-0",
-              ]}
-            >
+    <!-- Steps with images -->
+    <ol class="list-none p-0 m-0 flex flex-col gap-0 mb-16">
+      {
+        steps.map((step, idx) => (
+          <li class:list={[
+            "grid grid-cols-1 sm:grid-cols-[1fr_200px] gap-6 sm:gap-10 items-start py-10",
+            idx !== steps.length - 1 && "border-b border-border-subtle",
+          ]}>
+            <div>
               <h2 class="text-xl md:text-[1.4rem] font-semibold tracking-tight mb-3">
                 {step.title}
               </h2>
               <p class="text-base leading-[1.65] text-muted-foreground m-0">
                 {step.body}
               </p>
-            </li>
-          ))
-        }
-      </ol>
+            </div>
+            <div class="bg-secondary rounded-lg overflow-hidden border border-border-subtle flex items-center justify-center">
+              <img
+                src={step.image}
+                alt={step.imageAlt}
+                loading="lazy"
+                class="w-full h-auto object-contain max-h-52"
+              />
+            </div>
+          </li>
+        ))
+      }
+    </ol>
 
-      <!-- Tip + visual sidebar -->
-      <aside class="flex flex-col gap-6">
-        <div
-          class="bg-secondary border border-border-subtle rounded-lg p-8 text-muted-foreground flex items-center justify-center"
-          aria-hidden="true"
-        >
-          <svg
-            viewBox="0 0 200 280"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            class="w-full max-w-[220px] h-auto"
-          >
-            <!-- Stylised foot outline -->
-            <path
-              d="M100 20 C 130 20, 150 50, 150 90 L 150 200 C 150 240, 130 260, 100 260 C 70 260, 50 240, 50 200 L 50 90 C 50 50, 70 20, 100 20 Z"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-dasharray="3 4"
-              opacity="0.5"
-            />
-            <!-- Toes -->
-            <circle cx="78" cy="40" r="9" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
-            <circle cx="96" cy="32" r="11" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
-            <circle cx="116" cy="36" r="9" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
-            <circle cx="132" cy="44" r="7" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
-            <circle cx="144" cy="56" r="5" stroke="currentColor" stroke-width="1.2" opacity="0.6" />
-            <!-- Length arrow -->
-            <line x1="170" y1="32" x2="170" y2="258" stroke="currentColor" stroke-width="1.2" />
-            <polyline points="166,38 170,32 174,38" stroke="currentColor" stroke-width="1.2" fill="none" />
-            <polyline points="166,252 170,258 174,252" stroke="currentColor" stroke-width="1.2" fill="none" />
-            <!-- Width arrow -->
-            <line x1="42" y1="100" x2="158" y2="100" stroke="currentColor" stroke-width="1.2" opacity="0.7" />
-            <polyline points="48,96 42,100 48,104" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.7" />
-            <polyline points="152,96 158,100 152,104" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.7" />
-          </svg>
-        </div>
-
-        <div
-          class="bg-background border-l-[3px] border-brand px-6 py-5 rounded-r-md"
-        >
-          <h3
-            class="text-xs font-semibold uppercase tracking-[0.08em] text-brand m-0 mb-2"
-          >
-            {t("sizeGuide.tip.title", locale)}
-          </h3>
-          <p class="text-[0.95rem] leading-[1.55] m-0 text-foreground">
-            {t("sizeGuide.tip.body", locale)}
-          </p>
-        </div>
-      </aside>
+    <!-- Tip -->
+    <div class="bg-background border-l-[3px] border-brand px-6 py-5 rounded-r-md mb-16 max-w-[42rem]">
+      <h3 class="text-xs font-semibold uppercase tracking-[0.08em] text-brand m-0 mb-2">
+        {t("sizeGuide.tip.title", locale)}
+      </h3>
+      <p class="text-[0.95rem] leading-[1.55] m-0 text-foreground">
+        {t("sizeGuide.tip.body", locale)}
+      </p>
     </div>
 
     <!-- Per-brand charts callout -->

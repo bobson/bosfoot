@@ -5,6 +5,7 @@ import WhyBarefoot from "@/components/astro/WhyBarefoot.astro";
 import WhyUs from "@/components/astro/WhyUs.astro";
 import Articles from "@/components/astro/Articles.astro";
 import ProductCard from "@/components/astro/ProductCard.astro";
+import Button from "@/components/astro/Button.astro";
 import { type Locale, LOCALES, t, localePath, pickLocale } from "@/lib/i18n";
 import {
   getSiteSettings,
@@ -38,58 +39,49 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
   description={tagline}
   siteSettings={siteSettings}
 >
-  <link
-    slot="head"
-    rel="preload"
-    as="image"
-    type="image/webp"
-    imagesrcset="/images/hero/bosfoot_hero_400w.webp 400w, /images/hero/bosfoot_hero_600w.webp 600w, /images/hero/bosfoot_hero_900w.webp 900w, /images/hero/bosfoot_hero_1200w.webp 1200w"
-    imagesizes="100vw"
-  />
+  <link slot="head" rel="preload" as="image" href="/images/hero/hero-small.webp" media="(max-width: 767px)" />
+  <link slot="head" rel="preload" as="image" href="/images/hero/hero-large.webp" media="(min-width: 768px)" />
   <!-- Hero with tagline and rotating quote card -->
   <Hero locale={locale} siteSettings={siteSettings} />
 
-  <!-- Featured products — moved up so visitors see merchandise first -->
-  {
-    featured.length > 0 && (
-      <section class="py-20 md:py-24 bg-background">
-        <div class="container-page">
-          <div class="flex items-end justify-between flex-wrap gap-4 mb-10">
-            <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold tracking-tight m-0 text-foreground">
-              {t("home.featured.title", locale)}
-            </h2>
-            <a
-              href={localePath(locale, "products")}
-              class="text-sm text-muted-foreground whitespace-nowrap transition-colors hover:text-brand"
-            >
-              {t("cta.viewAll", locale)} →
-            </a>
-          </div>
-          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4">
-            {featured.slice(0, 4).map((product) => (
-              <ProductCard product={product} locale={locale} />
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  <!-- Why barefoot — 3 principles (sage section breaks up the cream rhythm) -->
-  <WhyBarefoot locale={locale} />
-
-  <!-- Brand strip — featured brands as wordmarks/logos -->
-  <section class="py-16 bg-background border-y border-border">
+  <!-- Brand strip — right after hero so visitors immediately see our brands -->
+  <section class="py-10 bg-background border-b border-border">
     <div class="container-page">
-      <h2 class="label-caps text-sm text-muted-foreground text-center mb-10 m-0">
+      <p class="label-caps text-xs text-muted-foreground text-center mb-8">
         {t("section.brands", locale)}
-      </h2>
-      <div class="flex flex-wrap items-center justify-center gap-7 md:gap-x-16 md:gap-y-8">
-        {
-          SHOWCASE_BRANDS.map((brand) => (
+      </p>
+      <div class="flex flex-col items-center gap-6">
+        {/* Freet — featured, centered, larger */}
+        {(() => {
+          const freet = SHOWCASE_BRANDS.find((b) => !b.comingSoon);
+          if (!freet) return null;
+          return (
             <a
               href={localePath(locale, "brands")}
-              class="group inline-flex items-center text-foreground opacity-70 transition-all duration-150 hover:opacity-100 hover:-translate-y-px"
+              class="flex flex-col items-center gap-2 opacity-80 hover:opacity-100 hover:-translate-y-px transition-all duration-150"
+              aria-label={freet.name}
+            >
+              {freet.logoSrc ? (
+                <img
+                  src={freet.logoSrc}
+                  alt={freet.name}
+                  loading="lazy"
+                  class="h-16 md:h-20 w-auto object-contain grayscale"
+                />
+              ) : (
+                <span class:list={["text-2xl md:text-3xl whitespace-nowrap text-foreground", freet.wordmarkClass ?? "font-semibold tracking-tight"]}>
+                  {freet.name}
+                </span>
+              )}
+            </a>
+          );
+        })()}
+
+        {/* Coming soon brands — one row, wraps on small screens */}
+        <div class="flex flex-wrap items-end justify-center gap-6 md:gap-10">
+          {SHOWCASE_BRANDS.filter((b) => b.comingSoon).map((brand) => (
+            <div
+              class="flex flex-col items-center gap-1.5 opacity-40 cursor-default"
               aria-label={brand.name}
             >
               {brand.logoSrc ? (
@@ -97,24 +89,48 @@ const tagline = pickLocale(siteSettings?.tagline, locale) ?? "";
                   src={brand.logoSrc}
                   alt={brand.name}
                   loading="lazy"
-                  class="h-11 w-auto object-contain grayscale transition-[filter] duration-200 group-hover:grayscale-0"
+                  class="h-8 w-auto object-contain grayscale"
                 />
               ) : (
-                <span
-                  class:list={[
-                    "text-lg md:text-xl whitespace-nowrap text-foreground",
-                    brand.wordmarkClass ?? "font-semibold tracking-tight",
-                  ]}
-                >
+                <span class:list={["text-base whitespace-nowrap text-foreground", brand.wordmarkClass ?? "font-semibold tracking-tight"]}>
                   {brand.name}
                 </span>
               )}
-            </a>
-          ))
-        }
+              <span class="text-[0.6rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground border border-border rounded-full px-2 py-px whitespace-nowrap">
+                {t("brands.comingSoon", locale)}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Featured products -->
+  {
+    featured.length > 0 && (
+      <section class="py-20 md:py-24 bg-background">
+        <div class="container-page">
+          <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold tracking-tight mb-10 text-foreground">
+            {t("home.featured.title", locale)}
+          </h2>
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-3">
+            {featured.slice(0, 3).map((product) => (
+              <ProductCard product={product} locale={locale} />
+            ))}
+          </div>
+          <div class="mt-10">
+            <Button href={localePath(locale, "products")} variant="brand" size="sm">
+              {t("cta.viewAll", locale)} →
+            </Button>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Why barefoot — 3 principles -->
+  <WhyBarefoot locale={locale} />
 
   <!-- Why Bosfoot -->
   <WhyUs locale={locale} />

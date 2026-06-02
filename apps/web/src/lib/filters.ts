@@ -78,9 +78,13 @@ export function applyFilters(
   }
 
   if (filters.genders.length > 0) {
-    out = out.filter((p) =>
-      p.gender ? filters.genders.includes(p.gender as Gender) : false,
-    )
+    out = out.filter((p) => {
+      if (!p.gender) return false
+      if (filters.genders.includes(p.gender as Gender)) return true
+      // unisex products appear under any gendered filter
+      if (p.gender === 'unisex' && filters.genders.some((g) => g === 'mens' || g === 'womens')) return true
+      return false
+    })
   }
 
   if (filters.inStock) {

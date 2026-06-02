@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Button from "@/components/astro/Button.astro";
 import SpecTable from "@/components/astro/SpecTable.astro";
 import PortableText from "@/components/astro/PortableText.astro";
 import ProductCard from "@/components/astro/ProductCard.astro";
@@ -315,12 +316,13 @@ const breadcrumbSchema = breadcrumbLD({
             <h2 class="text-xl md:text-2xl font-semibold tracking-tight text-foreground m-0">
               {t("detail.relatedTitle", locale)} {product.brand.name}
             </h2>
-            <a
+            <Button
               href={`${localePath(locale, "brands")}/${product.brand.slug.current}`}
-              class="text-sm text-muted-foreground whitespace-nowrap transition-colors hover:text-brand"
+              variant="brand"
+              size="sm"
             >
               {t("detail.viewAllFromBrand", locale)} {product.brand.name} →
-            </a>
+            </Button>
           </div>
           <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-x-6 sm:gap-y-10 lg:grid-cols-4">
             {related.map((p) => (

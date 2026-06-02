@@ -95,10 +95,10 @@ const SITE_SETTINGS_QUERY = `
   }
 `
 
-/** Featured products for homepage — limited count, ordered by manual selection */
+/** Featured products for homepage — featured first, falls back to recent active products */
 const FEATURED_PRODUCTS_QUERY = `
-  *[_type == "product" && status == "active" && featured == true]
-    | order(_createdAt desc)[0...8]{
+  *[_type == "product" && status == "active"]
+    | order(featured desc, _createdAt desc)[0...4]{
     _id,
     sku,
     name,

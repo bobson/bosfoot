@@ -58,11 +58,13 @@ const linkClass =
 
       <!-- Brand block -->
       <div class="col-span-2">
-        <img
-          src="/images/logo-white.svg"
-          alt={siteName}
-          class="h-10 w-auto mb-4"
-        />
+        <a href={`/${locale}/`}>
+          <img
+            src="/images/logo-white.svg"
+            alt={siteName}
+            class="h-10 w-auto mb-4"
+          />
+        </a>
         <p class="text-sm text-[#fefdfb]/70 max-w-xs leading-relaxed">
           {tagline}
         </p>

@@ -48,17 +48,19 @@ const pageLead = t("brands.lead", locale);
       {
         SHOWCASE_BRANDS.map((brand) => {
           const isLive = liveSet.has(brand.slug);
-          const href = isLive
+          const isComingSoon = brand.comingSoon;
+          const href = isLive && !isComingSoon
             ? `${localePath(locale, "brands")}/${brand.slug}`
             : undefined;
           return (
             <Card
-              as={isLive ? "a" : "div"}
+              as={isLive && !isComingSoon ? "a" : "div"}
               href={href}
               class:list={[
-                isLive
+                isComingSoon ? "opacity-55 cursor-default" : "",
+                (isLive && !isComingSoon)
                   ? "hover:-translate-y-0.5 hover:shadow-lg transition-transform"
-                  : "opacity-95 hover:ring-border cursor-default",
+                  : "",
               ]}
             >
               <div
@@ -71,7 +73,7 @@ const pageLead = t("brands.lead", locale);
                     loading="lazy"
                     class:list={[
                       "max-h-16 w-auto object-contain grayscale opacity-85 transition",
-                      isLive && "group-hover:grayscale-0 group-hover:opacity-100",
+                      (isLive && !isComingSoon) && "group-hover:grayscale-0 group-hover:opacity-100",
                     ]}
                   />
                 ) : (
@@ -87,9 +89,16 @@ const pageLead = t("brands.lead", locale);
               </div>
 
               <div class="flex flex-1 flex-col gap-2 p-6">
-                <h2 class="text-lg font-semibold tracking-tight">
-                  {brand.name}
-                </h2>
+                <div class="flex items-center gap-2">
+                  <h2 class="text-lg font-semibold tracking-tight">
+                    {brand.name}
+                  </h2>
+                  {isComingSoon && (
+                    <span class="text-[0.6rem] font-semibold uppercase tracking-[0.08em] text-muted-foreground border border-border rounded-full px-2 py-px whitespace-nowrap">
+                      {t("brands.comingSoon", locale)}
+                    </span>
+                  )}
+                </div>
                 <div
                   class="flex items-center gap-1.5 text-[0.8125rem] uppercase tracking-wider text-muted-foreground"
                 >
@@ -105,15 +114,11 @@ const pageLead = t("brands.lead", locale);
                 <div
                   class="flex items-center justify-end mt-4 pt-4 border-t border-border-subtle text-[0.8125rem]"
                 >
-                  {isLive ? (
+                  {!isComingSoon && isLive ? (
                     <span class="font-medium text-brand transition-colors group-hover:text-brand-hover">
                       {t("brands.viewProducts", locale)}
                     </span>
-                  ) : (
-                    <span class="font-medium uppercase tracking-[0.06em] text-[0.7rem] text-sage-ink-soft">
-                      {t("brands.comingSoon", locale)}
-                    </span>
-                  )}
+                  ) : null}
                 </div>
               </div>
             </Card>

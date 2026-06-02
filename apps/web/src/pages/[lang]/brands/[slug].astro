@@ -67,17 +67,24 @@ const breadcrumbSchema = breadcrumbLD({
     <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
 
       <!-- Logo / image column -->
-      <div class="md:col-span-4 flex items-center h-32">
+      <div class="md:col-span-4">
         {brand.logo ? (
           <img
             src={urlFor(brand.logo).width(400).quality(80).format('webp').url()}
             alt={brand.name}
             loading="lazy"
-            class="max-h-32 w-auto"
+            class="max-h-48 w-auto rounded-lg object-cover"
           />
         ) : (
-          <div class="text-2xl font-semibold tracking-tight">{brand.name}</div>
+          <img
+            src={`/images/brands/${slug}.jpg`}
+            alt={brand.name}
+            loading="lazy"
+            class="w-full max-w-sm rounded-lg object-cover aspect-[4/3]"
+            onerror="this.style.display='none'; document.getElementById('brand-name-fallback').style.display='block'"
+          />
         )}
+        <div id="brand-name-fallback" class="text-2xl font-semibold tracking-tight hidden">{brand.name}</div>
       </div>
 
       <!-- Info column -->

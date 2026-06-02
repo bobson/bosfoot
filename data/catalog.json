@@ -17,127 +17,25 @@
       "sizeChart": {
         "measurementType": "footLengthMM",
         "rows": [
-          {
-            "sizeEU": 36,
-            "lengthMM": 230
-          },
-          {
-            "sizeEU": 37,
-            "lengthMM": 237
-          },
-          {
-            "sizeEU": 38,
-            "lengthMM": 244
-          },
-          {
-            "sizeEU": 39,
-            "lengthMM": 251
-          },
-          {
-            "sizeEU": 40,
-            "lengthMM": 258
-          },
-          {
-            "sizeEU": 41,
-            "lengthMM": 265
-          },
-          {
-            "sizeEU": 42,
-            "lengthMM": 272
-          },
-          {
-            "sizeEU": 43,
-            "lengthMM": 279
-          },
-          {
-            "sizeEU": 44,
-            "lengthMM": 286
-          },
-          {
-            "sizeEU": 45,
-            "lengthMM": 293
-          },
-          {
-            "sizeEU": 46,
-            "lengthMM": 300
-          }
+          { "sizeEU": 36, "lengthMM": 230 },
+          { "sizeEU": 37, "lengthMM": 237 },
+          { "sizeEU": 38, "lengthMM": 244 },
+          { "sizeEU": 39, "lengthMM": 251 },
+          { "sizeEU": 40, "lengthMM": 258 },
+          { "sizeEU": 41, "lengthMM": 265 },
+          { "sizeEU": 42, "lengthMM": 272 },
+          { "sizeEU": 43, "lengthMM": 279 },
+          { "sizeEU": 44, "lengthMM": 286 },
+          { "sizeEU": 45, "lengthMM": 293 },
+          { "sizeEU": 46, "lengthMM": 300 }
         ],
         "notes": {
-          "mk": "Должините се за стапалото. Freet препорачува комотно одговарање — повеќето клиенти ја носат својата вообичаена големина.",
+          "mk": "Должините се за стапалото. Freet препорачува комотно одговарање — повеќето клиенти ја носат svojата вообичаена големина.",
           "sq": "Gjatësitë janë për këmbën. Freet rekomandon përshtatje komode — shumica e klientëve mbajnë madhësinë e tyre të zakonshme.",
           "en": "Lengths refer to your foot. Freet recommends a comfortable fit — most customers wear their usual size."
         }
       }
     },
-    {
-      "slug": "xero-shoes",
-      "name": "Xero Shoes",
-      "countryOfOrigin": "US",
-      "yearFounded": 2009,
-      "websiteUrl": "https://xeroshoes.eu",
-      "sizingGuideUrl": "https://xeroshoes.eu/pages/size-charts",
-      "featured": true,
-      "order": 2,
-      "description": {
-        "mk": "Американски бренд за босоноги патики основан во 2009 година во Колорадо. Xero Shoes прават патики и сандали со широк простор за прстите, нула надолен пад и тенки флексибилни ѓонови.",
-        "sq": "Markë amerikane e këpucëve barefoot, e themeluar në vitin 2009 në Kolorado. Xero Shoes prodhon këpucë dhe sandale me hapësirë të gjerë për gishtërinjtë, zero drop dhe shollë të hollë fleksibël.",
-        "en": "American barefoot shoe brand founded in 2009 in Colorado. Xero Shoes makes shoes and sandals with wide toe boxes, zero drop, and thin flexible soles."
-      },
-      "sizeChart": {
-        "measurementType": "footLengthMM",
-        "rows": [
-          {
-            "sizeEU": 36,
-            "lengthMM": 225
-          },
-          {
-            "sizeEU": 37,
-            "lengthMM": 230
-          },
-          {
-            "sizeEU": 38,
-            "lengthMM": 235
-          },
-          {
-            "sizeEU": 39,
-            "lengthMM": 245
-          },
-          {
-            "sizeEU": 40,
-            "lengthMM": 250
-          },
-          {
-            "sizeEU": 41,
-            "lengthMM": 260
-          },
-          {
-            "sizeEU": 42,
-            "lengthMM": 270
-          },
-          {
-            "sizeEU": 43,
-            "lengthMM": 280
-          },
-          {
-            "sizeEU": 44,
-            "lengthMM": 290
-          },
-          {
-            "sizeEU": 45,
-            "lengthMM": 300
-          },
-          {
-            "sizeEU": 46,
-            "lengthMM": 310
-          }
-        ],
-        "notes": {
-          "mk": "Должините се за стапалото. Xero препорачува околу 12-15мм слободен простор пред најдолгиот прст. Ако сте помеѓу две големини, изберете ја поголемата.",
-          "sq": "Gjatësitë janë për këmbën. Xero rekomandon rreth 12-15mm hapësirë para gishtit më të gjatë. Nëse jeni midis dy madhësive, zgjidhni më të madhen.",
-          "en": "Lengths refer to your foot. Xero recommends about 12-15mm of space in front of your longest toe. If you're between two sizes, pick the larger one."
-        }
-      }
-    }
   ],
   "categories": [
     {
@@ -169,122 +67,6 @@
     }
   ],
   "products": [
-    {
-      "sku": "hfs-2",
-      "brandSlug": "xero-shoes",
-      "categorySlugs": [
-        "running",
-        "training"
-      ],
-      "name": {
-        "mk": "HFS 2",
-        "sq": "HFS 2",
-        "en": "HFS 2"
-      },
-      "shortDescription": {
-        "mk": "Лесна патика за трчање со широк простор за прстите, тенок флексибилен ѓон и одличен grip.",
-        "sq": "Këpucë e lehtë vrapimi me hapësirë të gjerë për gishtërinjtë, shollë të hollë fleksibël dhe grip të shkëlqyer.",
-        "en": "Lightweight running shoe with a wide toe box, thin flexible sole, and excellent grip."
-      },
-      "price": 7900,
-      "brandProductUrl": "https://xeroshoes.eu/products/hfs-2-men",
-      "highlights": [
-        {
-          "mk": "Веганско",
-          "sq": "Vegan",
-          "en": "Vegan"
-        },
-        {
-          "mk": "Дишливо плетиво",
-          "sq": "Pëlhurë e ajrosur",
-          "en": "Breathable knit upper"
-        },
-        {
-          "mk": "5,000-милна гаранција на ѓонот",
-          "sq": "Garanci 5,000 milje për shollën",
-          "en": "5,000-mile sole warranty"
-        }
-      ],
-      "specs": {
-        "soleThicknessMM": 5.5,
-        "soleThicknessWithInsoleMM": 8.5,
-        "weightGramsMens": 215,
-        "weightGramsWomens": 168,
-        "waterproof": false,
-        "reflective": true,
-        "insulation": false,
-        "insoleRemovable": true,
-        "closure": "laces",
-        "vegan": true,
-        "madeIn": "VN",
-        "additionalFeatures": [
-          {
-            "mk": "TPU плоча за заштита од прободи",
-            "sq": "Pllakë TPU për mbrojtje nga shpimi",
-            "en": "TPU plate for puncture resistance"
-          },
-          {
-            "mk": "Конструкција тип чорапа",
-            "sq": "Konstruksion tip çorape",
-            "en": "Sock-style construction"
-          }
-        ]
-      },
-      "activities": [
-        "running",
-        "training"
-      ],
-      "gender": "mens",
-      "featured": true,
-      "newArrival": true,
-      "status": "active",
-      "variants": [
-        {
-          "sizeEU": 40,
-          "color": {
-            "mk": "Црна",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 3,
-          "sku": "hfs-2-blk-40"
-        },
-        {
-          "sizeEU": 41,
-          "color": {
-            "mk": "Црна",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 5,
-          "sku": "hfs-2-blk-41"
-        },
-        {
-          "sizeEU": 42,
-          "color": {
-            "mk": "Црна",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 4,
-          "sku": "hfs-2-blk-42"
-        },
-        {
-          "sizeEU": 43,
-          "color": {
-            "mk": "Црна",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 2,
-          "sku": "hfs-2-blk-43"
-        }
-      ]
-    },
     {
       "sku": "chamois",
       "brandSlug": "freet",
@@ -325,121 +107,77 @@
       "variants": [
         {
           "sizeEU": 36,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
+          "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" },
           "colorHex": "#4a2c1a",
           "stock": 0,
           "sku": "chamois-36"
         },
         {
           "sizeEU": 37,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
+          "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" },
           "colorHex": "#4a2c1a",
           "stock": 0,
           "sku": "chamois-37"
         },
         {
           "sizeEU": 38,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
+          "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" },
           "colorHex": "#4a2c1a",
           "stock": 0,
           "sku": "chamois-38"
         },
         {
           "sizeEU": 39,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
+          "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" },
           "colorHex": "#4a2c1a",
           "stock": 0,
           "sku": "chamois-39"
         },
         {
           "sizeEU": 40,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
+          "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" },
           "colorHex": "#4a2c1a",
           "stock": 3,
           "sku": "chamois-40"
         },
         {
           "sizeEU": 41,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
+          "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" },
           "colorHex": "#4a2c1a",
           "stock": 5,
           "sku": "chamois-41"
         },
         {
           "sizeEU": 42,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
+          "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" },
           "colorHex": "#4a2c1a",
           "stock": 5,
           "sku": "chamois-42"
         },
         {
           "sizeEU": 43,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
+          "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" },
           "colorHex": "#4a2c1a",
           "stock": 4,
           "sku": "chamois-43"
         },
         {
           "sizeEU": 44,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
+          "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" },
           "colorHex": "#4a2c1a",
           "stock": 3,
           "sku": "chamois-44"
         },
         {
           "sizeEU": 45,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
+          "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" },
           "colorHex": "#4a2c1a",
           "stock": 0,
           "sku": "chamois-45"
         },
         {
           "sizeEU": 46,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
+          "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" },
           "colorHex": "#4a2c1a",
           "stock": 0,
           "sku": "chamois-46"
@@ -465,9 +203,7 @@
         "sq": "Pjesa e sipërme: lëkurë premium me certifikim Gold nga Leather Working Group\nLidhëset: 70% të ricikluara (BottleYarn)\nMidsole: 70% e ricikluar (BottleYarn)\nSolla e brendshme: 60% e ricikluar\nSolla e jashtme: 60% gomë natyrale\nPaketimi: kuti/mbështjellje nga karton dhe letër të ricikluara dhe të riciklueshme\nPaketimi i jashtëm: paketim plastik ose karton/letër i ricikluar dhe i riciklueshëm",
         "en": "Upper: Premium full grain leather Gold Certificated by the Leather Working Group\nLaces: 70% recycled (BottleYarn)\nMidsole: 70% recycled (BottleYarn)\nInsole: 60% recycled\nOutsole: 60% natural rubber\nPackaging: box/wrapping recycled and recyclable card & paper\nOuter packaging: recycled and recyclable plastic or card/paper packet"
       },
-      "activities": [
-        "hiking"
-      ],
+      "activities": ["hiking"],
       "gender": "unisex",
       "status": "active"
     },
@@ -486,145 +222,23 @@
         "en": "The ultimate performance shoe for adventures in warm weather."
       },
       "highlights": [
-        {
-          "mk": "Брзо сушење",
-          "sq": "Tharje e shpejtë",
-          "en": "QUICK-DRY"
-        },
-        {
-          "mk": "Дишливо",
-          "sq": "I ajrosur",
-          "en": "BREATHABLE"
-        },
-        {
-          "mk": "Патека",
-          "sq": "Shteg",
-          "en": "TRAIL"
-        }
+        { "mk": "Брзо сушење", "sq": "Tharje e shpejtë", "en": "QUICK-DRY" },
+        { "mk": "Дишливо", "sq": "I ajrosur", "en": "BREATHABLE" },
+        { "mk": "Патека", "sq": "Shteg", "en": "TRAIL" }
       ],
       "price": 5500,
       "variants": [
-        {
-          "sizeEU": 36,
-          "color": {
-            "mk": "Маслинеста",
-            "sq": "Ulli",
-            "en": "Olive"
-          },
-          "colorHex": "#5e6b3f",
-          "stock": 0,
-          "sku": "keld-3-36"
-        },
-        {
-          "sizeEU": 37,
-          "color": {
-            "mk": "Маслинеста",
-            "sq": "Ulli",
-            "en": "Olive"
-          },
-          "colorHex": "#5e6b3f",
-          "stock": 0,
-          "sku": "keld-3-37"
-        },
-        {
-          "sizeEU": 38,
-          "color": {
-            "mk": "Маслинеста",
-            "sq": "Ulli",
-            "en": "Olive"
-          },
-          "colorHex": "#5e6b3f",
-          "stock": 0,
-          "sku": "keld-3-38"
-        },
-        {
-          "sizeEU": 39,
-          "color": {
-            "mk": "Маслинеста",
-            "sq": "Ulli",
-            "en": "Olive"
-          },
-          "colorHex": "#5e6b3f",
-          "stock": 0,
-          "sku": "keld-3-39"
-        },
-        {
-          "sizeEU": 40,
-          "color": {
-            "mk": "Маслинеста",
-            "sq": "Ulli",
-            "en": "Olive"
-          },
-          "colorHex": "#5e6b3f",
-          "stock": 3,
-          "sku": "keld-3-40"
-        },
-        {
-          "sizeEU": 41,
-          "color": {
-            "mk": "Маслинеста",
-            "sq": "Ulli",
-            "en": "Olive"
-          },
-          "colorHex": "#5e6b3f",
-          "stock": 5,
-          "sku": "keld-3-41"
-        },
-        {
-          "sizeEU": 42,
-          "color": {
-            "mk": "Маслинеста",
-            "sq": "Ulli",
-            "en": "Olive"
-          },
-          "colorHex": "#5e6b3f",
-          "stock": 5,
-          "sku": "keld-3-42"
-        },
-        {
-          "sizeEU": 43,
-          "color": {
-            "mk": "Маслинеста",
-            "sq": "Ulli",
-            "en": "Olive"
-          },
-          "colorHex": "#5e6b3f",
-          "stock": 4,
-          "sku": "keld-3-43"
-        },
-        {
-          "sizeEU": 44,
-          "color": {
-            "mk": "Маслинеста",
-            "sq": "Ulli",
-            "en": "Olive"
-          },
-          "colorHex": "#5e6b3f",
-          "stock": 3,
-          "sku": "keld-3-44"
-        },
-        {
-          "sizeEU": 45,
-          "color": {
-            "mk": "Маслинеста",
-            "sq": "Ulli",
-            "en": "Olive"
-          },
-          "colorHex": "#5e6b3f",
-          "stock": 0,
-          "sku": "keld-3-45"
-        },
-        {
-          "sizeEU": 46,
-          "color": {
-            "mk": "Маслинеста",
-            "sq": "Ulli",
-            "en": "Olive"
-          },
-          "colorHex": "#5e6b3f",
-          "stock": 0,
-          "sku": "keld-3-46"
-        }
+        { "sizeEU": 36, "color": { "mk": "Маслинеста", "sq": "Ulli", "en": "Olive" }, "colorHex": "#5e6b3f", "stock": 0, "sku": "keld-3-36" },
+        { "sizeEU": 37, "color": { "mk": "Маслинеста", "sq": "Ulli", "en": "Olive" }, "colorHex": "#5e6b3f", "stock": 0, "sku": "keld-3-37" },
+        { "sizeEU": 38, "color": { "mk": "Маслинеста", "sq": "Ulli", "en": "Olive" }, "colorHex": "#5e6b3f", "stock": 0, "sku": "keld-3-38" },
+        { "sizeEU": 39, "color": { "mk": "Маслинеста", "sq": "Ulli", "en": "Olive" }, "colorHex": "#5e6b3f", "stock": 0, "sku": "keld-3-39" },
+        { "sizeEU": 40, "color": { "mk": "Маслинеста", "sq": "Ulli", "en": "Olive" }, "colorHex": "#5e6b3f", "stock": 3, "sku": "keld-3-40" },
+        { "sizeEU": 41, "color": { "mk": "Маслинеста", "sq": "Ulli", "en": "Olive" }, "colorHex": "#5e6b3f", "stock": 5, "sku": "keld-3-41" },
+        { "sizeEU": 42, "color": { "mk": "Маслинеста", "sq": "Ulli", "en": "Olive" }, "colorHex": "#5e6b3f", "stock": 5, "sku": "keld-3-42" },
+        { "sizeEU": 43, "color": { "mk": "Маслинеста", "sq": "Ulli", "en": "Olive" }, "colorHex": "#5e6b3f", "stock": 4, "sku": "keld-3-43" },
+        { "sizeEU": 44, "color": { "mk": "Маслинеста", "sq": "Ulli", "en": "Olive" }, "colorHex": "#5e6b3f", "stock": 3, "sku": "keld-3-44" },
+        { "sizeEU": 45, "color": { "mk": "Маслинеста", "sq": "Ulli", "en": "Olive" }, "colorHex": "#5e6b3f", "stock": 0, "sku": "keld-3-45" },
+        { "sizeEU": 46, "color": { "mk": "Маслинеста", "sq": "Ulli", "en": "Olive" }, "colorHex": "#5e6b3f", "stock": 0, "sku": "keld-3-46" }
       ],
       "sizeAndFit": {
         "mk": "Купувачите велат дека одговара точно по големината — можете да ја носите вашата вообичаена големина.",
@@ -646,11 +260,7 @@
         "sq": "Pjesa e sipërme: 60% e ricikluar (BottleYarn)\nSolla e jashtme: 60% gomë natyrale\nVeshja: 65% e ricikluar (BottleYarn)\nLidhëset: 70% të ricikluara (BottleYarn)\nSolla e brendshme: 60% e ricikluar\nPaketimi: kuti/mbështjellje nga karton dhe letër të ricikluara dhe të riciklueshme\nPaketimi i jashtëm: plastikë ose karton/letër i ricikluar dhe i riciklueshëm",
         "en": "Upper: 60% recycled (BottleYarn)\nOutsole: 60% natural rubber\nLining: 65% recycled (BottleYarn)\nLace: 70% recycled (BottleYarn)\nInsole: 60% recycled\nPackaging: box/wrapping recycled and recyclable card & paper\nOuter packaging: recycled and recyclable plastic or card/paper packet"
       },
-      "activities": [
-        "hiking",
-        "running",
-        "training"
-      ],
+      "activities": ["hiking", "running", "training"],
       "gender": "unisex",
       "status": "active"
     },
@@ -669,154 +279,28 @@
         "en": "A classic desert boot for smarter days at the office or casual relaxing with friends."
       },
       "highlights": [
-        {
-          "mk": "Урбано",
-          "sq": "Urban",
-          "en": "URBAN"
-        },
-        {
-          "mk": "Опуштена удобност",
-          "sq": "Komfort i qetë",
-          "en": "RELAXED COMFORT"
-        },
-        {
-          "mk": "Отпорно на вода",
-          "sq": "Rezistent ndaj ujit",
-          "en": "WATER RESISTANT"
-        },
-        {
-          "mk": "Издржливо",
-          "sq": "I qëndrueshëm",
-          "en": "DURABLE"
-        }
+        { "mk": "Урбано", "sq": "Urban", "en": "URBAN" },
+        { "mk": "Опуштена удобност", "sq": "Komfort i qetë", "en": "RELAXED COMFORT" },
+        { "mk": "Отпорно на вода", "sq": "Rezistent ndaj ujit", "en": "WATER RESISTANT" },
+        { "mk": "Издржливо", "sq": "I qëndrueshëm", "en": "DURABLE" }
       ],
       "price": 8600,
       "variants": [
-        {
-          "sizeEU": 36,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
-          "colorHex": "#5a3825",
-          "stock": 0,
-          "sku": "richmond-2-36"
-        },
-        {
-          "sizeEU": 37,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
-          "colorHex": "#5a3825",
-          "stock": 0,
-          "sku": "richmond-2-37"
-        },
-        {
-          "sizeEU": 38,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
-          "colorHex": "#5a3825",
-          "stock": 0,
-          "sku": "richmond-2-38"
-        },
-        {
-          "sizeEU": 39,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
-          "colorHex": "#5a3825",
-          "stock": 0,
-          "sku": "richmond-2-39"
-        },
-        {
-          "sizeEU": 40,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
-          "colorHex": "#5a3825",
-          "stock": 3,
-          "sku": "richmond-2-40"
-        },
-        {
-          "sizeEU": 41,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
-          "colorHex": "#5a3825",
-          "stock": 5,
-          "sku": "richmond-2-41"
-        },
-        {
-          "sizeEU": 42,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
-          "colorHex": "#5a3825",
-          "stock": 5,
-          "sku": "richmond-2-42"
-        },
-        {
-          "sizeEU": 43,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
-          "colorHex": "#5a3825",
-          "stock": 4,
-          "sku": "richmond-2-43"
-        },
-        {
-          "sizeEU": 44,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
-          "colorHex": "#5a3825",
-          "stock": 3,
-          "sku": "richmond-2-44"
-        },
-        {
-          "sizeEU": 45,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
-          "colorHex": "#5a3825",
-          "stock": 0,
-          "sku": "richmond-2-45"
-        },
-        {
-          "sizeEU": 46,
-          "color": {
-            "mk": "Кафеаво-црно",
-            "sq": "Kafe-zezë",
-            "en": "Brown Black"
-          },
-          "colorHex": "#5a3825",
-          "stock": 0,
-          "sku": "richmond-2-46"
-        }
+        { "sizeEU": 36, "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" }, "colorHex": "#5a3825", "stock": 0, "sku": "richmond-2-36" },
+        { "sizeEU": 37, "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" }, "colorHex": "#5a3825", "stock": 0, "sku": "richmond-2-37" },
+        { "sizeEU": 38, "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" }, "colorHex": "#5a3825", "stock": 0, "sku": "richmond-2-38" },
+        { "sizeEU": 39, "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" }, "colorHex": "#5a3825", "stock": 0, "sku": "richmond-2-39" },
+        { "sizeEU": 40, "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" }, "colorHex": "#5a3825", "stock": 3, "sku": "richmond-2-40" },
+        { "sizeEU": 41, "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" }, "colorHex": "#5a3825", "stock": 5, "sku": "richmond-2-41" },
+        { "sizeEU": 42, "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" }, "colorHex": "#5a3825", "stock": 5, "sku": "richmond-2-42" },
+        { "sizeEU": 43, "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" }, "colorHex": "#5a3825", "stock": 4, "sku": "richmond-2-43" },
+        { "sizeEU": 44, "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" }, "colorHex": "#5a3825", "stock": 3, "sku": "richmond-2-44" },
+        { "sizeEU": 45, "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" }, "colorHex": "#5a3825", "stock": 0, "sku": "richmond-2-45" },
+        { "sizeEU": 46, "color": { "mk": "Кафеаво-црно", "sq": "Kafe-zezë", "en": "Brown Black" }, "colorHex": "#5a3825", "stock": 0, "sku": "richmond-2-46" }
       ],
       "sizeAndFit": {
         "mk": "Купувачите велат дека одговара точно по големината — можете да ја носите вашата вообичаена големина.",
-        "sq": "Klientët thonë se përshtatet sipas madhësisë — mund të mbani madhësinë tuaj të zakonshme.",
+        "sq": "Klientët thonë se përshtatet sipas madhësisë — mund të mbain madhësinë tuaj të zakonshme.",
         "en": "Customers say it fits true to size — you may stay at your usual size."
       },
       "aboutShoe": {
@@ -834,10 +318,7 @@
         "sq": "Lidhëset: 70% BottleYarn\nMbështetje/mikro-veshje: 70% BottleYarn\nSolla e brendshme: 60% BottleYarn\nSolla e jashtme: 60% gomë natyrale e marrë nga pylltari e qëndrueshme\nPaketimi: kuti/mbështjellje nga karton dhe letër të ricikluara dhe të riciklueshme\nPaketimi i jashtëm: plastikë ose karton/letër i ricikluar dhe i riciklueshëm\nDWR: trajtim i qëndrueshëm i papërshkueshmërisë nga uji. Pa përdorim PFC-sh",
         "en": "Laces: 70% BottleYarn\nBacker/micro lining: 70% BottleYarn\nInsole: 60% BottleYarn\nOutsole: 60% natural rubber tapped from sustainable forestry\nPackaging: box/wrapping recycled and recyclable card & paper\nOuter packaging: recycled and recyclable plastic or card/paper packet\nDWR: Durable water repellency treatment. No use of PFCs"
       },
-      "activities": [
-        "casual",
-        "office"
-      ],
+      "activities": ["casual", "office"],
       "gender": "unisex",
       "status": "active"
     },
@@ -856,275 +337,39 @@
         "en": "Designed for demanding activity but completely at ease with wearing casually everyday."
       },
       "highlights": [
-        {
-          "mk": "Одржливо",
-          "sq": "I qëndrueshëm",
-          "en": "SUSTAINABLE"
-        },
-        {
-          "mk": "Лесно",
-          "sq": "I lehtë",
-          "en": "LIGHTWEIGHT"
-        },
-        {
-          "mk": "Дишливо",
-          "sq": "I ajrosur",
-          "en": "BREATHABLE"
-        },
-        {
-          "mk": "Издржливо",
-          "sq": "I qëndrueshëm",
-          "en": "DURABLE"
-        }
+        { "mk": "Одржливо", "sq": "I qëndrueshëm", "en": "SUSTAINABLE" },
+        { "mk": "Лесно", "sq": "I lehtë", "en": "LIGHTWEIGHT" },
+        { "mk": "Дишливо", "sq": "I ajrosur", "en": "BREATHABLE" },
+        { "mk": "Издржливо", "sq": "I qëndrueshëm", "en": "DURABLE" }
       ],
       "price": 6200,
       "variants": [
-        {
-          "sizeEU": 36,
-          "color": {
-            "mk": "Бело",
-            "sq": "E bardhë",
-            "en": "White"
-          },
-          "colorHex": "#f0f0eb",
-          "stock": 0,
-          "sku": "vibe-2-white-36"
-        },
-        {
-          "sizeEU": 37,
-          "color": {
-            "mk": "Бело",
-            "sq": "E bardhë",
-            "en": "White"
-          },
-          "colorHex": "#f0f0eb",
-          "stock": 0,
-          "sku": "vibe-2-white-37"
-        },
-        {
-          "sizeEU": 38,
-          "color": {
-            "mk": "Бело",
-            "sq": "E bardhë",
-            "en": "White"
-          },
-          "colorHex": "#f0f0eb",
-          "stock": 0,
-          "sku": "vibe-2-white-38"
-        },
-        {
-          "sizeEU": 39,
-          "color": {
-            "mk": "Бело",
-            "sq": "E bardhë",
-            "en": "White"
-          },
-          "colorHex": "#f0f0eb",
-          "stock": 0,
-          "sku": "vibe-2-white-39"
-        },
-        {
-          "sizeEU": 40,
-          "color": {
-            "mk": "Бело",
-            "sq": "E bardhë",
-            "en": "White"
-          },
-          "colorHex": "#f0f0eb",
-          "stock": 3,
-          "sku": "vibe-2-white-40"
-        },
-        {
-          "sizeEU": 41,
-          "color": {
-            "mk": "Бело",
-            "sq": "E bardhë",
-            "en": "White"
-          },
-          "colorHex": "#f0f0eb",
-          "stock": 5,
-          "sku": "vibe-2-white-41"
-        },
-        {
-          "sizeEU": 42,
-          "color": {
-            "mk": "Бело",
-            "sq": "E bardhë",
-            "en": "White"
-          },
-          "colorHex": "#f0f0eb",
-          "stock": 5,
-          "sku": "vibe-2-white-42"
-        },
-        {
-          "sizeEU": 43,
-          "color": {
-            "mk": "Бело",
-            "sq": "E bardhë",
-            "en": "White"
-          },
-          "colorHex": "#f0f0eb",
-          "stock": 4,
-          "sku": "vibe-2-white-43"
-        },
-        {
-          "sizeEU": 44,
-          "color": {
-            "mk": "Бело",
-            "sq": "E bardhë",
-            "en": "White"
-          },
-          "colorHex": "#f0f0eb",
-          "stock": 3,
-          "sku": "vibe-2-white-44"
-        },
-        {
-          "sizeEU": 45,
-          "color": {
-            "mk": "Бело",
-            "sq": "E bardhë",
-            "en": "White"
-          },
-          "colorHex": "#f0f0eb",
-          "stock": 0,
-          "sku": "vibe-2-white-45"
-        },
-        {
-          "sizeEU": 46,
-          "color": {
-            "mk": "Бело",
-            "sq": "E bardhë",
-            "en": "White"
-          },
-          "colorHex": "#f0f0eb",
-          "stock": 0,
-          "sku": "vibe-2-white-46"
-        },
-        {
-          "sizeEU": 36,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "vibe-2-black-36"
-        },
-        {
-          "sizeEU": 37,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "vibe-2-black-37"
-        },
-        {
-          "sizeEU": 38,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "vibe-2-black-38"
-        },
-        {
-          "sizeEU": 39,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "vibe-2-black-39"
-        },
-        {
-          "sizeEU": 40,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 3,
-          "sku": "vibe-2-black-40"
-        },
-        {
-          "sizeEU": 41,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 5,
-          "sku": "vibe-2-black-41"
-        },
-        {
-          "sizeEU": 42,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 5,
-          "sku": "vibe-2-black-42"
-        },
-        {
-          "sizeEU": 43,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 4,
-          "sku": "vibe-2-black-43"
-        },
-        {
-          "sizeEU": 44,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 3,
-          "sku": "vibe-2-black-44"
-        },
-        {
-          "sizeEU": 45,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "vibe-2-black-45"
-        },
-        {
-          "sizeEU": 46,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "vibe-2-black-46"
-        }
+        { "sizeEU": 36, "color": { "mk": "Бело", "sq": "E bardhë", "en": "White" }, "colorHex": "#f0f0eb", "stock": 0, "sku": "vibe-2-white-36" },
+        { "sizeEU": 37, "color": { "mk": "Бело", "sq": "E bardhë", "en": "White" }, "colorHex": "#f0f0eb", "stock": 0, "sku": "vibe-2-white-37" },
+        { "sizeEU": 38, "color": { "mk": "Бело", "sq": "E bardhë", "en": "White" }, "colorHex": "#f0f0eb", "stock": 0, "sku": "vibe-2-white-38" },
+        { "sizeEU": 39, "color": { "mk": "Бело", "sq": "E bardhë", "en": "White" }, "colorHex": "#f0f0eb", "stock": 0, "sku": "vibe-2-white-39" },
+        { "sizeEU": 40, "color": { "mk": "Бело", "sq": "E bardhë", "en": "White" }, "colorHex": "#f0f0eb", "stock": 3, "sku": "vibe-2-white-40" },
+        { "sizeEU": 41, "color": { "mk": "Бело", "sq": "E bardhë", "en": "White" }, "colorHex": "#f0f0eb", "stock": 5, "sku": "vibe-2-white-41" },
+        { "sizeEU": 42, "color": { "mk": "Бело", "sq": "E bardhë", "en": "White" }, "colorHex": "#f0f0eb", "stock": 5, "sku": "vibe-2-white-42" },
+        { "sizeEU": 43, "color": { "mk": "Бело", "sq": "E bardhë", "en": "White" }, "colorHex": "#f0f0eb", "stock": 4, "sku": "vibe-2-white-43" },
+        { "sizeEU": 44, "color": { "mk": "Бело", "sq": "E bardhë", "en": "White" }, "colorHex": "#f0f0eb", "stock": 3, "sku": "vibe-2-white-44" },
+        { "sizeEU": 45, "color": { "mk": "Бело", "sq": "E bardhë", "en": "White" }, "colorHex": "#f0f0eb", "stock": 0, "sku": "vibe-2-white-45" },
+        { "sizeEU": 46, "color": { "mk": "Бело", "sq": "E bardhë", "en": "White" }, "colorHex": "#f0f0eb", "stock": 0, "sku": "vibe-2-white-46" },
+        { "sizeEU": 36, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "vibe-2-black-36" },
+        { "sizeEU": 37, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "vibe-2-black-37" },
+        { "sizeEU": 38, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "vibe-2-black-38" },
+        { "sizeEU": 39, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "vibe-2-black-39" },
+        { "sizeEU": 40, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 3, "sku": "vibe-2-black-40" },
+        { "sizeEU": 41, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 5, "sku": "vibe-2-black-41" },
+        { "sizeEU": 42, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 5, "sku": "vibe-2-black-42" },
+        { "sizeEU": 43, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 4, "sku": "vibe-2-black-43" },
+        { "sizeEU": 44, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 3, "sku": "vibe-2-black-44" },
+        { "sizeEU": 45, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "vibe-2-black-45" },
+        { "sizeEU": 46, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "vibe-2-black-46" }
       ],
       "sizeAndFit": {
         "mk": "Купувачите велат дека одговара точно по големината — можете да ја носите вашата вообичаена големина.",
-        "sq": "Klientët thonë se përshtatet sipas madhësisë — mund të mbani madhësinë tuaj të zakonshme.",
+        "sq": "Klientët thonë se përshtatet sipas madhësisë — mund të mbain madhësinë tuaj të zakonshme.",
         "en": "Customers say it fits true to size — you may stay at your usual size."
       },
       "aboutShoe": {
@@ -1142,11 +387,7 @@
         "sq": "Pjesa e sipërme: 30% e ricikluar (BottleYarn)\nSolla e jashtme: 60% gomë natyrale\nVeshja: 65% e ricikluar (BottleYarn)\nLidhëset: 70% të ricikluara (BottleYarn)\nSolla e brendshme: 60% e ricikluar\nPaketimi: kuti/mbështjellje nga karton dhe letër të ricikluara dhe të riciklueshme\nPaketimi i jashtëm: plastikë ose karton/letër i ricikluar dhe i riciklueshëm",
         "en": "Upper: 30% recycled (BottleYarn)\nOutsole: 60% natural rubber\nLining: 65% recycled (BottleYarn)\nLace: 70% recycled (BottleYarn)\nInsole: 60% recycled\nPackaging: box/wrapping recycled and recyclable card & paper\nOuter packaging: recycled and recyclable plastic or card/paper packet"
       },
-      "activities": [
-        "training",
-        "casual",
-        "running"
-      ],
+      "activities": ["training", "casual", "running"],
       "gender": "unisex",
       "status": "active"
     },
@@ -1165,154 +406,28 @@
         "en": "Classic everyday leather shoe with improved fit and durability. Amazing comfort and looks for long days in town."
       },
       "highlights": [
-        {
-          "mk": "Урбано",
-          "sq": "Urban",
-          "en": "URBAN"
-        },
-        {
-          "mk": "Удобно",
-          "sq": "Komod",
-          "en": "COMFORT"
-        },
-        {
-          "mk": "Отпорно на вода",
-          "sq": "Rezistent ndaj ujit",
-          "en": "WATER RESISTANT"
-        },
-        {
-          "mk": "Издржливо",
-          "sq": "I qëndrueshëm",
-          "en": "DURABLE"
-        }
+        { "mk": "Урбано", "sq": "Urban", "en": "URBAN" },
+        { "mk": "Удобно", "sq": "Komod", "en": "COMFORT" },
+        { "mk": "Отпорно на вода", "sq": "Rezistent ndaj ujit", "en": "WATER RESISTANT" },
+        { "mk": "Издржливо", "sq": "I qëndrueshëm", "en": "DURABLE" }
       ],
       "price": 8300,
       "variants": [
-        {
-          "sizeEU": 36,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "york-2-36"
-        },
-        {
-          "sizeEU": 37,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "york-2-37"
-        },
-        {
-          "sizeEU": 38,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "york-2-38"
-        },
-        {
-          "sizeEU": 39,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "york-2-39"
-        },
-        {
-          "sizeEU": 40,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 3,
-          "sku": "york-2-40"
-        },
-        {
-          "sizeEU": 41,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 5,
-          "sku": "york-2-41"
-        },
-        {
-          "sizeEU": 42,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 5,
-          "sku": "york-2-42"
-        },
-        {
-          "sizeEU": 43,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 4,
-          "sku": "york-2-43"
-        },
-        {
-          "sizeEU": 44,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 3,
-          "sku": "york-2-44"
-        },
-        {
-          "sizeEU": 45,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "york-2-45"
-        },
-        {
-          "sizeEU": 46,
-          "color": {
-            "mk": "Црно",
-            "sq": "E zezë",
-            "en": "Black"
-          },
-          "colorHex": "#1a1a1a",
-          "stock": 0,
-          "sku": "york-2-46"
-        }
+        { "sizeEU": 36, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "york-2-36" },
+        { "sizeEU": 37, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "york-2-37" },
+        { "sizeEU": 38, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "york-2-38" },
+        { "sizeEU": 39, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "york-2-39" },
+        { "sizeEU": 40, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 3, "sku": "york-2-40" },
+        { "sizeEU": 41, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 5, "sku": "york-2-41" },
+        { "sizeEU": 42, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 5, "sku": "york-2-42" },
+        { "sizeEU": 43, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 4, "sku": "york-2-43" },
+        { "sizeEU": 44, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 3, "sku": "york-2-44" },
+        { "sizeEU": 45, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "york-2-45" },
+        { "sizeEU": 46, "color": { "mk": "Црно", "sq": "E zezë", "en": "Black" }, "colorHex": "#1a1a1a", "stock": 0, "sku": "york-2-46" }
       ],
       "sizeAndFit": {
         "mk": "Купувачите велат дека одговара точно по големината — можете да ја носите вашата вообичаена големина.",
-        "sq": "Klientët thonë se përshtatet sipas madhësisë — mund të mbani madhësinë tuaj të zakonshme.",
+        "sq": "Klientët thonë se përshtatet sipas madhësisë — mund të mbain madhësinë tuaj të zakonshme.",
         "en": "Customers say it fits true to size — you may stay at your usual size."
       },
       "aboutShoe": {
@@ -1321,7 +436,7 @@
         "en": "New durable and fully flexible outsole with side wall stitching.\n\nHighly functional with water resistance and barefoot comfort.\n\nThe best leather gives unrivalled durability and timeless style."
       },
       "productInfo": {
-        "mk": "Горен дел\nКожа: премиум, целозрнеста кожа.\nКонвенционални врвки — црни.\n\nОбвивка\nДишлива обвивка што ја носи влагата.\n\nВлошка\nFlexile: 3,0 мм со одредена амортизација и одличен осет за подлогата за целосно природно движење.\n\nСредна потпетица\nSoftFlex: целосно флексибилна за максимално движење на стапалото.\n\nГон\nUrbanGrip: 3,0 мм газен профил со широка површина за оптимален грип и издржливост на урбани површини.\n\nВодоотпорност\nОтпорен на вода горен дел кога редовно се третира со следење на упатствата за нега.\n\nТежина\n480 грама на пар во големина 42.\n\nВисина на ѓонот\n9,0 мм со влошка; 6,0 мм без влошка. Нула надолен пад.\n\nНега\nИзбришете со влажна крпа. Сушете на воздух. Третирајте со кондиционер/водоодбивач погоден за премиум кожа како Nikwax восок за водоотпорност за кожа.\n\nНе препорачуваме ставање на вашите Freet патики во машина за перење или сушара.",
+        "mk": "Горен дел\nКожа: премиум, целозрнеста кожа.\nКонвенционални врвки — црни.\n\nОбвивка\nДишлива обвивка што ја носи влагата.\n\nВлошка\nFlexile: 3,0 мм со одредена амортизација и одличен осет за подлогата за целосно природно движење.\n\nСредна потпетица\nSoftFlex: целосно флексибилна за максимално движење на стапалото.\n\nГон\nUrbanGrip: 3,0 мм газен профил со широка површина за оптимален грип и издржливост на урбани години.\n\nВодоотпорност\nОтпорен на вода горен дел кога редовно се третира со следење на упатствата за нега.\n\nТежина\n480 грама на пар во големина 42.\n\nВисина на ѓонот\n9,0 мм со влошка; 6,0 мм без влошка. Нула надолен пад.\n\nНега\nИзбришете со влажна крпа. Сушете на воздух. Третирајте со кондиционер/водоодбивач погоден за премиум кожа како Nikwax восок за водоотпорност за кожа.\n\nНе препорачуваме ставање на вашите Freet патики во машина за перење или сушара.",
         "sq": "Pjesa e sipërme\nLëkurë: premium, lëkurë e plotë.\nLidhëse konvencionale — të zeza.\n\nVeshja\nVeshje e ajrosur që largon lagështinë.\n\nSole e brendshme\nFlexile: 3,0 mm me njëfarë amortizimi dhe ndjesi të shkëlqyer të tokës për lëvizje plotësisht natyrale.\n\nMidsole\nSoftFlex: plotësisht fleksibël për lëvizje maksimale të këmbës.\n\nSolla e jashtme\nUrbanGrip: 3,0 mm gjurmë me sipërfaqe të gjerë për grip dhe qëndrueshmëri optimale në sipërfaqe urbane.\n\nPapërshkueshmëria nga uji\nPjesa e sipërme rezistente ndaj ujit kur trajtohet rregullisht sipas udhëzimeve të kujdesit.\n\nPesha\n480 gramë çift në madhësinë 42.\n\nLartësia e solës\n9,0 mm me sole; 6,0 mm pa sole. Zero drop.\n\nKujdesi\nFshijeni me një copë të lagësht. Thajeni në ajër. Trajtojeni me një kondicioner/papërshkueshmërues të përshtatshëm për lëkurë premium si dylli i papërshkueshmërisë Nikwax për lëkurë.\n\nNuk rekomandojmë vendosjen e Freet-eve tuaj në lavatriçe ose tharëse.",
         "en": "Upper\nLeather: premium, full grain leather.\nConventional lace — black.\n\nLining\nBreathable, moisture moving lining.\n\nInsole\nFlexile: 3.0 mm some shock absorption with excellent ground connectivity to allow full natural movement.\n\nMidsole\nSoftFlex: fully flexible for maximum foot movement.\n\nOutsole\nUrbanGrip: 3.0 mm wide-area tread for optimum grip and durability on urban surfaces.\n\nWaterproofness\nWater resistant upper when treated regularly, by following the care instructions.\n\nWeight\n480 grams per pair size 42.\n\nStack Height\n9.0 mm with insole; 6.0 mm without insole, zero drop.\n\nCare\nWipe with a damp cloth. Air dry. Treat with a conditioner/waterproofer suitable for premium leather such as Nikwax waterproofing wax for leather.\n\nWe do not recommend putting your Freets in the washing machine or dryer."
       },
@@ -1330,10 +445,7 @@
         "sq": "Lëkurë: certifikim Gold nga Leather Working Group\nLidhëset: 70% BottleYarn\nMbështetje/mikro-veshje: 70% BottleYarn\nSolla e brendshme: 60% BottleYarn\nSolla e jashtme: 60% gomë natyrale e marrë nga pylltari e qëndrueshme\nPaketimi: kuti/mbështjellje nga karton dhe letër të ricikluara dhe të riciklueshme\nPaketimi i jashtëm: plastikë ose karton/letër i ricikluar dhe i riciklueshëm\nDWR: trajtim i qëndrueshëm i papërshkueshmërisë nga uji. Pa përdorim PFC-sh",
         "en": "Leather: Leather Working Group Gold Certificated\nLaces: 70% BottleYarn\nBacker/micro lining: 70% BottleYarn\nInsole: 60% BottleYarn\nOutsole: 60% natural rubber tapped from sustainable forestry\nPackaging: box/wrapping recycled and recyclable card & paper\nOuter packaging: recycled and recyclable plastic or card/paper packet\nDWR: Durable water repellency treatment. No use of PFCs"
       },
-      "activities": [
-        "casual",
-        "office"
-      ],
+      "activities": ["casual", "office"],
       "gender": "unisex",
       "status": "active"
     }
