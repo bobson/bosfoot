@@ -1,5 +1,5 @@
 ---
-import Button from "@/components/astro/Button.astro";
+import TextLink from "@/components/astro/TextLink.astro";
 import { type Locale, t, pickLocale } from "@/lib/i18n";
 import { urlFor } from "@/lib/sanity";
 import type { ArticleCard } from "@/lib/queries";
@@ -36,13 +36,18 @@ function formatDate(iso: string | undefined): string {
   articles.length > 0 && (
     <section class="py-20 md:py-28 bg-background">
       <div class="container-page">
-        <div class="mb-12">
-          <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold tracking-tight mb-2 text-foreground">
-            {t("home.articles.title", locale)}
-          </h2>
-          <p class="text-[0.9375rem] text-muted-foreground m-0 max-w-md">
-            {t("home.articles.lead", locale)}
-          </p>
+        <div class="flex items-end justify-between gap-6 flex-wrap mb-12">
+          <div>
+            <h2 class="text-[1.75rem] md:text-[2.25rem] font-bold tracking-tight mb-2 text-foreground">
+              {t("home.articles.title", locale)}
+            </h2>
+            <p class="text-[0.9375rem] text-muted-foreground m-0 max-w-md">
+              {t("home.articles.lead", locale)}
+            </p>
+          </div>
+          <TextLink href={`/${locale}/articles`}>
+            {t("home.articles.viewAll", locale)} →
+          </TextLink>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -86,11 +91,6 @@ function formatDate(iso: string | undefined): string {
               </div>
             </a>
           ))}
-        </div>
-        <div class="mt-12">
-          <Button href={`/${locale}/articles`} variant="brand" size="sm">
-            {t("home.articles.viewAll", locale)} →
-          </Button>
         </div>
       </div>
     </section>

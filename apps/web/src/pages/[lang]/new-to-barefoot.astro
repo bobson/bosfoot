@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Button from "@/components/astro/Button.astro";
+import TextLink from "@/components/astro/TextLink.astro";
 import { type Locale, LOCALES, t, localePath, pickLocale } from "@/lib/i18n";
 import { getSiteSettings, getAllArticles } from "@/lib/queries";
 import type { ArticleCard } from "@/lib/queries";
@@ -173,12 +174,9 @@ const faqs = [
             {t("footHealth.subtitle", locale)}
           </p>
         </div>
-        <a
-          href={`/${locale}/articles`}
-          class="text-sm font-medium text-brand whitespace-nowrap transition-colors hover:text-brand-hover"
-        >
+        <TextLink href={`/${locale}/articles`}>
           {t("home.articles.viewAll", locale)} →
-        </a>
+        </TextLink>
       </div>
     </div>
   </section>

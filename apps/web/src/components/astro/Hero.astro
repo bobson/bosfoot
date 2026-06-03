@@ -42,16 +42,16 @@ const productsPath = localePath(locale, "products");
       </h1>
 
       <div class="flex gap-3">
-        <Button href={`${productsPath}?gender=mens`} size="sm">
-          {t("home.hero.shopMen", locale)}
+        <Button href={productsPath} size="sm">
+          {t("cta.shopNow", locale)}
         </Button>
         <Button
-          href={`${productsPath}?gender=womens`}
+          href={`${productsPath}?gender=kids`}
           variant="outline"
           size="sm"
           class="!border-white !text-white hover:!bg-white hover:!text-foreground"
         >
-          {t("home.hero.shopWomen", locale)}
+          {t("home.hero.shopKids", locale)}
         </Button>
       </div>
     </div>
