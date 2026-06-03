@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Sheet,
   SheetContent,
@@ -36,6 +36,24 @@ export default function MobileNav({
   siteName,
 }: Props) {
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const onBeforeSwap = () => {
+      setOpen(false);
+      // The Radix Sheet portals its overlay + content directly into <body>,
+      // outside the persisted header. During Astro's DOM swap those portal
+      // nodes are orphaned — Radix never unmounts them — and the next open
+      // stacks a fresh overlay on top, making the backdrop twice as dark.
+      // Remove them synchronously before the swap so nothing is left behind.
+      document
+        .querySelectorAll('[data-slot="sheet-overlay"],[data-slot="sheet-content"]')
+        .forEach((el) => el.remove());
+      document.body.style.removeProperty("overflow");
+      document.body.style.removeProperty("pointer-events");
+    };
+    document.addEventListener("astro:before-swap", onBeforeSwap);
+    return () => document.removeEventListener("astro:before-swap", onBeforeSwap);
+  }, []);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>

@@ -60,12 +60,12 @@ export default function ProductCardReact({ product, locale }: Props) {
 
         <div className="absolute top-3 left-3 flex flex-col gap-1.5">
           {product.newArrival && (
-            <span className="inline-flex items-center px-2 py-0.5 text-[10px] uppercase tracking-wider rounded-sm bg-foreground text-background">
+            <span className="inline-flex items-center justify-center gap-1 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider whitespace-nowrap rounded-sm transition-colors bg-foreground text-background">
               {t("product.new", locale)}
             </span>
           )}
           {onSale && (
-            <span className="inline-flex items-center px-2 py-0.5 text-[10px] uppercase tracking-wider rounded-sm bg-brand text-white">
+            <span className="inline-flex items-center justify-center gap-1 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider whitespace-nowrap rounded-sm transition-colors bg-brand text-white">
               {t("product.sale", locale)}
             </span>
           )}

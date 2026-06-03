@@ -219,8 +219,9 @@ export function extractFilterOptions(products: ProductCard[]): {
   ]
   const sortedActivities = ACTIVITY_ORDER.filter((a) => activities.has(a))
 
-  // Stable order for genders
-  const GENDER_ORDER: Gender[] = ['mens', 'womens', 'unisex', 'kids']
+  // Stable order for genders — unisex is omitted because it is implicitly
+  // included whenever mens or womens is selected (see applyFilters).
+  const GENDER_ORDER: Gender[] = ['mens', 'womens', 'kids']
   const sortedGenders = GENDER_ORDER.filter((g) => genders.has(g))
 
   return {

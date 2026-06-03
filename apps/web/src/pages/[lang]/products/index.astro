@@ -2,9 +2,8 @@
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import ProductsListing from '@/components/react/ProductsListing.tsx'
 import { type Locale, LOCALES, t } from '@/lib/i18n'
-import { getSiteSettings, getAllProducts } from '@/lib/queries'
+import { getSiteSettings, getAllProducts, type ProductCard } from '@/lib/queries'
 import { urlFor } from '@/lib/sanity'
-import type { ProductCard } from '@/lib/queries'
 
 export const prerender = true;
 
@@ -20,14 +19,9 @@ const [siteSettings, products] = await Promise.all([
   getAllProducts(),
 ])
 
-/**
- * Pre-compute image URLs server-side and attach to each product.
- * We can't pass `urlFor()` (a function) to a React island because props
- * must be JSON-serializable. So we resolve the image URLs here and ship
- * plain strings to the client.
- */
+// Pre-compute image URLs server-side — keeps @sanity/client out of the
+// client bundle. The React island receives plain strings, not the builder.
 export type ProductForListing = ProductCard & { mainImageUrl?: string }
-
 const productsForClient: ProductForListing[] = products.map((p) => ({
   ...p,
   mainImageUrl: p.mainImage

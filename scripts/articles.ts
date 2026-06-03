@@ -418,6 +418,65 @@ const articles: ArticleSeed[] = [
     ],
   },
 
+  // ─── Article 8: Veins & circulation ──────────────────────────────
+  {
+    id: 'veins-circulation',
+    slugs: {
+      mk: 'veni-cirkulacija-bosi-patiki',
+      sq: 'venat-qarkullimi-kepuce-barefoot',
+      en: 'veins-circulation-barefoot-and-blood-flow',
+    },
+    title: {
+      mk: 'Вени и циркулација — мускулната пумпа на стапалото',
+      sq: 'Venat dhe qarkullimi — pompa muskulore e këmbës',
+      en: 'Veins and circulation — the calf muscle pump',
+    },
+    lead: {
+      mk: 'Тешки нозе, отечени глуждови, вени видливи под кожата — срцето не е единствениот виновник. Начинот на кој чекаш го определува колку добро крвта се враќа нагоре.',
+      sq: 'Këmbë të rënda, kyçe të fryrë, vena të dukshme nën lëkurë — zemra nuk është fajësi i vetëm. Mënyra si ecni përcakton sa mirë gjaku kthehet lart.',
+      en: 'Heavy legs, swollen ankles, veins visible under the skin — the heart is not the only factor. The way you walk determines how well blood travels back up.',
+    },
+    author: 'Bosfoot',
+    publishedAt: '2026-06-01T09:00:00.000Z',
+    featured: false,
+    body_mk: [
+      p('a8-mk-1', 'Срцето пумпа крв надолу по артериите. Но крвта мора и да се врати — низ вените, нагоре кон срцето, против гравитацијата. За тоа има посебен механизам: мускулите на потколеницата. При секој чекор, тие се стегаат и буквално ја стискаат крвта нагоре.'),
+      h('a8-mk-h1', 'Мускулната пумпа'),
+      p('a8-mk-2', 'Потколеницата се нарекува „второто срце" не без причина. Кога мускулот се стегне при чекорот, ја компресира мрежата вени наоколу и крвта се поместува нагоре. Едносмерни венски залистоци ја спречуваат да падне назад. Овој механизам е исто толку важен за циркулацијата колку и самото срце.'),
+      h('a8-mk-h2', 'Зошто стандардниот чевел ја ослабува пумпата'),
+      p('a8-mk-3', 'Чевел со потпетица го намалува опсегот на движење на глуждот. Кога глуждот не се движи слободно, потколеницата не се стегнува целосно при чекорот. Резултатот: пумпата работи неполно. По долг ден во обична обувка, нозете се тешки и отечени — не затоа што срцето е слабо, туку затоа што потколениците немале простор да ја вршат работата.'),
+      h('a8-mk-h3', 'Боси патики и природен опсег на движење'),
+      p('a8-mk-4', 'Боса патика со нулта разлика и флексибилен ѓон го враќа целосниот опсег на движење на глуждот. Потколеницата работи онака како биомеханиката предвидела: стегнување при одрив, релаксација при замав. Секој чекор станува циркулаторен настан. Кај луѓе кои поминуваат на нозе цел ден, ова е забележливо по некои недели редовно носење.'),
+      h('a8-mk-h4', 'Кога да побараш лекарски совет'),
+      p('a8-mk-5', 'Болни варикозни вени, постојана отеченост на нозете или болки со чувство на жарење се состојби кои бараат медицинска оценка — прво кај лекар или флеболог, не прво промена на чевли. Боси патики можат да бидат дел од поширок пристап за здрава циркулација, но не заменуваат лечење.'),
+      p('a8-mk-6', 'За луѓе без дијагностицирани проблеми, редовното одење во обувка која дозволува природно движење на глуждот е едноставен, секојдневен начин да се поддржи она за кое потколеницата е направена.'),
+    ],
+    body_sq: [
+      p('a8-sq-1', 'Zemra pompon gjakun poshtë përmes arterieve. Por gjaku duhet të kthehet gjithashtu — nëpër vena, lart drejt zemrës, kundër gravitetit. Për këtë ekziston një mekanizëm i veçantë: muskujt e kërcirit. Me çdo hap, ata tkurren dhe fjalë për fjalë shtyjnë gjakun lart.'),
+      h('a8-sq-h1', 'Pompa muskulore'),
+      p('a8-sq-2', 'Kërcinjtë quhen "zemra e dytë" jo pa arsye. Kur muskuli tkurret gjatë hapit, kompreson rrjetin e venave rreth tij dhe gjaku lëviz lart. Valvulat venoze njëkahore e parandalojnë rënien mbrapa. Ky mekanizëm është po aq i rëndësishëm për qarkullimin sa zemra vetë.'),
+      h('a8-sq-h2', 'Pse këpuca standarde e dobëson pompën'),
+      p('a8-sq-3', 'Një këpucë me thembër e zvogëlon lëvizjen e kyçit. Kur kyçi nuk lëviz lirisht, kërcinjtë nuk tkurren plotësisht gjatë hapit. Rezultati: pompa punon jo plotësisht. Pas një dite të gjatë me këpucë konvencionale, këmbët janë të rënda dhe të fryrë — jo sepse zemra është e dobët, por sepse kërcinjtë nuk kishin hapësirë për të bërë punën.'),
+      h('a8-sq-h3', 'Këpucët barefoot dhe lëvizja natyrale e kyçit'),
+      p('a8-sq-4', 'Një këpucë barefoot me zero drop dhe taban fleksibël e kthen lëvizjen e plotë të kyçit. Kërcinjtë punojnë siç biomekanika ka parashikuar: tkurrje gjatë largimit, relaksim gjatë hedhjes. Çdo hap bëhet një ngjarje qarkullimore. Tek njerëzit që kalojnë gjatë ditës në këmbë, kjo vihet re pas disa javësh bartjeje të rregullt.'),
+      h('a8-sq-h4', 'Kur të kërkosh këshillë mjekësore'),
+      p('a8-sq-5', 'Vena varikoze të dhimbshme, ënjtje e vazhdueshme e këmbëve ose dhimbje me ndjesi djegie janë gjendje që kërkojnë vlerësim mjekësor — fillimisht te mjeku ose flebologue, jo fillimisht ndryshim këpucësh. Këpucët barefoot mund të jenë pjesë e një qasje më të gjerë për qarkullim të shëndetshëm, por nuk zëvendësojnë trajtimin.'),
+      p('a8-sq-6', 'Për njerëzit pa probleme të diagnostikuara, ecja e rregullt me këpucë që lejojnë lëvizjen natyrale të kyçit është një mënyrë e thjeshtë, e përditshme për të mbështetur atë për të cilin kërcinjtë janë bërë.'),
+    ],
+    body_en: [
+      p('a8-en-1', 'The heart pumps blood downward through the arteries. But blood also has to return — through the veins, upward toward the heart, against gravity. A specific mechanism does this: the calf muscles. With every step they contract and literally squeeze blood upward.'),
+      h('a8-en-h1', 'The calf muscle pump'),
+      p('a8-en-2', 'The calves are called the "second heart" for good reason. When the muscle contracts during a step, it compresses the surrounding vein network and blood is pushed upward. One-way venous valves stop it falling back. This mechanism is as important to circulation as the heart itself.'),
+      h('a8-en-h2', 'Why a standard shoe weakens the pump'),
+      p('a8-en-3', 'A shoe with a heel reduces the range of motion of the ankle. When the ankle cannot move freely, the calf does not contract fully during the step. The result: the pump runs at partial capacity. After a long day in conventional footwear, legs feel heavy and ankles swell — not because the heart is weak, but because the calves had no room to do their job.'),
+      h('a8-en-h3', 'Barefoot shoes and natural ankle range of motion'),
+      p('a8-en-4', 'A barefoot shoe with zero drop and a flexible sole returns full ankle range of motion. The calves work the way biomechanics intended: contracting at push-off, relaxing at swing. Every step becomes a circulatory event. For people who spend full days on their feet, this becomes noticeable after a few weeks of regular wear.'),
+      h('a8-en-h4', 'When to seek medical advice'),
+      p('a8-en-5', 'Painful varicose veins, persistent leg swelling, or burning pain are conditions that need a medical assessment — from a doctor or phlebologist first, not a shoe change first. Barefoot shoes can be part of a broader approach to healthy circulation, but they do not replace treatment.'),
+      p('a8-en-6', 'For people without a diagnosed condition, regular walking in footwear that allows natural ankle movement is a simple, daily way to support what the calves were built for.'),
+    ],
+  },
+
   // ─── Article 4: Children ──────────────────────────────────────────
   {
     id: 'children-barefoot',

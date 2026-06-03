@@ -1101,6 +1101,11 @@ export const ui: UIStrings = {
     sq: 'Gjunjët dhe shpina',
     en: 'Knees & back',
   },
+  'footHealth.topic.veins': {
+    mk: 'Вени & циркулација',
+    sq: 'Venat & qarkullimi',
+    en: 'Veins & circulation',
+  },
   'footHealth.topic.transition': {
     mk: 'Водич за транзиција',
     sq: 'Udhëzues tranzicioni',
