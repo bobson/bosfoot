@@ -122,36 +122,52 @@ const allSchemas = [
     <slot name="head" />
   </head>
   <body>
-    <!-- Page-load progress bar -->
-    <div
-      id="page-progress"
-      aria-hidden="true"
-      style="position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;background:var(--color-brand);width:0%;opacity:0;pointer-events:none;transition:width .25s ease,opacity .3s ease"
-    ></div>
+    <!-- Page-load progress bar (indeterminate shimmer while loading, snaps to done) -->
+    <div id="page-progress" aria-hidden="true" style="position:fixed;top:0;left:0;height:2px;z-index:9999;pointer-events:none;opacity:0;width:100%">
+      <div id="page-progress-inner" style="height:100%;background:var(--color-brand);width:30%;border-radius:0 2px 2px 0"></div>
+    </div>
     <script>
       (() => {
-        const bar = document.getElementById("page-progress") as HTMLElement;
+        const wrap  = document.getElementById("page-progress") as HTMLElement;
+        const inner = document.getElementById("page-progress-inner") as HTMLElement;
+        let anim: Animation | null = null;
         let finish: ReturnType<typeof setTimeout>;
         let hide: ReturnType<typeof setTimeout>;
 
         const start = () => {
           clearTimeout(finish);
           clearTimeout(hide);
-          bar.style.transition = "none";
-          bar.style.width = "0%";
-          bar.style.opacity = "1";
-          // Force reflow so the 0% registers before we animate.
-          bar.getBoundingClientRect();
-          bar.style.transition = "width .25s ease, opacity .3s ease";
-          bar.style.width = "75%";
+          // Reset without transition, then show.
+          inner.style.transition = "none";
+          inner.style.width = "30%";
+          wrap.style.opacity = "1";
+          // Bounce the inner bar back and forth — always moving, speed-agnostic.
+          anim?.cancel();
+          anim = inner.animate(
+            [
+              { marginLeft: "0%",   width: "30%" },
+              { marginLeft: "70%",  width: "30%" },
+              { marginLeft: "0%",   width: "30%" },
+            ],
+            { duration: 1200, iterations: Infinity, easing: "ease-in-out" }
+          );
         };
 
         const done = () => {
-          bar.style.width = "100%";
+          anim?.cancel();
+          anim = null;
+          // Snap the bar to full width, then fade out.
+          inner.style.transition = "none";
+          inner.style.marginLeft = "0%";
+          inner.style.width = "100%";
           finish = setTimeout(() => {
-            bar.style.opacity = "0";
-            hide = setTimeout(() => { bar.style.width = "0%"; }, 300);
-          }, 200);
+            wrap.style.transition = "opacity .3s ease";
+            wrap.style.opacity = "0";
+            hide = setTimeout(() => {
+              wrap.style.transition = "";
+              inner.style.width = "30%";
+            }, 320);
+          }, 150);
         };
 
         document.addEventListener("astro:before-preparation", start);
