@@ -122,6 +122,43 @@ const allSchemas = [
     <slot name="head" />
   </head>
   <body>
+    <!-- Page-load progress bar -->
+    <div
+      id="page-progress"
+      aria-hidden="true"
+      style="position:fixed;top:0;left:0;right:0;height:2px;z-index:9999;background:var(--color-brand);width:0%;opacity:0;pointer-events:none;transition:width .25s ease,opacity .3s ease"
+    ></div>
+    <script>
+      (() => {
+        const bar = document.getElementById("page-progress") as HTMLElement;
+        let finish: ReturnType<typeof setTimeout>;
+        let hide: ReturnType<typeof setTimeout>;
+
+        const start = () => {
+          clearTimeout(finish);
+          clearTimeout(hide);
+          bar.style.transition = "none";
+          bar.style.width = "0%";
+          bar.style.opacity = "1";
+          // Force reflow so the 0% registers before we animate.
+          bar.getBoundingClientRect();
+          bar.style.transition = "width .25s ease, opacity .3s ease";
+          bar.style.width = "75%";
+        };
+
+        const done = () => {
+          bar.style.width = "100%";
+          finish = setTimeout(() => {
+            bar.style.opacity = "0";
+            hide = setTimeout(() => { bar.style.width = "0%"; }, 300);
+          }, 200);
+        };
+
+        document.addEventListener("astro:before-preparation", start);
+        document.addEventListener("astro:page-load", done);
+      })();
+    </script>
+
     {
       siteSettings?.announcement?.enabled && siteSettings.announcement.text && (
         <div

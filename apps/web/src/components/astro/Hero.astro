@@ -42,7 +42,12 @@ const productsPath = localePath(locale, "products");
       </h1>
 
       <div class="flex gap-3">
-        <Button href={productsPath} size="sm">
+        <Button
+          href={productsPath}
+          variant="brand"
+          size="sm"
+          class="hover:bg-primary hover:text-primary-foreground active:bg-primary active:text-primary-foreground hover:translate-y-0"
+        >
           {t("cta.shopNow", locale)}
         </Button>
         <Button
