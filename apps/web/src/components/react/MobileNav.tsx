@@ -40,33 +40,47 @@ export default function MobileNav({
 
   useEffect(() => {
     const onBeforeSwap = () => {
-      // Kill CSS exit animations on portal elements before closing. Radix's
-      // Presence waits for `animationend` before unmounting; with animation
-      // disabled, getComputedStyle returns animationName:"none" and Presence
-      // unmounts synchronously inside flushSync — avoiding the zombie fiber
-      // state (orphaned Presence/DismissableLayer) that makes the hamburger
-      // trigger a duplicate overlay on the next page open.
+      // Three-step sequence to fully drain Radix's Presence state machine
+      // before the DOM swap, preventing a zombie fiber from re-inserting the
+      // portal overlay into the new page (which appears as a black z-50 veil
+      // that covers the hamburger and blocks all interaction).
+
+      // Step 1 — ensure React has processed setOpen(false) so Presence is in
+      // "unmountSuspended" (waiting for animationend) and portal elements are
+      // still in the DOM.
+      flushSync(() => setOpen(false));
+
+      // Step 2 — dispatch animationcancel on each portal element while it is
+      // still live. This synchronously fires Presence's handleAnimationEnd,
+      // which dispatches ANIMATION_END to the state machine (useReducer).
       document
         .querySelectorAll<HTMLElement>(
           '[data-slot="sheet-overlay"],[data-slot="sheet-content"]',
         )
         .forEach((el) => {
-          el.style.setProperty("animation", "none", "important");
-          el.style.setProperty("transition", "none", "important");
+          const firstName = getComputedStyle(el).animationName.split(",")[0].trim();
+          if (firstName && firstName !== "none") {
+            el.dispatchEvent(
+              new AnimationEvent("animationcancel", {
+                animationName: firstName,
+                elapsedTime: 0,
+                pseudoElement: "",
+                bubbles: false,
+                cancelable: false,
+              }),
+            );
+          }
         });
 
-      // Force React to synchronously close and unmount portal children.
-      flushSync(() => setOpen(false));
+      // Step 3 — flush the ANIMATION_END reducer updates → Presence reaches
+      // "unmounted" → isPresent=false → React removes portal elements from DOM.
+      flushSync(() => {});
 
-      // Remove any elements still in the DOM — handles the edge case where the
-      // sheet was already mid-close-animation when navigation fired, so React's
-      // fiber owned detached nodes that flushSync couldn't reach.
+      // Belt-and-suspenders: remove any nodes still in the DOM and reset body
+      // state that passive-effect cleanup hasn't run yet.
       document
         .querySelectorAll('[data-slot="sheet-overlay"],[data-slot="sheet-content"]')
         .forEach((el) => el.remove());
-
-      // Passive-effect cleanup (scroll-lock, aria-hidden) runs asynchronously
-      // after flushSync; clear the body state that can't wait for it.
       document.body.removeAttribute("data-scroll-locked");
       document.body.style.removeProperty("overflow");
       document.body.style.removeProperty("pointer-events");
