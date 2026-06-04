@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { flushSync } from "react-dom";
 import {
   Sheet,
   SheetContent,
@@ -39,15 +40,34 @@ export default function MobileNav({
 
   useEffect(() => {
     const onBeforeSwap = () => {
-      setOpen(false);
-      // The Radix Sheet portals its overlay + content directly into <body>,
-      // outside the persisted header. During Astro's DOM swap those portal
-      // nodes are orphaned — Radix never unmounts them — and the next open
-      // stacks a fresh overlay on top, making the backdrop twice as dark.
-      // Remove them synchronously before the swap so nothing is left behind.
+      // Kill CSS exit animations on portal elements before closing. Radix's
+      // Presence waits for `animationend` before unmounting; with animation
+      // disabled, getComputedStyle returns animationName:"none" and Presence
+      // unmounts synchronously inside flushSync — avoiding the zombie fiber
+      // state (orphaned Presence/DismissableLayer) that makes the hamburger
+      // trigger a duplicate overlay on the next page open.
+      document
+        .querySelectorAll<HTMLElement>(
+          '[data-slot="sheet-overlay"],[data-slot="sheet-content"]',
+        )
+        .forEach((el) => {
+          el.style.setProperty("animation", "none", "important");
+          el.style.setProperty("transition", "none", "important");
+        });
+
+      // Force React to synchronously close and unmount portal children.
+      flushSync(() => setOpen(false));
+
+      // Remove any elements still in the DOM — handles the edge case where the
+      // sheet was already mid-close-animation when navigation fired, so React's
+      // fiber owned detached nodes that flushSync couldn't reach.
       document
         .querySelectorAll('[data-slot="sheet-overlay"],[data-slot="sheet-content"]')
         .forEach((el) => el.remove());
+
+      // Passive-effect cleanup (scroll-lock, aria-hidden) runs asynchronously
+      // after flushSync; clear the body state that can't wait for it.
+      document.body.removeAttribute("data-scroll-locked");
       document.body.style.removeProperty("overflow");
       document.body.style.removeProperty("pointer-events");
     };

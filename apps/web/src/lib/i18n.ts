@@ -51,7 +51,6 @@ export const ROUTES: Record<string, Record<Locale, string>> = {
   products: { mk: 'products', sq: 'products', en: 'products' },
   brands: { mk: 'brands', sq: 'brands', en: 'brands' },
   newToBarefoot: { mk: 'new-to-barefoot', sq: 'new-to-barefoot', en: 'new-to-barefoot' },
-  shoeAnatomy: { mk: 'shoe-anatomy', sq: 'shoe-anatomy', en: 'shoe-anatomy' },
   cart: { mk: 'cart', sq: 'cart', en: 'cart' },
   checkout: { mk: 'checkout', sq: 'checkout', en: 'checkout' },
   about: { mk: 'about', sq: 'about', en: 'about' },
@@ -157,11 +156,6 @@ export const ui: UIStrings = {
     mk: 'Здравје на стапалата',
     sq: 'Shëndeti i këmbëve',
     en: 'Foot Health',
-  },
-  'nav.shoeAnatomy': {
-    mk: 'Анатомија на патика',
-    sq: 'Anatomia e këpucës',
-    en: 'Shoe anatomy',
   },
 
   // Buttons / CTAs
@@ -1375,154 +1369,6 @@ export const ui: UIStrings = {
     sq: 'Çdo këpucë tregon trashësinë e solës, drop-in dhe gjerësinë e hapësirës për gishtërinjtë. Nuk jeni të sigurt cilën? Na shkruani — ne i mbajmë personalisht të gjitha modelet.',
     en: 'Every shoe in our store shows sole thickness, drop, and toe box width. Not sure which one? Write to us — we personally wear every model we stock.',
   },
-
-  // ── Shoe anatomy page ─────────────────────────────────────
-  'shoeAnatomy.title': {
-    mk: 'Анатомија на боса патика',
-    sq: 'Anatomia e këpucës barefoot',
-    en: 'Anatomy of a barefoot shoe',
-  },
-  'shoeAnatomy.lead': {
-    mk: 'На страницата на секој производ ќе видиш спецификации: дебелина на ѓонот, тежина, материјали. Оваа страница објаснува што значат и зошто важат за боси патики.',
-    sq: 'Në faqen e çdo produkti do të shihni specifikime: trashësinë e solës, peshën, materialet. Kjo faqe shpjegon çfarë nënkuptojnë dhe pse kanë rëndësi për këpucët barefoot.',
-    en: 'On every product page you\'ll see specs: sole thickness, weight, materials. This page explains what they mean and why they matter for barefoot shoes.',
-  },
-  'shoeAnatomy.diagram.title': {
-    mk: 'Делови на патика',
-    sq: 'Pjesët e këpucës',
-    en: 'Parts of the shoe',
-  },
-  'shoeAnatomy.diagram.upper': {
-    mk: 'Горен дел',
-    sq: 'Pjesa e sipërme',
-    en: 'Upper',
-  },
-  'shoeAnatomy.diagram.insole': {
-    mk: 'Влошка',
-    sq: 'Sole e brendshme',
-    en: 'Insole',
-  },
-  'shoeAnatomy.diagram.outsole': {
-    mk: 'Ѓон',
-    sq: 'Solla e jashtme',
-    en: 'Outsole',
-  },
-  'shoeAnatomy.diagram.stackHeight': {
-    mk: 'Висина на ѓонот',
-    sq: 'Lartësia e solës',
-    en: 'Stack height',
-  },
-  'shoeAnatomy.diagram.zeroDrop': {
-    mk: 'Нула надолен пад',
-    sq: 'Zero drop',
-    en: 'Zero drop',
-  },
-  'shoeAnatomy.diagram.toeBox': {
-    mk: 'Простор за прстите',
-    sq: 'Hapësirë për gishtërinjtë',
-    en: 'Toe box',
-  },
-  'shoeAnatomy.glossary.title': {
-    mk: 'Речник на термини',
-    sq: 'Fjalori i termave',
-    en: 'Glossary of terms',
-  },
-  'shoeAnatomy.stackHeight.title': {
-    mk: 'Висина на ѓонот (Stack height)',
-    sq: 'Lartësia e solës (Stack height)',
-    en: 'Stack height',
-  },
-  'shoeAnatomy.stackHeight.body': {
-    mk: 'Вкупната дебелина помеѓу стапалото и земјата — ѓон плус влошка. Пониската висина значи повеќе осет за подлогата (проприоцепција). Повеќето боси патики имаат 6–15 мм, наспроти 25–35 мм кај обичните патики.',
-    sq: 'Trashësia totale midis këmbës dhe tokës — solla e jashtme plus solla e brendshme. Lartësia më e ulët do të thotë më shumë ndjesi të tokës (proprioceptim). Shumica e këpucëve barefoot kanë 6–15 mm, krahasuar me 25–35 mm tek këpucët normale.',
-    en: 'The total thickness between your foot and the ground — outsole plus insole. Lower stack means more ground feel (proprioception). Most barefoot shoes sit at 6–15 mm, versus 25–35 mm in conventional trainers.',
-  },
-  'shoeAnatomy.stackHeight.tip': {
-    mk: 'На страницата на производот: „Дебелина на ѓонот — X мм (Y мм со влошка)". Помало = повеќе осет за подлогата.',
-    sq: 'Në faqen e produktit: "Trashësia e solës — X mm (Y mm me sole të brendshme)". Më e vogël = më shumë ndjesi të tokës.',
-    en: 'On the product page: "Sole thickness — X mm (Y mm with insole)". Smaller = more ground feel.',
-  },
-  'shoeAnatomy.zeroDrop.title': {
-    mk: 'Нула надолен пад (Zero drop)',
-    sq: 'Zero drop',
-    en: 'Zero drop',
-  },
-  'shoeAnatomy.zeroDrop.body': {
-    mk: 'Разликата во висина помеѓу петицата и прстите. Нула значи дека петицата и прстите се на исто ниво — точно како кога одиш бос. Обичните патики имаат 8–12 мм надолен пад, што го скратува ахиловото тетиво и го наведнува телото нанапред со текот на времето.',
-    sq: 'Diferenca e lartësisë midis thembrës dhe gishtërinjve. Zero do të thotë se thembra dhe gishtërinjtë janë në të njëjtin nivel — ashtu si kur ecni zbathur. Këpucët normale kanë 8–12 mm drop, që shkurton tendinën e Akilit dhe anon trupin përpara me kalimin e kohës.',
-    en: 'The height difference between heel and toes. Zero means heel and toes are at the same level — exactly like walking barefoot. Conventional shoes carry 8–12 mm of drop, which shortens the Achilles tendon and tilts the body forward over time.',
-  },
-  'shoeAnatomy.zeroDrop.tip': {
-    mk: 'Сите боси патики во нашата продавница се zero drop. Тоа не е наведено одделно бидејќи е подразбирано.',
-    sq: 'Të gjitha këpucët barefoot në dyqanin tonë janë zero drop. Kjo nuk është listuar veçmas sepse është e nënkuptuar.',
-    en: 'All barefoot shoes in our store are zero drop. It\'s not listed separately because it\'s a given.',
-  },
-  'shoeAnatomy.toeBox.title': {
-    mk: 'Простор за прстите (Toe box)',
-    sq: 'Hapësirë për gishtërinjtë (Toe box)',
-    en: 'Toe box',
-  },
-  'shoeAnatomy.toeBox.body': {
-    mk: 'Ширината на предниот дел на патиката каде се наоѓаат прстите. Широк простор им дозволува на прстите да се распостелат природно и да го стабилизираат телото. Тесниот простор со текот на времето придонесува кон вклештени прсти, ункии и грчеви.',
-    sq: 'Gjerësia e pjesës së përparme të këpucës ku ndodhen gishtërinjtë. Hapësira e gjerë i lejon gishtërinjtë të hapen natyrshëm dhe të stabilizojnë trupin. Hapësira e ngushtë me kalimin e kohës kontribuon në gishtërinj të shtypur, çekan dhe krampe.',
-    en: 'The width of the front part of the shoe where your toes sit. A wide toe box lets toes splay naturally and stabilise the body. A narrow box contributes to bunions, hammer toes, and cramps over time.',
-  },
-  'shoeAnatomy.toeBox.tip': {
-    mk: 'Ставена е во описот на производот. Кога пробуваш патика: внатре треба да имаш доволно место за да ги движиш сите прсти слободно.',
-    sq: 'Është e përfshirë në përshkrimin e produktit. Kur provoni këpucën: brenda duhet të keni hapësirë të mjaftueshme për të lëvizur të gjithë gishtërinjtë lirshëm.',
-    en: 'Covered in the product description. When trying a shoe: you should have enough room inside to move all toes freely.',
-  },
-  'shoeAnatomy.flexibility.title': {
-    mk: 'Флексибилност на ѓонот',
-    sq: 'Fleksibiliteti i solës',
-    en: 'Sole flexibility',
-  },
-  'shoeAnatomy.flexibility.body': {
-    mk: 'Способноста на ѓонот да се свива заедно со стапалото. Крут ѓон го блокира природното движење на стапалото и ги слабее мускулите. Флексибилен ѓон дозволува стапалото да работи онака како природата го нацртала — виткање, вртење, апсорпција на удар.',
-    sq: 'Aftësia e solës për t\'u përkulur së bashku me këmbën. Solla e ngurtë bllokon lëvizjen natyrale të këmbës dhe dobëson muskujt. Solla fleksibël i lejon këmbës të punojë siç e ka projektuar natyra — përkulje, rrotullim, absorbim i goditjes.',
-    en: 'The ability of the sole to bend with your foot. A stiff sole blocks natural foot movement and weakens muscles. A flexible sole lets the foot work as nature designed — bending, twisting, absorbing impact.',
-  },
-  'shoeAnatomy.flexibility.tip': {
-    mk: 'Не е нумеричка вредност во спецификациите. Тест: можеш ли да ја свиткаш патиката на половина со рака? Ако да — е флексибилна.',
-    sq: 'Nuk është vlerë numerike në specifikime. Testi: mund ta përkulni këpucën në gjysmë me dorë? Nëse po — është fleksibël.',
-    en: 'Not a numeric value in specs. Test: can you fold the shoe in half with your hand? If yes — it\'s flexible.',
-  },
-  'shoeAnatomy.upper.title': {
-    mk: 'Горен дел (Upper)',
-    sq: 'Pjesa e sipërme (Upper)',
-    en: 'Upper',
-  },
-  'shoeAnatomy.upper.body': {
-    mk: 'Делот на патиката кој го обвиткува стапалото. Материјалот одредува дишливост, водоотпорност и тежина. Мреж (mesh) — максимална дишливост, не е водоотпорно. Кожа — издржливост и водоотпорност, помалку дишливо. Синтетика — баланс помеѓу двете.',
-    sq: 'Pjesa e këpucës që mbërthen këmbën. Materiali përcakton ajrosjen, rezistencën ndaj ujit dhe peshën. Rrjetë (mesh) — ajrosje maksimale, jo rezistente ndaj ujit. Lëkurë — qëndrueshmëri dhe rezistencë ndaj ujit, më pak e ajrosur. Sintetike — balancë midis të dyjave.',
-    en: 'The part of the shoe that wraps your foot. The material determines breathability, water resistance, and weight. Mesh — maximum breathability, not waterproof. Leather — durable and water resistant, less breathable. Synthetic — a balance between the two.',
-  },
-  'shoeAnatomy.upper.tip': {
-    mk: 'На страницата на производот: „Горен дел" под материјали. Наведен е и специфичниот материјал (BottleYarn, кожа, итн.).',
-    sq: 'Në faqen e produktit: "Pjesa e sipërme" nën materiale. Është listuar edhe materiali specifik (BottleYarn, lëkurë, etj.).',
-    en: 'On the product page: "Upper" under materials. The specific material (BottleYarn, leather, etc.) is listed there.',
-  },
-  'shoeAnatomy.insole.title': {
-    mk: 'Влошка (Insole)',
-    sq: 'Solla e brendshme (Insole)',
-    en: 'Insole',
-  },
-  'shoeAnatomy.insole.body': {
-    mk: 'Подлогата внатре во патиката на која стои стапалото. Кај босите патики е намерно тенка — 3–4 мм. Многу модели имаат отстранлива влошка: можеш да ја извадиш за уште потенок осет или да ставиш ортопедска. Некои модели воопшто немаат влошка.',
-    sq: 'Mbështetja brenda këpucës mbi të cilën qëndron këmba. Tek këpucët barefoot është me qëllim e hollë — 3–4 mm. Shumë modele kanë sole të brendshme të lëvizshme: mund ta hiqni për ndjesi edhe më të hollë ose të vendosni ortopedike. Disa modele nuk kanë fare.',
-    en: 'The inner lining inside the shoe your foot stands on. In barefoot shoes it\'s intentionally thin — 3–4 mm. Many models have a removable insole: you can take it out for even more ground feel or swap in an orthopaedic one. Some models have none at all.',
-  },
-  'shoeAnatomy.insole.tip': {
-    mk: 'На страницата на производот: „Влошка — отстранлива" е наведено кај спецификациите ако важи. Дебелината на ѓонот е прикажана со и без влошка.',
-    sq: 'Në faqen e produktit: "Sole e brendshme — e lëvizshme" është listuar te specifikimet nëse vlen. Trashësia e solës tregohet me dhe pa sole të brendshme.',
-    en: 'On the product page: "Insole — removable" is listed in specs where applicable. Sole thickness is shown both with and without the insole.',
-  },
-  'shoeAnatomy.compare.title': {
-    mk: 'Боса патика наспроти обична патика',
-    sq: 'Këpucë barefoot kundrejt këpucës normale',
-    en: 'Barefoot shoe vs. conventional shoe',
-  },
-
   // ── About page ────────────────────────────────────────────
   'about.title': {
     mk: 'За нас',
