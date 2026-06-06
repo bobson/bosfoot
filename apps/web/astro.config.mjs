@@ -27,6 +27,11 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
+      filter: (page) =>
+        // Exclude the root redirect (/ → /mk/) and non-indexable pages.
+        !page.match(/^https:\/\/bosfoot\.com\/?$/) &&
+        !page.includes("/checkout") &&
+        !page.includes("/order-confirmed"),
       i18n: {
         defaultLocale: "mk",
         locales: { mk: "mk", sq: "sq", en: "en" },

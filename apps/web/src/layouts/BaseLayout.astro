@@ -68,6 +68,11 @@ const allSchemas = [
     <meta property="og:url" content={Astro.url.toString()} />
     {ogImage && <meta property="og:image" content={ogImage} />}
 
+    <!-- Self-referential canonical: tells Google which URL is preferred for this
+         locale variant. Combined with hreflang below, each locale gets indexed
+         independently rather than collapsed as "duplicate without canonical". -->
+    <link rel="canonical" href={Astro.url.href} />
+
     <!-- hreflang: tell Google which locale serves which language.
          x-default points to mk (the primary market). -->
     {LOCALES.map((lang) => (
